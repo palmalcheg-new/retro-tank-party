@@ -41,7 +41,7 @@ position = Vector2( 67, 0 )
 [node name="Info" type="Node2D" parent="."]
 position = Vector2( -66, -83 )
 
-[node name="ColorRect" type="ColorRect" parent="Info"]
+[node name="Background" type="ColorRect" parent="Info"]
 margin_right = 51.0
 margin_bottom = 40.0
 rect_scale = Vector2( 2.76, 0.643416 )
@@ -56,6 +56,12 @@ custom_fonts/font = SubResource( 2 )
 text = "Player name"
 align = 1
 clip_text = true
+
+[node name="Health" type="ColorRect" parent="Info"]
+margin_top = 26.0
+margin_right = 141.0
+margin_bottom = 31.0
+color = Color( 0, 1, 0.0392157, 1 )
 
 [node name="ShootCooldownTimer" type="Timer" parent="."]
 wait_time = 0.25

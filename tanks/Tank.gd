@@ -4,10 +4,11 @@ export (bool) var player_controlled = false
 export (PackedScene) var Bullet = preload("res://Bullet.tscn")
 
 var turn_speed : int = 5
-var speed : int = 400 # 100
+var speed : int = 400
 var velocity := Vector2()
 
 var info_offset : Vector2
+var health_bar_max : int
 
 var health := 100
 var can_shoot := true
@@ -16,6 +17,8 @@ func _ready():
 	info_offset = $Info.position
 	$Info.set_as_toplevel(true)
 	$Info.position = global_position + info_offset
+	
+	health_bar_max = $Info/Health.rect_size.x
 	
 	# If testing tank on its own, make player controlled
 	if get_tree().current_scene == self:
@@ -70,10 +73,15 @@ func set_player_name(_name : String) -> void:
 func _on_ShootCooldownTimer_timeout() -> void:
 	can_shoot = true
 
-func take_damage(damage : int) -> void:
+master func take_damage(damage : int) -> void:
 	health -= damage
 	if health <= 0:
 		rpc("die")
+	else:
+		rpc("update_health", health)
+
+remotesync func update_health(_health) -> void:
+	$Info/Health.rect_size.x = (float(_health) / 100) * health_bar_max
 
 remotesync func die() -> void:
 	queue_free()

@@ -2,7 +2,7 @@ extends Area2D
 
 var vector := Vector2()
 
-var speed = 300
+var speed = 700
 var damage = 10
 
 func _ready():
@@ -17,13 +17,13 @@ func setup(_position : Vector2, _rotation : float) -> void:
 func _process(delta: float) -> void:
 	position += vector * speed * delta
 
-func explode():
+remotesync func explode():
 	queue_free()
 
 func _on_Bullet_body_entered(body: PhysicsBody2D) -> void:
 	if body.has_method("take_damage"):
-		body.take_damage(damage)
-		explode()
+		body.rpc("take_damage", damage)
+	explode()
 
 func _on_LifetimeTimer_timeout() -> void:
 	explode()
