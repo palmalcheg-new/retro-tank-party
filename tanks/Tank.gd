@@ -6,8 +6,12 @@ var turn_speed : int = 5
 var speed : int = 100
 var velocity := Vector2()
 
+var info_offset
+
 func _ready():
-	pass
+	info_offset = $Info.position
+	$Info.set_as_toplevel(true)
+	$Info.position = global_position + info_offset
 
 func _physics_process(delta: float) -> void:
 	if player_controlled:
@@ -25,10 +29,17 @@ func _physics_process(delta: float) -> void:
 		
 		$TurretHub.look_at(get_global_mouse_position())
 		
+		# Make info follow the tank
+		$Info.position = global_position + info_offset
+		
 		rpc("update_remote_player", rotation, position, $TurretHub.rotation)
 
 puppet func update_remote_player(player_rotation, player_position, turret_rotation) -> void:
 	rotation = player_rotation
 	position = player_position
-	$TurretHub.rotation = turret_rotation 
+	$TurretHub.rotation = turret_rotation
+	$Info.position = global_position + info_offset
 
+func set_player_name(_name : String) -> void:
+	$Info/PlayerName.text = _name
+	

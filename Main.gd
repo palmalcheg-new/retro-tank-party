@@ -112,6 +112,7 @@ remotesync func preconfigure_game(player_start_positions : Dictionary, player_ta
 	my_player = TankScenes[player_tanks[my_id]].instance()
 	my_player.set_name(str(my_id))
 	my_player.set_network_master(my_id)
+	my_player.set_player_name(player_name)
 	my_player.player_controlled = true
 	my_player.position = player_start_positions[my_id]
 	my_player.add_child(_create_camera())
@@ -121,6 +122,7 @@ remotesync func preconfigure_game(player_start_positions : Dictionary, player_ta
 		var other_player = TankScenes[player_tanks[peer_id]].instance()
 		other_player.set_name(str(peer_id))
 		other_player.set_network_master(peer_id)
+		other_player.set_player_name(players[peer_id])
 		other_player.position = player_start_positions[peer_id]
 		$Players.add_child(other_player)
 	
