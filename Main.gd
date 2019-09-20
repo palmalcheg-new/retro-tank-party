@@ -1,6 +1,10 @@
 extends Node2D
 
-var Tank = preload("res://assets/Tank.tscn")
+var Player1 = preload("res://tanks/Player1.tscn")
+var Player2 = preload("res://tanks/Player2.tscn")
+var Player3 = preload("res://tanks/Player3.tscn")
+var Player4 = preload("res://tanks/Player4.tscn")
+var TankScenes = {}
 
 var player_name : String
 var players = {}
@@ -11,6 +15,11 @@ var my_player
 var game_started = false
 
 func _ready():
+	TankScenes['Player1'] = Player1
+	TankScenes['Player2'] = Player2
+	TankScenes['Player3'] = Player3
+	TankScenes['Player4'] = Player4
+	
 	$CanvasLayer/ConnectionScreen.visible = true
 	get_tree().connect("network_peer_connected", self, "_on_player_connected")
 	get_tree().connect("network_peer_disconnected", self, "_on_player_disconnected")
@@ -71,15 +80,18 @@ remote func register_player(_name) -> void:
 
 func _on_HUD_start() -> void:
 	var player_start_positions = {}
+	var player_tanks = {}
 	
 	player_start_positions[1] = $PlayerStartPositions/Player1.position
+	player_tanks[1] = 'Player1'
 	
 	var i = 2
 	for peer_id in players.keys():
 		player_start_positions[peer_id] = $PlayerStartPositions.get_node("Player" + str(i)).global_position
+		player_tanks[peer_id] = "Player" + str(i)
 		i += 1
 		
-	rpc("preconfigure_game", player_start_positions)
+	rpc("preconfigure_game", player_start_positions, player_tanks)
 
 func _create_camera() -> Camera2D:	
 	var camera = Camera2D.new()
@@ -94,10 +106,10 @@ func _create_camera() -> Camera2D:
 	
 	return camera
 
-remotesync func preconfigure_game(player_start_positions : Dictionary) -> void:
+remotesync func preconfigure_game(player_start_positions : Dictionary, player_tanks : Dictionary) -> void:
 	var my_id = get_tree().get_network_unique_id()
 	
-	my_player = Tank.instance()
+	my_player = TankScenes[player_tanks[my_id]].instance()
 	my_player.set_name(str(my_id))
 	my_player.set_network_master(my_id)
 	my_player.player_controlled = true
@@ -106,7 +118,7 @@ remotesync func preconfigure_game(player_start_positions : Dictionary) -> void:
 	$Players.add_child(my_player)
 	
 	for peer_id in players:
-		var other_player = Tank.instance()
+		var other_player = TankScenes[player_tanks[peer_id]].instance()
 		other_player.set_name(str(peer_id))
 		other_player.set_network_master(peer_id)
 		other_player.position = player_start_positions[peer_id]
