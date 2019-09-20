@@ -10,10 +10,10 @@ Done:
  - Each tank needs it's name displayed
  - Add bullets, health and damage
  - Add a health bar
+ - Add explosion (bullet and tank)
 
 Still todo:
 
- - Add explosion (bullet and tank)
  - Add "loop" to have a winner and allow restarting
    |-> Zoom out after death to see the whole battle?
 

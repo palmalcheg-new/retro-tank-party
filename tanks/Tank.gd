@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+var Explosion = preload("res://Explosion.tscn")
+
 export (bool) var player_controlled = false
 export (PackedScene) var Bullet = preload("res://Bullet.tscn")
 
@@ -84,4 +86,8 @@ remotesync func update_health(_health) -> void:
 	$Info/Health.rect_size.x = (float(_health) / 100) * health_bar_max
 
 remotesync func die() -> void:
+	var explosion = Explosion.instance()
+	get_parent().add_child(explosion)
+	explosion.setup(global_position, 1.5, "fire")
+	
 	queue_free()
