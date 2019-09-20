@@ -5,6 +5,8 @@ var Explosion = preload("res://Explosion.tscn")
 export (bool) var player_controlled = false
 export (PackedScene) var Bullet = preload("res://Bullet.tscn")
 
+signal dead
+
 var turn_speed : int = 5
 var speed : int = 400
 var velocity := Vector2()
@@ -91,3 +93,5 @@ remotesync func die() -> void:
 	explosion.setup(global_position, 1.5, "fire")
 	
 	queue_free()
+	
+	emit_signal("dead", int(get_name()))

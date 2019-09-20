@@ -8,7 +8,7 @@ var TankScenes = {}
 
 var player_name : String
 var players = {}
-var players_ready = []
+var players_ready = {}
 
 var my_player
 
@@ -51,13 +51,24 @@ func _on_player_connected(peer_id : int) -> void:
 	# This signal is emitted even on clients when they connect,
 	# with peer_id = 1 for the server.
 	
-	rpc_id(peer_id, "register_player", player_name)
+	if not game_started:
+		rpc_id(peer_id, "register_player", player_name)
+	else:
+		$HUD.rpc_id(peer_id, "Game already in progress. Sorry!")
 
 func _on_player_disconnected(peer_id : int) -> void:
 	if players.has(peer_id):
 		players.erase(peer_id)
+	if players_ready.has(peer_id):
+		players_ready.erase(peer_id)
 	
-	# TODO: if game hasn't started yet, change message about connected players
+	if get_tree().is_network_server() and not game_started:
+		if players.size() == 0:
+			$HUD.show_message("Waiting for players...")
+			$HUD.hide_start_button()
+		elif players.size() > 0:
+			$HUD.show_message(str(players.size() + 1) + "/4 players connected")
+			$HUD.show_start_button()
 
 func _on_connected() -> void:
 	$HUD.show_message("Waiting for game to start...")
@@ -79,6 +90,12 @@ remote func register_player(_name) -> void:
 			$HUD.show_start_button()
 
 func _on_HUD_start() -> void:
+	if game_started:
+		restart_game()
+	else:
+		start_new_game()
+
+func start_new_game() -> void:
 	var player_start_positions = {}
 	var player_tanks = {}
 	
@@ -92,6 +109,17 @@ func _on_HUD_start() -> void:
 		i += 1
 		
 	rpc("preconfigure_game", player_start_positions, player_tanks)
+
+func restart_game() -> void:
+	my_player = null
+	players_ready.clear()
+	rpc("cleanup_from_game")
+	start_new_game()
+	
+remotesync func cleanup_from_game() -> void:
+	$WatchCamera.current = false
+	for child in $Players.get_children():
+		child.queue_free()
 
 func _create_camera() -> Camera2D:	
 	var camera = Camera2D.new()
@@ -116,6 +144,7 @@ remotesync func preconfigure_game(player_start_positions : Dictionary, player_ta
 	my_player.player_controlled = true
 	my_player.position = player_start_positions[my_id]
 	my_player.add_child(_create_camera())
+	my_player.connect("dead", self, "_on_player_dead")
 	$Players.add_child(my_player)
 	
 	for peer_id in players:
@@ -124,6 +153,7 @@ remotesync func preconfigure_game(player_start_positions : Dictionary, player_ta
 		other_player.set_network_master(peer_id)
 		other_player.set_player_name(players[peer_id])
 		other_player.position = player_start_positions[peer_id]
+		other_player.connect("dead", self, "_on_player_dead")
 		$Players.add_child(other_player)
 	
 	if my_id != 1:
@@ -132,12 +162,32 @@ remotesync func preconfigure_game(player_start_positions : Dictionary, player_ta
 remote func done_preconfigure_game(peer_id) -> void:
 	assert(get_tree().is_network_server())
 	assert(peer_id in players)
-	assert(not peer_id in players_ready)
+	assert(not players_ready.has(peer_id))
 	
-	players_ready.append(peer_id)
+	players_ready[peer_id] = players[peer_id]
 	
 	if players_ready.size() == players.size():
 		rpc("post_configure_game")
 
 remotesync func post_configure_game():
+	game_started = true
 	$HUD.hide_all()
+
+func _on_player_dead(peer_id : int) -> void:
+	var my_id = get_tree().get_network_unique_id()
+	
+	if peer_id == my_id:
+		# Switch to "watch" mode
+		$WatchCamera.current = true
+		$HUD.show_message("You lose!")
+	
+	if get_tree().is_network_server():
+		if players_ready.has(peer_id):
+			players_ready.erase(peer_id)
+		if players_ready.size() <= 1:
+			var winner = player_name
+			if players_ready.size() > 0:
+				var winners = players_ready.values()
+				winner = winners[0]
+			$HUD.rpc("show_message", winner + " is the winner!")
+			$HUD.show_start_button("Play again")

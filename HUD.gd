@@ -5,7 +5,7 @@ signal start
 func _ready():
 	pass
 
-func show_message(text):
+remotesync func show_message(text):
 	$Message.text = text
 	$Message.visible = true
 
@@ -15,6 +15,9 @@ func hide_message():
 func show_start_button(label = "Start"):
 	$StartButton.text = label
 	$StartButton.visible = true
+
+func hide_start_button():
+	$StartButton.visible = false
 
 func hide_all():
 	$Message.visible = false

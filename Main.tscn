@@ -36,6 +36,11 @@ position = Vector2( 198, 1446 )
 visible = false
 
 [node name="HUD" parent="." instance=ExtResource( 4 )]
+
+[node name="WatchCamera" type="Camera2D" parent="."]
+zoom = Vector2( 2, 2.3 )
+limit_left = 0
+limit_top = 0
 [connection signal="connect" from="CanvasLayer/ConnectionScreen" to="." method="_on_ConnectionScreen_connect"]
 [connection signal="serve" from="CanvasLayer/ConnectionScreen" to="." method="_on_ConnectionScreen_serve"]
 [connection signal="start" from="HUD" to="." method="_on_HUD_start"]
