@@ -1,0 +1,15 @@
+TODO
+====
+
+ - Make a controllable player tank
+ - Add the connection UI
+ - Allow up to 5 players to join and get placed
+ - Add bullets, health and damage
+ - Add "loop" to have a winner and allow restarting
+   |-> Zoom out after death to see the whole battle?
+ - Add cover to make play actually interesting
+ - (Maybe) Add power ups
+   |-> Replenish health?
+   |-> Speed boost to flee?
+   |-> Better bullets?
+
