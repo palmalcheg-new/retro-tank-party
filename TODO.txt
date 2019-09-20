@@ -7,11 +7,13 @@ Done:
  - Add the connection UI
  - Allow up to 4 players to join and get placed
  - Each tank needs a different color
+ - Each tank needs it's name displayed
+ - Add bullets, health and damage
 
 Still todo:
 
- - Each tank needs it's name displayed
- - Add bullets, health and damage
+ - Add a health bar
+ - Add explosion (bullet and tank)
  - Add "loop" to have a winner and allow restarting
    |-> Zoom out after death to see the whole battle?
 

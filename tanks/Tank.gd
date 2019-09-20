@@ -1,17 +1,25 @@
 extends KinematicBody2D
 
 export (bool) var player_controlled = false
+export (PackedScene) var Bullet = preload("res://Bullet.tscn")
 
 var turn_speed : int = 5
-var speed : int = 100
+var speed : int = 400 # 100
 var velocity := Vector2()
 
-var info_offset
+var info_offset : Vector2
+
+var health := 100
+var can_shoot := true
 
 func _ready():
 	info_offset = $Info.position
 	$Info.set_as_toplevel(true)
 	$Info.position = global_position + info_offset
+	
+	# If testing tank on its own, make player controlled
+	if get_tree().current_scene == self:
+		player_controlled = true
 
 func _physics_process(delta: float) -> void:
 	if player_controlled:
@@ -27,19 +35,45 @@ func _physics_process(delta: float) -> void:
 			velocity = Vector2(1, 0).rotated(rotation) * -speed
 		move_and_slide(velocity)
 		
-		$TurretHub.look_at(get_global_mouse_position())
+		$TurretPivot.look_at(get_global_mouse_position())
 		
 		# Make info follow the tank
 		$Info.position = global_position + info_offset
 		
-		rpc("update_remote_player", rotation, position, $TurretHub.rotation)
+		rpc("update_remote_player", rotation, position, $TurretPivot.rotation)
+		
+		if Input.is_action_just_pressed("player_shoot") and can_shoot:
+			can_shoot = false
+			$ShootCooldownTimer.start()
+			
+			rpc("shoot")
 
 puppet func update_remote_player(player_rotation, player_position, turret_rotation) -> void:
 	rotation = player_rotation
 	position = player_position
-	$TurretHub.rotation = turret_rotation
+	$TurretPivot.rotation = turret_rotation
 	$Info.position = global_position + info_offset
+
+remotesync func shoot():
+	var parent = get_parent()
+	if not parent:
+		return
+	
+	var bullet = Bullet.instance()
+	parent.add_child(bullet)
+	
+	bullet.setup($TurretPivot/BulletStartPosition.global_position, $TurretPivot.global_rotation)
 
 func set_player_name(_name : String) -> void:
 	$Info/PlayerName.text = _name
 	
+func _on_ShootCooldownTimer_timeout() -> void:
+	can_shoot = true
+
+func take_damage(damage : int) -> void:
+	health -= damage
+	if health <= 0:
+		rpc("die")
+
+remotesync func die() -> void:
+	queue_free()

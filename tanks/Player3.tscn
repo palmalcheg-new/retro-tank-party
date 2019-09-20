@@ -7,5 +7,5 @@
 [node name="BodySprite" parent="." index="1"]
 region_rect = Rect2( 520, 268, 76, 80 )
 
-[node name="TurretSprite" parent="TurretHub" index="0"]
+[node name="TurretSprite" parent="TurretPivot" index="0"]
 region_rect = Rect2( 724, 452, 24, 60 )
