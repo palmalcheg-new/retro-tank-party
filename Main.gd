@@ -13,6 +13,7 @@ var players_ready = {}
 var my_player
 
 var game_started = false
+var i_am_dead = false
 
 func _ready():
 	TankScenes['Player1'] = Player1
@@ -117,6 +118,7 @@ func restart_game() -> void:
 	start_new_game()
 	
 remotesync func cleanup_from_game() -> void:
+	i_am_dead = false
 	$WatchCamera.current = false
 	for child in $Players.get_children():
 		child.queue_free()
@@ -179,12 +181,13 @@ func _on_player_dead(peer_id : int) -> void:
 	if peer_id == my_id:
 		# Switch to "watch" mode
 		$WatchCamera.current = true
+		i_am_dead = true
 		$HUD.show_message("You lose!")
 	
 	if get_tree().is_network_server():
 		if players_ready.has(peer_id):
 			players_ready.erase(peer_id)
-		if players_ready.size() <= 1:
+		if players_ready.size() == 0 or (i_am_dead and players_ready.size() == 1):
 			var winner = player_name
 			if players_ready.size() > 0:
 				var winners = players_ready.values()
