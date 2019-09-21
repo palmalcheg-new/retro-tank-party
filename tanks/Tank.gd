@@ -3,7 +3,7 @@ extends KinematicBody2D
 var Explosion = preload("res://Explosion.tscn")
 
 export (bool) var player_controlled = false
-export (PackedScene) var Bullet = preload("res://Bullet.tscn")
+export (PackedScene) var Bullet = preload("res://bullets/Bullet.tscn")
 
 signal dead
 

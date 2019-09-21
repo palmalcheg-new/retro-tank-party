@@ -16,10 +16,10 @@ Done:
  - Set sane starting rotation for all players
  - Add cover to make play actually interesting
  - Keep players in the player area!
+ - Make color coded bullets for each player
 
 Still todo:
 
- - Make color coded bullets for each player
  - (Maybe) Add power ups
    |-> Replenish health?
    |-> Speed boost to flee?
