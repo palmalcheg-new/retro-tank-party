@@ -30,7 +30,9 @@ remotesync func explode(type : String = "smoke"):
 func _on_Bullet_body_entered(body: PhysicsBody2D) -> void:
 	if body.has_method("take_damage"):
 		body.rpc("take_damage", damage)
-	explode("fire")
+		explode("fire")
+	else:
+		explode("smoke")
 
 func _on_LifetimeTimer_timeout() -> void:
 	explode("smoke")

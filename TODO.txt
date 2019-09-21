@@ -14,14 +14,14 @@ Done:
  - Add "loop" to have a winner and allow restarting
    |-> Zoom out after death to see the whole battle?
  - Set sane starting rotation for all players
+ - Add cover to make play actually interesting
+ - Keep players in the player area!
 
 Still todo:
 
- - Add cover to make play actually interesting
+ - Make color coded bullets for each player
  - (Maybe) Add power ups
    |-> Replenish health?
    |-> Speed boost to flee?
    |-> Better bullets?
- - Make color coded bullets for each player
- - Keep players in the player area!
 
