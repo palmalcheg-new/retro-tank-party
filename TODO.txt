@@ -17,6 +17,7 @@ Done:
  - Add cover to make play actually interesting
  - Keep players in the player area!
  - Make color coded bullets for each player
+ - Add a one-player test mode to make it easier to test gameplay changes
 
 Still todo:
 

@@ -15,11 +15,20 @@ var my_player
 var game_started = false
 var i_am_dead = false
 
+var test_mode = false
+
 func _ready():
 	TankScenes['Player1'] = Player1
 	TankScenes['Player2'] = Player2
 	TankScenes['Player3'] = Player3
 	TankScenes['Player4'] = Player4
+	
+	if "--test-mode" in OS.get_cmdline_args():
+		test_mode = true
+		_on_ConnectionScreen_serve('Tester', 12233)
+		$HUD.hide_all()
+		start_new_game()
+		return
 	
 	$CanvasLayer/ConnectionScreen.visible = true
 	get_tree().connect("network_peer_connected", self, "_on_player_connected")
