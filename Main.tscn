@@ -18,15 +18,19 @@ tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 
 
 [node name="Player1" type="Position2D" parent="PlayerStartPositions"]
 position = Vector2( 183, 169 )
+rotation = 0.643801
 
 [node name="Player2" type="Position2D" parent="PlayerStartPositions"]
 position = Vector2( 2288, 1438 )
+rotation = -2.28443
 
 [node name="Player3" type="Position2D" parent="PlayerStartPositions"]
 position = Vector2( 2306, 167 )
+rotation = 2.21715
 
 [node name="Player4" type="Position2D" parent="PlayerStartPositions"]
 position = Vector2( 198, 1446 )
+rotation = -0.922228
 
 [node name="Players" type="Node2D" parent="."]
 

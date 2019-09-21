@@ -97,19 +97,24 @@ func _on_HUD_start() -> void:
 		start_new_game()
 
 func start_new_game() -> void:
-	var player_start_positions = {}
-	var player_tanks = {}
-	
-	player_start_positions[1] = $PlayerStartPositions/Player1.position
-	player_tanks[1] = 'Player1'
-	
+	var player_info = {
+		1: {
+			'tank': 'Player1',
+			'position': $PlayerStartPositions/Player1.global_position,
+			'rotation': $PlayerStartPositions/Player1.global_rotation,
+		},
+	}
+
 	var i = 2
 	for peer_id in players.keys():
-		player_start_positions[peer_id] = $PlayerStartPositions.get_node("Player" + str(i)).global_position
-		player_tanks[peer_id] = "Player" + str(i)
+		player_info[peer_id] = {
+			'tank': "Player" + str(i),
+			'position': $PlayerStartPositions.get_node("Player" + str(i)).global_position,
+			'rotation': $PlayerStartPositions.get_node("Player" + str(i)).global_rotation,
+		}
 		i += 1
 		
-	rpc("preconfigure_game", player_start_positions, player_tanks)
+	rpc("preconfigure_game", player_info)
 
 func restart_game() -> void:
 	my_player = null
@@ -136,25 +141,27 @@ func _create_camera() -> Camera2D:
 	
 	return camera
 
-remotesync func preconfigure_game(player_start_positions : Dictionary, player_tanks : Dictionary) -> void:
+remotesync func preconfigure_game(player_info : Dictionary) -> void:
 	var my_id = get_tree().get_network_unique_id()
 	
-	my_player = TankScenes[player_tanks[my_id]].instance()
+	my_player = TankScenes[player_info[my_id]['tank']].instance()
 	my_player.set_name(str(my_id))
 	my_player.set_network_master(my_id)
 	my_player.set_player_name(player_name)
 	my_player.player_controlled = true
-	my_player.position = player_start_positions[my_id]
+	my_player.position = player_info[my_id]['position']
+	my_player.rotation = player_info[my_id]['rotation']
 	my_player.add_child(_create_camera())
 	my_player.connect("dead", self, "_on_player_dead")
 	$Players.add_child(my_player)
 	
 	for peer_id in players:
-		var other_player = TankScenes[player_tanks[peer_id]].instance()
+		var other_player = TankScenes[player_info[peer_id]['tank']].instance()
 		other_player.set_name(str(peer_id))
 		other_player.set_network_master(peer_id)
 		other_player.set_player_name(players[peer_id])
-		other_player.position = player_start_positions[peer_id]
+		other_player.position = player_info[peer_id]['position']
+		other_player.rotation = player_info[peer_id]['rotation']
 		other_player.connect("dead", self, "_on_player_dead")
 		$Players.add_child(other_player)
 	

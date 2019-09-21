@@ -13,6 +13,7 @@ Done:
  - Add explosion (bullet and tank)
  - Add "loop" to have a winner and allow restarting
    |-> Zoom out after death to see the whole battle?
+ - Set sane starting rotation for all players
 
 Still todo:
 
