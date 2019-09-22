@@ -17,6 +17,8 @@ var health_bar_max : int
 var health := 100
 var can_shoot := true
 
+var mouse_control = true
+
 func _ready():
 	info_offset = $Info.position
 	$Info.set_as_toplevel(true)
@@ -31,18 +33,25 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	if player_controlled:
 		if Input.is_action_pressed("player_turn_left"):
-			rotation += -(turn_speed * delta)
+			rotation -= Input.get_action_strength("player_turn_left") * turn_speed * delta
 		if Input.is_action_pressed("player_turn_right"):
-			rotation += (turn_speed * delta)
+			rotation += Input.get_action_strength("player_turn_right") * turn_speed * delta
 		
 		velocity = Vector2()
-		if Input.is_action_pressed("player_forward"):
-			velocity = Vector2(1, 0).rotated(rotation) * speed
-		if Input.is_action_pressed("player_backward"):
-			velocity = Vector2(1, 0).rotated(rotation) * -speed
+		velocity.x = Input.get_action_strength("player_forward") - Input.get_action_strength("player_backward")
+		velocity = velocity.rotated(rotation) * speed
 		move_and_slide(velocity)
 		
-		$TurretPivot.look_at(get_global_mouse_position())
+		if mouse_control:
+			$TurretPivot.look_at(get_global_mouse_position())
+		else:
+			if Input.is_action_pressed("player_aim_up") or Input.is_action_pressed("player_aim_down") or Input.is_action_pressed("player_aim_left") or Input.is_action_pressed("player_aim_right"):
+				var joy_vector = Vector2()
+				joy_vector.x = Input.get_action_strength("player_aim_right") - Input.get_action_strength("player_aim_left")
+				joy_vector.y = Input.get_action_strength("player_aim_down") - Input.get_action_strength("player_aim_up")
+				$TurretPivot.global_rotation = joy_vector.angle()
+			else:
+				$TurretPivot.rotation = 0
 		
 		# Make info follow the tank
 		$Info.position = global_position + info_offset
@@ -54,6 +63,12 @@ func _physics_process(delta: float) -> void:
 			$ShootCooldownTimer.start()
 			
 			rpc("shoot")
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion:
+		mouse_control = true
+	if event is InputEventJoypadButton or event is InputEventJoypadMotion:
+		mouse_control = false
 
 puppet func update_remote_player(player_rotation, player_position, turret_rotation) -> void:
 	rotation = player_rotation
