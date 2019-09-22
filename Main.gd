@@ -124,6 +124,9 @@ func start_new_game() -> void:
 		i += 1
 		
 	rpc("preconfigure_game", player_info)
+	
+	$DropCrateSpawnArea1.start()
+	$DropCrateSpawnArea2.start()
 
 func restart_game() -> void:
 	my_player = null
@@ -136,6 +139,8 @@ remotesync func cleanup_from_game() -> void:
 	$WatchCamera.current = false
 	for child in $Players.get_children():
 		child.queue_free()
+	$DropCrateSpawnArea1.clear()
+	$DropCrateSpawnArea2.clear()
 
 func _create_camera() -> Camera2D:	
 	var camera = Camera2D.new()

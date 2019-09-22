@@ -18,11 +18,12 @@ Done:
  - Keep players in the player area!
  - Make color coded bullets for each player
  - Add a one-player test mode to make it easier to test gameplay changes
+ - Add health power-up
 
 Still todo:
 
- - (Maybe) Add power ups
+ - (Maybe) Add more power ups
    |-> Replenish health?
-   |-> Speed boost to flee?
-   |-> Better bullets?
+   |-> Speed boost?
+   |-> Cooler bullets?
 

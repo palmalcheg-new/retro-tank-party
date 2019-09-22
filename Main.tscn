@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://assets/terraintiles.tres" type="TileSet" id=2]
@@ -10,8 +10,10 @@
 [ext_resource path="res://objects/obstruction/BarricadeMetal.tscn" type="PackedScene" id=8]
 [ext_resource path="res://objects/obstruction/SandboxBiege.tscn" type="PackedScene" id=9]
 [ext_resource path="res://objects/obstruction/BarricadeWood.tscn" type="PackedScene" id=10]
-[ext_resource path="res://ConnectionScreen.tscn" type="PackedScene" id=11]
-[ext_resource path="res://HUD.tscn" type="PackedScene" id=12]
+[ext_resource path="res://objects/DropCrateSpawnArea.tscn" type="PackedScene" id=11]
+[ext_resource path="res://ConnectionScreen.tscn" type="PackedScene" id=12]
+[ext_resource path="res://HUD.tscn" type="PackedScene" id=13]
+[ext_resource path="res://objects/powerups/Health.tscn" type="PackedScene" id=14]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -42,13 +44,14 @@ position = Vector2( 198, 1446 )
 rotation = -0.922228
 
 [node name="Objects" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="CrateMetal12" parent="Objects" instance=ExtResource( 3 )]
-position = Vector2( 1267, 759 )
+position = Vector2( 1309, 759 )
 rotation = -0.0472309
 
 [node name="CrateMetal11" parent="Objects" instance=ExtResource( 3 )]
-position = Vector2( 1319, 703 )
+position = Vector2( 1358, 700 )
 rotation = 0.172487
 
 [node name="TreeBig14" parent="Objects" instance=ExtResource( 4 )]
@@ -492,23 +495,32 @@ rotation = -1.27714
 position = Vector2( 2541, 255 )
 rotation = -1.93344
 
+[node name="FenceYellow2" parent="Objects" instance=ExtResource( 7 )]
+position = Vector2( 1253, 1628 )
+rotation = 0.201219
+
+[node name="DropCrateSpawnArea1" parent="." instance=ExtResource( 11 )]
+position = Vector2( 954, 759 )
+
+[node name="DropCrateSpawnArea2" parent="." instance=ExtResource( 11 )]
+position = Vector2( 1729, 756 )
+
 [node name="Players" type="Node2D" parent="."]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="ConnectionScreen" parent="CanvasLayer" instance=ExtResource( 11 )]
+[node name="ConnectionScreen" parent="CanvasLayer" instance=ExtResource( 12 )]
 visible = false
 
-[node name="HUD" parent="." instance=ExtResource( 12 )]
+[node name="HUD" parent="." instance=ExtResource( 13 )]
 
 [node name="WatchCamera" type="Camera2D" parent="."]
 zoom = Vector2( 2, 2.3 )
 limit_left = 0
 limit_top = 0
 
-[node name="FenceYellow" parent="." instance=ExtResource( 7 )]
-position = Vector2( 1253, 1628 )
-rotation = 0.201219
+[node name="Health" parent="." instance=ExtResource( 14 )]
+position = Vector2( 367, 578 )
 [connection signal="connect" from="CanvasLayer/ConnectionScreen" to="." method="_on_ConnectionScreen_connect"]
 [connection signal="serve" from="CanvasLayer/ConnectionScreen" to="." method="_on_ConnectionScreen_serve"]
 [connection signal="start" from="HUD" to="." method="_on_HUD_start"]

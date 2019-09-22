@@ -84,6 +84,12 @@ master func take_damage(damage : int) -> void:
 	else:
 		rpc("update_health", health)
 
+master func restore_health(_health : int) -> void:
+	health += _health
+	if health > 100:
+		health = 100
+	rpc("update_health", health)
+
 remotesync func update_health(_health) -> void:
 	$Info/Health.rect_size.x = (float(_health) / 100) * health_bar_max
 
