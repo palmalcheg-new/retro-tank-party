@@ -26,4 +26,5 @@ remotesync func spawn_drop_crate(_position : Vector2, contents : String):
 
 func clear():
 	for child in $Spawns.get_children():
+		remove_child(child)
 		child.queue_free()

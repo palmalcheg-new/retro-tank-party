@@ -131,16 +131,7 @@ func start_new_game() -> void:
 func restart_game() -> void:
 	my_player = null
 	players_ready.clear()
-	rpc("cleanup_from_game")
 	start_new_game()
-	
-remotesync func cleanup_from_game() -> void:
-	i_am_dead = false
-	$WatchCamera.current = false
-	for child in $Players.get_children():
-		child.queue_free()
-	$DropCrateSpawnArea1.clear()
-	$DropCrateSpawnArea2.clear()
 
 func _create_camera() -> Camera2D:	
 	var camera = Camera2D.new()
@@ -156,6 +147,16 @@ func _create_camera() -> Camera2D:
 	return camera
 
 remotesync func preconfigure_game(player_info : Dictionary) -> void:
+	# This is to clean up from a previous game.
+	if game_started:
+		i_am_dead = false
+		$WatchCamera.current = false
+		for child in $Players.get_children():
+			$Players.remove_child(child)
+			child.queue_free()
+		$DropCrateSpawnArea1.clear()
+		$DropCrateSpawnArea2.clear()
+	
 	var my_id = get_tree().get_network_unique_id()
 	
 	my_player = TankScenes[player_info[my_id]['tank']].instance()
