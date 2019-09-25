@@ -18,13 +18,6 @@ func setup(_position : Vector2, _rotation : float) -> void:
 
 func _process(delta: float) -> void:
 	position += vector * speed * delta
-	
-	# The network master (the server) updates all puppets on bullet position
-	if is_network_master():
-		rpc("update_remote_position", position)
-
-puppet func update_remote_position(_position : Vector2):
-	position = _position
 
 func explode(type : String = "smoke"):
 	var explosion = Explosion.instance()

@@ -56,15 +56,14 @@ func _physics_process(delta: float) -> void:
 		# Make info follow the tank
 		$Info.position = global_position + info_offset
 		
-		rpc("update_remote_player", rotation, position, $TurretPivot.rotation)
-		
+		var shooting := false
 		if Input.is_action_just_pressed("player_shoot") and can_shoot:
 			can_shoot = false
 			$ShootCooldownTimer.start()
-			
-			
-			var bullet_name = 'Bullet-' + get_name() + '-' + str(randi() % 1000000)
-			rpc("shoot", $TurretPivot/BulletStartPosition.global_position, $TurretPivot.global_rotation, bullet_name)
+			shoot()
+			shooting = true
+		
+		rpc("update_remote_player", rotation, position, $TurretPivot.rotation, shooting)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -72,22 +71,22 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventJoypadButton or event is InputEventJoypadMotion:
 		mouse_control = false
 
-puppet func update_remote_player(player_rotation, player_position, turret_rotation) -> void:
+puppet func update_remote_player(player_rotation : float, player_position : Vector2, turret_rotation : float, shooting : bool) -> void:
 	rotation = player_rotation
 	position = player_position
 	$TurretPivot.rotation = turret_rotation
 	$Info.position = global_position + info_offset
+	if shooting:
+		shoot()
 
-remotesync func shoot(_position : Vector2, _rotation : float, _name : String):
+func shoot():
 	var parent = get_parent()
 	if not parent:
 		return
 	
 	var bullet = Bullet.instance()
-	bullet.set_name(_name)
 	parent.add_child(bullet)
-	
-	bullet.setup(_position, _rotation)
+	bullet.setup($TurretPivot/BulletStartPosition.global_position, $TurretPivot.global_rotation)
 
 func set_player_name(_name : String) -> void:
 	$Info/PlayerName.text = _name
