@@ -62,7 +62,9 @@ func _physics_process(delta: float) -> void:
 			can_shoot = false
 			$ShootCooldownTimer.start()
 			
-			rpc("shoot")
+			
+			var bullet_name = 'Bullet-' + get_name() + '-' + str(randi() % 1000000)
+			rpc("shoot", $TurretPivot/BulletStartPosition.global_position, $TurretPivot.global_rotation, bullet_name)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -76,15 +78,16 @@ puppet func update_remote_player(player_rotation, player_position, turret_rotati
 	$TurretPivot.rotation = turret_rotation
 	$Info.position = global_position + info_offset
 
-remotesync func shoot():
+remotesync func shoot(_position : Vector2, _rotation : float, _name : String):
 	var parent = get_parent()
 	if not parent:
 		return
 	
 	var bullet = Bullet.instance()
+	bullet.set_name(_name)
 	parent.add_child(bullet)
 	
-	bullet.setup($TurretPivot/BulletStartPosition.global_position, $TurretPivot.global_rotation)
+	bullet.setup(_position, _rotation)
 
 func set_player_name(_name : String) -> void:
 	$Info/PlayerName.text = _name
@@ -92,18 +95,20 @@ func set_player_name(_name : String) -> void:
 func _on_ShootCooldownTimer_timeout() -> void:
 	can_shoot = true
 
-master func take_damage(damage : int) -> void:
-	health -= damage
-	if health <= 0:
-		rpc("die")
-	else:
-		rpc("update_health", health)
+func take_damage(damage : int) -> void:
+	if is_network_master():
+		health -= damage
+		if health <= 0:
+			rpc("die")
+		else:
+			rpc("update_health", health)
 
-master func restore_health(_health : int) -> void:
-	health += _health
-	if health > 100:
-		health = 100
-	rpc("update_health", health)
+func restore_health(_health : int) -> void:
+	if is_network_master():
+		health += _health
+		if health > 100:
+			health = 100
+		rpc("update_health", health)
 
 remotesync func update_health(_health) -> void:
 	$Info/Health.rect_size.x = (float(_health) / 100) * health_bar_max

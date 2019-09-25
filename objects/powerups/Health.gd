@@ -7,5 +7,5 @@ func _ready():
 
 func _on_Health_body_entered(body: PhysicsBody2D) -> void:
 	if body.has_method("restore_health"):
-		body.rpc("restore_health", health)
+		body.restore_health(health)
 	queue_free()

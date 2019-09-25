@@ -11,7 +11,10 @@ func _ready():
 func set_contents(_contents : String):
 	contents = _contents
 
-remotesync func take_damage(damage : int) -> void:
+func take_damage(damage : int) -> void:
+	rpc("open_crate")
+	
+remotesync func open_crate() -> void:
 	var twigs = GreenTwigs.instance()
 	twigs.position = position
 	get_parent().add_child(twigs)

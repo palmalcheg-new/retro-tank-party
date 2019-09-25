@@ -18,8 +18,15 @@ func setup(_position : Vector2, _rotation : float) -> void:
 
 func _process(delta: float) -> void:
 	position += vector * speed * delta
+	
+	# The network master (the server) updates all puppets on bullet position
+	if is_network_master():
+		rpc("update_remote_position", position)
 
-remotesync func explode(type : String = "smoke"):
+puppet func update_remote_position(_position : Vector2):
+	position = _position
+
+func explode(type : String = "smoke"):
 	var explosion = Explosion.instance()
 	get_parent().add_child(explosion)
 	
@@ -29,7 +36,7 @@ remotesync func explode(type : String = "smoke"):
 
 func _on_Bullet_body_entered(body: PhysicsBody2D) -> void:
 	if body.has_method("take_damage"):
-		body.rpc("take_damage", damage)
+		body.take_damage(damage)
 		explode("fire")
 	else:
 		explode("smoke")
