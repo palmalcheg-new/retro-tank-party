@@ -19,6 +19,10 @@ config/name="Battle Tanks"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Constants="*res://Constants.gd"
+
 [display]
 
 window/size/width=1280

@@ -19,6 +19,8 @@ var can_shoot := true
 
 var mouse_control = true
 
+var bullet_type = Constants.BulletType.NORMAL
+
 func _ready():
 	info_offset = $Info.position
 	$Info.set_as_toplevel(true)
@@ -63,7 +65,7 @@ func _physics_process(delta: float) -> void:
 			shoot()
 			shooting = true
 		
-		rpc("update_remote_player", rotation, position, $TurretPivot.rotation, shooting)
+		rpc("update_remote_player", rotation, position, $TurretPivot.rotation, shooting, bullet_type)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -71,21 +73,34 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventJoypadButton or event is InputEventJoypadMotion:
 		mouse_control = false
 
-puppet func update_remote_player(player_rotation : float, player_position : Vector2, turret_rotation : float, shooting : bool) -> void:
+puppet func update_remote_player(player_rotation : float, player_position : Vector2, turret_rotation : float, shooting : bool, _bullet_type : int) -> void:
 	rotation = player_rotation
 	position = player_position
 	$TurretPivot.rotation = turret_rotation
 	$Info.position = global_position + info_offset
+	bullet_type = _bullet_type
 	if shooting:
 		shoot()
 
 func shoot():
-	var parent = get_parent()
-	if not parent:
+	if not get_parent():
 		return
 	
+	match bullet_type:
+		Constants.BulletType.NORMAL:
+			_create_bullet()
+		
+		Constants.BulletType.SPREAD:
+			var original_rotation = $TurretPivot.rotation
+			$TurretPivot.rotate(deg2rad(-5))
+			for i in range(3):
+				_create_bullet()
+				$TurretPivot.rotate(deg2rad(5))
+			$TurretPivot.rotation = original_rotation
+
+func _create_bullet():
 	var bullet = Bullet.instance()
-	parent.add_child(bullet)
+	get_parent().add_child(bullet)
 	bullet.setup($TurretPivot/BulletStartPosition.global_position, $TurretPivot.global_rotation)
 
 func set_player_name(_name : String) -> void:
@@ -108,6 +123,9 @@ func restore_health(_health : int) -> void:
 		if health > 100:
 			health = 100
 		rpc("update_health", health)
+
+func set_bullet_type(_bullet_type : int) -> void:
+	bullet_type = _bullet_type
 
 remotesync func update_health(_health) -> void:
 	$Info/Health.rect_size.x = (float(_health) / 100) * health_bar_max

@@ -2,6 +2,7 @@ extends StaticBody2D
 
 var GreenTwigs = preload("res://objects/cosmetic/GreenTwigs.tscn")
 var Health = preload("res://objects/powerups/Health.tscn")
+var Spread = preload("res://objects/powerups/Spread.tscn")
 
 var contents = "health"
 
@@ -19,7 +20,14 @@ remotesync func open_crate() -> void:
 	twigs.position = position
 	get_parent().add_child(twigs)
 		
-	var powerup = Health.instance()
+	var powerup
+	
+	match contents:
+		"health":
+			powerup = Health.instance()
+		"spread":
+			powerup = Spread.instance()
+	
 	powerup.set_name("Powerup")
 	powerup.position = position
 	get_parent().add_child(powerup)
