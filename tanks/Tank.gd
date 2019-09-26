@@ -97,11 +97,20 @@ func shoot():
 				_create_bullet()
 				$TurretPivot.rotate(deg2rad(5))
 			$TurretPivot.rotation = original_rotation
+		
+		Constants.BulletType.TARGET:
+			var target = null
+			for raycast in $TurretPivot/BulletStartPosition.get_children():
+				raycast.force_raycast_update()
+				if raycast.is_colliding():
+					target = raycast.get_collider()
+					break
+			_create_bullet(target)
 
-func _create_bullet():
+func _create_bullet(target = null):
 	var bullet = Bullet.instance()
 	get_parent().add_child(bullet)
-	bullet.setup($TurretPivot/BulletStartPosition.global_position, $TurretPivot.global_rotation)
+	bullet.setup($TurretPivot/BulletStartPosition.global_position, $TurretPivot.global_rotation, target)
 
 func set_player_name(_name : String) -> void:
 	$Info/PlayerName.text = _name

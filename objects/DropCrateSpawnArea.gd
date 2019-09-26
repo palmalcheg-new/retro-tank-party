@@ -18,11 +18,13 @@ func _on_DropTimer_timeout() -> void:
 		crate_position.y = (randi() % int($CollisionShape2D.shape.extents.y * 2)) - $CollisionShape2D.shape.extents.y
 		
 		var contents
-		var rand_value = randi() % 10
-		if rand_value <= 5:
-			contents = "health"
-		elif rand_value > 5:
-			contents = "spread"
+		match randi() % 10:
+			0, 2, 4, 6, 8, 9:
+				contents = "health"
+			1, 3:
+				contents = "spread"
+			5, 7:
+				contents = "target"
 		rpc("spawn_drop_crate", crate_position, contents)
 
 remotesync func spawn_drop_crate(_position : Vector2, contents : String):

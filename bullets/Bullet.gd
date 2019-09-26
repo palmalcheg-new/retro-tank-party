@@ -2,21 +2,29 @@ extends Area2D
 
 var Explosion = preload("res://Explosion.tscn")
 
+var target : Node2D = null
 var vector := Vector2()
 
 var speed = 700
 var damage = 10
+var target_seek_speed = 10
 
 func _ready():
 	pass
 
-func setup(_position : Vector2, _rotation : float) -> void:
+func setup(_position : Vector2, _rotation : float, _target : Node2D) -> void:
 	position = _position
 	rotation = _rotation
+	target = _target
 	vector = Vector2(1, 0).rotated(rotation)
 	$LifetimeTimer.start()
 
 func _process(delta: float) -> void:
+	if target:
+		var target_vector = (target.global_position - global_position).normalized()
+		vector = vector.linear_interpolate(target_vector, target_seek_speed * delta).normalized()
+		rotation = vector.angle()
+	
 	position += vector * speed * delta
 
 func explode(type : String = "smoke"):
