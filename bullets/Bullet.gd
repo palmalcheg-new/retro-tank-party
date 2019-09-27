@@ -20,7 +20,7 @@ func setup(_position : Vector2, _rotation : float, _target : Node2D) -> void:
 	$LifetimeTimer.start()
 
 func _process(delta: float) -> void:
-	if target:
+	if target and is_instance_valid(target):
 		var target_vector = (target.global_position - global_position).normalized()
 		vector = vector.linear_interpolate(target_vector, target_seek_speed * delta).normalized()
 		rotation = vector.angle()
