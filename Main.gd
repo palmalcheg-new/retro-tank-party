@@ -23,6 +23,8 @@ func _ready():
 	TankScenes['Player3'] = Player3
 	TankScenes['Player4'] = Player4
 	
+	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+	
 	if "--test-mode" in OS.get_cmdline_args():
 		test_mode = true
 		_on_ConnectionScreen_serve('Tester', 12233)
@@ -36,6 +38,12 @@ func _ready():
 	get_tree().connect("connected_to_server", self, "_on_connected")
 	get_tree().connect("connection_failed", self, "_on_connection_failed")
 	get_tree().connect("server_disconnected", self, "_on_server_disconnected")
+
+func _input(event):
+	if event.is_action_pressed("ui_cancel"):
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	if event.is_action_pressed("player_shoot"):
+		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 
 func _on_ConnectionScreen_serve(_name : String, port : int) -> void:
 	var peer = NetworkedMultiplayerENet.new()
