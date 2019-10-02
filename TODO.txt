@@ -1,7 +1,7 @@
 TODO
 ====
 
-Done:
+DONE:
 
  - Make a controllable player tank
  - Add the connection UI
@@ -19,11 +19,31 @@ Done:
  - Make color coded bullets for each player
  - Add a one-player test mode to make it easier to test gameplay changes
  - Add health power-up
+ - Add more power ups
+   |-> Spread bullets
+   |-> Target bullets
 
-Still todo:
+TODO:
 
- - (Maybe) Add more power ups
-   |-> Replenish health?
-   |-> Speed boost?
-   |-> Cooler bullets?
+ - Ability to return to connection screen
+   |-> Return while waiting for players or after timeout to connect
+   |-> Server: Disconnect all clients and return to configure
+   |-> Client: Disconnect from server and return to configure
+   |-> Maybe this is an [EXIT] button in the top-right corner?
+       |-> This can clarify the mouse confinement as well!
+ - Some kind of score keeping (maybe wins per player per current session?)
+ - Improve the connection UI (make real UI and seperate server/client options)
+
+BACKLOG (the "maybe" things):
+
+ - Count down to next drop crates (start at 10 seconds?)
+ - Make the "target" of targeted bullets clear (highlight selected tank)
+ - A "chanrged shot"? To encourage more careful aiming
+ - Limit all powerups to 20 seconds?
+   |-> We'd need some indication on the tank of it's status...
+ - Allow "stacking" powerups? Like, targetted/spread?
+ - "Fire" bullet powerup: area of effect where it lands with higher damage
+ - "Defense" powerup: take no damage (or reduced damage) for 20 seconds
+ - "Zoom" powerup: increased movement speed for 20 seconds
+ - "Invisibility" powerup: tank is invisible to other players for 20 seconds
 
