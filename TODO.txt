@@ -25,6 +25,7 @@ DONE:
 
 TODO:
 
+ - Reduce the number of RPC updates sent (only send when something changes)
  - Ability to return to connection screen
    |-> Return while waiting for players or after timeout to connect
    |-> Server: Disconnect all clients and return to configure
