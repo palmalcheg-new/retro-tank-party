@@ -37,6 +37,8 @@ TODO:
 
 BACKLOG (the "maybe" things):
 
+ - Encapsulate the different bullet types into a single unit such that
+   you could theoretically mod a new bullet type into the project
  - Count down to next drop crates (start at 10 seconds?)
  - Make the "target" of targeted bullets clear (highlight selected tank)
  - A "chanrged shot"? To encourage more careful aiming
