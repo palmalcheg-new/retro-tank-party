@@ -23,7 +23,7 @@ DONE:
    |-> Spread bullets
    |-> Target bullets
 
-TODO:
+MILESTONE+1:
 
  - Reduce the number of RPC updates sent (only send when something changes)
  - Ability to return to connection screen
@@ -33,10 +33,41 @@ TODO:
    |-> Maybe this is an [EXIT] button in the top-right corner?
        |-> This can clarify the mouse confinement as well!
  - Some kind of score keeping (maybe wins per player per current session?)
+   |-> Or save this for the Nakama integration below?
  - Improve the connection UI (make real UI and seperate server/client options)
+
+MILESTONE+2:
+
+Allow game to run on web, so it's easier for folks to try it.
+
+This needs a branch - it won't work for everyone for a bit.
+
+ - Use Nakama to track user accounts and do match making
+   |-> Use GDScript to talk to Nakama via REST and Socket
+ - Use WebRTC to connect to peers
+   |-> Start with same local client (like we've been using), so needs GDNative
+ - Make web version
+   |-> Make sure GDScript can talk to Nakama over Websockets
+ - Convert GDScript Nakama code to C++ module
+   |-> Needs to work both locally and in web version
+   |-> Implement Godot multiplayer stuff with it
+   |-> Compare performance of Nakama multiplayer vs WebRTC multiplayer
+ - Look at Swagger codegen to make REST API complete
+   |-> See https://github.com/swagger-api/swagger-codegen)
+ - Consider keeping GDScript version around too?
+   |-> Since I ultimately expect we'll just use Nakama for the matchmaking
+       and not the actual multiplayer, we could just use the GDScript version
+   |-> Use Swagger to generate all the GDScript bindings too
+ - Consider proposing C++ module for Godot upstream?
+ - Consider making a GDNative version
+   |-> Could make it easier for desktop folks to use, but it won't work on the
+       web, so we'd need to keep using the C++ module
+   |-> Could have CI build all the different platform versions
+ - Let all the folks know about it!
 
 BACKLOG (the "maybe" things):
 
+ - Add game modes like "capture the flag"
  - Encapsulate the different bullet types into a single unit such that
    you could theoretically mod a new bullet type into the project
  - Count down to next drop crates (start at 10 seconds?)
