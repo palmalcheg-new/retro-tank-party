@@ -6,6 +6,9 @@ var Player3 = preload("res://tanks/Player3.tscn")
 var Player4 = preload("res://tanks/Player4.tscn")
 var TankScenes = {}
 
+var realtime_client
+var matchmaker_ticket
+
 var player_name : String
 var players = {}
 var players_ready = {}
@@ -25,12 +28,12 @@ func _ready():
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	
-	if "--test-mode" in OS.get_cmdline_args():
-		test_mode = true
-		_on_ConnectionScreen_serve('Tester', 12233)
-		$HUD.hide_all()
-		start_new_game()
-		return
+	#if "--test-mode" in OS.get_cmdline_args():
+	#	test_mode = true
+	#	_on_ConnectionScreen_serve('Tester', 12233)
+	#	$HUD.hide_all()
+	#	start_new_game()
+	#	return
 	
 	$CanvasLayer/ConnectionScreen.visible = true
 	get_tree().connect("network_peer_connected", self, "_on_player_connected")
@@ -45,25 +48,70 @@ func _input(event):
 	if event.is_action_pressed("player_shoot"):
 		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 
-func _on_ConnectionScreen_serve(_name : String, port : int) -> void:
-	var peer = NetworkedMultiplayerENet.new()
-	peer.create_server(port, 3)
-	get_tree().set_network_peer(peer)
-	
-	player_name = _name
-	
-	$CanvasLayer/ConnectionScreen.visible = false
-	$HUD.show_message("Waiting for players...")
+func _process(delta: float) -> void:
+	if realtime_client:
+		realtime_client.poll()
 
-func _on_ConnectionScreen_connect(_name : String, host : String, port : int) -> void:
-	var peer = NetworkedMultiplayerENet.new()
-	peer.create_client(host, port)
-	get_tree().set_network_peer(peer)
+func _on_ConnectionScreen_login(email, password) -> void:
+	$NakamaClient.authenticate_email(email, password)
+	$CanvasLayer/ConnectionScreen.visible = false
+	$HUD.show_message("Logging in...")
 	
-	player_name = _name
+	yield($NakamaClient, "authenticate_email_completed")
+	
+	if $NakamaClient.last_response['http_code'] != 200:
+		$HUD.show_message("Login failed!")
+		$CanvasLayer/ConnectionScreen.visible = true
+	else:
+		_start_find_match()
+
+func _on_ConnectionScreen_create_account(username, email, password) -> void:
+	$NakamaClient.authenticate_email(email, password, true, username)
 	
 	$CanvasLayer/ConnectionScreen.visible = false
-	$HUD.show_message("Connecting...")
+	$HUD.show_message("Creating account...")
+	
+	yield($NakamaClient, "authenticate_email_completed")
+	
+	if $NakamaClient.last_response['http_code'] != 200:
+		$HUD.show_message("Account with username/password already exists!")
+		$CanvasLayer/ConnectionScreen.visible = true
+	else:
+		_start_find_match()
+
+func _start_find_match():
+	$HUD.show_message("Looking for match...")
+	
+	if realtime_client == null:
+		realtime_client = $NakamaClient.create_realtime_client(true)
+		realtime_client.connect("match_data", self, "_on_match_data")
+		realtime_client.connect("match_presence", self, "_on_match_presence")
+		realtime_client.connect("matchmaker_matched", self, "_on_matchmaker_matched")
+		yield(realtime_client, "connected")
+	
+	var result = realtime_client.send({
+		matchmaker_add = {
+			min_count = 2,
+			max_count = 4,
+			query = '*',
+		}
+	}, self, "_on_match_add")
+
+func _on_matchmak_add(data):
+	if data.has('matchmaker_ticket'):
+		matchmaker_ticket = data['matchmaker_ticket']['ticket']
+
+func _on_match_data(data):
+	pass
+	print (data)
+
+func _on_match_presence(data):
+	pass
+	print (data)
+
+func _on_matchmaker_matched(data):
+	pass
+	print (data)
 
 func _on_player_connected(peer_id : int) -> void:
 	# This signal is emitted even on clients when they connect,
@@ -117,8 +165,8 @@ func start_new_game() -> void:
 	var player_info = {
 		1: {
 			'tank': 'Player1',
-			'position': $PlayerStartPositions/Player1.global_position,
-			'rotation': $PlayerStartPositions/Player1.global_rotation,
+			'position': $Map/PlayerStartPositions/Player1.global_position,
+			'rotation': $Map/PlayerStartPositions/Player1.global_rotation,
 		},
 	}
 
@@ -126,15 +174,15 @@ func start_new_game() -> void:
 	for peer_id in players.keys():
 		player_info[peer_id] = {
 			'tank': "Player" + str(i),
-			'position': $PlayerStartPositions.get_node("Player" + str(i)).global_position,
-			'rotation': $PlayerStartPositions.get_node("Player" + str(i)).global_rotation,
+			'position': $Map/PlayerStartPositions.get_node("Player" + str(i)).global_position,
+			'rotation': $Map/PlayerStartPositions.get_node("Player" + str(i)).global_rotation,
 		}
 		i += 1
 		
 	rpc("preconfigure_game", player_info)
 	
-	$DropCrateSpawnArea1.start()
-	$DropCrateSpawnArea2.start()
+	$Map/DropCrateSpawnArea1.start()
+	$Map/DropCrateSpawnArea2.start()
 
 func restart_game() -> void:
 	my_player = null
@@ -148,7 +196,7 @@ func _create_camera() -> Camera2D:
 	camera.limit_top = 0
 	camera.limit_left = 0
 	
-	var tilemap_rect = $TileMap.get_used_rect()
+	var tilemap_rect = $Map/TileMap.get_used_rect()
 	camera.limit_right = tilemap_rect.size.x * $TileMap.cell_size.x
 	camera.limit_bottom = tilemap_rect.size.y * $TileMap.cell_size.y
 	
@@ -162,8 +210,8 @@ remotesync func preconfigure_game(player_info : Dictionary) -> void:
 		for child in $Players.get_children():
 			$Players.remove_child(child)
 			child.queue_free()
-		$DropCrateSpawnArea1.clear()
-		$DropCrateSpawnArea2.clear()
+		$Map/DropCrateSpawnArea1.clear()
+		$Map/DropCrateSpawnArea2.clear()
 	
 	var my_id = get_tree().get_network_unique_id()
 	
@@ -224,3 +272,6 @@ func _on_player_dead(peer_id : int) -> void:
 				winner = winners[0]
 			$HUD.rpc("show_message", winner + " is the winner!")
 			$HUD.show_start_button("Play again")
+
+
+
