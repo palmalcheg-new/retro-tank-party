@@ -6,8 +6,14 @@ var Player3 = preload("res://tanks/Player3.tscn")
 var Player4 = preload("res://tanks/Player4.tscn")
 var TankScenes = {}
 
+# Nakama variables:
 var realtime_client
 var matchmaker_ticket
+var match_data
+
+# WebRTC variables:
+var webrtc_multiplayer
+var webrtc_peer
 
 var player_name : String
 var players = {}
@@ -26,7 +32,7 @@ func _ready():
 	TankScenes['Player3'] = Player3
 	TankScenes['Player4'] = Player4
 	
-	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+	#Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	
 	#if "--test-mode" in OS.get_cmdline_args():
 	#	test_mode = true
@@ -43,10 +49,11 @@ func _ready():
 	get_tree().connect("server_disconnected", self, "_on_server_disconnected")
 
 func _input(event):
-	if event.is_action_pressed("ui_cancel"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	if event.is_action_pressed("player_shoot"):
-		Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+	#if event.is_action_pressed("ui_cancel"):
+	#	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	#if event.is_action_pressed("player_shoot"):
+	#	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
+	pass
 
 func _process(delta: float) -> void:
 	if realtime_client:
@@ -63,7 +70,7 @@ func _on_ConnectionScreen_login(email, password) -> void:
 		$HUD.show_message("Login failed!")
 		$CanvasLayer/ConnectionScreen.visible = true
 	else:
-		_start_find_match()
+		_nakama_find_match()
 
 func _on_ConnectionScreen_create_account(username, email, password) -> void:
 	$NakamaClient.authenticate_email(email, password, true, username)
@@ -77,16 +84,16 @@ func _on_ConnectionScreen_create_account(username, email, password) -> void:
 		$HUD.show_message("Account with username/password already exists!")
 		$CanvasLayer/ConnectionScreen.visible = true
 	else:
-		_start_find_match()
+		_nakama_find_match()
 
-func _start_find_match():
+func _nakama_find_match():
 	$HUD.show_message("Looking for match...")
 	
 	if realtime_client == null:
 		realtime_client = $NakamaClient.create_realtime_client(true)
-		realtime_client.connect("match_data", self, "_on_match_data")
-		realtime_client.connect("match_presence", self, "_on_match_presence")
-		realtime_client.connect("matchmaker_matched", self, "_on_matchmaker_matched")
+		realtime_client.connect("match_data", self, "_on_nakama_match_data")
+		realtime_client.connect("match_presence", self, "_on_nakama_match_presence")
+		realtime_client.connect("matchmaker_matched", self, "_on_nakama_matchmaker_matched")
 		yield(realtime_client, "connected")
 	
 	var result = realtime_client.send({
@@ -95,22 +102,46 @@ func _start_find_match():
 			max_count = 4,
 			query = '*',
 		}
-	}, self, "_on_match_add")
+	}, self, "_on_nakama_match_add")
 
-func _on_matchmak_add(data):
+func _on_nakama_matchmak_add(data):
 	if data.has('matchmaker_ticket'):
 		matchmaker_ticket = data['matchmaker_ticket']['ticket']
 
-func _on_match_data(data):
-	pass
+func _on_nakama_match_data(data):
+	print("match_data:")
 	print (data)
 
-func _on_match_presence(data):
-	pass
+func _on_nakama_matchmaker_matched(data):
 	print (data)
+	if data.has('users') && data.has('token'):
+		# @todo Do something with the list of users
+		realtime_client.send({
+			match_join = {
+				token = data['token'],
+			}
+		}, self, '_on_nakama_match_join');
+	else:
+		$HUD.show_message("Match maker error")
 
-func _on_matchmaker_matched(data):
-	pass
+func _on_nakama_match_join(data):
+	if data.has('match'):
+		match_data = data
+		_start_webrtc_multiplayer()
+	else:
+		$HUD.show_message("Unable to join match")
+
+func _start_webrtc_multiplayer():
+	$HUD.show_message("Connecting to peers...")
+	
+	#webrtc_multiplayer = WebRTCMultiplayer.new()
+	#webrtc_peer = WebRTCPeerConnection.new()
+	#peer.initialize({
+	#	"iceServers": [{ "urls": ["stun:stun.l.google.com:19302"] }]
+	#})
+
+func _on_nakama_match_presence(data):
+	print("match_presence:")
 	print (data)
 
 func _on_player_connected(peer_id : int) -> void:

@@ -46,8 +46,21 @@ This needs a branch - it won't work for everyone for a bit.
    |-> Use GDScript to talk to Nakama via REST and Socket
  - Use WebRTC to connect to peers
    |-> Start with same local client (like we've been using), so needs GDNative
+ - Give users choice of who they connect to:
+   * "Find match with ____ minimum players"
+   * "Create match to share with friends"
+   * "Join match with given ID"
  - Make web version
    |-> Make sure GDScript can talk to Nakama over Websockets
+
+MILESTONE+3:
+
+ - Add a "practice mode" where you can drive around and shot stuff
+ - Allow users to use "practice mode" while they wait for matchmaking
+ - Add options for controls, enabling mouse capture, etc
+
+MILESTONE+5:
+
  - Convert GDScript Nakama code to C++ module
    |-> Needs to work both locally and in web version
    |-> Implement Godot multiplayer stuff with it
