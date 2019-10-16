@@ -14,7 +14,7 @@ var match_data
 # WebRTC variables:
 var webrtc_multiplayer : WebRTCMultiplayer = WebRTCMultiplayer.new()
 var webrtc_peers = {}
-var webrtc_data_channels = {}
+var webrtc_session_to_peer_map = {}
 
 var player_name : String
 var players = {}
@@ -62,15 +62,6 @@ func _process(delta: float) -> void:
 	if webrtc_peers:
 		for p in webrtc_peers.values():
 			p.poll()
-			
-	# For testing
-	if webrtc_data_channels:
-		for ch in webrtc_data_channels.values():
-			if ch.get_ready_state() == ch.STATE_OPEN:
-				var msg = "Hi from " + match_data['self']['username']
-				ch.put_packet(msg.to_utf8())
-				if ch.get_available_packet_count() > 0:
-					print ("WEBRTC REVCD: " + ch.get_packet().get_string_from_utf8())
 
 func _on_ConnectionScreen_login(email, password) -> void:
 	$NakamaClient.authenticate_email(email, password)
@@ -126,8 +117,22 @@ func _on_nakama_matchmak_add(data):
 func _on_nakama_matchmaker_matched(data):
 	print ("Matchmaker matched:")
 	print (data)
-	if data.has('users') && data.has('token'):
-		# @todo Do something with the list of users
+	
+	if data.has('users') && data.has('token') && data.has('self'):
+		# Use the list of users to assign peer ids.
+		var session_ids = [];
+		for u in data['users']:
+			session_ids.append(u['presence']['session_id'])
+		session_ids.sort()
+		var peer_id = 1
+		for s in session_ids:
+			webrtc_session_to_peer_map[s] = peer_id
+			peer_id += 1
+		
+		# Initialize multiplayer using our peer id
+		webrtc_multiplayer.initialize(webrtc_session_to_peer_map[data['self']['presence']['session_id']])
+		
+		# Join the match.
 		realtime_client.send({
 			match_join = {
 				token = data['token'],
@@ -162,8 +167,7 @@ func _webrtc_connect_peer(u : Dictionary):
 	
 	webrtc_peers[u['session_id']] = webrtc_peer
 	
-	# @todo Replace with adding the peer to webrtc_multiplayer
-	webrtc_data_channels[u['session_id']] = webrtc_peer.create_data_channel("chat", {"id": 1, "negotiated": true})
+	webrtc_multiplayer.add_peer(webrtc_peer, webrtc_session_to_peer_map[u['session_id']])
 	
 	if match_data['self']['session_id'].casecmp_to(u['session_id']) < 0:
 		print ("Create offer")
