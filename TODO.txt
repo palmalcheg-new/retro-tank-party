@@ -26,6 +26,9 @@ DONE:
 MILESTONE+1:
 
  - Reduce the number of RPC updates sent (only send when something changes)
+   |-> This could be done by sending inputs (keys pressed) rather than
+       positions and rotations. So, sending global mouse position rather
+	   than turret rotation.
  - Ability to return to connection screen
    |-> Return while waiting for players or after timeout to connect
    |-> Server: Disconnect all clients and return to configure
