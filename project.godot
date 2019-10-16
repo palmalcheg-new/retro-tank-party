@@ -42,6 +42,10 @@ convert_text_resources_to_binary_on_export=true
 
 enabled=PoolStringArray( "nakama-client" )
 
+[gdnative]
+
+singletons=[ "res://webrtc_debug/webrtc_debug.tres" ]
+
 [input]
 
 player_turn_left={

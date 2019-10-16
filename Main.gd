@@ -12,8 +12,9 @@ var matchmaker_ticket
 var match_data
 
 # WebRTC variables:
-var webrtc_multiplayer
-var webrtc_peer
+var webrtc_multiplayer : WebRTCMultiplayer = WebRTCMultiplayer.new()
+var webrtc_peers = {}
+var webrtc_data_channels = {}
 
 var player_name : String
 var players = {}
@@ -58,6 +59,18 @@ func _input(event):
 func _process(delta: float) -> void:
 	if realtime_client:
 		realtime_client.poll()
+	if webrtc_peers:
+		for p in webrtc_peers.values():
+			p.poll()
+			
+	# For testing
+	if webrtc_data_channels:
+		for ch in webrtc_data_channels.values():
+			if ch.get_ready_state() == ch.STATE_OPEN:
+				var msg = "Hi from " + match_data['self']['username']
+				ch.put_packet(msg.to_utf8())
+				if ch.get_available_packet_count() > 0:
+					print ("WEBRTC REVCD: " + ch.get_packet().get_string_from_utf8())
 
 func _on_ConnectionScreen_login(email, password) -> void:
 	$NakamaClient.authenticate_email(email, password)
@@ -100,6 +113,8 @@ func _nakama_find_match():
 		matchmaker_add = {
 			min_count = 2,
 			max_count = 4,
+			# @todo We need to update query to be game specific! 
+			# At some point, we'll have multiple games on the same Nakama server.
 			query = '*',
 		}
 	}, self, "_on_nakama_match_add")
@@ -108,11 +123,8 @@ func _on_nakama_matchmak_add(data):
 	if data.has('matchmaker_ticket'):
 		matchmaker_ticket = data['matchmaker_ticket']['ticket']
 
-func _on_nakama_match_data(data):
-	print("match_data:")
-	print (data)
-
 func _on_nakama_matchmaker_matched(data):
+	print ("Matchmaker matched:")
 	print (data)
 	if data.has('users') && data.has('token'):
 		# @todo Do something with the list of users
@@ -126,23 +138,107 @@ func _on_nakama_matchmaker_matched(data):
 
 func _on_nakama_match_join(data):
 	if data.has('match'):
-		match_data = data
-		_start_webrtc_multiplayer()
+		print ("Match join:")
+		print (data['match'])
+		
+		$HUD.show_message("Connecting to peers...")
+		
+		match_data = data['match']
+		for u in match_data['presences']:
+			if u['session_id'] == match_data['self']['session_id']:
+					continue
+			_webrtc_connect_peer(u)
 	else:
 		$HUD.show_message("Unable to join match")
 
-func _start_webrtc_multiplayer():
-	$HUD.show_message("Connecting to peers...")
+func _webrtc_connect_peer(u : Dictionary):
+	print ("Connecting peer: " + u['session_id'])
+	var webrtc_peer := WebRTCPeerConnection.new()
+	webrtc_peer.initialize({
+		"iceServers": [{ "urls": ["stun:stun.l.google.com:19302"] }]
+	})
+	webrtc_peer.connect("session_description_created", self, "_on_webrtc_peer_session_description_created", [u['session_id']])
+	webrtc_peer.connect("ice_candidate_created", self, "_on_webrtc_peer_ice_candidate_created", [u['session_id']])
 	
-	#webrtc_multiplayer = WebRTCMultiplayer.new()
-	#webrtc_peer = WebRTCPeerConnection.new()
-	#peer.initialize({
-	#	"iceServers": [{ "urls": ["stun:stun.l.google.com:19302"] }]
-	#})
+	webrtc_peers[u['session_id']] = webrtc_peer
+	
+	# @todo Replace with adding the peer to webrtc_multiplayer
+	webrtc_data_channels[u['session_id']] = webrtc_peer.create_data_channel("chat", {"id": 1, "negotiated": true})
+	
+	if match_data['self']['session_id'].casecmp_to(u['session_id']) < 0:
+		print ("Create offer")
+		var result = webrtc_peer.create_offer()
+		if result != OK:
+			print ("Unable to create offer")
 
 func _on_nakama_match_presence(data):
 	print("match_presence:")
 	print (data)
+	
+	if data.has('joins'):
+		for u in data['joins']:
+			if u['session_id'] == match_data['self']['session_id']:
+				continue
+			_webrtc_connect_peer(u)
+
+func _on_webrtc_peer_session_description_created(type : String, sdp : String, session_id : String):
+	print ("session_description_created:")
+	print (type)
+	print (sdp)
+	
+	var webrtc_peer = webrtc_peers[session_id]
+	webrtc_peer.set_local_description(type, sdp)
+	# @todo Send this data to peers to let them call .set_remote_description
+	realtime_client.send({
+		match_data_send = {
+			match_id = match_data['match_id'],
+			op_code = 1,
+			data = JSON.print({
+				method = "set_remote_description",
+				target = session_id,
+				type = type,
+				sdp = sdp,
+			}),
+		},
+	})
+
+func _on_webrtc_peer_ice_candidate_created(media : String, index : int, name : String, session_id : String):
+	print ("ice_candidate_created:")
+	print (media)
+	print (index)
+	print (name)
+	# @todo Send this data to peers to let them call .add_ice_candidate
+	
+	realtime_client.send({
+		match_data_send = {
+			match_id = match_data['match_id'],
+			op_code = 1,
+			data = JSON.print({
+				method = "add_ice_candidate",
+				target = session_id,
+				media = media,
+				index = index,
+				name = name,
+			}),
+		},
+	})
+
+func _on_nakama_match_data(data):
+	print("match_data:")
+	print(data)
+	
+	if data['op_code'] == 1:
+		var json_result = JSON.parse(data['data'])
+		if json_result.error == OK:
+			var content = json_result.result
+			if content['target'] == match_data['self']['session_id']:
+				var webrtc_peer = webrtc_peers[data['presence']['session_id']]
+				match content['method']:
+					'set_remote_description':
+						webrtc_peer.set_remote_description(content['type'], content['sdp'])
+					
+					'add_ice_candidate':
+						webrtc_peer.add_ice_candidate(content['media'], content['index'], content['name'])
 
 func _on_player_connected(peer_id : int) -> void:
 	# This signal is emitted even on clients when they connect,

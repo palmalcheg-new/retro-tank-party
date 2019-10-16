@@ -49,7 +49,12 @@ func send(data : Dictionary, callback_object = null, callback_method : String = 
 		}
 		data['cid'] = str(cid)
 	
+	if data.has('match_data_send'):
+		data['match_data_send']['data'] = Marshalls.utf8_to_base64(data['match_data_send']['data'])
+		data['match_data_send']['op_code'] = str(data['match_data_send']['op_code'])
+	
 	var serialized_data = JSON.print(data).to_utf8()
+	print ("SENDING: " + serialized_data.get_string_from_utf8())
 	return socket.get_peer(1).put_packet(serialized_data)
 
 func _on_connection_established(protocol : String):
@@ -106,7 +111,7 @@ func _on_data_received():
 					emit_signal('notification', n)
 			elif data.has('match_data'):
 				if data['match_data'].has('data') and data['match_data']['data']:
-					data['match_data']['data'] = _json_or_null(Marshalls.base64_to_utf8(data['match_data']['data']))
+					data['match_data']['data'] = Marshalls.base64_to_utf8(data['match_data']['data'])
 				data['match_data']['op_code'] = int(data['match_data']['op_code'])
 				emit_signal('match_data', data['match_data'])
 			elif data.has('match_presence_event'):
