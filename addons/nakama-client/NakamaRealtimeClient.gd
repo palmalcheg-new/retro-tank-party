@@ -54,7 +54,6 @@ func send(data : Dictionary, callback_object = null, callback_method : String = 
 		data['match_data_send']['op_code'] = str(data['match_data_send']['op_code'])
 	
 	var serialized_data = JSON.print(data).to_utf8()
-	print ("SENDING: " + serialized_data.get_string_from_utf8())
 	return socket.get_peer(1).put_packet(serialized_data)
 
 func _on_connection_established(protocol : String):
