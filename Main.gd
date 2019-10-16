@@ -15,6 +15,15 @@ var match_data
 var webrtc_multiplayer : WebRTCMultiplayer = WebRTCMultiplayer.new()
 var webrtc_peers = {}
 var webrtc_session_to_peer_map = {}
+var peers_ready = {}
+
+enum MatchState {
+	LOBBY = 0,
+	MATCHING = 1,
+	CONNECTING = 2,
+	READY = 4,
+}
+var match_state : int = MatchState.LOBBY
 
 var player_name : String
 var players = {}
@@ -62,6 +71,35 @@ func _process(delta: float) -> void:
 	if webrtc_peers:
 		for p in webrtc_peers.values():
 			p.poll()
+	
+	# Wait for all peers to be ready.
+	if match_state == MatchState.CONNECTING:
+		# First, check that we have peers for every player we were matched with.
+		for session_id in webrtc_session_to_peer_map.keys():
+			if session_id == match_data['self']['session_id']:
+				continue
+			if not webrtc_peers.has(session_id):
+				return
+		
+		# Then, loop over all the peers and see if they are connected
+		for webrtc_peer in webrtc_peers.values():
+			if webrtc_peer.get_connection_state() != WebRTCPeerConnection.STATE_CONNECTED:
+				return
+		
+		# If all those pass, then we are ready to enable Godot's high-level networking!
+		match_state = MatchState.READY;
+		
+		# Wait for a moment.
+		# @todo Replace with the "ReadyScreen" button.
+		yield(get_tree().create_timer(1), 'timeout')
+		
+		# ... and use it to let the master know that we are ready!
+		rpc_id(1, "peer_ready", get_tree().get_network_unique_id())
+
+mastersync func peer_ready(peer_id):
+	peers_ready[peer_id] = true
+	if peers_ready.size() == webrtc_peers.size():
+		start_new_game()
 
 func _on_ConnectionScreen_login(email, password) -> void:
 	$NakamaClient.authenticate_email(email, password)
@@ -129,8 +167,14 @@ func _on_nakama_matchmaker_matched(data):
 			webrtc_session_to_peer_map[s] = peer_id
 			peer_id += 1
 		
+		# Build the list of players.
+		for u in data['users']:
+			peer_id = webrtc_session_to_peer_map[u['presence']['session_id']]
+			players[peer_id] = u['presence']['username']
+		
 		# Initialize multiplayer using our peer id
 		webrtc_multiplayer.initialize(webrtc_session_to_peer_map[data['self']['presence']['session_id']])
+		get_tree().set_network_peer(webrtc_multiplayer)
 		
 		# Join the match.
 		realtime_client.send({
@@ -153,6 +197,10 @@ func _on_nakama_match_join(data):
 			if u['session_id'] == match_data['self']['session_id']:
 					continue
 			_webrtc_connect_peer(u)
+		
+		# Put in CONNECTING mode so we'll see the webrtc_multiplayer on the scene tree
+		# once all the peers are ready.
+		match_state = MatchState.CONNECTING
 	else:
 		$HUD.show_message("Unable to join match")
 
@@ -247,25 +295,28 @@ func _on_nakama_match_data(data):
 func _on_player_connected(peer_id : int) -> void:
 	# This signal is emitted even on clients when they connect,
 	# with peer_id = 1 for the server.
+	print ("_on_player_connected")
 	
-	if not game_started:
-		rpc_id(peer_id, "register_player", player_name)
-	else:
-		$HUD.rpc_id(peer_id, "Game already in progress. Sorry!")
+	#if not game_started:
+	#	rpc_id(peer_id, "register_player", player_name)
+	#else:
+	#	$HUD.rpc_id(peer_id, "Game already in progress. Sorry!")
 
 func _on_player_disconnected(peer_id : int) -> void:
+	print ("_on_player_disconnected");
+	
 	if players.has(peer_id):
 		players.erase(peer_id)
 	if players_ready.has(peer_id):
 		players_ready.erase(peer_id)
 	
-	if get_tree().is_network_server() and not game_started:
-		if players.size() == 0:
-			$HUD.show_message("Waiting for players...")
-			$HUD.hide_start_button()
-		elif players.size() > 0:
-			$HUD.show_message(str(players.size() + 1) + "/4 players connected")
-			$HUD.show_start_button()
+	#if get_tree().is_network_server() and not game_started:
+	#	if players.size() == 0:
+	#		$HUD.show_message("Waiting for players...")
+	#		$HUD.hide_start_button()
+	#	elif players.size() > 0:
+	#		$HUD.show_message(str(players.size() + 1) + "/4 players connected")
+	#		$HUD.show_start_button()
 
 func _on_connected() -> void:
 	$HUD.show_message("Waiting for game to start...")
@@ -277,14 +328,14 @@ func _on_connection_failed() -> void:
 func _on_server_disconnected() -> void:
 	$HUD.show_message("Disconnected from server!")
 
-remote func register_player(_name) -> void:
-	var id = get_tree().get_rpc_sender_id()
-	players[id] = _name
-	
-	if get_tree().is_network_server():
-		if players.size() > 0:
-			$HUD.show_message(str(players.size() + 1) + "/4 players connected")
-			$HUD.show_start_button()
+#remote func register_player(_name) -> void:
+#	var id = get_tree().get_rpc_sender_id()
+#	players[id] = _name
+#	
+#	if get_tree().is_network_server():
+#		if players.size() > 0:
+#			$HUD.show_message(str(players.size() + 1) + "/4 players connected")
+#			$HUD.show_start_button()
 
 func _on_HUD_start() -> void:
 	if game_started:
@@ -293,15 +344,9 @@ func _on_HUD_start() -> void:
 		start_new_game()
 
 func start_new_game() -> void:
-	var player_info = {
-		1: {
-			'tank': 'Player1',
-			'position': $Map/PlayerStartPositions/Player1.global_position,
-			'rotation': $Map/PlayerStartPositions/Player1.global_rotation,
-		},
-	}
-
-	var i = 2
+	var player_info = {}
+	
+	var i = 1
 	for peer_id in players.keys():
 		player_info[peer_id] = {
 			'tank': "Player" + str(i),
@@ -328,8 +373,8 @@ func _create_camera() -> Camera2D:
 	camera.limit_left = 0
 	
 	var tilemap_rect = $Map/TileMap.get_used_rect()
-	camera.limit_right = tilemap_rect.size.x * $TileMap.cell_size.x
-	camera.limit_bottom = tilemap_rect.size.y * $TileMap.cell_size.y
+	camera.limit_right = tilemap_rect.size.x * $Map/TileMap.cell_size.x
+	camera.limit_bottom = tilemap_rect.size.y * $Map/TileMap.cell_size.y
 	
 	return camera
 
@@ -346,17 +391,6 @@ remotesync func preconfigure_game(player_info : Dictionary) -> void:
 	
 	var my_id = get_tree().get_network_unique_id()
 	
-	my_player = TankScenes[player_info[my_id]['tank']].instance()
-	my_player.set_name(str(my_id))
-	my_player.set_network_master(my_id)
-	my_player.set_player_name(player_name)
-	my_player.player_controlled = true
-	my_player.position = player_info[my_id]['position']
-	my_player.rotation = player_info[my_id]['rotation']
-	my_player.add_child(_create_camera())
-	my_player.connect("dead", self, "_on_player_dead")
-	$Players.add_child(my_player)
-	
 	for peer_id in players:
 		var other_player = TankScenes[player_info[peer_id]['tank']].instance()
 		other_player.set_name(str(peer_id))
@@ -367,10 +401,13 @@ remotesync func preconfigure_game(player_info : Dictionary) -> void:
 		other_player.connect("dead", self, "_on_player_dead")
 		$Players.add_child(other_player)
 	
-	if my_id != 1:
-		rpc_id(1, "done_preconfigure_game", my_id)
+	my_player = $Players.get_node(str(my_id))
+	my_player.player_controlled = true
+	my_player.add_child(_create_camera())
+	
+	rpc_id(1, "done_preconfigure_game", my_id)
 
-remote func done_preconfigure_game(peer_id) -> void:
+remotesync func done_preconfigure_game(peer_id) -> void:
 	assert(get_tree().is_network_server())
 	assert(peer_id in players)
 	assert(not players_ready.has(peer_id))
@@ -396,11 +433,9 @@ func _on_player_dead(peer_id : int) -> void:
 	if get_tree().is_network_server():
 		if players_ready.has(peer_id):
 			players_ready.erase(peer_id)
-		if players_ready.size() == 0 or (i_am_dead and players_ready.size() == 1):
-			var winner = player_name
-			if players_ready.size() > 0:
-				var winners = players_ready.values()
-				winner = winners[0]
+		if players_ready.size() == 1:
+			var remaining_players = players_ready.values()
+			var winner = remaining_players[0]
 			$HUD.rpc("show_message", winner + " is the winner!")
 			$HUD.show_start_button("Play again")
 
