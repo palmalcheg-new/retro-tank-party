@@ -51,12 +51,14 @@ func _ready():
 	#	start_new_game()
 	#	return
 	
-	$CanvasLayer/ConnectionScreen.visible = true
 	get_tree().connect("network_peer_connected", self, "_on_player_connected")
 	get_tree().connect("network_peer_disconnected", self, "_on_player_disconnected")
 	get_tree().connect("connected_to_server", self, "_on_connected")
 	get_tree().connect("connection_failed", self, "_on_connection_failed")
 	get_tree().connect("server_disconnected", self, "_on_server_disconnected")
+
+func _on_TitleScreen_battle() -> void:
+	$UILayer.show_screen("ConnectionScreen")
 
 func _input(event):
 	#if event.is_action_pressed("ui_cancel"):
@@ -103,32 +105,35 @@ mastersync func peer_ready(peer_id):
 
 func _on_ConnectionScreen_login(email, password) -> void:
 	$NakamaClient.authenticate_email(email, password)
-	$CanvasLayer/ConnectionScreen.visible = false
+	$UILayer.hide_screen()
 	$HUD.show_message("Logging in...")
 	
 	yield($NakamaClient, "authenticate_email_completed")
 	
 	if $NakamaClient.last_response['http_code'] != 200:
 		$HUD.show_message("Login failed!")
-		$CanvasLayer/ConnectionScreen.visible = true
+		$UILayer.show_screen("ConnectionScreen")
 	else:
-		_nakama_find_match()
+		$HUD.hide_all()
+		$UILayer.show_screen("MatchScreen")
 
 func _on_ConnectionScreen_create_account(username, email, password) -> void:
 	$NakamaClient.authenticate_email(email, password, true, username)
 	
-	$CanvasLayer/ConnectionScreen.visible = false
+	$UILayer.hide_screen()
 	$HUD.show_message("Creating account...")
 	
 	yield($NakamaClient, "authenticate_email_completed")
 	
 	if $NakamaClient.last_response['http_code'] != 200:
 		$HUD.show_message("Account with username/password already exists!")
-		$CanvasLayer/ConnectionScreen.visible = true
+		$UILayer.show_screen("ConnectionScreen")
 	else:
-		_nakama_find_match()
+		$HUD.hide_all()
+		$UILayer.show_screen("MatchScreen")
 
-func _nakama_find_match():
+func _on_MatchScreen_find_match(min_players: int):
+	$UILayer.hide_screen()
 	$HUD.show_message("Looking for match...")
 	
 	if realtime_client == null:
@@ -140,7 +145,7 @@ func _nakama_find_match():
 	
 	var result = realtime_client.send({
 		matchmaker_add = {
-			min_count = 2,
+			min_count = min_players,
 			max_count = 4,
 			# @todo We need to update query to be game specific! 
 			# At some point, we'll have multiple games on the same Nakama server.
@@ -323,7 +328,7 @@ func _on_connected() -> void:
 
 func _on_connection_failed() -> void:
 	$HUD.show_message("Failed to connect...")
-	$CanvasLayer/ConnectionScreen.visible = true
+	$UILayer.show_screen("ConnectionScreen")
 
 func _on_server_disconnected() -> void:
 	$HUD.show_message("Disconnected from server!")
@@ -438,6 +443,4 @@ func _on_player_dead(peer_id : int) -> void:
 			var winner = remaining_players[0]
 			$HUD.rpc("show_message", winner + " is the winner!")
 			$HUD.show_start_button("Play again")
-
-
 

@@ -1,21 +1,24 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://assets/terraintiles.tres" type="TileSet" id=2]
-[ext_resource path="res://objects/cover/TreeSmall.tscn" type="PackedScene" id=3]
-[ext_resource path="res://objects/obstruction/FenceYellow.tscn" type="PackedScene" id=4]
-[ext_resource path="res://objects/cover/TreeBig.tscn" type="PackedScene" id=5]
-[ext_resource path="res://objects/obstruction/BarricadeWood.tscn" type="PackedScene" id=6]
-[ext_resource path="res://objects/obstruction/BarricadeMetal.tscn" type="PackedScene" id=7]
-[ext_resource path="res://ConnectionScreen.tscn" type="PackedScene" id=8]
-[ext_resource path="res://objects/cover/CrateMetal.tscn" type="PackedScene" id=9]
+[ext_resource path="res://ConnectionScreen.tscn" type="PackedScene" id=3]
+[ext_resource path="res://objects/cover/TreeBig.tscn" type="PackedScene" id=4]
+[ext_resource path="res://UILayer.gd" type="Script" id=5]
+[ext_resource path="res://objects/cover/TreeSmall.tscn" type="PackedScene" id=6]
+[ext_resource path="res://objects/obstruction/FenceRed.tscn" type="PackedScene" id=7]
+[ext_resource path="res://objects/obstruction/SandboxBiege.tscn" type="PackedScene" id=8]
+[ext_resource path="res://TitleScreen.tscn" type="PackedScene" id=9]
 [ext_resource path="res://HUD.tscn" type="PackedScene" id=10]
-[ext_resource path="res://ReadyScreen.tscn" type="PackedScene" id=11]
-[ext_resource path="res://objects/obstruction/FenceRed.tscn" type="PackedScene" id=12]
-[ext_resource path="res://objects/obstruction/SandboxBiege.tscn" type="PackedScene" id=13]
+[ext_resource path="res://objects/obstruction/BarricadeWood.tscn" type="PackedScene" id=11]
+[ext_resource path="res://objects/obstruction/FenceYellow.tscn" type="PackedScene" id=12]
+[ext_resource path="res://objects/DropCrateSpawnArea.tscn" type="PackedScene" id=13]
 [ext_resource path="res://addons/nakama-client/NakamaRestClient.gd" type="Script" id=14]
 [ext_resource path="res://addons/nakama-client/icon.png" type="Texture" id=15]
-[ext_resource path="res://objects/DropCrateSpawnArea.tscn" type="PackedScene" id=16]
+[ext_resource path="res://objects/obstruction/BarricadeMetal.tscn" type="PackedScene" id=16]
+[ext_resource path="res://ReadyScreen.tscn" type="PackedScene" id=17]
+[ext_resource path="res://objects/cover/CrateMetal.tscn" type="PackedScene" id=18]
+[ext_resource path="res://MatchScreen.tscn" type="PackedScene" id=19]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -48,473 +51,479 @@ rotation = -0.922228
 
 [node name="Objects" type="Node2D" parent="Map"]
 
-[node name="CrateMetal12" parent="Map/Objects" instance=ExtResource( 9 )]
+[node name="CrateMetal12" parent="Map/Objects" instance=ExtResource( 18 )]
 position = Vector2( 1309, 759 )
 rotation = -0.0472309
 
-[node name="CrateMetal11" parent="Map/Objects" instance=ExtResource( 9 )]
+[node name="CrateMetal11" parent="Map/Objects" instance=ExtResource( 18 )]
 position = Vector2( 1358, 700 )
 rotation = 0.172487
 
-[node name="TreeBig14" parent="Map/Objects" instance=ExtResource( 5 )]
+[node name="TreeBig14" parent="Map/Objects" instance=ExtResource( 4 )]
 position = Vector2( 1336, 1075 )
 
-[node name="TreeSmall" parent="Map/Objects" instance=ExtResource( 3 )]
+[node name="TreeSmall" parent="Map/Objects" instance=ExtResource( 6 )]
 position = Vector2( 101, 1089 )
 
-[node name="TreeBig" parent="Map/Objects" instance=ExtResource( 5 )]
+[node name="TreeBig" parent="Map/Objects" instance=ExtResource( 4 )]
 position = Vector2( 41, 1130 )
 
-[node name="CrateMetal" parent="Map/Objects" instance=ExtResource( 9 )]
+[node name="CrateMetal" parent="Map/Objects" instance=ExtResource( 18 )]
 position = Vector2( 74, 1004 )
 rotation = -0.445674
 
-[node name="CrateMetal2" parent="Map/Objects" instance=ExtResource( 9 )]
+[node name="CrateMetal2" parent="Map/Objects" instance=ExtResource( 18 )]
 position = Vector2( 45, 942 )
 rotation = -1.29331
 
-[node name="TreeSmall2" parent="Map/Objects" instance=ExtResource( 3 )]
+[node name="TreeSmall2" parent="Map/Objects" instance=ExtResource( 6 )]
 position = Vector2( 1353, 25 )
 
-[node name="TreeBig2" parent="Map/Objects" instance=ExtResource( 5 )]
+[node name="TreeBig2" parent="Map/Objects" instance=ExtResource( 4 )]
 position = Vector2( 643, -21 )
 
-[node name="TreeBig3" parent="Map/Objects" instance=ExtResource( 5 )]
+[node name="TreeBig3" parent="Map/Objects" instance=ExtResource( 4 )]
 position = Vector2( 732, 17 )
 
-[node name="TreeSmall3" parent="Map/Objects" instance=ExtResource( 3 )]
+[node name="TreeSmall3" parent="Map/Objects" instance=ExtResource( 6 )]
 position = Vector2( 1009, 12 )
 
-[node name="TreeBig4" parent="Map/Objects" instance=ExtResource( 5 )]
+[node name="TreeBig4" parent="Map/Objects" instance=ExtResource( 4 )]
 position = Vector2( 44, 509 )
 
-[node name="TreeSmall4" parent="Map/Objects" instance=ExtResource( 3 )]
+[node name="TreeSmall4" parent="Map/Objects" instance=ExtResource( 6 )]
 position = Vector2( 108, 448 )
 
-[node name="TreeSmall5" parent="Map/Objects" instance=ExtResource( 3 )]
+[node name="TreeSmall5" parent="Map/Objects" instance=ExtResource( 6 )]
 position = Vector2( 129, 492 )
 
-[node name="TreeBig5" parent="Map/Objects" instance=ExtResource( 5 )]
+[node name="TreeBig5" parent="Map/Objects" instance=ExtResource( 4 )]
 position = Vector2( 369, 1146 )
 
-[node name="TreeSmall6" parent="Map/Objects" instance=ExtResource( 3 )]
+[node name="TreeSmall6" parent="Map/Objects" instance=ExtResource( 6 )]
 position = Vector2( 413, 1072 )
 
-[node name="TreeBig6" parent="Map/Objects" instance=ExtResource( 5 )]
+[node name="TreeBig6" parent="Map/Objects" instance=ExtResource( 4 )]
 position = Vector2( 695, 1630 )
 
-[node name="TreeSmall7" parent="Map/Objects" instance=ExtResource( 3 )]
+[node name="TreeSmall7" parent="Map/Objects" instance=ExtResource( 6 )]
 position = Vector2( 768, 1651 )
 
-[node name="CrateMetal3" parent="Map/Objects" instance=ExtResource( 9 )]
+[node name="CrateMetal3" parent="Map/Objects" instance=ExtResource( 18 )]
 position = Vector2( 596, 1385 )
 rotation = -0.333588
 
-[node name="CrateMetal5" parent="Map/Objects" instance=ExtResource( 9 )]
+[node name="CrateMetal5" parent="Map/Objects" instance=ExtResource( 18 )]
 position = Vector2( 594, 1315 )
 rotation = 0.404564
 
-[node name="CrateMetal4" parent="Map/Objects" instance=ExtResource( 9 )]
+[node name="CrateMetal4" parent="Map/Objects" instance=ExtResource( 18 )]
 position = Vector2( 554, 1351 )
 
-[node name="TreeSmall8" parent="Map/Objects" instance=ExtResource( 3 )]
+[node name="TreeSmall8" parent="Map/Objects" instance=ExtResource( 6 )]
 position = Vector2( 1820, 1251 )
 
-[node name="TreeBig7" parent="Map/Objects" instance=ExtResource( 5 )]
+[node name="TreeBig7" parent="Map/Objects" instance=ExtResource( 4 )]
 position = Vector2( 474, 357 )
 rotation = -0.411866
 
-[node name="TreeSmall9" parent="Map/Objects" instance=ExtResource( 3 )]
+[node name="TreeSmall9" parent="Map/Objects" instance=ExtResource( 6 )]
 position = Vector2( 560, 365 )
 rotation = -0.411866
 
-[node name="CrateMetal6" parent="Map/Objects" instance=ExtResource( 9 )]
+[node name="CrateMetal6" parent="Map/Objects" instance=ExtResource( 18 )]
 position = Vector2( 556, 301 )
 rotation = -0.634788
 
-[node name="TreeBig8" parent="Map/Objects" instance=ExtResource( 5 )]
+[node name="TreeBig8" parent="Map/Objects" instance=ExtResource( 4 )]
 position = Vector2( 2531, 6 )
 
-[node name="TreeBig9" parent="Map/Objects" instance=ExtResource( 5 )]
+[node name="TreeBig9" parent="Map/Objects" instance=ExtResource( 4 )]
 position = Vector2( 1849, 23 )
 
-[node name="TreeSmall10" parent="Map/Objects" instance=ExtResource( 3 )]
+[node name="TreeSmall10" parent="Map/Objects" instance=ExtResource( 6 )]
 position = Vector2( 1933, 19 )
 
-[node name="TreeBig10" parent="Map/Objects" instance=ExtResource( 5 )]
+[node name="TreeBig10" parent="Map/Objects" instance=ExtResource( 4 )]
 position = Vector2( 1916, 355 )
 
-[node name="TreeSmall11" parent="Map/Objects" instance=ExtResource( 3 )]
+[node name="TreeSmall11" parent="Map/Objects" instance=ExtResource( 6 )]
 position = Vector2( 2119, 523 )
 
-[node name="TreeSmall12" parent="Map/Objects" instance=ExtResource( 3 )]
+[node name="TreeSmall12" parent="Map/Objects" instance=ExtResource( 6 )]
 position = Vector2( 2181, 554 )
 
-[node name="TreeSmall13" parent="Map/Objects" instance=ExtResource( 3 )]
+[node name="TreeSmall13" parent="Map/Objects" instance=ExtResource( 6 )]
 position = Vector2( 2128, 585 )
 
-[node name="TreeBig11" parent="Map/Objects" instance=ExtResource( 5 )]
+[node name="TreeBig11" parent="Map/Objects" instance=ExtResource( 4 )]
 position = Vector2( 2531, 576 )
 
-[node name="TreeSmall14" parent="Map/Objects" instance=ExtResource( 3 )]
+[node name="TreeSmall14" parent="Map/Objects" instance=ExtResource( 6 )]
 position = Vector2( 2553, 497 )
 
-[node name="TreeSmall15" parent="Map/Objects" instance=ExtResource( 3 )]
+[node name="TreeSmall15" parent="Map/Objects" instance=ExtResource( 6 )]
 position = Vector2( 1836, 1184 )
 
-[node name="TreeSmall16" parent="Map/Objects" instance=ExtResource( 3 )]
+[node name="TreeSmall16" parent="Map/Objects" instance=ExtResource( 6 )]
 position = Vector2( 1814, 1122 )
 
-[node name="TreeBig12" parent="Map/Objects" instance=ExtResource( 5 )]
+[node name="TreeBig12" parent="Map/Objects" instance=ExtResource( 4 )]
 position = Vector2( 2531, 949 )
 
-[node name="TreeBig13" parent="Map/Objects" instance=ExtResource( 5 )]
+[node name="TreeBig13" parent="Map/Objects" instance=ExtResource( 4 )]
 position = Vector2( 1867, 1516 )
 
-[node name="TreeSmall17" parent="Map/Objects" instance=ExtResource( 3 )]
+[node name="TreeSmall17" parent="Map/Objects" instance=ExtResource( 6 )]
 position = Vector2( 1920, 1583 )
 
-[node name="CrateMetal7" parent="Map/Objects" instance=ExtResource( 9 )]
+[node name="CrateMetal7" parent="Map/Objects" instance=ExtResource( 18 )]
 position = Vector2( 2083, 1026 )
 rotation = 0.102012
 
-[node name="CrateMetal8" parent="Map/Objects" instance=ExtResource( 9 )]
+[node name="CrateMetal8" parent="Map/Objects" instance=ExtResource( 18 )]
 position = Vector2( 2121, 967 )
 rotation = -0.0192014
 
-[node name="CrateMetal9" parent="Map/Objects" instance=ExtResource( 9 )]
+[node name="CrateMetal9" parent="Map/Objects" instance=ExtResource( 18 )]
 position = Vector2( 2172, 1025 )
 rotation = -0.196774
 
-[node name="CrateMetal10" parent="Map/Objects" instance=ExtResource( 9 )]
+[node name="CrateMetal10" parent="Map/Objects" instance=ExtResource( 18 )]
 position = Vector2( 2181, 954 )
 
-[node name="TreeBig15" parent="Map/Objects" instance=ExtResource( 5 )]
+[node name="TreeBig15" parent="Map/Objects" instance=ExtResource( 4 )]
 position = Vector2( 1370, 429 )
 
-[node name="TreeSmall18" parent="Map/Objects" instance=ExtResource( 3 )]
+[node name="TreeSmall18" parent="Map/Objects" instance=ExtResource( 6 )]
 position = Vector2( 1296, 372 )
 
-[node name="CrateMetal13" parent="Map/Objects" instance=ExtResource( 9 )]
+[node name="CrateMetal13" parent="Map/Objects" instance=ExtResource( 18 )]
 position = Vector2( 1852, 1630 )
 rotation = -0.158711
 
-[node name="FenceRed" parent="Map/Objects" instance=ExtResource( 12 )]
+[node name="FenceRed" parent="Map/Objects" instance=ExtResource( 7 )]
 position = Vector2( 667, 1344 )
 rotation = -1.55341
 
-[node name="FenceYellow" parent="Map/Objects" instance=ExtResource( 4 )]
+[node name="FenceYellow" parent="Map/Objects" instance=ExtResource( 12 )]
 position = Vector2( 875, 28 )
 rotation = -0.112339
 
-[node name="CrateMetal14" parent="Map/Objects" instance=ExtResource( 9 )]
+[node name="CrateMetal14" parent="Map/Objects" instance=ExtResource( 18 )]
 position = Vector2( 39, 615 )
 
-[node name="BarricadeWood" parent="Map/Objects" instance=ExtResource( 7 )]
+[node name="BarricadeWood" parent="Map/Objects" instance=ExtResource( 16 )]
 position = Vector2( 37, 709 )
 
-[node name="BarricadeWood2" parent="Map/Objects" instance=ExtResource( 7 )]
+[node name="BarricadeWood2" parent="Map/Objects" instance=ExtResource( 16 )]
 position = Vector2( 37, 828 )
 
-[node name="BarricadeWood3" parent="Map/Objects" instance=ExtResource( 7 )]
+[node name="BarricadeWood3" parent="Map/Objects" instance=ExtResource( 16 )]
 position = Vector2( 2519, 707 )
 
-[node name="BarricadeWood4" parent="Map/Objects" instance=ExtResource( 7 )]
+[node name="BarricadeWood4" parent="Map/Objects" instance=ExtResource( 16 )]
 position = Vector2( 2519, 828 )
 
-[node name="BarricadeWood5" parent="Map/Objects" instance=ExtResource( 7 )]
+[node name="BarricadeWood5" parent="Map/Objects" instance=ExtResource( 16 )]
 position = Vector2( 2527, 1471 )
 
-[node name="BarricadeWood6" parent="Map/Objects" instance=ExtResource( 7 )]
+[node name="BarricadeWood6" parent="Map/Objects" instance=ExtResource( 16 )]
 position = Vector2( 1091, 34 )
 
-[node name="BarricadeWood7" parent="Map/Objects" instance=ExtResource( 7 )]
+[node name="BarricadeWood7" parent="Map/Objects" instance=ExtResource( 16 )]
 position = Vector2( 1724, 36 )
 
-[node name="SandbagBiege" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 577, 1649 )
 
-[node name="SandbagBiege2" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege2" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 515, 1643 )
 
-[node name="SandbagBiege3" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege3" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 461, 1653 )
 
-[node name="SandbagBiege4" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege4" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 402, 1648 )
 
-[node name="SandbagBiege5" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege5" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 339, 1665 )
 
-[node name="SandbagBiege6" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege6" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 282, 1652 )
 
-[node name="SandbagBiege7" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege7" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 220, 1662 )
 
-[node name="SandbagBiege8" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege8" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 160, 1651 )
 
-[node name="SandbagBiege9" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege9" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 103, 1656 )
 
-[node name="SandbagBiege10" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege10" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 54, 1632 )
 rotation = 0.256921
 
-[node name="SandbagBiege11" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege11" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 16.0001, 1591 )
 rotation = -1.98205
 
-[node name="SandbagBiege12" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege12" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 10, 1532 )
 rotation = -1.61331
 
-[node name="SandbagBiege13" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege13" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 4, 1475 )
 rotation = -1.5708
 
-[node name="SandbagBiege14" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege14" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( -12, 1421 )
 rotation = -1.5708
 
-[node name="SandbagBiege15" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege15" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 2, 1364 )
 rotation = -1.5708
 
-[node name="SandbagBiege16" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege16" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( -3, 1305 )
 rotation = -1.5708
 
-[node name="SandbagBiege17" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege17" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 14, 1249 )
 rotation = -1.5708
 
-[node name="SandbagBiege18" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege18" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 532, 16 )
 
-[node name="SandbagBiege19" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege19" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 472, 3 )
 
-[node name="SandbagBiege20" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege20" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 415, 16 )
 
-[node name="SandbagBiege21" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege21" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 358, 21 )
 
-[node name="SandbagBiege22" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege22" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 304, 7 )
 
-[node name="SandbagBiege23" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege23" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 247, 10 )
 
-[node name="SandbagBiege25" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege25" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 131, 10 )
 
-[node name="SandbagBiege26" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege26" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 72, 12 )
 rotation = -0.328559
 
-[node name="SandbagBiege27" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege27" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 72, 12 )
 rotation = -0.247916
 
-[node name="SandbagBiege28" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege28" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 24, 41 )
 rotation = -1.02213
 
-[node name="SandbagBiege29" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege29" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 13, 97 )
 rotation = -1.68756
 
-[node name="SandbagBiege30" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege30" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 10, 148 )
 rotation = -1.5708
 
-[node name="SandbagBiege31" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege31" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( -9, 205 )
 rotation = -1.5708
 
-[node name="SandbagBiege32" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege32" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 2, 262 )
 rotation = -1.5708
 
-[node name="SandbagBiege33" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege33" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( -1, 322 )
 rotation = -1.5708
 
-[node name="SandbagBiege34" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege34" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 7, 393 )
 rotation = -1.5708
 
-[node name="SandbagBiege24" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege24" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 187, 4 )
 rotation = -0.139493
 
-[node name="TreeBig16" parent="Map/Objects" instance=ExtResource( 5 )]
+[node name="TreeBig16" parent="Map/Objects" instance=ExtResource( 4 )]
 position = Vector2( 1228, 43 )
 
-[node name="TreeSmall19" parent="Map/Objects" instance=ExtResource( 3 )]
+[node name="TreeSmall19" parent="Map/Objects" instance=ExtResource( 6 )]
 position = Vector2( 1299, -2 )
 
-[node name="TreeBig17" parent="Map/Objects" instance=ExtResource( 5 )]
+[node name="TreeBig17" parent="Map/Objects" instance=ExtResource( 4 )]
 position = Vector2( 1585, 32 )
 
-[node name="BarricadeWood8" parent="Map/Objects" instance=ExtResource( 6 )]
+[node name="BarricadeWood8" parent="Map/Objects" instance=ExtResource( 11 )]
 position = Vector2( 1453, 36 )
 
-[node name="TreeSmall20" parent="Map/Objects" instance=ExtResource( 3 )]
+[node name="TreeSmall20" parent="Map/Objects" instance=ExtResource( 6 )]
 position = Vector2( 1047, 1633 )
 
-[node name="TreeBig18" parent="Map/Objects" instance=ExtResource( 5 )]
+[node name="TreeBig18" parent="Map/Objects" instance=ExtResource( 4 )]
 position = Vector2( 966, 1602 )
 
-[node name="TreeBig19" parent="Map/Objects" instance=ExtResource( 5 )]
+[node name="TreeBig19" parent="Map/Objects" instance=ExtResource( 4 )]
 position = Vector2( 1132, 1640 )
 
-[node name="TreeSmall21" parent="Map/Objects" instance=ExtResource( 3 )]
+[node name="TreeSmall21" parent="Map/Objects" instance=ExtResource( 6 )]
 position = Vector2( 1340, 1667 )
 
-[node name="TreeSmall22" parent="Map/Objects" instance=ExtResource( 3 )]
+[node name="TreeSmall22" parent="Map/Objects" instance=ExtResource( 6 )]
 position = Vector2( 1399, 1643 )
 
-[node name="TreeSmall23" parent="Map/Objects" instance=ExtResource( 3 )]
+[node name="TreeSmall23" parent="Map/Objects" instance=ExtResource( 6 )]
 position = Vector2( 1453, 1660 )
 
-[node name="TreeBig20" parent="Map/Objects" instance=ExtResource( 5 )]
+[node name="TreeBig20" parent="Map/Objects" instance=ExtResource( 4 )]
 position = Vector2( 1585, 1629 )
 
-[node name="BarricadeWood9" parent="Map/Objects" instance=ExtResource( 6 )]
+[node name="BarricadeWood9" parent="Map/Objects" instance=ExtResource( 11 )]
 position = Vector2( 853, 1626 )
 
-[node name="CrateMetal15" parent="Map/Objects" instance=ExtResource( 9 )]
+[node name="CrateMetal15" parent="Map/Objects" instance=ExtResource( 18 )]
 position = Vector2( 1775, 1605 )
 rotation = -0.122433
 
-[node name="CrateMetal16" parent="Map/Objects" instance=ExtResource( 9 )]
+[node name="CrateMetal16" parent="Map/Objects" instance=ExtResource( 18 )]
 position = Vector2( 1711, 1638 )
 rotation = 0.275065
 
-[node name="SandbagBiege35" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege35" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 2015, 1643 )
 
-[node name="SandbagBiege36" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege36" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 2074, 1654 )
 
-[node name="SandbagBiege37" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege37" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 2130, 1667 )
 
-[node name="SandbagBiege38" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege38" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 2182, 1648 )
 
-[node name="SandbagBiege39" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege39" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 2236, 1661 )
 
-[node name="SandbagBiege40" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege40" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 2295, 1658 )
 
-[node name="SandbagBiege41" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege41" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 2354, 1664 )
 
-[node name="SandbagBiege42" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege42" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 2410, 1659 )
 rotation = 0.11924
 
-[node name="SandbagBiege43" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege43" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 2467, 1648 )
 rotation = -0.524014
 
-[node name="SandbagBiege44" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege44" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 2514, 1613 )
 rotation = -1.03599
 
-[node name="SandbagBiege45" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege45" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 2535, 1557 )
 rotation = -1.68463
 
-[node name="TreeSmall24" parent="Map/Objects" instance=ExtResource( 3 )]
+[node name="TreeSmall24" parent="Map/Objects" instance=ExtResource( 6 )]
 position = Vector2( 2566, 1034 )
 
-[node name="SandbagBiege46" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege46" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 2541, 1117 )
 rotation = -1.5708
 
-[node name="SandbagBiege47" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege47" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 2547, 1180 )
 rotation = -1.5708
 
-[node name="SandbagBiege48" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege48" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 2542, 1242 )
 rotation = -1.5708
 
-[node name="SandbagBiege49" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege49" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 2545, 1302 )
 rotation = -1.5708
 
-[node name="SandbagBiege50" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege50" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 2543, 1372 )
 rotation = -1.38456
 
-[node name="SandbagBiege51" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege51" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 2039, 18 )
 
-[node name="SandbagBiege52" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege52" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 2099, 13 )
 
-[node name="SandbagBiege53" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege53" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 2161, 24 )
 
-[node name="SandbagBiege54" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege54" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 2220, 4 )
 
-[node name="SandbagBiege55" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege55" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 2280, 15 )
 
-[node name="SandbagBiege56" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege56" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 2340, 10 )
 
-[node name="SandbagBiege57" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege57" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 2424, 15 )
 rotation = 0.267366
 
-[node name="SandbagBiege58" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege58" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 2544, 136 )
 rotation = -1.5708
 
-[node name="SandbagBiege59" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege59" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 2552, 196 )
 rotation = -1.5708
 
-[node name="SandbagBiege61" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege61" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 2555, 312 )
 rotation = -1.5708
 
-[node name="SandbagBiege62" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege62" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 2549, 400 )
 rotation = -1.27714
 
-[node name="SandbagBiege60" parent="Map/Objects" instance=ExtResource( 13 )]
+[node name="SandbagBiege60" parent="Map/Objects" instance=ExtResource( 8 )]
 position = Vector2( 2541, 255 )
 rotation = -1.93344
 
-[node name="FenceYellow2" parent="Map/Objects" instance=ExtResource( 4 )]
+[node name="FenceYellow2" parent="Map/Objects" instance=ExtResource( 12 )]
 position = Vector2( 1253, 1628 )
 rotation = 0.201219
 
-[node name="DropCrateSpawnArea1" parent="Map" instance=ExtResource( 16 )]
+[node name="DropCrateSpawnArea1" parent="Map" instance=ExtResource( 13 )]
 position = Vector2( 954, 759 )
 
-[node name="DropCrateSpawnArea2" parent="Map" instance=ExtResource( 16 )]
+[node name="DropCrateSpawnArea2" parent="Map" instance=ExtResource( 13 )]
 position = Vector2( 1729, 756 )
 
 [node name="Players" type="Node2D" parent="."]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="UILayer" type="CanvasLayer" parent="."]
+script = ExtResource( 5 )
 
-[node name="ConnectionScreen" parent="CanvasLayer" instance=ExtResource( 8 )]
+[node name="TitleScreen" parent="UILayer" instance=ExtResource( 9 )]
 visible = false
 
-[node name="ReadyScreen" parent="CanvasLayer" instance=ExtResource( 11 )]
+[node name="ConnectionScreen" parent="UILayer" instance=ExtResource( 3 )]
+visible = false
+
+[node name="MatchScreen" parent="UILayer" instance=ExtResource( 19 )]
+
+[node name="ReadyScreen" parent="UILayer" instance=ExtResource( 17 )]
 visible = false
 
 [node name="HUD" parent="." instance=ExtResource( 10 )]
@@ -534,6 +543,8 @@ port = 7350
 server_key = "defaultkey"
 use_ssl = false
 ssl_validate = false
-[connection signal="create_account" from="CanvasLayer/ConnectionScreen" to="." method="_on_ConnectionScreen_create_account"]
-[connection signal="login" from="CanvasLayer/ConnectionScreen" to="." method="_on_ConnectionScreen_login"]
+[connection signal="battle" from="UILayer/TitleScreen" to="." method="_on_TitleScreen_battle"]
+[connection signal="create_account" from="UILayer/ConnectionScreen" to="." method="_on_ConnectionScreen_create_account"]
+[connection signal="login" from="UILayer/ConnectionScreen" to="." method="_on_ConnectionScreen_login"]
+[connection signal="find_match" from="UILayer/MatchScreen" to="." method="_on_MatchScreen_find_match"]
 [connection signal="start" from="HUD" to="." method="_on_HUD_start"]
