@@ -24,7 +24,38 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+[node name="MatchIDContainer" type="HBoxContainer" parent="Panel"]
+anchor_right = 1.0
+margin_left = 100.0
+margin_top = 20.0
+margin_right = -100.0
+margin_bottom = 58.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel/MatchIDContainer"]
+margin_top = 5.0
+margin_right = 207.0
+margin_bottom = 53.0
+text = "Match ID:"
+
+[node name="MatchID" type="LineEdit" parent="Panel/MatchIDContainer"]
+margin_left = 211.0
+margin_right = 772.0
+margin_bottom = 58.0
+size_flags_horizontal = 3
+text = "XXXX-XXXX-XXXX-XXXX"
+align = 1
+editable = false
+
+[node name="MatchCopyButton" type="Button" parent="Panel/MatchIDContainer"]
+margin_left = 776.0
+margin_right = 880.0
+margin_bottom = 58.0
+text = "Copy"
+
+[node name="StatusContainer" type="VBoxContainer" parent="Panel"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -37,7 +68,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PeerStatus" parent="Panel/VBoxContainer" instance=ExtResource( 3 )]
+[node name="PeerStatus" parent="Panel/StatusContainer" instance=ExtResource( 3 )]
 
 [node name="ReadyButton" type="Button" parent="Panel"]
 anchor_top = 1.0
@@ -52,3 +83,4 @@ text = "I'm Ready!"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="pressed" from="Panel/ReadyButton" to="." method="_on_ReadyButton_pressed"]

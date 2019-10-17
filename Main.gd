@@ -76,32 +76,42 @@ func _process(delta: float) -> void:
 	
 	# Wait for all peers to be ready.
 	if match_state == MatchState.CONNECTING:
+		var all_connected = true
+		
 		# First, check that we have peers for every player we were matched with.
 		for session_id in webrtc_session_to_peer_map.keys():
 			if session_id == match_data['self']['session_id']:
 				continue
 			if not webrtc_peers.has(session_id):
-				return
+				all_connected = false
+			else:
+				# Then, check if each existing peer is connected.
+				var webrtc_peer = webrtc_peers[session_id]
+				if webrtc_peer.get_connection_state() == WebRTCPeerConnection.STATE_CONNECTED:
+					var peer_id = webrtc_session_to_peer_map[session_id]
+					$UILayer/ReadyScreen.set_status(peer_id, "Connected.")
+				else:
+					all_connected = false	
 		
-		# Then, loop over all the peers and see if they are connected
-		for webrtc_peer in webrtc_peers.values():
-			if webrtc_peer.get_connection_state() != WebRTCPeerConnection.STATE_CONNECTED:
-				return
-		
-		# If all those pass, then we are ready to enable Godot's high-level networking!
-		match_state = MatchState.READY;
-		
-		# Wait for a moment.
-		# @todo Replace with the "ReadyScreen" button.
-		yield(get_tree().create_timer(1), 'timeout')
-		
-		# ... and use it to let the master know that we are ready!
-		rpc_id(1, "peer_ready", get_tree().get_network_unique_id())
+		if all_connected:
+			# All our peers are good, so we can assume RPC will work now.
+			match_state = MatchState.READY;
+			
+			# Wait for a moment.
+			#yield(get_tree().create_timer(1), 'timeout')
+			
+			$UILayer/ReadyScreen.set_ready_button_enabled(true)
 
-mastersync func peer_ready(peer_id):
-	peers_ready[peer_id] = true
-	if peers_ready.size() == webrtc_peers.size():
-		start_new_game()
+func _on_ReadyScreen_ready_pressed() -> void:
+	rpc("peer_ready", get_tree().get_network_unique_id())
+
+remotesync func peer_ready(peer_id):
+	$UILayer/ReadyScreen.set_status(peer_id, "READY!")
+	
+	if get_tree().is_network_server():
+		peers_ready[peer_id] = true
+		if peers_ready.size() == players.size():
+			start_new_game()
 
 func _on_ConnectionScreen_login(email, password) -> void:
 	$NakamaClient.authenticate_email(email, password)
@@ -189,6 +199,7 @@ func _on_nakama_matchmaker_matched(data):
 		}, self, '_on_nakama_match_join');
 	else:
 		$HUD.show_message("Match maker error")
+		$UILayer.show_screen("MatchScreen")
 
 func _on_nakama_match_join(data):
 	if data.has('match'):
@@ -196,6 +207,8 @@ func _on_nakama_match_join(data):
 		print (data['match'])
 		
 		$HUD.show_message("Connecting to peers...")
+		$UILayer.show_screen("ReadyScreen", [players])
+		$UILayer/ReadyScreen.set_status(get_tree().get_network_unique_id(), "Connected.")
 		
 		match_data = data['match']
 		for u in match_data['presences']:
@@ -425,6 +438,7 @@ remotesync func done_preconfigure_game(peer_id) -> void:
 remotesync func post_configure_game():
 	game_started = true
 	$HUD.hide_all()
+	$UILayer.hide_screen()
 
 func _on_player_dead(peer_id : int) -> void:
 	var my_id = get_tree().get_network_unique_id()

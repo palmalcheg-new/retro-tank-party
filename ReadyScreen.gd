@@ -2,28 +2,34 @@ extends Control
 
 var PeerStatus = preload("res://PeerStatus.tscn");
 
-var connected = {}
+signal ready_pressed ()
 
 func _ready():
-	for child in $Panel/VBoxContainer.get_children():
+	for child in $Panel/StatusContainer.get_children():
 		child.queue_free()
 	$Panel/ReadyButton.disabled = true
 
-func initialize(users):
-	for k in users.keys():
-		var u = users[k];
+func initialize(players, match_id = ''):
+	if match_id:
+		$Panel/MatchIDContainer.visible = true
+		$Panel/MatchIDContainer/MatchID.text = match_id
+	else:
+		$Panel/MatchIDContainer.visible = false
+	
+	for peer_id in players:
+		var username = players[peer_id]
 		var status = PeerStatus.instance()
-		status.initialize(u['username'])
-		status.name = u['username']
-		$Panel/VBoxContainer.add_child(status)
-		connected[u['username']] = false
+		status.initialize(username)
+		status.name = str(peer_id)
+		$Panel/StatusContainer.add_child(status)
 
-func set_status_connected(username):
-	$Panel/VBoxContainer.get_node(username).set_status("CONNECTED!")
-	connected[username] = true
+func set_status(peer_id, status):
+	var status_node = $Panel/StatusContainer.get_node(str(peer_id))
+	if status_node:
+		status_node.set_status(status)
 
-	# Check if all connected, and if so, activate the button.	
-	for v in connected.values():
-		if not v:
-			return
-	$Panel/ReadyButton.disabled = false
+func set_ready_button_enabled(enabled : bool = true):
+	$Panel/ReadyButton.disabled = !enabled
+
+func _on_ReadyButton_pressed() -> void:
+	emit_signal("ready_pressed")
