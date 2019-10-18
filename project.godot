@@ -122,6 +122,10 @@ player_aim_down={
 2d_physics/layer_3="bullets"
 2d_physics/layer_4="powerups"
 
+[network]
+
+ssl/certificates="res://ca-certificates.crt"
+
 [physics]
 
 2d/default_gravity_vector=Vector2( 0, 0 )

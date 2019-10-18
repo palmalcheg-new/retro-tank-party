@@ -42,6 +42,14 @@ func _ready():
 	TankScenes['Player3'] = Player3
 	TankScenes['Player4'] = Player4
 	
+	var use_production_nakama = false
+	if use_production_nakama:
+		$NakamaClient.host = 'NAKAMA_HOST'
+		$NakamaClient.port = 'NAKAMA_PORT'
+		$NakamaClient.server_key = 'NAKAMA_SERVER_KEY'
+		$NakamaClient.use_ssl = true
+		$NakamaClient.ssl_validate = true
+	
 	#Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	
 	#if "--test-mode" in OS.get_cmdline_args():
@@ -136,6 +144,7 @@ func _on_ConnectionScreen_create_account(username, email, password) -> void:
 	yield($NakamaClient, "authenticate_email_completed")
 	
 	if $NakamaClient.last_response['http_code'] != 200:
+		print ($NakamaClient.last_response)
 		$HUD.show_message("Account with username/password already exists!")
 		$UILayer.show_screen("ConnectionScreen")
 	else:
