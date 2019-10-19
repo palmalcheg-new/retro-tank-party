@@ -83,4 +83,5 @@ text = "I'm Ready!"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="pressed" from="Panel/MatchIDContainer/MatchCopyButton" to="." method="_on_MatchCopyButton_pressed"]
 [connection signal="pressed" from="Panel/ReadyButton" to="." method="_on_ReadyButton_pressed"]

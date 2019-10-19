@@ -75,7 +75,6 @@ func _on_connection_closed(was_clean_close : bool = false):
 	emit_signal("disconnected", data)
 
 func _on_server_close_request(code : int, reason : String):
-	ready = false
 	close_code = code
 	close_reason = reason
 
