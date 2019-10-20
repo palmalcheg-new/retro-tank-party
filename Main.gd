@@ -6,20 +6,9 @@ var Player3 = preload("res://tanks/Player3.tscn")
 var Player4 = preload("res://tanks/Player4.tscn")
 var TankScenes = {}
 
-enum MatchState {
-	LOBBY = 0,
-	MATCHING = 1,
-	CONNECTING = 2,
-	READY = 4,
-}
-var match_state : int = MatchState.LOBBY
-
-var player_name : String
 var players = {}
 var players_ready = {}
 var players_loaded = {}
-
-var my_player
 
 var game_started = false
 var i_am_dead = false
@@ -268,7 +257,6 @@ func _create_camera() -> Camera2D:
 func clear_game_state() -> void:
 	game_started = false
 	i_am_dead = false
-	my_player = null
 	$WatchCamera.current = false
 	for child in $Players.get_children():
 		$Players.remove_child(child)
@@ -293,7 +281,7 @@ remotesync func preconfigure_game(player_info : Dictionary) -> void:
 		other_player.connect("dead", self, "_on_player_dead")
 		$Players.add_child(other_player)
 	
-	my_player = $Players.get_node(str(my_id))
+	var my_player = $Players.get_node(str(my_id))
 	my_player.player_controlled = true
 	my_player.add_child(_create_camera())
 	
