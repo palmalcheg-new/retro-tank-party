@@ -1,6 +1,6 @@
 extends Control
 
-var PeerStatus = preload("res://PeerStatus.tscn");
+var PeerStatus = preload("res://ui/PeerStatus.tscn");
 
 signal ready_pressed ()
 
