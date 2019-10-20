@@ -4,12 +4,11 @@ var PeerStatus = preload("res://PeerStatus.tscn");
 
 signal ready_pressed ()
 
-func _ready():
+func initialize(players, match_id = ''):
 	for child in $Panel/StatusContainer.get_children():
 		child.queue_free()
 	$Panel/ReadyButton.disabled = true
-
-func initialize(players, match_id = ''):
+	
 	if match_id:
 		$Panel/MatchIDContainer.visible = true
 		$Panel/MatchIDContainer/MatchID.text = match_id
@@ -30,6 +29,10 @@ func set_status(session_id, status):
 	var status_node = $Panel/StatusContainer.get_node(str(session_id))
 	if status_node:
 		status_node.set_status(status)
+
+func reset_status(status):
+	for child in $Panel/StatusContainer.get_children():
+		child.set_status(status)
 
 func set_ready_button_enabled(enabled : bool = true):
 	$Panel/ReadyButton.disabled = !enabled

@@ -110,18 +110,28 @@ size_flags_vertical = 3
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/JoinPanel"]
 margin_left = 31.0
 margin_top = 57.0
-margin_right = 468.0
+margin_right = 286.0
 margin_bottom = 105.0
-text = "Join match with ID:"
+text = "Join match:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="LineEdit" type="LineEdit" parent="PanelContainer/VBoxContainer/JoinPanel"]
-margin_left = 473.0
+margin_left = 286.0
+margin_top = 56.0
+margin_right = 572.0
+margin_bottom = 114.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PasteButton" type="Button" parent="PanelContainer/VBoxContainer/JoinPanel"]
+margin_left = 581.0
 margin_top = 57.0
-margin_right = 759.0
-margin_bottom = 115.0
+margin_right = 708.0
+margin_bottom = 111.0
+text = "Paste"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -137,4 +147,5 @@ __meta__ = {
 }
 [connection signal="pressed" from="PanelContainer/VBoxContainer/MatchPanel/MatchButton" to="." method="_on_MatchButton_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/CreatePanel/CreateButton" to="." method="_on_CreateButton_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/JoinPanel/PasteButton" to="." method="_on_PasteButton_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/JoinPanel/JoinButton" to="." method="_on_JoinButton_pressed"]

@@ -31,7 +31,7 @@ func _init() -> void:
 func connect_to_url(url : String) -> int:
 	return socket.connect_to_url(url)
 
-func disconnect_from_host(code : int, reason : String):
+func disconnect_from_host(code : int = 1000, reason : String = ''):
 	ready = false
 	socket.disconnect_from_host(code, reason)
 

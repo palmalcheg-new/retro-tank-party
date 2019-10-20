@@ -39,6 +39,7 @@ enum PlayerStatus {
 }
 
 signal error (message)
+signal disconnected (data)
 
 signal match_created (match_id)
 signal match_joined (match_id)
@@ -92,15 +93,34 @@ func start_matchmaking(nakama_client, min_players: int = 2):
 	if result != OK:
 		leave()
 		emit_signal("error", "Unable to join match making pool")
+	else:
+		match_state = MatchState.MATCHING
 
 func start_playing():
 	assert(match_state == MatchState.READY)
 	match_state = MatchState.PLAYING
 
 func leave():
-	# @todo clean up all old resources
-	# @todo re-initialize everything to default value
-	pass
+	# WebRTC disconnect.
+	webrtc_multiplayer.close()
+	
+	# Nakama disconnect.
+	if realtime_client:
+		if match_data:
+			realtime_client.send({ match_leave = { match_id = match_data['match_id'] }})
+		elif matchmaker_ticket:
+			realtime_client.send({ matchmaker_remove = { ticket = matchmaker_ticket }})
+		realtime_client.disconnect_from_host()
+	
+	# Initialize all the variables to their default state.
+	match_data = {}
+	matchmaker_ticket = ''
+	webrtc_multiplayer = WebRTCMultiplayer.new()
+	webrtc_peers = {}
+	players = {}
+	next_peer_id = 1
+	match_state = MatchState.LOBBY
+	match_mode = MatchMode.NONE
 
 func get_my_session_id():
 	if match_data && match_data.has('self'):
@@ -127,22 +147,15 @@ func _create_realtime_client(nakama_client):
 	realtime_client.connect("match_presence", self, "_on_nakama_match_presence")
 	realtime_client.connect("matchmaker_matched", self, "_on_nakama_matchmaker_matched")
 
-func _on_nakama_error():
+func _on_nakama_error(data):
+	print ("ERROR:")
+	print(data)
 	leave()
 	emit_signal("error", "Websocket connection error")
 
 func _on_nakama_disconnected(data):
 	leave()
-	
-	var msg = "Disconnected from server"
-	if not data['was_clean_close']:
-		msg += " uncleanly"
-	if data['reason']:
-		msg += " with reason: " + data['reason']
-	if data['code']:
-		msg += " (" + str(data['code']) + ")"
-	
-	emit_signal("error", msg)
+	emit_signal("disconnected", data)
 
 func _on_nakama_match_created(data) -> void:
 	print (data)

@@ -11,6 +11,7 @@ export (bool) var ssl_validate = false
 
 var authenticated := false
 var session_token := ''
+var session_expires := 0
 
 var client : HTTPRequest = HTTPRequest.new()
 var current_request
@@ -65,7 +66,7 @@ func _on_HTTPRequest_completed(result, response_code, headers, body : PoolByteAr
 			# If the user successfully authenticated, then store the session token.
 			if current_request['name'].begins_with('authenticate_') && response_code == 200 && response['data'].has('token'):
 				authenticated = true
-				session_token = response['data']['token']
+				_set_session(response['data']['token'])
 	
 	# Clear current_request before emitting signals, because starting a new request on a signal
 	# is a super common thing to do, and it won't work if current_request is still set.
@@ -77,6 +78,33 @@ func _on_HTTPRequest_completed(result, response_code, headers, body : PoolByteAr
 	
 	emit_signal(request['name'] + '_completed', response, request)
 	emit_signal('completed', response, request)
+
+func _set_session(_session_token):
+	authenticated = true
+	session_token = _session_token
+	session_expires = 0
+	
+	var parts = session_token.split('.')
+	if parts.size() != 3:
+		# Something is up with this token! Bail.
+		return
+	
+	var json_text = Marshalls.base64_to_utf8(parts[1])
+	# Strangely this json seems to be missing the closing curly bracket.
+	if not json_text.ends_with('}'):
+		json_text += '}'
+	var parse_result = JSON.parse(json_text)
+	if parse_result.error != OK:
+		return
+	
+	var data = parse_result.result
+	if data.has('exp'):
+		session_expires = int(data['exp'])
+
+func is_session_expired():
+	if not session_token:
+		return true
+	return OS.get_system_time_secs() > session_expires
 
 # If create_status = True, it'll show the user as connected.
 func create_realtime_client(create_status : bool = false):
@@ -93,6 +121,11 @@ signal authenticate_email_completed (response, request)
 func authenticate_email(email : String, password : String, create : bool = false, username : String = ''):
 	if current_request:
 		return ERR_ALREADY_IN_USE
+	
+	if authenticated:
+		authenticated = false
+		session_token = ''
+		session_expires = 0
 	
 	var request = {
 		method = HTTPClient.METHOD_POST,

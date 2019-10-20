@@ -50,6 +50,7 @@ func _ready():
 	#	return
 	
 	$Multiplayer.connect("error", self, "_on_match_error")
+	$Multiplayer.connect("disconnected", self, "_on_match_disconnected")
 	$Multiplayer.connect("match_created", self, "_on_match_created")
 	$Multiplayer.connect("match_joined", self, "_on_match_joined")
 	$Multiplayer.connect("matchmaker_matched", self, "_on_matchmaker_matched")
@@ -100,29 +101,62 @@ func _on_ConnectionScreen_create_account(username, email, password) -> void:
 		$UILayer.show_screen("MatchScreen")
 
 func _on_MatchScreen_create_match() -> void:
-	$Multiplayer.create_match($NakamaClient)
+	if $NakamaClient.is_session_expired():
+		$HUD.show_message("Login session has expired")
+		$UILayer.show_screen("ConnectionScreen")
+	else:
+		$Multiplayer.create_match($NakamaClient)
+		$HUD.hide_message()
 
 func _on_MatchScreen_join_match(match_id) -> void:
-	$Multiplayer.join_match($NakamaClient, match_id)
+	if not match_id:
+		$HUD.show_message("Need to paste Match ID to join")
+		return
+	
+	if $NakamaClient.is_session_expired():
+		$HUD.show_message("Login session has expired")
+		$UILayer.show_screen("ConnectionScreen")
+	else:
+		$Multiplayer.join_match($NakamaClient, match_id)
+		$HUD.hide_message()
 
 func _on_MatchScreen_find_match(min_players: int):
-	$UILayer.hide_screen()
-	$HUD.show_message("Looking for match...")
-	$Multiplayer.start_matchmaking($NakamaClient, min_players)
+	if $NakamaClient.is_session_expired():
+		$HUD.show_message("Login session has expired")
+		$UILayer.show_screen("ConnectionScreen")
+	else:
+		$UILayer.hide_screen()
+		$HUD.show_message("Looking for match...")
+		$HUD.show_exit_button()
+		$Multiplayer.start_matchmaking($NakamaClient, min_players)
 
 func _on_match_error(message):
 	$UILayer.show_screen("MatchScreen")
 	$HUD.show_message(message)
+	$HUD.hide_exit_button()
+
+func _on_match_disconnected(data):
+	if not data['was_clean_close']:
+		var msg = "Disconnected from server"
+		if data['reason']:
+			msg += " with reason: " + data['reason']
+		if data['code']:
+			msg += " (" + str(data['code']) + ")"
+		
+		_on_match_error(msg)
 
 func _on_match_created(match_id):
 	$UILayer.show_screen("ReadyScreen", [{}, match_id])
+	$HUD.show_exit_button()
 
 func _on_match_joined(match_id):
 	$UILayer.show_screen("ReadyScreen", [{}, match_id])
+	$HUD.show_exit_button()
 
 func _on_matchmaker_matched(players):
 	$HUD.hide_all()
 	$UILayer.show_screen("ReadyScreen", [players])
+	$HUD.show_exit_button()
 
 func _on_player_joined(player):
 	$UILayer/ReadyScreen.add_player(player['session_id'], player['username'])
@@ -148,7 +182,8 @@ remotesync func player_ready(session_id):
 	if get_tree().is_network_server():
 		players_ready[session_id] = true
 		if players_ready.size() == $Multiplayer.players.size():
-			$Multiplayer.start_playing()
+			if $Multiplayer.match_state != $Multiplayer.MatchState.PLAYING:
+				$Multiplayer.start_playing()
 			start_new_game()
 
 func _on_HUD_start() -> void:
@@ -156,6 +191,11 @@ func _on_HUD_start() -> void:
 		restart_game()
 	else:
 		start_new_game()
+
+func _on_HUD_exit() -> void:
+	stop_game()
+	$HUD.hide_all()
+	$UILayer.show_screen("MatchScreen")
 
 func start_new_game() -> void:
 	players = $Multiplayer.get_player_names_by_peer_id()
@@ -176,9 +216,13 @@ func start_new_game() -> void:
 	$Map/DropCrateSpawnArea1.start()
 	$Map/DropCrateSpawnArea2.start()
 
-func restart_game() -> void:
-	my_player = null
+func stop_game() -> void:
+	$Multiplayer.leave()
+	clear_game_state()
 	players_loaded.clear()
+
+func restart_game() -> void:
+	stop_game()
 	start_new_game()
 
 func _create_camera() -> Camera2D:	
@@ -194,16 +238,20 @@ func _create_camera() -> Camera2D:
 	
 	return camera
 
+func clear_game_state() -> void:
+	game_started = false
+	i_am_dead = false
+	my_player = null
+	$WatchCamera.current = false
+	for child in $Players.get_children():
+		$Players.remove_child(child)
+		child.queue_free()
+	$Map/DropCrateSpawnArea1.clear()
+	$Map/DropCrateSpawnArea2.clear()
+
 remotesync func preconfigure_game(player_info : Dictionary) -> void:
-	# This is to clean up from a previous game.
 	if game_started:
-		i_am_dead = false
-		$WatchCamera.current = false
-		for child in $Players.get_children():
-			$Players.remove_child(child)
-			child.queue_free()
-		$Map/DropCrateSpawnArea1.clear()
-		$Map/DropCrateSpawnArea2.clear()
+		clear_game_state()
 	
 	var players = $Multiplayer.get_player_names_by_peer_id()
 	var my_id = get_tree().get_network_unique_id()
@@ -236,8 +284,9 @@ remotesync func done_preconfigure_game(peer_id) -> void:
 
 remotesync func post_configure_game():
 	game_started = true
-	$HUD.hide_all()
 	$UILayer.hide_screen()
+	$HUD.hide_all()
+	$HUD.show_exit_button()
 
 func _on_player_dead(peer_id : int) -> void:
 	var my_id = get_tree().get_network_unique_id()
@@ -252,7 +301,16 @@ func _on_player_dead(peer_id : int) -> void:
 		if players_loaded.has(peer_id):
 			players_loaded.erase(peer_id)
 		if players_loaded.size() == 1:
+			# Show the winner name.
 			var remaining_players = players_loaded.values()
 			var winner = remaining_players[0]
-			$HUD.rpc("show_message", winner + " is the winner!")
-			$HUD.show_start_button("Play again")
+			rpc("show_winner", winner)
+			
+			# Reset the ready/loaded checks
+			players_ready.clear()
+			players_loaded.clear()
+
+remotesync func show_winner(name):
+	$HUD.show_message(name + " is the winner!")
+	$UILayer/ReadyScreen.reset_status("Waiting...")
+	$UILayer.show_screen("ReadyScreen")
