@@ -93,8 +93,16 @@ func _on_ConnectionScreen_create_account(username, email, password) -> void:
 	yield($NakamaClient, "authenticate_email_completed")
 	
 	if $NakamaClient.last_response['http_code'] != 200:
-		print ($NakamaClient.last_response)
-		$HUD.show_message("Account with username/password already exists!")
+		var msg: String
+		if $NakamaClient.last_response['data'].has('error'):
+			msg = $NakamaClient.last_response['data']['error']
+			# Nakama treats registration as logging in, so this is what we get if the
+			# the email is already is use but the password is wrong.
+			if msg == 'Invalid credentials.':
+				msg = 'E-mail already in use.'
+		else:
+			msg = "Unable to create account"
+		$HUD.show_message(msg)
 		$UILayer.show_screen("ConnectionScreen")
 	else:
 		$HUD.hide_all()
