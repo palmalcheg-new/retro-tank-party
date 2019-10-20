@@ -75,22 +75,27 @@ func join_match(nakama_client, match_id: String):
 		leave()
 		emit_signal("error", "Unable to join match")
 
-func start_matchmaking(nakama_client, min_players: int = 2):
+func start_matchmaking(nakama_client, data: Dictionary = {}):
 	leave()
 	match_mode = MatchMode.MATCHMAKER
 	_create_realtime_client(nakama_client)
 	yield(realtime_client, "connected")
 	
-	var result = realtime_client.send({
-		matchmaker_add = {
-			min_count = min_players,
-			max_count = max_players,
-			# @todo We need to update query to be game specific! 
-			# At some point, we'll have multiple games on the same Nakama server.
-			query = '*',
-		}
-	}, self, "_on_nakama_matchmaker_add")
+	if data.has('min_count'):
+		data['min_count'] = max(min_players, data['min_count'])
+	else:
+		data['min_count'] = min_players
 	
+	if data.has('max_count'):
+		data['max_count'] = min(max_players, data['max_count'])
+	else:
+		data['max_count'] = max_players
+	
+	if not data.has('query'):
+		data['query'] = '*'
+	
+	print (data)
+	var result = realtime_client.send({ matchmaker_add = data }, self, "_on_nakama_matchmaker_add")
 	if result != OK:
 		leave()
 		emit_signal("error", "Unable to join match making pool")
@@ -105,6 +110,7 @@ func leave():
 	# WebRTC disconnect.
 	if webrtc_multiplayer:
 		webrtc_multiplayer.close()
+		get_tree().set_network_peer(null)
 	
 	# Nakama disconnect.
 	if realtime_client:

@@ -136,7 +136,15 @@ func _on_MatchScreen_find_match(min_players: int):
 		$UILayer.hide_screen()
 		$HUD.show_message("Looking for match...")
 		$HUD.show_exit_button()
-		$Multiplayer.start_matchmaking($NakamaClient, min_players)
+		
+		var data = {
+			min_count = min_players,
+			string_properties = {
+				game = "retro_tank_party",
+			},
+			query = "+properties.game:retro_tank_party",
+		}
+		$Multiplayer.start_matchmaking($NakamaClient, data)
 
 func _on_match_error(message):
 	$UILayer.show_screen("MatchScreen")
