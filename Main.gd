@@ -13,7 +13,7 @@ var players_loaded = {}
 var game_started = false
 var i_am_dead = false
 
-var test_mode = false
+var practice_mode = false
 
 func _ready():
 	TankScenes['Player1'] = Player1
@@ -31,13 +31,6 @@ func _ready():
 	
 	#Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	
-	#if "--test-mode" in OS.get_cmdline_args():
-	#	test_mode = true
-	#	_on_ConnectionScreen_serve('Tester', 12233)
-	#	$HUD.hide_all()
-	#	start_new_game()
-	#	return
-	
 	$Multiplayer.connect("error", self, "_on_match_error")
 	$Multiplayer.connect("disconnected", self, "_on_match_disconnected")
 	$Multiplayer.connect("match_created", self, "_on_match_created")
@@ -49,15 +42,39 @@ func _ready():
 	$Multiplayer.connect("match_ready", self, "_on_match_ready")
 	$Multiplayer.connect("match_not_ready", self, "_on_match_not_ready")
 
-func _on_TitleScreen_battle() -> void:
-	$UILayer.show_screen("ConnectionScreen")
-
 func _input(event):
 	#if event.is_action_pressed("ui_cancel"):
 	#	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	#if event.is_action_pressed("player_shoot"):
 	#	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	pass
+
+func _on_UILayer_change_screen(name, screen) -> void:
+	if name == 'MatchScreen':
+		if not $NakamaClient.authenticated or $NakamaClient.is_session_expired():
+			# If we were previously connected, then show a message.
+			if $NakamaClient.authenticated:
+				$HUD.show_message("Login session has expired")
+			$UILayer.show_screen("ConnectionScreen")
+	
+	if name == 'TitleScreen':
+		$HUD.hide_exit_button()
+	else:
+		$HUD.show_exit_button()
+
+func _on_TitleScreen_battle() -> void:
+	$UILayer.show_screen("MatchScreen")
+
+func _on_TitleScreen_practice() -> void:
+	practice_mode = true
+	$UILayer.hide_screen()
+	
+	# We just need a dummy multiplayer.
+	var webrtc_multiplayer = WebRTCMultiplayer.new()
+	webrtc_multiplayer.initialize(1)
+	get_tree().set_network_peer(webrtc_multiplayer)
+	
+	start_new_game()
 
 func _on_ConnectionScreen_login(email, password) -> void:
 	$NakamaClient.authenticate_email(email, password)
@@ -138,7 +155,6 @@ func _on_MatchScreen_find_match(min_players: int):
 func _on_match_error(message):
 	$UILayer.show_screen("MatchScreen")
 	$HUD.show_message(message)
-	$HUD.hide_exit_button()
 
 func _on_match_disconnected(data):
 	if not data['was_clean_close']:
@@ -211,10 +227,20 @@ func _on_HUD_start() -> void:
 func _on_HUD_exit() -> void:
 	stop_game()
 	$HUD.hide_all()
-	$UILayer.show_screen("MatchScreen")
+	
+	if $UILayer.current_screen_name == 'ConnectionScreen' or $UILayer.current_screen_name == 'MatchScreen':
+		$UILayer.show_screen("TitleScreen")
+	elif practice_mode:
+		practice_mode = false
+		$UILayer.show_screen("TitleScreen")
+	else:
+		$UILayer.show_screen("MatchScreen")
 
 func start_new_game() -> void:
-	players = $Multiplayer.get_player_names_by_peer_id()
+	if practice_mode:
+		players = { 1: "Practice" }
+	else:
+		players = $Multiplayer.get_player_names_by_peer_id()
 	
 	var player_info = {}
 	
@@ -222,6 +248,7 @@ func start_new_game() -> void:
 	for peer_id in players:
 		player_info[peer_id] = {
 			'tank': "Player" + str(i),
+			'username': players[peer_id],
 			'position': $Map/PlayerStartPositions.get_node("Player" + str(i)).global_position,
 			'rotation': $Map/PlayerStartPositions.get_node("Player" + str(i)).global_rotation,
 		}
@@ -268,14 +295,13 @@ remotesync func preconfigure_game(player_info : Dictionary) -> void:
 	if game_started:
 		clear_game_state()
 	
-	var players = $Multiplayer.get_player_names_by_peer_id()
 	var my_id = get_tree().get_network_unique_id()
 	
-	for peer_id in players:
+	for peer_id in player_info:
 		var other_player = TankScenes[player_info[peer_id]['tank']].instance()
 		other_player.set_name(str(peer_id))
 		other_player.set_network_master(peer_id)
-		other_player.set_player_name(players[peer_id])
+		other_player.set_player_name(player_info[peer_id]['username'])
 		other_player.position = player_info[peer_id]['position']
 		other_player.rotation = player_info[peer_id]['rotation']
 		other_player.connect("dead", self, "_on_player_dead")

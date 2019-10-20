@@ -1,5 +1,9 @@
 extends CanvasLayer
 
+signal change_screen (name, screen)
+
+var current_screen_name : String = ''
+
 func _ready():
 	show_screen("TitleScreen")
 
@@ -9,7 +13,10 @@ func show_screen(name: String, args: Array = []):
 	screen.visible = true
 	if screen.has_method("initialize"):
 		screen.callv("initialize", args)
+	current_screen_name = name
+	emit_signal("change_screen", name, screen)
 
 func hide_screen():
 	for child in get_children():
 		child.visible = false
+	current_screen_name = ''

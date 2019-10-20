@@ -49,7 +49,9 @@ __meta__ = {
 
 [node name="Multiplayer" type="Node" parent="."]
 script = ExtResource( 10 )
+[connection signal="change_screen" from="UILayer" to="." method="_on_UILayer_change_screen"]
 [connection signal="battle" from="UILayer/TitleScreen" to="." method="_on_TitleScreen_battle"]
+[connection signal="practice" from="UILayer/TitleScreen" to="." method="_on_TitleScreen_practice"]
 [connection signal="create_account" from="UILayer/ConnectionScreen" to="." method="_on_ConnectionScreen_create_account"]
 [connection signal="login" from="UILayer/ConnectionScreen" to="." method="_on_ConnectionScreen_login"]
 [connection signal="create_match" from="UILayer/MatchScreen" to="." method="_on_MatchScreen_create_match"]

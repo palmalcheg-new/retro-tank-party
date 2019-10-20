@@ -54,17 +54,25 @@ __meta__ = {
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -300.0
-margin_bottom = -100.0
+margin_top = -302.0
+margin_bottom = -102.0
+custom_constants/separation = 50
 alignment = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="PracticeButton" type="Button" parent="HBoxContainer"]
+margin_left = 417.0
+margin_right = 613.0
+margin_bottom = 200.0
+text = "Practice"
+
 [node name="BattleButton" type="Button" parent="HBoxContainer"]
-margin_left = 540.0
-margin_right = 740.0
+margin_left = 663.0
+margin_right = 863.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 200, 0 )
 text = "Battle"
+[connection signal="pressed" from="HBoxContainer/PracticeButton" to="." method="_on_PracticeButton_pressed"]
 [connection signal="pressed" from="HBoxContainer/BattleButton" to="." method="_on_BattleButton_pressed"]
