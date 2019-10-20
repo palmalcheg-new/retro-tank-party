@@ -88,12 +88,14 @@ func _set_session(_session_token):
 	if parts.size() != 3:
 		# Something is up with this token! Bail.
 		return
-	
-	var json_text = Marshalls.base64_to_utf8(parts[1])
-	# Strangely this json seems to be missing the closing curly bracket.
-	if not json_text.ends_with('}'):
-		json_text += '}'
-	var parse_result = JSON.parse(json_text)
+
+	# Godot's base64 utility requires padding on the base64, but the value
+	# we get from the JWT token has it stripped. So, add it back first.
+	var base64_text = parts[1]
+	while base64_text.length() % 4 != 0:
+		base64_text += '='
+		
+	var parse_result = JSON.parse(Marshalls.base64_to_utf8(base64_text))
 	if parse_result.error != OK:
 		return
 	
