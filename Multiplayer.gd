@@ -181,7 +181,7 @@ func _on_nakama_match_presence(data):
 	
 	if data.has('joins'):
 		for u in data['joins']:
-			if u['session_id'] == match_data['self']['session_id']:	
+			if u['session_id'] == match_data['self']['session_id']:
 				continue
 			
 			if match_mode == MatchMode.CREATE:
