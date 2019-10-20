@@ -5,15 +5,16 @@ export (int) var max_players = 4
 
 # Nakama variables:
 var realtime_client
-var match_data : Dictionary = {}
-var matchmaker_ticket : String = ''
+var my_session_id : String
+var match_data : Dictionary
+var matchmaker_ticket : String
 
 # WebRTC variables:
-var webrtc_multiplayer: WebRTCMultiplayer = WebRTCMultiplayer.new()
-var webrtc_peers : Dictionary = {}
+var webrtc_multiplayer: WebRTCMultiplayer
+var webrtc_peers : Dictionary
 
-var players : Dictionary = {}
-var next_peer_id : int = 1
+var players : Dictionary
+var next_peer_id : int
 
 enum MatchState {
 	LOBBY = 0,
@@ -102,7 +103,8 @@ func start_playing():
 
 func leave():
 	# WebRTC disconnect.
-	webrtc_multiplayer.close()
+	if webrtc_multiplayer:
+		webrtc_multiplayer.close()
 	
 	# Nakama disconnect.
 	if realtime_client:
@@ -113,6 +115,7 @@ func leave():
 		realtime_client.disconnect_from_host()
 	
 	# Initialize all the variables to their default state.
+	my_session_id = ''
 	match_data = {}
 	matchmaker_ticket = ''
 	webrtc_multiplayer = WebRTCMultiplayer.new()
@@ -123,8 +126,8 @@ func leave():
 	match_mode = MatchMode.NONE
 
 func get_my_session_id():
-	if match_data && match_data.has('self'):
-		return match_data['self']['session_id']
+	if my_session_id:
+		return my_session_id
 	return null
 
 func get_session(peer_id: int):
@@ -163,7 +166,8 @@ func _on_nakama_match_created(data) -> void:
 		match_data = data['match']
 		match_data['self']['peer_id'] = 1
 		var my_player = match_data['self']
-		players[my_player['session_id']] = my_player
+		my_session_id = my_player['session_id']
+		players[my_session_id] = my_player
 		next_peer_id += 1
 		
 		webrtc_multiplayer.initialize(1)
@@ -181,7 +185,7 @@ func _on_nakama_match_presence(data):
 	
 	if data.has('joins'):
 		for u in data['joins']:
-			if u['session_id'] == match_data['self']['session_id']:
+			if u['session_id'] == my_session_id:
 				continue
 			
 			if match_mode == MatchMode.CREATE:
@@ -236,7 +240,7 @@ func _on_nakama_match_presence(data):
 	
 	if data.has('leaves'):
 		for u in data['leaves']:
-			if u['session_id'] == match_data['self']['session_id']:
+			if u['session_id'] == my_session_id:
 				continue
 			
 			_webrtc_disconnect_peer(u)
@@ -259,12 +263,13 @@ func _on_nakama_match_presence(data):
 func _on_nakama_match_join(data):
 	if data.has('match'):
 		match_data = data['match']
+		my_session_id = match_data['self']['session_id']
 		
 		if match_mode == MatchMode.JOIN:
 			emit_signal("match_joined", match_data['match_id'])
 		elif match_mode == MatchMode.MATCHMAKER:
 			for u in match_data['presences']:
-				if u['session_id'] == match_data['self']['session_id']:
+				if u['session_id'] == my_session_id:
 						continue
 				_webrtc_connect_peer(players[u['session_id']])
 	else:
@@ -280,6 +285,8 @@ func _on_nakama_matchmaker_matched(data):
 	print (data)
 	
 	if data.has('users') && data.has('token') && data.has('self'):
+		my_session_id = data['self']['presence']['session_id']
+		
 		# Use the list of users to assign peer ids.
 		for u in data['users']:
 			players[u['presence']['session_id']] = u['presence']
@@ -290,7 +297,7 @@ func _on_nakama_matchmaker_matched(data):
 			next_peer_id += 1
 		
 		# Initialize multiplayer using our peer id
-		webrtc_multiplayer.initialize(players[data['self']['presence']['session_id']]['peer_id'])
+		webrtc_multiplayer.initialize(players[my_session_id]['peer_id'])
 		get_tree().set_network_peer(webrtc_multiplayer)
 		
 		emit_signal("matchmaker_matched", players)
@@ -312,7 +319,7 @@ func _on_nakama_match_data(data):
 		
 	var content = json_result.result
 	if data['op_code'] == 1:
-		if content['target'] == match_data['self']['session_id']:
+		if content['target'] == my_session_id:
 			var webrtc_peer = webrtc_peers[data['presence']['session_id']]
 			match content['method']:
 				'set_remote_description':
@@ -328,13 +335,13 @@ func _on_nakama_match_data(data):
 				players[session_id]['peer_id'] = int(players[session_id]['peer_id'])
 				_webrtc_connect_peer(players[session_id])
 				emit_signal("player_joined", players[session_id])
-				if session_id == match_data['self']['session_id']:
+				if session_id == my_session_id:
 					webrtc_multiplayer.initialize(players[session_id]['peer_id'])
 					get_tree().set_network_peer(webrtc_multiplayer)
 					
 					emit_signal("player_status_changed", players[session_id], PlayerStatus.CONNECTED)
 	if data['op_code'] == 3:
-		if content['target'] == match_data['self']['session_id']:
+		if content['target'] == my_session_id:
 			leave()
 			emit_signal("error", content['reason'])
 
@@ -362,7 +369,7 @@ func _webrtc_connect_peer(u: Dictionary):
 	
 	webrtc_multiplayer.add_peer(webrtc_peer, u['peer_id'])
 	
-	if match_data['self']['session_id'].casecmp_to(u['session_id']) < 0:
+	if my_session_id.casecmp_to(u['session_id']) < 0:
 		print ("Create offer")
 		var result = webrtc_peer.create_offer()
 		if result != OK:
@@ -425,7 +432,7 @@ func _process(delta: float) -> void:
 		
 		# First, check that we have peers for every player we were matched with.
 		for session_id in players:
-			if session_id == match_data['self']['session_id']:
+			if session_id == my_session_id:
 				continue
 			if not webrtc_peers.has(session_id):
 				all_connected = false
