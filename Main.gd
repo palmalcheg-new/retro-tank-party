@@ -312,5 +312,8 @@ func _on_player_dead(peer_id : int) -> void:
 
 remotesync func show_winner(name):
 	$HUD.show_message(name + " is the winner!")
+	
+	yield(get_tree().create_timer(2.0), "timeout")
+	
 	$UILayer/ReadyScreen.reset_status("Waiting...")
 	$UILayer.show_screen("ReadyScreen")
