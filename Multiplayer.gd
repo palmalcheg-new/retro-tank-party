@@ -59,6 +59,7 @@ func create_match(nakama_client):
 	
 	var result = realtime_client.send({ match_create = {} }, self, '_on_nakama_match_created')
 	if result != OK:
+		leave()
 		emit_signal("error", "Unable to create match with code: " + str(result))
 
 func join_match(nakama_client, match_id: String):
@@ -69,6 +70,7 @@ func join_match(nakama_client, match_id: String):
 	
 	var result = realtime_client.send({ match_join = { match_id = match_id }}, self, '_on_nakama_match_join')
 	if result != OK:
+		leave()
 		emit_signal("error", "Unable to join match")
 
 func start_matchmaking(nakama_client, min_players: int = 2):
@@ -88,6 +90,7 @@ func start_matchmaking(nakama_client, min_players: int = 2):
 	}, self, "_on_nakama_matchmaker_add")
 	
 	if result != OK:
+		leave()
 		emit_signal("error", "Unable to join match making pool")
 
 func start_playing():
@@ -169,23 +172,51 @@ func _on_nakama_match_presence(data):
 				continue
 			
 			if match_mode == MatchMode.CREATE:
-				u['peer_id'] = next_peer_id
-				next_peer_id += 1
-				players[u['session_id']] = u
-				emit_signal("player_joined", u)
+				if match_state == MatchState.PLAYING:
+					# Tell this player that we've already started
+					realtime_client.send({
+						match_data_send = {
+							match_id = match_data['match_id'],
+							op_code = 3,
+							
+							data = JSON.print({
+								target = u['session_id'],
+								reason = 'Sorry! The match has already begun.',
+							}),
+						},
+					})
 				
-				_webrtc_connect_peer(u)
-				
-				# Tell this player (and the others) about all the players peer ids.
-				realtime_client.send({
-					match_data_send = {
-						match_id = match_data['match_id'],
-						op_code = 2,
-						data = JSON.print({
-							players = players,
-						}),
-					},
-				})
+				if players.size() < max_players:
+					u['peer_id'] = next_peer_id
+					next_peer_id += 1
+					players[u['session_id']] = u
+					emit_signal("player_joined", u)
+					
+					_webrtc_connect_peer(u)
+					
+					# Tell this player (and the others) about all the players peer ids.
+					realtime_client.send({
+						match_data_send = {
+							match_id = match_data['match_id'],
+							op_code = 2,
+							data = JSON.print({
+								players = players,
+							}),
+						},
+					})
+				else:
+					# Tell this player that we're full up!
+					realtime_client.send({
+						match_data_send = {
+							match_id = match_data['match_id'],
+							op_code = 3,
+							
+							data = JSON.print({
+								target = u['session_id'],
+								reason = 'Sorry! The match is full.,',
+							}),
+						},
+					})
 			elif match_mode == MatchMode.MATCHMAKER:
 				emit_signal("player_joined", players[u['session_id']])
 				_webrtc_connect_peer(players[u['session_id']])
@@ -214,6 +245,7 @@ func _on_nakama_match_join(data):
 						continue
 				_webrtc_connect_peer(players[u['session_id']])
 	else:
+		leave()
 		emit_signal("error", "Unable to join match")
 
 func _on_nakama_matchmaker_add(data):
@@ -244,7 +276,44 @@ func _on_nakama_matchmaker_matched(data):
 		# Join the match.
 		realtime_client.send({ match_join = {token = data['token']}}, self, '_on_nakama_match_join');
 	else:
+		leave()
 		emit_signal("error", "Matchmaker error")
+
+func _on_nakama_match_data(data):
+	print("match_data:")
+	print(data)
+	
+	var json_result = JSON.parse(data['data'])
+	if json_result.error != OK:
+		return
+		
+	var content = json_result.result
+	if data['op_code'] == 1:
+		if content['target'] == match_data['self']['session_id']:
+			var webrtc_peer = webrtc_peers[data['presence']['session_id']]
+			match content['method']:
+				'set_remote_description':
+					webrtc_peer.set_remote_description(content['type'], content['sdp'])
+				
+				'add_ice_candidate':
+					webrtc_peer.add_ice_candidate(content['media'], content['index'], content['name'])
+	if data['op_code'] == 2 && match_mode == MatchMode.JOIN:
+		for session_id in content['players']:
+			if not players.has(session_id):
+				players[session_id] = content['players'][session_id]
+				# Going back and forth over the wire, 'peer_id' turns into a string somehow.
+				players[session_id]['peer_id'] = int(players[session_id]['peer_id'])
+				_webrtc_connect_peer(players[session_id])
+				emit_signal("player_joined", players[session_id])
+				if session_id == match_data['self']['session_id']:
+					webrtc_multiplayer.initialize(players[session_id]['peer_id'])
+					get_tree().set_network_peer(webrtc_multiplayer)
+					
+					emit_signal("player_status_changed", players[session_id], PlayerStatus.CONNECTED)
+	if data['op_code'] == 3:
+		if content['target'] == match_data['self']['session_id']:
+			leave()
+			emit_signal("error", content['reason'])
 
 func _webrtc_connect_peer(u: Dictionary):
 	# Don't add the same peer twice!
@@ -320,38 +389,6 @@ func _on_webrtc_peer_ice_candidate_created(media : String, index : int, name : S
 			}),
 		},
 	})
-
-func _on_nakama_match_data(data):
-	print("match_data:")
-	print(data)
-	
-	var json_result = JSON.parse(data['data'])
-	if json_result.error != OK:
-		return
-		
-	var content = json_result.result
-	if data['op_code'] == 1:
-		if content['target'] == match_data['self']['session_id']:
-			var webrtc_peer = webrtc_peers[data['presence']['session_id']]
-			match content['method']:
-				'set_remote_description':
-					webrtc_peer.set_remote_description(content['type'], content['sdp'])
-				
-				'add_ice_candidate':
-					webrtc_peer.add_ice_candidate(content['media'], content['index'], content['name'])
-	if data['op_code'] == 2 && match_mode == MatchMode.JOIN:
-		for session_id in content['players']:
-			if not players.has(session_id):
-				players[session_id] = content['players'][session_id]
-				# Going back and forth over the wire, 'peer_id' turns into a string somehow.
-				players[session_id]['peer_id'] = int(players[session_id]['peer_id'])
-				_webrtc_connect_peer(players[session_id])
-				emit_signal("player_joined", players[session_id])
-				if session_id == match_data['self']['session_id']:
-					webrtc_multiplayer.initialize(players[session_id]['peer_id'])
-					get_tree().set_network_peer(webrtc_multiplayer)
-					
-					emit_signal("player_status_changed", players[session_id], PlayerStatus.CONNECTED)
 
 func _process(delta: float) -> void:
 	if realtime_client:
