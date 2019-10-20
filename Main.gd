@@ -162,7 +162,18 @@ func _on_player_joined(player):
 	$UILayer/ReadyScreen.add_player(player['session_id'], player['username'])
 
 func _on_player_left(player):
-	pass
+	$HUD.show_message(player['username'] + " has left")
+	
+	$UILayer/ReadyScreen.remove_player(player['session_id'])
+	
+	if game_started:
+		var tank = $Players.get_node(str(player['peer_id']))
+		if tank:
+			tank.die()
+		else:
+			# This will be called by tank.die() if the tank still exists. But if not,
+			# as a fallback, we just call the event handler directly.
+			_on_player_dead(player['peer_id'])
 
 func _on_player_status_changed(player, status):
 	$UILayer/ReadyScreen.set_status(player['session_id'], 'Connected.')
@@ -315,5 +326,6 @@ remotesync func show_winner(name):
 	
 	yield(get_tree().create_timer(2.0), "timeout")
 	
+	$UILayer/ReadyScreen.hide_match_id()
 	$UILayer/ReadyScreen.reset_status("Waiting...")
 	$UILayer.show_screen("ReadyScreen")

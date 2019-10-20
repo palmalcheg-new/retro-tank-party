@@ -18,15 +18,23 @@ func initialize(players, match_id = ''):
 	for session_id in players:
 		add_player(session_id, players[session_id]['username'])
 
+func hide_match_id() -> void:
+	$Panel/MatchIDContainer.visible = false
+
 func add_player(session_id, username):
-	if not $Panel/StatusContainer.has_node(str(session_id)):
+	if not $Panel/StatusContainer.has_node(session_id):
 		var status = PeerStatus.instance()
 		status.initialize(username)
-		status.name = str(session_id)
+		status.name = session_id
 		$Panel/StatusContainer.add_child(status)
 
+func remove_player(session_id):
+	var status = $Panel/StatusContainer.get_node(session_id)
+	if status:
+		status.queue_free()
+
 func set_status(session_id, status):
-	var status_node = $Panel/StatusContainer.get_node(str(session_id))
+	var status_node = $Panel/StatusContainer.get_node(session_id)
 	if status_node:
 		status_node.set_status(status)
 

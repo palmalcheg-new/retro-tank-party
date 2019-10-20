@@ -236,15 +236,25 @@ func _on_nakama_match_presence(data):
 	
 	if data.has('leaves'):
 		for u in data['leaves']:
-			if u['session_id'] != match_data['self']['session_id']:
-				_webrtc_disconnect_peer(u)
+			if u['session_id'] == match_data['self']['session_id']:
+				continue
 			
-			if match_mode == MatchMode.JOIN:
-				# @todo if the host disconnected then the match is over
-				pass
+			_webrtc_disconnect_peer(u)
+			var player = players[u['session_id']]
 			
-			players.erase(u['session_id'])
-			emit_signal("player_left", u)
+			# If the host disconnects, this is the end!
+			if player['peer_id'] == 1:
+				leave()
+				emit_signal("error", "Host has disconnected")
+			else:
+				players.erase(u['session_id'])
+				emit_signal("player_left", player)
+				
+				if players.size() < min_players:
+					# If state was previously ready, but this brings us below the minimum players,
+					# then we aren't ready anymore.
+					if match_state == MatchState.READY || match_state == MatchState.PLAYING:
+						emit_signal("match_not_ready")
 
 func _on_nakama_match_join(data):
 	if data.has('match'):
@@ -359,7 +369,9 @@ func _webrtc_connect_peer(u: Dictionary):
 			print ("Unable to create offer")
 
 func _webrtc_disconnect_peer(u: Dictionary):
-	pass
+	var webrtc_peer = webrtc_peers[u['session_id']]
+	webrtc_peer.close()
+	webrtc_peers.erase(u['session_id'])
 
 func _on_webrtc_peer_session_description_created(type : String, sdp : String, session_id : String):
 	print ("session_description_created:")
