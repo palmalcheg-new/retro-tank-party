@@ -211,7 +211,7 @@ func _on_ReadyScreen_ready_pressed() -> void:
 remotesync func player_ready(session_id):
 	$UILayer/ReadyScreen.set_status(session_id, "READY!")
 	
-	if get_tree().is_network_server():
+	if get_tree().is_network_server() and not players_ready.has(session_id):
 		players_ready[session_id] = true
 		if players_ready.size() == $Multiplayer.players.size():
 			if $Multiplayer.match_state != $Multiplayer.MatchState.PLAYING:
