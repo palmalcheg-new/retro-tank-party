@@ -197,7 +197,14 @@ func _on_player_left(player):
 			_on_player_dead(player['peer_id'])
 
 func _on_player_status_changed(player, status):
-	$UILayer/ReadyScreen.set_status(player['session_id'], 'Connected.')
+	# Don't go backwards from 'READY!'
+	if $UILayer/ReadyScreen.get_status(player['session_id']) != 'READY!':
+		$UILayer/ReadyScreen.set_status(player['session_id'], 'Connected.')
+	
+	if get_tree().is_network_server():
+		# Tell this new player about all the other players that are already ready.
+		for session_id in players_ready:
+			rpc_id(player['peer_id'], "player_ready", session_id)
 
 func _on_match_ready(players):
 	$UILayer/ReadyScreen.set_ready_button_enabled(true)
@@ -359,3 +366,5 @@ remotesync func show_winner(name):
 	$UILayer/ReadyScreen.hide_match_id()
 	$UILayer/ReadyScreen.reset_status("Waiting...")
 	$UILayer.show_screen("ReadyScreen")
+	
+	clear_game_state()

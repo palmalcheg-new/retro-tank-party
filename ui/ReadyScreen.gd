@@ -38,6 +38,12 @@ func set_status(session_id, status):
 	if status_node:
 		status_node.set_status(status)
 
+func get_status(session_id) -> String:
+	var status_node = $Panel/StatusContainer.get_node(session_id)
+	if status_node:
+		return status_node.get_status()
+	return ''
+
 func reset_status(status):
 	for child in $Panel/StatusContainer.get_children():
 		child.set_status(status)

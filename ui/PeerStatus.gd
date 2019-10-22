@@ -9,3 +9,6 @@ func initialize(name, status = "Connecting..."):
 
 func set_status(status):
 	$StatusLabel.text = status
+
+func get_status():
+	return $StatusLabel.text

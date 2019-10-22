@@ -12,6 +12,7 @@ var matchmaker_ticket : String
 # WebRTC variables:
 var webrtc_multiplayer: WebRTCMultiplayer
 var webrtc_peers : Dictionary
+var webrtc_peers_connected : Dictionary
 
 var players : Dictionary
 var next_peer_id : int
@@ -124,7 +125,10 @@ func leave():
 	match_data = {}
 	matchmaker_ticket = ''
 	webrtc_multiplayer = WebRTCMultiplayer.new()
+	webrtc_multiplayer.connect("peer_connected", self, "_on_webrtc_peer_connected")
+	webrtc_multiplayer.connect("peer_disconnected", self, "_on_webrtc_peer_disconnected")
 	webrtc_peers = {}
+	webrtc_peers_connected = {}
 	players = {}
 	next_peer_id = 1
 	match_state = MatchState.LOBBY
@@ -407,33 +411,30 @@ func _on_webrtc_peer_ice_candidate_created(media : String, index : int, name : S
 		},
 	})
 
+func _on_webrtc_peer_connected(peer_id: int):
+	for session_id in players:
+		if players[session_id]['peer_id'] == peer_id:
+			webrtc_peers_connected[session_id] = true
+			emit_signal("player_status_changed", players[session_id], PlayerStatus.CONNECTED)
+
+	# We have a WebRTC peer for each connection to another player, so we'll have one less than
+	# the number of players (ie. no peer connection to ourselves).
+	if webrtc_peers_connected.size() == players.size() - 1:
+		if players.size() >= min_players:
+			# All our peers are good, so we can assume RPC will work now.
+			match_state = MatchState.READY;
+			emit_signal("match_ready", players)
+		else:
+			match_state = MatchState.WAITING_FOR_ENOUGH_PLAYERS
+
+func _on_webrtc_peer_disconnected(peer_id: int):
+	print ("WebRTC peer disconnected: " + str(peer_id))
+	
+	for session_id in players:
+		if players[session_id]['peer_id'] == peer_id:
+			webrtc_peers_connected.erase(session_id)
+
 func _process(delta: float) -> void:
 	if realtime_client:
 		realtime_client.poll()
-	
-	# Wait for all peers to be ready.
-	if match_state == MatchState.CONNECTING:
-		var all_connected = true
-		
-		# First, check that we have peers for every player we were matched with.
-		for session_id in players:
-			if session_id == my_session_id:
-				continue
-			if not webrtc_peers.has(session_id):
-				all_connected = false
-			else:
-				# Then, check if each existing peer is connected.
-				var webrtc_peer = webrtc_peers[session_id]
-				if webrtc_peer.get_connection_state() == WebRTCPeerConnection.STATE_CONNECTED:
-					emit_signal("player_status_changed", players[session_id], PlayerStatus.CONNECTED)
-				else:
-					all_connected = false	
-		
-		if all_connected:
-			if players.size() >= min_players:
-				# All our peers are good, so we can assume RPC will work now.
-				match_state = MatchState.READY;
-				
-				emit_signal("match_ready", players)
-			else:
-				match_state = MatchState.WAITING_FOR_ENOUGH_PLAYERS
+
