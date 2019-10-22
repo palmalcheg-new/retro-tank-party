@@ -353,8 +353,10 @@ func _webrtc_connect_peer(u: Dictionary):
 	if match_state == MatchState.READY:
 		emit_signal("match_not_ready")
 	
-	# Put in CONNECTING mode so we'll check if all the WebRTC peers are ready.
-	match_state = MatchState.CONNECTING
+	# If we're already PLAYING, then this is a reconnect attempt, so don't mess with the state.
+	# Otherwise, change state to CONNECTING because we're trying to connect to all peers.
+	if match_state != MatchState.PLAYING:
+		match_state = MatchState.CONNECTING
 	
 	var webrtc_peer := WebRTCPeerConnection.new()
 	webrtc_peer.initialize({
@@ -376,6 +378,7 @@ func _webrtc_disconnect_peer(u: Dictionary):
 	var webrtc_peer = webrtc_peers[u['session_id']]
 	webrtc_peer.close()
 	webrtc_peers.erase(u['session_id'])
+	webrtc_peers_connected.erase(u['session_id'])
 
 func _on_webrtc_peer_session_description_created(type : String, sdp : String, session_id : String):
 	var webrtc_peer = webrtc_peers[session_id]
@@ -433,6 +436,16 @@ func _on_webrtc_peer_disconnected(peer_id: int):
 	for session_id in players:
 		if players[session_id]['peer_id'] == peer_id:
 			webrtc_peers_connected.erase(session_id)
+			webrtc_peers.erase(session_id)
+			
+			# Since the player is still in the players array, we attempt to reconnect.
+			_webrtc_connect_peer(players[session_id])
+			
+			emit_signal("player_status_changed", players[session_id], PlayerStatus.CONNECTING)
+			
+			if match_state == MatchState.READY:
+				match_state = MatchState.CONNECTING
+				emit_signal("match_not_ready")
 
 func _process(delta: float) -> void:
 	if realtime_client:

@@ -15,16 +15,28 @@ var session_token := ''
 var session_expires := 0
 
 var client : HTTPRequest = HTTPRequest.new()
+var queue := []
 var current_request
 var last_response
 
 signal completed (response, request)
 
+class Promise:
+	signal completed (response, request)
+
 func _ready() -> void:
 	add_child(client)
 	client.connect("request_completed", self, "_on_HTTPRequest_completed")
 
-func _request(request : Dictionary) -> int:
+func _queue_request(request: Dictionary):
+	var promise = Promise.new()
+	if current_request:
+		queue.append([request, promise])
+	else:
+		_request(request, promise)
+	return promise
+
+func _request(request: Dictionary, promise):
 	current_request = request
 	
 	var url = ('https://' if use_ssl else 'http://') + host + ':' + str(port) + '/' + request['path']
@@ -39,7 +51,7 @@ func _request(request : Dictionary) -> int:
 		'Accept: application/json',
 	]
 	
-	if authenticated:
+	if authenticated && not request['name'].begins_with('authenticate_'):
 		headers.append('Authorization: Bearer ' + session_token)
 	else:
 		headers.append('Authorization: Basic ' + Marshalls.utf8_to_base64(server_key + ':'))
@@ -53,7 +65,7 @@ func _request(request : Dictionary) -> int:
 		print (headers)
 		print (data)
 	
-	return client.request(url, headers, ssl_validate, request['method'], data)
+	client.request(url, headers, ssl_validate, request['method'], data)
 
 func _on_HTTPRequest_completed(result, response_code, headers, body : PoolByteArray):
 	var response = {
@@ -70,9 +82,13 @@ func _on_HTTPRequest_completed(result, response_code, headers, body : PoolByteAr
 			response['data'] = parse_result.result
 		
 			# If the user successfully authenticated, then store the session token.
-			if current_request['name'].begins_with('authenticate_') && response_code == 200 && response['data'].has('token'):
-				authenticated = true
-				_set_session(response['data']['token'])
+			if current_request['name'].begins_with('authenticate_'):
+				authenticated = false
+				session_token = ''
+				session_expires = 0
+				if response_code == 200 && response['data'].has('token'):
+					authenticated = true
+					_set_session(response['data']['token'])
 	
 	# Clear current_request before emitting signals, because starting a new request on a signal
 	# is a super common thing to do, and it won't work if current_request is still set.
@@ -132,14 +148,6 @@ func create_realtime_client(create_status : bool = false):
 signal authenticate_email_completed (response, request)
 
 func authenticate_email(email : String, password : String, create : bool = false, username : String = ''):
-	if current_request:
-		return ERR_ALREADY_IN_USE
-	
-	if authenticated:
-		authenticated = false
-		session_token = ''
-		session_expires = 0
-	
 	var request = {
 		method = HTTPClient.METHOD_POST,
 		path = 'v2/account/authenticate/email',
@@ -156,7 +164,7 @@ func authenticate_email(email : String, password : String, create : bool = false
 	if username != '':
 		request['query_string']['username'] = username
 	
-	return _request(request)
+	return _queue_request(request)
 
 signal get_account_completed (response, request)
 
@@ -170,5 +178,5 @@ func get_account():
 		name = 'get_account',
 	}
 	
-	return _request(request)
+	return _queue_request(request)
 	

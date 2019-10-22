@@ -49,6 +49,14 @@ func _input(event):
 	#	Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	pass
 
+func _unhandled_input(event: InputEvent) -> void:
+	# Trigger debugging action!
+	if event.is_action_pressed("player_debug"):
+		# Close all our peers to force a reconnect (to make sure it works).
+		for session_id in $Multiplayer.webrtc_peers:
+			var webrtc_peer = $Multiplayer.webrtc_peers[session_id]
+			webrtc_peer.close()
+
 func _on_UILayer_change_screen(name, screen) -> void:
 	if name == 'MatchScreen':
 		if not $NakamaClient.authenticated or $NakamaClient.is_session_expired():
@@ -197,14 +205,17 @@ func _on_player_left(player):
 			_on_player_dead(player['peer_id'])
 
 func _on_player_status_changed(player, status):
-	# Don't go backwards from 'READY!'
-	if $UILayer/ReadyScreen.get_status(player['session_id']) != 'READY!':
-		$UILayer/ReadyScreen.set_status(player['session_id'], 'Connected.')
-	
-	if get_tree().is_network_server():
-		# Tell this new player about all the other players that are already ready.
-		for session_id in players_ready:
-			rpc_id(player['peer_id'], "player_ready", session_id)
+	if status == $Multiplayer.PlayerStatus.CONNECTED:
+		# Don't go backwards from 'READY!'
+		if $UILayer/ReadyScreen.get_status(player['session_id']) != 'READY!':
+			$UILayer/ReadyScreen.set_status(player['session_id'], 'Connected.')
+		
+		if get_tree().is_network_server():
+			# Tell this new player about all the other players that are already ready.
+			for session_id in players_ready:
+				rpc_id(player['peer_id'], "player_ready", session_id)
+	elif status == $Multiplayer.PlayerStatus.CONNECTING:
+		$UILayer/ReadyScreen.set_status(player['session_id'], 'Connecting...')
 
 func _on_match_ready(players):
 	$UILayer/ReadyScreen.set_ready_button_enabled(true)
