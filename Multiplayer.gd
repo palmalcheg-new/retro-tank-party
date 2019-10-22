@@ -94,7 +94,6 @@ func start_matchmaking(nakama_client, data: Dictionary = {}):
 	if not data.has('query'):
 		data['query'] = '*'
 	
-	print (data)
 	var result = realtime_client.send({ matchmaker_add = data }, self, "_on_nakama_matchmaker_add")
 	if result != OK:
 		leave()
@@ -167,7 +166,6 @@ func _on_nakama_disconnected(data):
 	emit_signal("disconnected", data)
 
 func _on_nakama_match_created(data) -> void:
-	print (data)
 	if data.has('match'):
 		match_data = data['match']
 		match_data['self']['peer_id'] = 1
@@ -186,9 +184,6 @@ func _on_nakama_match_created(data) -> void:
 		emit_signal("failed", "Failed to create match")
 
 func _on_nakama_match_presence(data):
-	print("match_presence:")
-	print (data)
-	
 	if data.has('joins'):
 		for u in data['joins']:
 			if u['session_id'] == my_session_id:
@@ -287,9 +282,6 @@ func _on_nakama_matchmaker_add(data):
 		matchmaker_ticket = data['matchmaker_ticket']['ticket']
 
 func _on_nakama_matchmaker_matched(data):
-	print ("Matchmaker matched:")
-	print (data)
-	
 	if data.has('users') && data.has('token') && data.has('self'):
 		my_session_id = data['self']['presence']['session_id']
 		
@@ -316,9 +308,6 @@ func _on_nakama_matchmaker_matched(data):
 		emit_signal("error", "Matchmaker error")
 
 func _on_nakama_match_data(data):
-	print("match_data:")
-	print(data)
-	
 	var json_result = JSON.parse(data['data'])
 	if json_result.error != OK:
 		return
@@ -363,7 +352,6 @@ func _webrtc_connect_peer(u: Dictionary):
 	# Put in CONNECTING mode so we'll check if all the WebRTC peers are ready.
 	match_state = MatchState.CONNECTING
 	
-	print ("Connecting peer: " + u['session_id'])
 	var webrtc_peer := WebRTCPeerConnection.new()
 	webrtc_peer.initialize({
 		"iceServers": [{ "urls": ["stun:stun.l.google.com:19302"] }]
@@ -376,10 +364,9 @@ func _webrtc_connect_peer(u: Dictionary):
 	webrtc_multiplayer.add_peer(webrtc_peer, u['peer_id'])
 	
 	if my_session_id.casecmp_to(u['session_id']) < 0:
-		print ("Create offer")
 		var result = webrtc_peer.create_offer()
 		if result != OK:
-			print ("Unable to create offer")
+			emit_signal("error", "Unable to create WebRTC offer")
 
 func _webrtc_disconnect_peer(u: Dictionary):
 	var webrtc_peer = webrtc_peers[u['session_id']]
@@ -387,13 +374,10 @@ func _webrtc_disconnect_peer(u: Dictionary):
 	webrtc_peers.erase(u['session_id'])
 
 func _on_webrtc_peer_session_description_created(type : String, sdp : String, session_id : String):
-	print ("session_description_created:")
-	print (type)
-	print (sdp)
-	
 	var webrtc_peer = webrtc_peers[session_id]
 	webrtc_peer.set_local_description(type, sdp)
-	# @todo Send this data to peers to let them call .set_remote_description
+	
+	# Send this data to the peer so they can call call .set_remote_description().
 	realtime_client.send({
 		match_data_send = {
 			match_id = match_data['match_id'],
@@ -408,12 +392,7 @@ func _on_webrtc_peer_session_description_created(type : String, sdp : String, se
 	})
 
 func _on_webrtc_peer_ice_candidate_created(media : String, index : int, name : String, session_id : String):
-	print ("ice_candidate_created:")
-	print (media)
-	print (index)
-	print (name)
-	# @todo Send this data to peers to let them call .add_ice_candidate
-	
+	# Send this data to the peer so they can call .add_ice_candidate()
 	realtime_client.send({
 		match_data_send = {
 			match_id = match_data['match_id'],
@@ -454,9 +433,6 @@ func _process(delta: float) -> void:
 			if players.size() >= min_players:
 				# All our peers are good, so we can assume RPC will work now.
 				match_state = MatchState.READY;
-				
-				# Wait for a moment.
-				#yield(get_tree().create_timer(1), 'timeout')
 				
 				emit_signal("match_ready", players)
 			else:

@@ -8,6 +8,7 @@ export (int) var port = 7350
 export (String) var server_key = "defaultkey"
 export (bool) var use_ssl = false
 export (bool) var ssl_validate = false
+export (bool) var debugging = false
 
 var authenticated := false
 var session_token := ''
@@ -47,6 +48,11 @@ func _request(request : Dictionary) -> int:
 	if request.has('data'):
 		data = JSON.print(request['data'])
 	
+	if debugging:
+		print ("NAKAMA REQUEST: " + url)
+		print (headers)
+		print (data)
+	
 	return client.request(url, headers, ssl_validate, request['method'], data)
 
 func _on_HTTPRequest_completed(result, response_code, headers, body : PoolByteArray):
@@ -75,6 +81,10 @@ func _on_HTTPRequest_completed(result, response_code, headers, body : PoolByteAr
 	
 	# Store the last response for use via yield
 	last_response = response
+	
+	if debugging:
+		print ("NAKAMA RESPONSE:")
+		print (response)
 	
 	emit_signal(request['name'] + '_completed', response, request)
 	emit_signal('completed', response, request)
@@ -115,6 +125,7 @@ func create_realtime_client(create_status : bool = false):
 	
 	var url = ('wss://' if use_ssl else 'ws://') + host + ':' + str(port) + '/ws?lang=en&status=' + ('true' if create_status else 'false') + '&token=' + session_token.percent_encode()
 	var rtclient = NakamaRealtimeClient.new()
+	rtclient.debugging = debugging
 	rtclient.connect_to_url(url)
 	return rtclient
 

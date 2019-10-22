@@ -9,6 +9,8 @@ var max_cid = 0
 var close_code : int = 0
 var close_reason : String = ''
 
+var debugging := false
+
 signal connected ()
 signal disconnected (data)
 signal error (data)
@@ -53,8 +55,13 @@ func send(data : Dictionary, callback_object = null, callback_method : String = 
 		data['match_data_send']['data'] = Marshalls.utf8_to_base64(data['match_data_send']['data'])
 		data['match_data_send']['op_code'] = str(data['match_data_send']['op_code'])
 	
-	var serialized_data = JSON.print(data).to_utf8()
-	return socket.get_peer(1).put_packet(serialized_data)
+	var serialized_data = JSON.print(data)
+	
+	if debugging:
+		print ("NAKAMA REALTIME SENT:")
+		print (serialized_data)
+	
+	return socket.get_peer(1).put_packet(serialized_data.to_utf8())
 
 func _on_connection_established(protocol : String):
 	ready = true
@@ -87,6 +94,11 @@ func _json_or_null(s : String):
 func _on_data_received():
 	while socket.get_peer(1).get_available_packet_count() > 0:
 		var packet : PoolByteArray = socket.get_peer(1).get_packet()
+		
+		if debugging:
+			print ("NAKAMA REALTIME RECEIVED:")
+			print (packet.get_string_from_utf8())
+		
 		var json_result : JSONParseResult = JSON.parse(packet.get_string_from_utf8())
 		if json_result.error == OK:
 			var data = json_result.result
@@ -126,9 +138,11 @@ func _on_data_received():
 			elif data.has('channel_presence_event'):
 				emit_signal('channel_presence', data['channel_presence_event'])
 			else:
-				print("Unrecognized message: " + str(data))
+				if debugging:
+					print("Unrecognized message: " + str(data))
 		else:
-			print("JSON parse error: " + packet.get_string_from_utf8())
+			if debugging:
+				print("JSON parse error: " + packet.get_string_from_utf8())
 
 func poll():
 	if socket.get_connection_status() > NetworkedMultiplayerPeer.CONNECTION_DISCONNECTED:
