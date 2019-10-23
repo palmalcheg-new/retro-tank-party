@@ -124,15 +124,22 @@ func leave():
 	my_session_id = ''
 	match_data = {}
 	matchmaker_ticket = ''
-	webrtc_multiplayer = WebRTCMultiplayer.new()
-	webrtc_multiplayer.connect("peer_connected", self, "_on_webrtc_peer_connected")
-	webrtc_multiplayer.connect("peer_disconnected", self, "_on_webrtc_peer_disconnected")
+	_create_webrtc_multiplayer()
 	webrtc_peers = {}
 	webrtc_peers_connected = {}
 	players = {}
 	next_peer_id = 1
 	match_state = MatchState.LOBBY
 	match_mode = MatchMode.NONE
+
+func _create_webrtc_multiplayer():
+	if webrtc_multiplayer:
+		webrtc_multiplayer.disconnect("peer_connected", self, "_on_webrtc_peer_connected")
+		webrtc_multiplayer.disconnect("peer_disconnected", self, "_on_webrtc_peer_disconnected")
+	
+	webrtc_multiplayer = WebRTCMultiplayer.new()
+	webrtc_multiplayer.connect("peer_connected", self, "_on_webrtc_peer_connected")
+	webrtc_multiplayer.connect("peer_disconnected", self, "_on_webrtc_peer_disconnected")
 
 func get_my_session_id():
 	if my_session_id:
@@ -393,6 +400,15 @@ func _webrtc_reconnect_peer(u: Dictionary):
 	
 	webrtc_peers_connected.erase(u['session_id'])
 	webrtc_peers.erase(u['session_id'])
+	
+	print ("Starting WebRTC reconnect...")
+	
+	# Re-initialize the webrtc_multiplayer with all existing peers.
+	_create_webrtc_multiplayer()
+	webrtc_multiplayer.initialize(players[my_session_id]['peer_id'])
+	get_tree().set_network_peer(webrtc_multiplayer)
+	for session_id in webrtc_peers:
+		webrtc_multiplayer.add_peer(webrtc_peers[session_id], players[session_id]['peer_id'])
 	
 	_webrtc_connect_peer(u)
 	
