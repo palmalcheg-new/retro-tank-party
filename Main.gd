@@ -51,11 +51,12 @@ func _input(event):
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Trigger debugging action!
-	if event.is_action_pressed("player_debug"):
-		# Close all our peers to force a reconnect (to make sure it works).
-		for session_id in $Multiplayer.webrtc_peers:
-			var webrtc_peer = $Multiplayer.webrtc_peers[session_id]
-			webrtc_peer.close()
+	#if event.is_action_pressed("player_debug"):
+	#	# Close all our peers to force a reconnect (to make sure it works).
+	#	for session_id in $Multiplayer.webrtc_peers:
+	#		var webrtc_peer = $Multiplayer.webrtc_peers[session_id]
+	#		webrtc_peer.close()
+	pass
 
 func _on_UILayer_change_screen(name, screen) -> void:
 	if name == 'MatchScreen':

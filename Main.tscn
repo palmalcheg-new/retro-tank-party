@@ -2,12 +2,12 @@
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://ui/ConnectionScreen.tscn" type="PackedScene" id=2]
-[ext_resource path="res://ui/TitleScreen.tscn" type="PackedScene" id=3]
-[ext_resource path="res://maps/Map1.tscn" type="PackedScene" id=4]
+[ext_resource path="res://maps/Map1.tscn" type="PackedScene" id=3]
+[ext_resource path="res://ui/MatchScreen.tscn" type="PackedScene" id=4]
 [ext_resource path="res://UILayer.gd" type="Script" id=5]
-[ext_resource path="res://ui/MatchScreen.tscn" type="PackedScene" id=6]
-[ext_resource path="res://HUD.tscn" type="PackedScene" id=7]
-[ext_resource path="res://ui/ReadyScreen.tscn" type="PackedScene" id=8]
+[ext_resource path="res://ui/ReadyScreen.tscn" type="PackedScene" id=6]
+[ext_resource path="res://ui/TitleScreen.tscn" type="PackedScene" id=7]
+[ext_resource path="res://HUD.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Multiplayer.gd" type="Script" id=10]
 [ext_resource path="res://addons/nakama-client/NakamaRestClient.gd" type="Script" id=14]
 [ext_resource path="res://addons/nakama-client/icon.png" type="Texture" id=15]
@@ -15,26 +15,26 @@
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
 
-[node name="Map" parent="." instance=ExtResource( 4 )]
+[node name="Map" parent="." instance=ExtResource( 3 )]
 
 [node name="Players" type="Node2D" parent="."]
 
 [node name="UILayer" type="CanvasLayer" parent="."]
 script = ExtResource( 5 )
 
-[node name="TitleScreen" parent="UILayer" instance=ExtResource( 3 )]
+[node name="TitleScreen" parent="UILayer" instance=ExtResource( 7 )]
 visible = false
 
 [node name="ConnectionScreen" parent="UILayer" instance=ExtResource( 2 )]
 visible = false
 
-[node name="MatchScreen" parent="UILayer" instance=ExtResource( 6 )]
+[node name="MatchScreen" parent="UILayer" instance=ExtResource( 4 )]
 visible = false
 
-[node name="ReadyScreen" parent="UILayer" instance=ExtResource( 8 )]
+[node name="ReadyScreen" parent="UILayer" instance=ExtResource( 6 )]
 visible = false
 
-[node name="HUD" parent="." instance=ExtResource( 7 )]
+[node name="HUD" parent="." instance=ExtResource( 8 )]
 
 [node name="WatchCamera" type="Camera2D" parent="."]
 zoom = Vector2( 2, 2.3 )
