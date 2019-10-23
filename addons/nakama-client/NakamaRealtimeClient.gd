@@ -41,6 +41,10 @@ func send(data : Dictionary, callback_object = null, callback_method : String = 
 	if not ready:
 		return ERR_UNCONFIGURED
 	
+	if debugging:
+		print ("NAKAMA REALTIME SENT:")
+		print (JSON.print(data))
+	
 	# Register a callback for this message.
 	if callback_object && callback_method && callback_object.has_method(callback_method):
 		max_cid += 1
@@ -56,11 +60,6 @@ func send(data : Dictionary, callback_object = null, callback_method : String = 
 		data['match_data_send']['op_code'] = str(data['match_data_send']['op_code'])
 	
 	var serialized_data = JSON.print(data)
-	
-	if debugging:
-		print ("NAKAMA REALTIME SENT:")
-		print (serialized_data)
-	
 	return socket.get_peer(1).put_packet(serialized_data.to_utf8())
 
 func _on_connection_established(protocol : String):
@@ -94,10 +93,6 @@ func _json_or_null(s : String):
 func _on_data_received():
 	while socket.get_peer(1).get_available_packet_count() > 0:
 		var packet : PoolByteArray = socket.get_peer(1).get_packet()
-		
-		if debugging:
-			print ("NAKAMA REALTIME RECEIVED:")
-			print (packet.get_string_from_utf8())
 		
 		var json_result : JSONParseResult = JSON.parse(packet.get_string_from_utf8())
 		if json_result.error == OK:
@@ -140,6 +135,10 @@ func _on_data_received():
 			else:
 				if debugging:
 					print("Unrecognized message: " + str(data))
+			
+			if debugging:
+				print ("NAKAMA REALTIME RECEIVED:")
+				print (data)
 		else:
 			if debugging:
 				print("JSON parse error: " + packet.get_string_from_utf8())

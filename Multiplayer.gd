@@ -319,13 +319,18 @@ func _on_nakama_match_data(data):
 	var content = json_result.result
 	if data['op_code'] == 1:
 		if content['target'] == my_session_id:
-			var webrtc_peer = webrtc_peers[data['presence']['session_id']]
+			var session_id = data['presence']['session_id']
+			var webrtc_peer = webrtc_peers[session_id]
 			match content['method']:
 				'set_remote_description':
 					webrtc_peer.set_remote_description(content['type'], content['sdp'])
 				
 				'add_ice_candidate':
 					webrtc_peer.add_ice_candidate(content['media'], content['index'], content['name'])
+				
+				'reconnect':
+					webrtc_multiplayer.remove_peer(players[session_id]['peer_id'])
+					_webrtc_reconnect_peer(players[session_id])
 	if data['op_code'] == 2 && match_mode == MatchMode.JOIN:
 		for session_id in content['players']:
 			if not players.has(session_id):
@@ -367,6 +372,7 @@ func _webrtc_connect_peer(u: Dictionary):
 	
 	webrtc_peers[u['session_id']] = webrtc_peer
 	
+	#get_tree().multiplayer._del_peer(u['peer_id'])
 	webrtc_multiplayer.add_peer(webrtc_peer, u['peer_id'])
 	
 	if my_session_id.casecmp_to(u['session_id']) < 0:
@@ -379,6 +385,22 @@ func _webrtc_disconnect_peer(u: Dictionary):
 	webrtc_peer.close()
 	webrtc_peers.erase(u['session_id'])
 	webrtc_peers_connected.erase(u['session_id'])
+
+func _webrtc_reconnect_peer(u: Dictionary):
+	var old_webrtc_peer = webrtc_peers[u['session_id']]
+	if old_webrtc_peer:
+		old_webrtc_peer.close()
+	
+	webrtc_peers_connected.erase(u['session_id'])
+	webrtc_peers.erase(u['session_id'])
+	
+	_webrtc_connect_peer(u)
+	
+	emit_signal("player_status_changed", u, PlayerStatus.CONNECTING)
+	
+	if match_state == MatchState.READY:
+		match_state = MatchState.CONNECTING
+		emit_signal("match_not_ready")
 
 func _on_webrtc_peer_session_description_created(type : String, sdp : String, session_id : String):
 	var webrtc_peer = webrtc_peers[session_id]
@@ -435,17 +457,23 @@ func _on_webrtc_peer_disconnected(peer_id: int):
 	
 	for session_id in players:
 		if players[session_id]['peer_id'] == peer_id:
-			webrtc_peers_connected.erase(session_id)
-			webrtc_peers.erase(session_id)
+			# We initiate the reconnection process from only one side (the offer side).
+			if my_session_id.casecmp_to(session_id) < 0:
+				# Tell the remote peer to restart their connection.
+				realtime_client.send({
+					match_data_send = {
+						match_id = match_data['match_id'],
+						op_code = 1,
+						data = JSON.print({
+							method = "reconnect",
+							target = session_id,
+						}),
+					},
+				})
 			
-			# Since the player is still in the players array, we attempt to reconnect.
-			_webrtc_connect_peer(players[session_id])
-			
-			emit_signal("player_status_changed", players[session_id], PlayerStatus.CONNECTING)
-			
-			if match_state == MatchState.READY:
-				match_state = MatchState.CONNECTING
-				emit_signal("match_not_ready")
+				# Initiate reconnect on our end now (the other end will do it when they receive
+				# the message above).
+				_webrtc_reconnect_peer(players[session_id])
 
 func _process(delta: float) -> void:
 	if realtime_client:
