@@ -27,6 +27,7 @@ godot:
 
 .export_before_script: &export_before_script
   before_script:
+    - apt-get update
     - apt-get install -y --no-install-recommends unzip wget
 
     # Make sure the build directories exist
