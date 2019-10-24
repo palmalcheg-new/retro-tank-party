@@ -1,7 +1,7 @@
 image: ubuntu:18.04
 
 variables:
-  EXPORT_NAME: battle-tanks
+  EXPORT_NAME: retro-tank-party
   GODOT_VERSION: "3.2"
   GODOT_VERSION_STABILITY: "alpha3"
 
