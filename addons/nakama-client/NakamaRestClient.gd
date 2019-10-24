@@ -2,6 +2,7 @@ tool
 extends Node
 
 var NakamaRealtimeClient = preload("res://addons/nakama-client/NakamaRealtimeClient.gd")
+var NakamaPromise = preload("res://addons/nakama-client/NakamaPromise.gd")
 
 export (String) var host = "127.0.0.1"
 export (int) var port = 7350
@@ -17,19 +18,16 @@ var session_expires := 0
 var client : HTTPRequest = HTTPRequest.new()
 var queue := []
 var current_request
-var last_response
+var current_promise
 
 signal completed (response, request)
-
-class Promise:
-	signal completed (response, request)
 
 func _ready() -> void:
 	add_child(client)
 	client.connect("request_completed", self, "_on_HTTPRequest_completed")
 
 func _queue_request(request: Dictionary):
-	var promise = Promise.new()
+	var promise = NakamaPromise.new(request)
 	if current_request:
 		queue.append([request, promise])
 	else:
@@ -38,6 +36,7 @@ func _queue_request(request: Dictionary):
 
 func _request(request: Dictionary, promise):
 	current_request = request
+	current_promise = promise
 	
 	var url = ('https://' if use_ssl else 'http://') + host + ':' + str(port) + '/' + request['path']
 	if request.has('query_string') && request['query_string'].size() > 0:
@@ -65,9 +64,23 @@ func _request(request: Dictionary, promise):
 		print (headers)
 		print (data)
 	
-	client.request(url, headers, ssl_validate, request['method'], data)
+	var error = client.request(url, headers, ssl_validate, request['method'], data)
+	if error != OK:
+		promise.complete({}, error)
+		_start_next_request()
+
+func _start_next_request():
+	if queue.size() > 0:
+		var queue_next = queue.pop_front()
+		_request(queue_next[0], queue_next[1])
+	else:
+		current_request = null
+		current_promise = null
 
 func _on_HTTPRequest_completed(result, response_code, headers, body : PoolByteArray):
+	var request = current_request
+	var promise = current_promise
+	
 	var response = {
 		result = result,
 		http_code = response_code,
@@ -82,7 +95,7 @@ func _on_HTTPRequest_completed(result, response_code, headers, body : PoolByteAr
 			response['data'] = parse_result.result
 		
 			# If the user successfully authenticated, then store the session token.
-			if current_request['name'].begins_with('authenticate_'):
+			if request['name'].begins_with('authenticate_'):
 				authenticated = false
 				session_token = ''
 				session_expires = 0
@@ -90,18 +103,15 @@ func _on_HTTPRequest_completed(result, response_code, headers, body : PoolByteAr
 					authenticated = true
 					_set_session(response['data']['token'])
 	
-	# Clear current_request before emitting signals, because starting a new request on a signal
-	# is a super common thing to do, and it won't work if current_request is still set.
-	var request = current_request
-	current_request = null
-	
-	# Store the last response for use via yield
-	last_response = response
-	
 	if debugging:
 		print ("NAKAMA RESPONSE:")
 		print (response)
 	
+	# Queue up the next request right away.
+	_start_next_request()
+	
+	# Emit all the signals in order of most specific to least specific.
+	promise.complete(response)
 	emit_signal(request['name'] + '_completed', response, request)
 	emit_signal('completed', response, request)
 
@@ -169,9 +179,6 @@ func authenticate_email(email : String, password : String, create : bool = false
 signal get_account_completed (response, request)
 
 func get_account():
-	if current_request:
-		return ERR_ALREADY_IN_USE
-	
 	var request = {
 		method = HTTPClient.METHOD_GET,
 		path = 'v2/account',

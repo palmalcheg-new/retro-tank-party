@@ -1,5 +1,7 @@
 extends Reference
 
+var NakamaPromise = preload("res://addons/nakama-client/NakamaPromise.gd")
+
 var socket : WebSocketClient = WebSocketClient.new()
 var ready := false
 
@@ -38,29 +40,33 @@ func disconnect_from_host(code : int = 1000, reason : String = ''):
 	socket.disconnect_from_host(code, reason)
 
 func send(data : Dictionary, callback_object = null, callback_method : String = ''):
+	var promise = NakamaPromise.new(data)
+	
 	if not ready:
-		return ERR_UNCONFIGURED
+		promise.complete({}, ERR_UNCONFIGURED)
+		return promise
 	
 	if debugging:
 		print ("NAKAMA REALTIME SENT:")
 		print (JSON.print(data))
 	
 	# Register a callback for this message.
-	if callback_object && callback_method && callback_object.has_method(callback_method):
-		max_cid += 1
-		var cid = max_cid
-		callbacks[cid] = {
-			object = callback_object,
-			method = callback_method,
-		}
-		data['cid'] = str(cid)
+	max_cid += 1
+	var cid = max_cid
+	callbacks[cid] = promise
+	data['cid'] = str(cid)
 	
 	if data.has('match_data_send'):
 		data['match_data_send']['data'] = Marshalls.utf8_to_base64(data['match_data_send']['data'])
 		data['match_data_send']['op_code'] = str(data['match_data_send']['op_code'])
 	
 	var serialized_data = JSON.print(data)
-	return socket.get_peer(1).put_packet(serialized_data.to_utf8())
+	
+	var error = socket.get_peer(1).put_packet(serialized_data.to_utf8())
+	if error != OK:
+		promise.complete({}, error)
+	
+	return promise
 
 func _on_connection_established(protocol : String):
 	ready = true
@@ -103,10 +109,10 @@ func _on_data_received():
 				# It's for targetted responses to a specific message.
 				var cid = int(data['cid'])
 				if callbacks.has(cid):
-					var callback = callbacks[cid];
+					var promise = callbacks[cid];
 					callbacks.erase(cid)
 					data.erase('cid')
-					callback['object'].call(callback['method'], data)
+					promise.complete(data)
 				else:
 					print("Unknown callback for: " + str(data['cid']))
 			elif data.has('notifications'):

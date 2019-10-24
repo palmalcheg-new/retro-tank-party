@@ -60,10 +60,12 @@ func create_match(nakama_client):
 	_create_realtime_client(nakama_client)
 	yield(realtime_client, "connected")
 	
-	var result = realtime_client.send({ match_create = {} }, self, '_on_nakama_match_created')
-	if result != OK:
+	var promise = realtime_client.send({ match_create = {} })
+	if promise.error == OK:
+		promise.connect("completed", self, '_on_nakama_match_created')
+	else:
 		leave()
-		emit_signal("error", "Unable to create match with code: " + str(result))
+		emit_signal("error", "Unable to create match with code: " + str(promise.error))
 
 func join_match(nakama_client, match_id: String):
 	leave()
@@ -71,8 +73,10 @@ func join_match(nakama_client, match_id: String):
 	_create_realtime_client(nakama_client)
 	yield(realtime_client, "connected")
 	
-	var result = realtime_client.send({ match_join = { match_id = match_id }}, self, '_on_nakama_match_join')
-	if result != OK:
+	var promise = realtime_client.send({ match_join = { match_id = match_id }})
+	if promise.error == OK:
+		promise.connect("completed", self, '_on_nakama_match_join')
+	else:
 		leave()
 		emit_signal("error", "Unable to join match")
 
@@ -95,12 +99,13 @@ func start_matchmaking(nakama_client, data: Dictionary = {}):
 	if not data.has('query'):
 		data['query'] = '*'
 	
-	var result = realtime_client.send({ matchmaker_add = data }, self, "_on_nakama_matchmaker_add")
-	if result != OK:
+	var promise = realtime_client.send({ matchmaker_add = data })
+	if promise.error == OK:
+		promise.connect("completed", self, "_on_nakama_matchmaker_add")
+		match_state = MatchState.MATCHING
+	else:
 		leave()
 		emit_signal("error", "Unable to join match making pool")
-	else:
-		match_state = MatchState.MATCHING
 
 func start_playing():
 	assert(match_state == MatchState.READY)
@@ -176,7 +181,7 @@ func _on_nakama_disconnected(data):
 	leave()
 	emit_signal("disconnected", data)
 
-func _on_nakama_match_created(data) -> void:
+func _on_nakama_match_created(data, request) -> void:
 	if data.has('match'):
 		match_data = data['match']
 		match_data['self']['peer_id'] = 1
@@ -272,7 +277,7 @@ func _on_nakama_match_presence(data):
 					if match_state == MatchState.READY || match_state == MatchState.PLAYING:
 						emit_signal("match_not_ready")
 
-func _on_nakama_match_join(data):
+func _on_nakama_match_join(data, request):
 	if data.has('match'):
 		match_data = data['match']
 		my_session_id = match_data['self']['session_id']
@@ -288,7 +293,7 @@ func _on_nakama_match_join(data):
 		leave()
 		emit_signal("error", "Unable to join match")
 
-func _on_nakama_matchmaker_add(data):
+func _on_nakama_matchmaker_add(data, request):
 	if data.has('matchmaker_ticket'):
 		matchmaker_ticket = data['matchmaker_ticket']['ticket']
 
@@ -313,7 +318,7 @@ func _on_nakama_matchmaker_matched(data):
 		emit_signal("player_status_changed", players[data['self']['presence']['session_id']], PlayerStatus.CONNECTED)
 		
 		# Join the match.
-		realtime_client.send({ match_join = {token = data['token']}}, self, '_on_nakama_match_join');
+		realtime_client.send({ match_join = {token = data['token']}}).connect("completed", self, '_on_nakama_match_join');
 	else:
 		leave()
 		emit_signal("error", "Matchmaker error")

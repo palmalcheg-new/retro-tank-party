@@ -86,13 +86,13 @@ func _on_TitleScreen_practice() -> void:
 	start_new_game()
 
 func _on_ConnectionScreen_login(email, password) -> void:
-	$NakamaClient.authenticate_email(email, password)
+	var promise = $NakamaClient.authenticate_email(email, password)
 	$UILayer.hide_screen()
 	$HUD.show_message("Logging in...")
 	
-	yield($NakamaClient, "authenticate_email_completed")
+	promise.error == OK and yield(promise, "completed")
 	
-	if $NakamaClient.last_response['http_code'] != 200:
+	if promise.error != OK or promise.response['http_code'] != 200:
 		$HUD.show_message("Login failed!")
 		$UILayer.show_screen("ConnectionScreen")
 	else:
@@ -100,17 +100,17 @@ func _on_ConnectionScreen_login(email, password) -> void:
 		$UILayer.show_screen("MatchScreen")
 
 func _on_ConnectionScreen_create_account(username, email, password) -> void:
-	$NakamaClient.authenticate_email(email, password, true, username)
+	var promise = $NakamaClient.authenticate_email(email, password, true, username)
 	
 	$UILayer.hide_screen()
 	$HUD.show_message("Creating account...")
 	
-	yield($NakamaClient, "authenticate_email_completed")
+	promise.error == OK and yield(promise, "completed")
 	
-	if $NakamaClient.last_response['http_code'] != 200:
+	if promise.error != OK or promise.response['http_code'] != 200:
 		var msg: String
-		if $NakamaClient.last_response['data'].has('error'):
-			msg = $NakamaClient.last_response['data']['error']
+		if promise.response['data'].has('error'):
+			msg = promise.response['data']['error']
 			# Nakama treats registration as logging in, so this is what we get if the
 			# the email is already is use but the password is wrong.
 			if msg == 'Invalid credentials.':
