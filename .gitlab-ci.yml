@@ -8,6 +8,7 @@ variables:
 stages:
   - build
   - export
+  - deploy
 
 godot:
   stage: build
@@ -20,22 +21,32 @@ godot:
     - mkdir ~/.cache
     - mkdir -p ~/.config/godot
     - mkdir -p ~/.local/share/godot/templates/${GODOT_VERSION}.${GODOT_VERSION_STABILITY}
-    - unzip Godot_v${GODOT_VERSION}-${GODOT_VERSION_STABILITY}.64.zip
+    - unzip Godot_v${GODOT_VERSION}-${GODOT_VERSION_STABILITY}_linux_headless.64.zip
     - mv Godot_v${GODOT_VERSION}-${GODOT_VERSION_STABILITY}_linux_headless.64 /usr/local/bin/godot
     - unzip Godot_v${GODOT_VERSION}-${GODOT_VERSION_STABILITY}_export_templates.tpz
     - mv templates/* ~/.local/share/godot/templates/${GODOT_VERSION}.${GODOT_VERSION_STABILITY}
     - rm -f Godot_v${GODOT_VERSION}-${GODOT_VERSION_STABILITY}_export_templates.tpz Godot_v${GODOT_VERSION}-${GODOT_VERSION_STABILITY}_linux_headless.64.zip
 
-before_script:
-  - mkdir -v -p build/linux
-  - mkdir -v -p build/windows
-  - mkdir -v -p build/mac
-  - wget https://github.com/godotengine/webrtc-native/releases/download/0.3/webrtc_native_0.3_multi-release.zip
-  - unzip -a webrtc_native_0.3_multi-release.zip
+.export_before_script: &export_before_script
+  before_script:
+    - mkdir -v -p build/linux
+    - mkdir -v -p build/windows
+    - mkdir -v -p build/mac
+    - sed -i -e "s/use_production_nakama = false/use_production_nakama = true/" Main.gd
+    - sed -i -e "s/NAKAMA_HOST/$NAKAMA_HOST/" Main.gd
+    - sed -i -e "s/NAKAMA_PORT/$NAKAMA_PORT/" Main.gd
+    - sed -i -e "s/NAKAMA_SERVER_KEY/$NAKAMA_SERVER_KEY/" Main.gd
 
 linux:
+  <<: *export_before_script
   stage: export
   script:
+    # Pull in the WebRTC GDNative plugin
+    - wget https://github.com/godotengine/webrtc-native/releases/download/0.3/webrtc_native_0.3_multi-release.zip
+    - unzip -a webrtc_native_0.3_multi-release.zip
+    - rm webrtc_native_0.3_multi-release.zip
+
+    # Export!
     - godot -v --export "Linux/X11" ./build/linux/$EXPORT_NAME.x86_64
   artifacts:
     name: $EXPORT_NAME-$CI_JOB_NAME
@@ -43,8 +54,15 @@ linux:
       - build/linux
 
 windows:
+  <<: *export_before_script
   stage: export
   script:
+    # Pull in the WebRTC GDNative plugin
+    - wget https://github.com/godotengine/webrtc-native/releases/download/0.3/webrtc_native_0.3_multi-release.zip
+    - unzip -a webrtc_native_0.3_multi-release.zip
+    - rm webrtc_native_0.3_multi-release.zip
+
+    # Export!
     - godot -v --export "Windows Desktop" ./build/windows/$EXPORT_NAME.exe
   artifacts:
     name: $EXPORT_NAME-$CI_JOB_NAME
@@ -59,4 +77,27 @@ windows:
 #    name: $EXPORT_NAME-$CI_JOB_NAME
 #    paths:
 #      - build/mac
+
+web:
+  <<: *export_before_script
+  stage: export
+  script:
+    - godot -v --export "HTML5" ./build/web/index.html
+  artifacts:
+    name: $EXPORT_NAME-$CI_JOB_NAME
+    paths:
+      - build/web
+
+pages:
+  stage: deploy
+  dependencies:
+    - web
+  script:
+    - rm -rf public
+    - cp -r build/web public
+  artifacts:
+    paths:
+      - public
+  only:
+   - devel
 
