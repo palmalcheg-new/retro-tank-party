@@ -1,15 +1,37 @@
-image: barichello/godot-ci:3.1.1
+image: ubuntu:18.04
 
 variables:
   EXPORT_NAME: battle-tanks
+  GODOT_VERSION: "3.2"
+  GODOT_VERSION_STABILITY: "alpha3"
 
 stages:
+  - build
   - export
+
+godot:
+  stage: build
+  before_script:
+    - apt-get update
+    - apt-get install -y --no-install-recommends ca-certificates git python python-openssl unzip wget zip 
+  script:
+    - wget https://downloads.tuxfamily.org/godotengine/${GODOT_VERSION}/${GODOT_VERSION_STABILITY}/Godot_v${GODOT_VERSION}-${GODOT_VERSION_STABILITY}_linux_headless.64.zip
+    - wget https://downloads.tuxfamily.org/godotengine/${GODOT_VERSION}/${GODOT_VERSION_STABILITY}/Godot_v${GODOT_VERSION}-${GODOT_VERSION_STABILITY}_export_templates.tpz
+    - mkdir ~/.cache
+    - mkdir -p ~/.config/godot
+    - mkdir -p ~/.local/share/godot/templates/${GODOT_VERSION}.${GODOT_VERSION_STABILITY}
+    - unzip Godot_v${GODOT_VERSION}-${GODOT_VERSION_STABILITY}.64.zip
+    - mv Godot_v${GODOT_VERSION}-${GODOT_VERSION_STABILITY}_linux_headless.64 /usr/local/bin/godot
+    - unzip Godot_v${GODOT_VERSION}-${GODOT_VERSION_STABILITY}_export_templates.tpz
+    - mv templates/* ~/.local/share/godot/templates/${GODOT_VERSION}.${GODOT_VERSION_STABILITY}
+    - rm -f Godot_v${GODOT_VERSION}-${GODOT_VERSION_STABILITY}_export_templates.tpz Godot_v${GODOT_VERSION}-${GODOT_VERSION_STABILITY}_linux_headless.64.zip
 
 before_script:
   - mkdir -v -p build/linux
   - mkdir -v -p build/windows
   - mkdir -v -p build/mac
+  - wget https://github.com/godotengine/webrtc-native/releases/download/0.3/webrtc_native_0.3_multi-release.zip
+  - unzip -a webrtc_native_0.3_multi-release.zip
 
 linux:
   stage: export
@@ -29,12 +51,12 @@ windows:
     paths:
       - build/windows
 
-mac:
-  stage: export
-  script:
-    - godot -v --export "Mac OSX" ./build/mac/$EXPORT_NAME.zip
-  artifacts:
-    name: $EXPORT_NAME-$CI_JOB_NAME
-    paths:
-      - build/mac
+#mac:
+#  stage: export
+#  script:
+#    - godot -v --export "Mac OSX" ./build/mac/$EXPORT_NAME.zip
+#  artifacts:
+#    name: $EXPORT_NAME-$CI_JOB_NAME
+#    paths:
+#      - build/mac
 
