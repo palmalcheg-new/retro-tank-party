@@ -404,6 +404,8 @@ func _webrtc_reconnect_peer(u: Dictionary):
 	print ("Starting WebRTC reconnect...")
 	
 	# Re-initialize the webrtc_multiplayer with all existing peers.
+	# @todo Remove after issue #33010 is fixed
+	# @see https://github.com/godotengine/godot/issues/33010
 	_create_webrtc_multiplayer()
 	webrtc_multiplayer.initialize(players[my_session_id]['peer_id'])
 	get_tree().set_network_peer(webrtc_multiplayer)
