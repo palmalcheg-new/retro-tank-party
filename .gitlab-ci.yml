@@ -22,8 +22,8 @@ godot:
   script:
     - mkdir -p godot
     - cd godot
-    - wget https://downloads.tuxfamily.org/godotengine/${GODOT_VERSION}/${GODOT_VERSION_STABILITY}/Godot_v${GODOT_VERSION}-${GODOT_VERSION_STABILITY}_linux_headless.64.zip
-    - wget https://downloads.tuxfamily.org/godotengine/${GODOT_VERSION}/${GODOT_VERSION_STABILITY}/Godot_v${GODOT_VERSION}-${GODOT_VERSION_STABILITY}_export_templates.tpz
+    - test -f Godot_v${GODOT_VERSION}-${GODOT_VERSION_STABILITY}_linux_headless.64.zip || wget https://downloads.tuxfamily.org/godotengine/${GODOT_VERSION}/${GODOT_VERSION_STABILITY}/Godot_v${GODOT_VERSION}-${GODOT_VERSION_STABILITY}_linux_headless.64.zip
+    - test -f Godot_v${GODOT_VERSION}-${GODOT_VERSION_STABILITY}_export_templates.tpz || wget https://downloads.tuxfamily.org/godotengine/${GODOT_VERSION}/${GODOT_VERSION_STABILITY}/Godot_v${GODOT_VERSION}-${GODOT_VERSION_STABILITY}_export_templates.tpz
 
 .export_before_script: &export_before_script
   before_script:
