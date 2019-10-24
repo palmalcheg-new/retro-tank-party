@@ -18,24 +18,35 @@ godot:
   script:
     - wget https://downloads.tuxfamily.org/godotengine/${GODOT_VERSION}/${GODOT_VERSION_STABILITY}/Godot_v${GODOT_VERSION}-${GODOT_VERSION_STABILITY}_linux_headless.64.zip
     - wget https://downloads.tuxfamily.org/godotengine/${GODOT_VERSION}/${GODOT_VERSION_STABILITY}/Godot_v${GODOT_VERSION}-${GODOT_VERSION_STABILITY}_export_templates.tpz
-    - mkdir ~/.cache
-    - mkdir -p ~/.config/godot
-    - mkdir -p ~/.local/share/godot/templates/${GODOT_VERSION}.${GODOT_VERSION_STABILITY}
-    - unzip Godot_v${GODOT_VERSION}-${GODOT_VERSION_STABILITY}_linux_headless.64.zip
-    - mv Godot_v${GODOT_VERSION}-${GODOT_VERSION_STABILITY}_linux_headless.64 /usr/local/bin/godot
+    - mkdir -p godot
+    - unzip -a Godot_v${GODOT_VERSION}-${GODOT_VERSION_STABILITY}_linux_headless.64.zip
+    - mv Godot_v${GODOT_VERSION}-${GODOT_VERSION_STABILITY}_linux_headless.64 godot/godot
     - unzip Godot_v${GODOT_VERSION}-${GODOT_VERSION_STABILITY}_export_templates.tpz
-    - mv templates/* ~/.local/share/godot/templates/${GODOT_VERSION}.${GODOT_VERSION_STABILITY}
+    - mv templates godot/
     - rm -f Godot_v${GODOT_VERSION}-${GODOT_VERSION_STABILITY}_export_templates.tpz Godot_v${GODOT_VERSION}-${GODOT_VERSION_STABILITY}_linux_headless.64.zip
+  artifacts:
+    paths:
+      - godot
 
 .export_before_script: &export_before_script
   before_script:
+    # Make sure the build directories exist
     - mkdir -v -p build/linux
     - mkdir -v -p build/windows
-    - mkdir -v -p build/mac
+    - mkdir -v -p build/web
+
+    # Put in the production Nakama info
     - sed -i -e "s/use_production_nakama = false/use_production_nakama = true/" Main.gd
     - sed -i -e "s/NAKAMA_HOST/$NAKAMA_HOST/" Main.gd
     - sed -i -e "s/NAKAMA_PORT/$NAKAMA_PORT/" Main.gd
     - sed -i -e "s/NAKAMA_SERVER_KEY/$NAKAMA_SERVER_KEY/" Main.gd
+
+    # Install our build of Godot
+    - mkdir ~/.cache
+    - mkdir -p ~/.config/godot
+    - mkdir -p ~/.local/share/godot/templates/${GODOT_VERSION}.${GODOT_VERSION_STABILITY}
+    - cp -a godot/godot /usr/local/bin/godot
+    - cp -a godot/templates/* ~/.local/share/godot/templates/${GODOT_VERSION}.${GODOT_VERSION_STABILITY}
 
 linux:
   <<: *export_before_script
@@ -101,3 +112,14 @@ pages:
   only:
    - devel
 
+itch:
+  stage: deploy
+  dependencies:
+    - web
+  script:
+    # Install Itch.io's butler CLI tool
+    - curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
+    - unzip -a butler.zip
+    - mv butler /usr/local/bin/
+    - chmod +x /usr/local/bin/butler
+    - butler -v
