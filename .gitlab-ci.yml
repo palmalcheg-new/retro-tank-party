@@ -30,6 +30,8 @@ godot:
 
 .export_before_script: &export_before_script
   before_script:
+    - apt-get install -y --no-install-recommends ca-certificates unzip wget zip 
+
     # Make sure the build directories exist
     - mkdir -v -p build/linux
     - mkdir -v -p build/windows
