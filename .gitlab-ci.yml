@@ -118,6 +118,9 @@ itch:
   stage: deploy
   dependencies:
     - web
+  before_script:
+    - apt-get update
+    - apt-get install -y --no-install-recommends ca-certificates curl unzip
   script:
     # Install Itch.io's butler CLI tool
     - curl -L -o butler.zip https://broth.itch.ovh/butler/linux-amd64/LATEST/archive/default
@@ -125,3 +128,4 @@ itch:
     - mv butler /usr/local/bin/
     - chmod +x /usr/local/bin/butler
     - butler -v
+
