@@ -44,7 +44,8 @@ enabled=PoolStringArray( "nakama-client" )
 
 [gdnative]
 
-singletons=[ "res://webrtc_debug/webrtc_debug.tres" ]
+singletons=[ "res://webrtc/webrtc.tres", "res://webrtc_debug/webrtc_debug.tres" ]
+singletons_disabled=[ "res://webrtc_debug/webrtc_debug.tres" ]
 
 [input]
 
