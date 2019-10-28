@@ -106,6 +106,7 @@ pages:
   script:
     - rm -rf public
     - cp -r build/web public
+    - ls public
   artifacts:
     paths:
       - public
