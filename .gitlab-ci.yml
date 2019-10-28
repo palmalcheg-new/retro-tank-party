@@ -105,7 +105,6 @@ pages:
   script:
     - rm -rf public
     - cp -r build/web public
-    - ls public
   artifacts:
     paths:
       - public
@@ -116,6 +115,8 @@ itch:
   stage: deploy
   dependencies:
     - web
+    - linux
+    - windows
   before_script:
     - apt-get update
     - apt-get install -y --no-install-recommends ca-certificates curl unzip
@@ -126,4 +127,8 @@ itch:
     - mv butler /usr/local/bin/
     - chmod +x /usr/local/bin/butler
     - butler push build/web dsnopek/retro-tank-party:web-stable
+    - butler push build/linux dsnopek/retro-tank-party:linux-stable
+    - butler push build/windows dsnopek/retro-tank-party:windows-stable
+  only:
+   - devel
 
