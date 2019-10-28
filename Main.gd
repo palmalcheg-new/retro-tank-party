@@ -21,11 +21,10 @@ func _ready():
 	TankScenes['Player3'] = Player3
 	TankScenes['Player4'] = Player4
 	
-	var use_production_nakama = false
-	if use_production_nakama:
-		$NakamaClient.host = 'NAKAMA_HOST'
-		$NakamaClient.port = 'NAKAMA_PORT'
-		$NakamaClient.server_key = 'NAKAMA_SERVER_KEY'
+	$NakamaClient.host = Build.NAKAMA_HOST
+	$NakamaClient.port = Build.NAKAMA_PORT
+	$NakamaClient.server_key = Build.NAKAMA_SERVER_KEY
+	if Build.NAKAMA_USE_SSL:
 		$NakamaClient.use_ssl = true
 		$NakamaClient.ssl_validate = true
 	
