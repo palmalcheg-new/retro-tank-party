@@ -36,7 +36,6 @@ godot:
     - mkdir -v -p build/web
 
     # Put in the production Nakama info
-    #- export NAKAMA_HOST NAKAMA_PORT NAKAMA_SERVER_KEY
     - ./scripts/generate-build-variables.sh
 
     # Install our build of Godot
@@ -126,5 +125,5 @@ itch:
     - unzip -a butler.zip
     - mv butler /usr/local/bin/
     - chmod +x /usr/local/bin/butler
-    - butler -v
+    - butler push build/web dsnopek/retro-tank-party:web-stable
 
