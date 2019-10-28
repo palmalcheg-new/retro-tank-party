@@ -1,5 +1,7 @@
 #!/bin/bash
 
+NAKAMA_SERVER_KEY=$(base64 -d <<< "$NAKAMA_SERVER_KEY")
+
 cat << EOF > Build.gd
 extends Node
 
