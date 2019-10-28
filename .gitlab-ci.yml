@@ -37,7 +37,7 @@ godot:
 
     # Put in the production Nakama info
     - export NAKAMA_HOST NAKAMA_PORT NAKAMA_SERVER_KEY
-    - ./scripts/build-nakama-variables.sh
+    - ./scripts/generate-build-variables.sh
 
     # Install our build of Godot
     - mkdir ~/.cache
