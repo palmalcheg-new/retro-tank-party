@@ -36,10 +36,11 @@ godot:
     - mkdir -v -p build/web
 
     # Put in the production Nakama info
-    - sed -i -e "s/use_production_nakama = false/use_production_nakama = true/" Main.gd
-    - sed -i -e "s/NAKAMA_HOST/$NAKAMA_HOST/" Main.gd
+    - sed -i -e 's/use_production_nakama = false/use_production_nakama = true/' Main.gd
+    - sed -i -e 's/NAKAMA_HOST/$NAKAMA_HOST/' Main.gd
     - sed -i -e "s/'NAKAMA_PORT'/$NAKAMA_PORT/" Main.gd
-    - sed -i -e s/NAKAMA_SERVER_KEY/"$NAKAMA_SERVER_KEY"/ Main.gd
+    - cat Main.gd
+    - sed -i -e 's/NAKAMA_SERVER_KEY/$NAKAMA_SERVER_KEY/' Main.gd
 
     # Install our build of Godot
     - mkdir ~/.cache
