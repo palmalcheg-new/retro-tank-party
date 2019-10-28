@@ -95,6 +95,7 @@ func _on_ConnectionScreen_login(email, password) -> void:
 	if promise.error != OK or promise.response['http_code'] != 200:
 		$HUD.show_message("Login failed!")
 		$UILayer.show_screen("ConnectionScreen")
+		print (promise.response)
 	else:
 		$HUD.hide_all()
 		$UILayer.show_screen("MatchScreen")
