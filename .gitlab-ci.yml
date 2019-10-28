@@ -130,5 +130,5 @@ itch:
     - butler push build/linux dsnopek/retro-tank-party:linux-stable
     - butler push build/windows dsnopek/retro-tank-party:windows-stable
   only:
-   - devel
+   - master
 
