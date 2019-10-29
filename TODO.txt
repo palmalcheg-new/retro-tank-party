@@ -22,29 +22,6 @@ DONE:
  - Add more power ups
    |-> Spread bullets
    |-> Target bullets
-
-MILESTONE+1:
-
- - Reduce the number of RPC updates sent (only send when something changes)
-   |-> This could be done by sending inputs (keys pressed) rather than
-       positions and rotations. So, sending global mouse position rather
-	   than turret rotation.
- - Ability to return to connection screen
-   |-> Return while waiting for players or after timeout to connect
-   |-> Server: Disconnect all clients and return to configure
-   |-> Client: Disconnect from server and return to configure
-   |-> Maybe this is an [EXIT] button in the top-right corner?
-       |-> This can clarify the mouse confinement as well!
- - Some kind of score keeping (maybe wins per player per current session?)
-   |-> Or save this for the Nakama integration below?
- - Improve the connection UI (make real UI and seperate server/client options)
-
-MILESTONE+2:
-
-Allow game to run on web, so it's easier for folks to try it.
-
-This needs a branch - it won't work for everyone for a bit.
-
  - Use Nakama to track user accounts and do match making
    |-> Use GDScript to talk to Nakama via REST and Socket
  - Use WebRTC to connect to peers
@@ -55,42 +32,61 @@ This needs a branch - it won't work for everyone for a bit.
    * "Join match with given ID"
  - Make web version
    |-> Make sure GDScript can talk to Nakama over Websockets
+ - Ability to return to connection screen
+ - Add a "practice mode" where you can drive around and shot stuff
+ - Get GitLab CI publishing to GitLab pages and Itch.io
+
+MILESTONE+1:
+
+ - Finish and publish Nakama Client
+   * Make the REST API complete (some generation involved)
+   * Add documentation (some generation involved)
+   * Put in Godot Asset Library
+   * Write blog post
+   * Promote on Godot Reddit
+ - Reduce the number of RPC updates sent (only send when something changes)
+   |-> This could be done by sending inputs (keys pressed) rather than
+       positions and rotations. So, sending global mouse position rather
+       than turret rotation (which is constantly changing)
+ - Look into issue where Arturo picks up more health than everybody else
+
+MILESTONE+2:
+
+ - Improve game "feedback"
+   * Better indication that a tank got hit
+ - Limit all powerups to 20 seconds?
+   * Show current power up next to player name (flash when low)
+ - Gameplay ideas to test:
+   * Count down to next drop crates (start at 5 seconds?)
+   * A "chanrged shot" that causes more damage? To encourage more careful
+     firing.
+   * More "tanky" feel (acceleration/deceleration, turret rotation limit, etc)
+ - Polish:
+   * Muzzle flash
+   * Bullet smoke
+   * Explosion particles
+   * Tank tracks
+   * Movement dust
 
 MILESTONE+3:
 
- - Add a "practice mode" where you can drive around and shot stuff
- - Allow users to use "practice mode" while they wait for matchmaking
- - Add options for controls, enabling mouse capture, etc
-
-MILESTONE+5:
-
- - Convert GDScript Nakama code to C++ module
-   |-> Needs to work both locally and in web version
-   |-> Implement Godot multiplayer stuff with it
-   |-> Compare performance of Nakama multiplayer vs WebRTC multiplayer
- - Look at Swagger codegen to make REST API complete
-   |-> See https://github.com/swagger-api/swagger-codegen)
- - Consider keeping GDScript version around too?
-   |-> Since I ultimately expect we'll just use Nakama for the matchmaking
-       and not the actual multiplayer, we could just use the GDScript version
-   |-> Use Swagger to generate all the GDScript bindings too
- - Consider proposing C++ module for Godot upstream?
- - Consider making a GDNative version
-   |-> Could make it easier for desktop folks to use, but it won't work on the
-       web, so we'd need to keep using the C++ module
-   |-> Could have CI build all the different platform versions
- - Let all the folks know about it!
+ - Match score keeping
+   * Stats (bullets fired vs hits, total damage caused)
+   * "Sets" like 2 out of 3, best out of 5
+ - Add Nakama leaderboard (maybe just wins at first)
 
 BACKLOG (the "maybe" things):
 
+ - Get web version working on Mobile
+   * On-screen tank controls
+   * Show the keyboard when focusing controls:
+     o https://www.reddit.com/r/godot/comments/8r6dgf/godot_31dev_html5_export_mobile_devices_and/
+ - Allow users to use "practice mode" while they wait for matchmaking
+ - Add options for controls, enabling mouse capture, etc
  - Add game modes like "capture the flag"
  - Encapsulate the different bullet types into a single unit such that
    you could theoretically mod a new bullet type into the project
- - Count down to next drop crates (start at 10 seconds?)
  - Make the "target" of targeted bullets clear (highlight selected tank)
- - A "chanrged shot"? To encourage more careful aiming
- - Limit all powerups to 20 seconds?
-   |-> We'd need some indication on the tank of it's status...
  - Allow "stacking" powerups? Like, targetted/spread?
  - "Fire" bullet powerup: area of effect where it lands with higher damage
  - "Defense" powerup: take no damage (or reduced damage) for 20 seconds
