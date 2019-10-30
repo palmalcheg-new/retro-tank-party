@@ -35,15 +35,15 @@ DONE:
  - Ability to return to connection screen
  - Add a "practice mode" where you can drive around and shot stuff
  - Get GitLab CI publishing to GitLab pages and Itch.io
-
-MILESTONE+1:
-
  - Finish and publish Nakama Client
    * Make the REST API complete (some generation involved)
    * Add documentation (some generation involved)
    * Put in Godot Asset Library
    * Write blog post
    * Promote on Godot Reddit
+
+MILESTONE+1:
+
  - Reduce the number of RPC updates sent (only send when something changes)
    |-> This could be done by sending inputs (keys pressed) rather than
        positions and rotations. So, sending global mouse position rather
