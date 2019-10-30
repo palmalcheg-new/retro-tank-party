@@ -19,6 +19,7 @@ var client : HTTPRequest = HTTPRequest.new()
 var queue := []
 var current_request
 var current_promise
+var errored_promises := []
 
 signal completed (response, request)
 
@@ -72,8 +73,18 @@ func _request(request: Dictionary, promise):
 	
 	var error = client.request(url, headers, ssl_validate, request['method'], data)
 	if error != OK:
-		promise.complete({}, error)
+		promise.error = error
+		
+		# Defer completing the promise until the next frame.
+		errored_promises.append(promise)
+		
 		_start_next_request()
+
+func _process(delta: float) -> void:
+	# Make sure all promises get completed, even ones that errored.
+	if errored_promises.size() > 0:
+		var promise = errored_promises.pop_front()
+		promise.complete({})
 
 func _start_next_request():
 	if queue.size() > 0:
