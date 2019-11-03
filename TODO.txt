@@ -44,11 +44,15 @@ DONE:
 
 MILESTONE+1:
 
+ - Remove the hack that rebuilds WebRTCMultiplayer now that bug is fixed
+ - Bug: Everyone marks "Ready" but the game doesn't start
+ - Look into issue where Arturo picks up more health than everybody else
  - Reduce the number of RPC updates sent (only send when something changes)
    |-> This could be done by sending inputs (keys pressed) rather than
        positions and rotations. So, sending global mouse position rather
        than turret rotation (which is constantly changing)
- - Look into issue where Arturo picks up more health than everybody else
+ - Integrate Windows patch that was mentioned on Discord:
+   * https://github.com/Faless/godot/commit/abcb0798d6ef5005ec6308db0dd6032220a1f873 
 
 MILESTONE+2:
 
@@ -67,6 +71,7 @@ MILESTONE+2:
    * Explosion particles
    * Tank tracks
    * Movement dust
+ - Randomize game starting positions
 
 MILESTONE+3:
 
@@ -74,18 +79,31 @@ MILESTONE+3:
    * Stats (bullets fired vs hits, total damage caused)
    * "Sets" like 2 out of 3, best out of 5
  - Add Nakama leaderboard (maybe just wins at first)
+ - Add built-in bug reporting (maybe post to a webform on snopekgames.com?)
 
-BACKLOG (the "maybe" things):
+MILESTONE+4:
 
  - Get web version working on Mobile
    * On-screen tank controls
    * Show the keyboard when focusing controls:
      o https://www.reddit.com/r/godot/comments/8r6dgf/godot_31dev_html5_export_mobile_devices_and/
- - Allow users to use "practice mode" while they wait for matchmaking
  - Add options for controls, enabling mouse capture, etc
+
+MILESTONE+5:
+
+ - Support for multiple maps
  - Add game modes like "capture the flag"
  - Encapsulate the different bullet types into a single unit such that
    you could theoretically mod a new bullet type into the project
+ - Implement modding support
+
+MILESTONE+6:
+
+ - Polish! Music, sound effects, etc
+
+BACKLOG (the "maybe" things):
+
+ - Allow users to use "practice mode" while they wait for matchmaking
  - Make the "target" of targeted bullets clear (highlight selected tank)
  - Allow "stacking" powerups? Like, targetted/spread?
  - "Fire" bullet powerup: area of effect where it lands with higher damage
