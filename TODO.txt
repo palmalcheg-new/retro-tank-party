@@ -51,8 +51,6 @@ MILESTONE+1:
    |-> This could be done by sending inputs (keys pressed) rather than
        positions and rotations. So, sending global mouse position rather
        than turret rotation (which is constantly changing)
- - Integrate Windows patch that was mentioned on Discord:
-   * https://github.com/Faless/godot/commit/abcb0798d6ef5005ec6308db0dd6032220a1f873 
 
 MILESTONE+2:
 
