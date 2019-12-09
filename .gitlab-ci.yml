@@ -3,7 +3,7 @@ image: ubuntu:18.04
 variables:
   EXPORT_NAME: retro-tank-party
   GODOT_VERSION: "3.2"
-  GODOT_VERSION_STABILITY: "beta2"
+  GODOT_VERSION_STABILITY: "beta3"
 
 stages:
   - build
