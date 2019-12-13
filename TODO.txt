@@ -41,18 +41,9 @@ DONE:
    * Put in Godot Asset Library
    * Write blog post
    * Promote on Godot Reddit
+ - Remove the hack that rebuilds WebRTCMultiplayer now that bug is fixed
 
 MILESTONE+1:
-
- - Remove the hack that rebuilds WebRTCMultiplayer now that bug is fixed
- - Bug: Everyone marks "Ready" but the game doesn't start
- - Look into issue where Arturo picks up more health than everybody else
- - Reduce the number of RPC updates sent (only send when something changes)
-   |-> This could be done by sending inputs (keys pressed) rather than
-       positions and rotations. So, sending global mouse position rather
-       than turret rotation (which is constantly changing)
-
-MILESTONE+2:
 
  - Improve game "feedback"
    * Better indication that a tank got hit
@@ -70,6 +61,17 @@ MILESTONE+2:
    * Tank tracks
    * Movement dust
  - Randomize game starting positions
+
+MILESTONE+2:
+
+ - Bug: Everyone marks "Ready" but the game doesn't start
+ - Look into issue where Arturo picks up more health than everybody else
+ - Reduce the number of RPC updates sent (only send when something changes)
+   |-> This could be done by sending inputs (keys pressed) rather than
+       positions and rotations. So, sending global mouse position rather
+       than turret rotation (which is constantly changing)
+ - Add logging to remote server so we can track down issues with split
+   mesh and WebRTC peer reconnection
 
 MILESTONE+3:
 
