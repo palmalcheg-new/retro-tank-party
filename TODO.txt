@@ -45,8 +45,7 @@ DONE:
 
 MILESTONE+1:
 
- - Improve game "feedback"
-   * Better indication that a tank got hit
+ - Randomize game starting positions and colors
  - Limit all powerups to 20 seconds?
    * Show current power up next to player name (flash when low)
  - Gameplay ideas to test:
@@ -54,13 +53,17 @@ MILESTONE+1:
    * A "chanrged shot" that causes more damage? To encourage more careful
      firing.
    * More "tanky" feel (acceleration/deceleration, turret rotation limit, etc)
+ - Improve game "feedback"
+   * Better indication that a tank got hit
  - Polish:
    * Muzzle flash
    * Bullet smoke
    * Explosion particles
    * Tank tracks
    * Movement dust
- - Randomize game starting positions
+ - Match score keeping
+   * Stats (bullets fired vs hits, total damage caused)
+   * "Sets" like 2 out of 3, best out of 5
 
 MILESTONE+2:
 
@@ -75,9 +78,6 @@ MILESTONE+2:
 
 MILESTONE+3:
 
- - Match score keeping
-   * Stats (bullets fired vs hits, total damage caused)
-   * "Sets" like 2 out of 3, best out of 5
  - Add Nakama leaderboard (maybe just wins at first)
  - Add built-in bug reporting (maybe post to a webform on snopekgames.com?)
 

@@ -21,6 +21,26 @@ var mouse_control = true
 
 var bullet_type = Constants.BulletType.NORMAL
 
+# TODO: Actually use to re-color the same scene.
+const colors = {
+	blue = {
+		body_sprite_region = Rect2( 434, 0, 84, 83 ),
+		turret_sprite_region = Rect2( 722, 199, 24, 60 ),
+	},
+	green = {
+		body_sprite_region = Rect2( 436, 308, 84, 80 ),
+		turret_sprite_region = Rect2( 744, 684, 24, 60 ),
+	},
+	red = {
+		body_sprite_region = Rect2( 520, 268, 76, 80 ),
+		turret_sprite_region = Rect2( 724, 452, 24, 60 ),
+	},
+	black = {
+		body_sprite_region = Rect2( 436, 692, 84, 80 ),
+		turret_sprite_region = Rect2( 724, 512, 24, 60 ),
+	},
+}
+
 func _ready():
 	info_offset = $Info.position
 	$Info.set_as_toplevel(true)
