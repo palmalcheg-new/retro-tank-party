@@ -56,6 +56,9 @@ linux:
     - unzip -a webrtc_native_0.3_multi-release.zip
     - rm webrtc_native_0.3_multi-release.zip
 
+    # Delete the debug version of the plugin.
+    - rm webrtc_debug/webrtc_debug.gdnlib
+
     # Export!
     - godot -v --export "Linux/X11" ./build/linux/$EXPORT_NAME.x86_64
   artifacts:
@@ -71,6 +74,9 @@ windows:
     - wget https://github.com/godotengine/webrtc-native/releases/download/0.3/webrtc_native_0.3_multi-release.zip
     - unzip -a webrtc_native_0.3_multi-release.zip
     - rm webrtc_native_0.3_multi-release.zip
+
+    # Delete the debug version of the plugin.
+    - rm webrtc_debug/webrtc_debug.gdnlib
 
     # Export!
     - godot -v --export "Windows Desktop" ./build/windows/$EXPORT_NAME.exe
