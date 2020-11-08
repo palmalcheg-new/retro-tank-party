@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://ui/ConnectionScreen.tscn" type="PackedScene" id=2]
@@ -9,8 +9,6 @@
 [ext_resource path="res://ui/TitleScreen.tscn" type="PackedScene" id=7]
 [ext_resource path="res://HUD.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Multiplayer.gd" type="Script" id=10]
-[ext_resource path="res://addons/nakama-client/NakamaRestClient.gd" type="Script" id=14]
-[ext_resource path="res://addons/nakama-client/icon.png" type="Texture" id=15]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -40,12 +38,6 @@ visible = false
 zoom = Vector2( 2, 2.3 )
 limit_left = 0
 limit_top = 0
-
-[node name="NakamaClient" type="Node" parent="."]
-script = ExtResource( 14 )
-__meta__ = {
-"_editor_icon": ExtResource( 15 )
-}
 
 [node name="Multiplayer" type="Node" parent="."]
 script = ExtResource( 10 )

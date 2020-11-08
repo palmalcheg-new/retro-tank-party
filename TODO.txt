@@ -1,47 +1,11 @@
 TODO
 ====
 
-DONE:
+ - Convert to official Nakama client
+ - Adjust opcodes so that higher values are used (101, 102, 103?)
 
- - Make a controllable player tank
- - Add the connection UI
- - Allow up to 4 players to join and get placed
- - Each tank needs a different color
- - Each tank needs it's name displayed
- - Add bullets, health and damage
- - Add a health bar
- - Add explosion (bullet and tank)
- - Add "loop" to have a winner and allow restarting
-   |-> Zoom out after death to see the whole battle?
- - Set sane starting rotation for all players
- - Add cover to make play actually interesting
- - Keep players in the player area!
- - Make color coded bullets for each player
- - Add a one-player test mode to make it easier to test gameplay changes
- - Add health power-up
- - Add more power ups
-   |-> Spread bullets
-   |-> Target bullets
- - Use Nakama to track user accounts and do match making
-   |-> Use GDScript to talk to Nakama via REST and Socket
- - Use WebRTC to connect to peers
-   |-> Start with same local client (like we've been using), so needs GDNative
- - Give users choice of who they connect to:
-   * "Find match with ____ minimum players"
-   * "Create match to share with friends"
-   * "Join match with given ID"
- - Make web version
-   |-> Make sure GDScript can talk to Nakama over Websockets
- - Ability to return to connection screen
- - Add a "practice mode" where you can drive around and shot stuff
- - Get GitLab CI publishing to GitLab pages and Itch.io
- - Finish and publish Nakama Client
-   * Make the REST API complete (some generation involved)
-   * Add documentation (some generation involved)
-   * Put in Godot Asset Library
-   * Write blog post
-   * Promote on Godot Reddit
- - Remove the hack that rebuilds WebRTCMultiplayer now that bug is fixed
+OLD MILESTONES
+--------------
 
 MILESTONE+1:
 
@@ -101,8 +65,9 @@ MILESTONE+6:
 
  - Polish! Music, sound effects, etc
 
-BACKLOG (the "maybe" things):
+BACKLOG:
 
+ - Save and restore sessions so you don't have to login as much
  - Allow users to use "practice mode" while they wait for matchmaking
  - Make the "target" of targeted bullets clear (highlight selected tank)
  - Allow "stacking" powerups? Like, targetted/spread?

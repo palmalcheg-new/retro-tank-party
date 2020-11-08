@@ -6,6 +6,9 @@ var Player3 = preload("res://tanks/Player3.tscn")
 var Player4 = preload("res://tanks/Player4.tscn")
 var TankScenes = {}
 
+var nakama_client: NakamaClient
+var nakama_session: NakamaSession
+
 var players = {}
 var players_ready = {}
 var players_loaded = {}
@@ -21,12 +24,11 @@ func _ready():
 	TankScenes['Player3'] = Player3
 	TankScenes['Player4'] = Player4
 	
-	$NakamaClient.host = Build.NAKAMA_HOST
-	$NakamaClient.port = Build.NAKAMA_PORT
-	$NakamaClient.server_key = Build.NAKAMA_SERVER_KEY
-	if Build.NAKAMA_USE_SSL:
-		$NakamaClient.use_ssl = true
-		$NakamaClient.ssl_validate = true
+	nakama_client = Nakama.create_client(
+		Build.NAKAMA_SERVER_KEY,
+		Build.NAKAMA_HOST,
+		Build.NAKAMA_PORT,
+		'https' if Build.NAKAMA_USE_SSL else 'http')
 	
 	#Input.set_mouse_mode(Input.MOUSE_MODE_CONFINED)
 	
@@ -59,9 +61,9 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_UILayer_change_screen(name, screen) -> void:
 	if name == 'MatchScreen':
-		if not $NakamaClient.authenticated or $NakamaClient.is_session_expired():
+		if not nakama_session or nakama_session.is_expired():
 			# If we were previously connected, then show a message.
-			if $NakamaClient.authenticated:
+			if nakama_session:
 				$HUD.show_message("Login session has expired")
 			$UILayer.show_screen("ConnectionScreen")
 	
@@ -85,13 +87,12 @@ func _on_TitleScreen_practice() -> void:
 	start_new_game()
 
 func _on_ConnectionScreen_login(email, password) -> void:
-	var promise = $NakamaClient.authenticate_email(email, password)
 	$UILayer.hide_screen()
 	$HUD.show_message("Logging in...")
 	
-	promise.error == OK and yield(promise, "completed")
+	nakama_session = yield(nakama_client.authenticate_email_async(email, password), "completed")
 	
-	if promise.error != OK or promise.response['http_code'] != 200:
+	if nakama_session.is_exception():
 		$HUD.show_message("Login failed!")
 		$UILayer.show_screen("ConnectionScreen")
 	else:
@@ -99,22 +100,18 @@ func _on_ConnectionScreen_login(email, password) -> void:
 		$UILayer.show_screen("MatchScreen")
 
 func _on_ConnectionScreen_create_account(username, email, password) -> void:
-	var promise = $NakamaClient.authenticate_email(email, password, true, username)
-	
 	$UILayer.hide_screen()
 	$HUD.show_message("Creating account...")
+
+	nakama_session = yield(nakama_client.authenticate_email_async(email, password, username, true), "completed")
 	
-	promise.error == OK and yield(promise, "completed")
-	
-	if promise.error != OK or promise.response['http_code'] != 200:
-		var msg: String
-		if promise.response['data'].has('error'):
-			msg = promise.response['data']['error']
-			# Nakama treats registration as logging in, so this is what we get if the
-			# the email is already is use but the password is wrong.
-			if msg == 'Invalid credentials.':
-				msg = 'E-mail already in use.'
-		else:
+	if nakama_session.is_exception():
+		var msg = nakama_session.get_exception().message
+		# Nakama treats registration as logging in, so this is what we get if the
+		# the email is already is use but the password is wrong.
+		if msg == 'Invalid credentials.':
+			msg = 'E-mail already in use.'
+		elif msg == '':
 			msg = "Unable to create account"
 		$HUD.show_message(msg)
 		$UILayer.show_screen("ConnectionScreen")
@@ -123,11 +120,11 @@ func _on_ConnectionScreen_create_account(username, email, password) -> void:
 		$UILayer.show_screen("MatchScreen")
 
 func _on_MatchScreen_create_match() -> void:
-	if $NakamaClient.is_session_expired():
+	if nakama_session.is_expired():
 		$HUD.show_message("Login session has expired")
 		$UILayer.show_screen("ConnectionScreen")
 	else:
-		$Multiplayer.create_match($NakamaClient)
+		$Multiplayer.create_match(nakama_client, nakama_session)
 		$HUD.hide_message()
 
 func _on_MatchScreen_join_match(match_id) -> void:
@@ -135,15 +132,15 @@ func _on_MatchScreen_join_match(match_id) -> void:
 		$HUD.show_message("Need to paste Match ID to join")
 		return
 	
-	if $NakamaClient.is_session_expired():
+	if nakama_session.is_expired():
 		$HUD.show_message("Login session has expired")
 		$UILayer.show_screen("ConnectionScreen")
 	else:
-		$Multiplayer.join_match($NakamaClient, match_id)
+		$Multiplayer.join_match(nakama_client, nakama_session, match_id)
 		$HUD.hide_message()
 
 func _on_MatchScreen_find_match(min_players: int):
-	if $NakamaClient.is_session_expired():
+	if nakama_session.is_expired():
 		$HUD.show_message("Login session has expired")
 		$UILayer.show_screen("ConnectionScreen")
 	else:
@@ -158,21 +155,14 @@ func _on_MatchScreen_find_match(min_players: int):
 			},
 			query = "+properties.game:retro_tank_party",
 		}
-		$Multiplayer.start_matchmaking($NakamaClient, data)
+		$Multiplayer.start_matchmaking(nakama_client, nakama_session, data)
 
 func _on_match_error(message):
 	$UILayer.show_screen("MatchScreen")
 	$HUD.show_message(message)
 
-func _on_match_disconnected(data):
-	if not data['was_clean_close']:
-		var msg = "Disconnected from server"
-		if data['reason']:
-			msg += " with reason: " + data['reason']
-		if data['code']:
-			msg += " (" + str(data['code']) + ")"
-		
-		_on_match_error(msg)
+func _on_match_disconnected():
+	_on_match_error("Disconnected from server")
 
 func _on_match_created(match_id):
 	$UILayer.show_screen("ReadyScreen", [{}, match_id])
@@ -188,34 +178,34 @@ func _on_matchmaker_matched(players):
 	$HUD.show_exit_button()
 
 func _on_player_joined(player):
-	$UILayer/ReadyScreen.add_player(player['session_id'], player['username'])
+	$UILayer/ReadyScreen.add_player(player.session_id, player.username)
 
 func _on_player_left(player):
-	$HUD.show_message(player['username'] + " has left")
+	$HUD.show_message(player.username + " has left")
 	
-	$UILayer/ReadyScreen.remove_player(player['session_id'])
+	$UILayer/ReadyScreen.remove_player(player.session_id)
 	
 	if game_started:
-		var tank = $Players.get_node(str(player['peer_id']))
+		var tank = $Players.get_node(str(player.peer_id))
 		if tank:
 			tank.die()
 		else:
 			# This will be called by tank.die() if the tank still exists. But if not,
 			# as a fallback, we just call the event handler directly.
-			_on_player_dead(player['peer_id'])
+			_on_player_dead(player.peer_id)
 
 func _on_player_status_changed(player, status):
 	if status == $Multiplayer.PlayerStatus.CONNECTED:
 		# Don't go backwards from 'READY!'
-		if $UILayer/ReadyScreen.get_status(player['session_id']) != 'READY!':
-			$UILayer/ReadyScreen.set_status(player['session_id'], 'Connected.')
+		if $UILayer/ReadyScreen.get_status(player.session_id) != 'READY!':
+			$UILayer/ReadyScreen.set_status(player.session_id, 'Connected.')
 		
 		if get_tree().is_network_server():
 			# Tell this new player about all the other players that are already ready.
 			for session_id in players_ready:
-				rpc_id(player['peer_id'], "player_ready", session_id)
+				rpc_id(player.peer_id, "player_ready", session_id)
 	elif status == $Multiplayer.PlayerStatus.CONNECTING:
-		$UILayer/ReadyScreen.set_status(player['session_id'], 'Connecting...')
+		$UILayer/ReadyScreen.set_status(player.session_id, 'Connecting...')
 
 func _on_match_ready(players):
 	$UILayer/ReadyScreen.set_ready_button_enabled(true)
