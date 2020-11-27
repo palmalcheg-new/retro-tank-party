@@ -62,17 +62,18 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PracticeButton" type="Button" parent="HBoxContainer"]
-margin_left = 417.0
-margin_right = 613.0
+[node name="LocalButton" type="Button" parent="HBoxContainer"]
+margin_left = 415.0
+margin_right = 615.0
 margin_bottom = 200.0
+rect_min_size = Vector2( 200, 0 )
 text = "Practice"
 
-[node name="BattleButton" type="Button" parent="HBoxContainer"]
-margin_left = 663.0
-margin_right = 863.0
+[node name="OnlineButton" type="Button" parent="HBoxContainer"]
+margin_left = 665.0
+margin_right = 865.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 200, 0 )
 text = "Battle"
-[connection signal="pressed" from="HBoxContainer/PracticeButton" to="." method="_on_PracticeButton_pressed"]
-[connection signal="pressed" from="HBoxContainer/BattleButton" to="." method="_on_BattleButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/LocalButton" to="." method="_on_LocalButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/OnlineButton" to="." method="_on_OnlineButton_pressed"]

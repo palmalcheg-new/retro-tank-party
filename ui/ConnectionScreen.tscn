@@ -39,6 +39,9 @@ margin_top = -100.0
 margin_right = 375.0
 margin_bottom = 60.0
 columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="EmailLabel" type="Label" parent="TabContainer/Login/GridContainer"]
 margin_top = 5.0
@@ -97,10 +100,13 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -375.0
-margin_top = -100.0
+margin_top = -140.0
 margin_right = 375.0
-margin_bottom = 91.0
+margin_bottom = 51.0
 columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="UsernameLabel" type="Label" parent="TabContainer/Create Account/GridContainer"]
 margin_top = 5.0

@@ -5,8 +5,11 @@ var DropCrate = preload("res://objects/DropCrate.tscn")
 func _ready():
 	pass
 
-func start():
+func map_object_start():
 	$DropTimer.start()
+
+func map_object_stop():
+	clear()
 
 func has_drop_crate_or_powerup() -> bool:
 	return $Spawns.has_node("DropCrate") or $Spawns.has_node("Powerup")

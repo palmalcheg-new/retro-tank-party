@@ -5,7 +5,9 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 245, 226 )
 
-[node name="DropCrateSpawnArea" type="Area2D"]
+[node name="DropCrateSpawnArea" type="Area2D" groups=[
+"map_object",
+]]
 script = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

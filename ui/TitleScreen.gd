@@ -1,12 +1,10 @@
 extends Control
 
-signal battle
-signal practice
+signal play_local
+signal play_online
 
-func _ready():
-	pass
+func _on_LocalButton_pressed() -> void:
+	emit_signal("play_local")
 
-func _on_BattleButton_pressed() -> void:
-	emit_signal("battle")
-func _on_PracticeButton_pressed() -> void:
-	emit_signal("practice")
+func _on_OnlineButton_pressed() -> void:
+	emit_signal("play_online")

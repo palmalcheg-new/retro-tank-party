@@ -2,10 +2,12 @@ extends KinematicBody2D
 
 var Explosion = preload("res://Explosion.tscn")
 
-export (bool) var player_controlled = false
 export (PackedScene) var Bullet = preload("res://bullets/Bullet.tscn")
 
-signal dead
+export (bool) var player_controlled = false
+export (String) var input_prefix := "player1_"
+
+signal player_dead ()
 
 var turn_speed : int = 5
 var speed : int = 400
@@ -54,23 +56,23 @@ func _ready():
 
 func _physics_process(delta: float) -> void:
 	if player_controlled:
-		if Input.is_action_pressed("player_turn_left"):
-			rotation -= Input.get_action_strength("player_turn_left") * turn_speed * delta
-		if Input.is_action_pressed("player_turn_right"):
-			rotation += Input.get_action_strength("player_turn_right") * turn_speed * delta
+		if Input.is_action_pressed(input_prefix + "turn_left"):
+			rotation -= Input.get_action_strength(input_prefix + "turn_left") * turn_speed * delta
+		if Input.is_action_pressed(input_prefix + "turn_right"):
+			rotation += Input.get_action_strength(input_prefix + "turn_right") * turn_speed * delta
 		
 		velocity = Vector2()
-		velocity.x = Input.get_action_strength("player_forward") - Input.get_action_strength("player_backward")
+		velocity.x = Input.get_action_strength(input_prefix + "forward") - Input.get_action_strength(input_prefix + "backward")
 		velocity = velocity.rotated(rotation) * speed
 		move_and_slide(velocity)
 		
 		if mouse_control:
 			$TurretPivot.look_at(get_global_mouse_position())
 		else:
-			if Input.is_action_pressed("player_aim_up") or Input.is_action_pressed("player_aim_down") or Input.is_action_pressed("player_aim_left") or Input.is_action_pressed("player_aim_right"):
+			if Input.is_action_pressed(input_prefix + "aim_up") or Input.is_action_pressed(input_prefix + "aim_down") or Input.is_action_pressed(input_prefix + "aim_left") or Input.is_action_pressed(input_prefix + "aim_right"):
 				var joy_vector = Vector2()
-				joy_vector.x = Input.get_action_strength("player_aim_right") - Input.get_action_strength("player_aim_left")
-				joy_vector.y = Input.get_action_strength("player_aim_down") - Input.get_action_strength("player_aim_up")
+				joy_vector.x = Input.get_action_strength(input_prefix + "aim_right") - Input.get_action_strength(input_prefix + "aim_left")
+				joy_vector.y = Input.get_action_strength(input_prefix + "aim_down") - Input.get_action_strength(input_prefix + "aim_up")
 				$TurretPivot.global_rotation = joy_vector.angle()
 			else:
 				$TurretPivot.rotation = 0
@@ -79,13 +81,14 @@ func _physics_process(delta: float) -> void:
 		$Info.position = global_position + info_offset
 		
 		var shooting := false
-		if Input.is_action_just_pressed("player_shoot") and can_shoot:
+		if Input.is_action_just_pressed(input_prefix + "shoot") and can_shoot:
 			can_shoot = false
 			$ShootCooldownTimer.start()
 			shoot()
 			shooting = true
 		
-		rpc("update_remote_player", rotation, position, $TurretPivot.rotation, shooting, bullet_type)
+		if GameState.online_play:
+			rpc("update_remote_player", rotation, position, $TurretPivot.rotation, shooting, bullet_type)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -166,4 +169,4 @@ remotesync func die() -> void:
 	
 	queue_free()
 	
-	emit_signal("dead", int(get_name()))
+	emit_signal("player_dead")

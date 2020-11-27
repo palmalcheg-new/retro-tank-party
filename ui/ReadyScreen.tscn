@@ -30,6 +30,7 @@ margin_left = 100.0
 margin_top = 20.0
 margin_right = -100.0
 margin_bottom = 58.0
+custom_constants/separation = 0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -41,8 +42,8 @@ margin_bottom = 53.0
 text = "Match ID:"
 
 [node name="MatchID" type="LineEdit" parent="Panel/MatchIDContainer"]
-margin_left = 211.0
-margin_right = 772.0
+margin_left = 207.0
+margin_right = 520.0
 margin_bottom = 58.0
 size_flags_horizontal = 3
 text = "XXXX-XXXX-XXXX-XXXX"
@@ -50,8 +51,8 @@ align = 1
 editable = false
 
 [node name="MatchCopyButton" type="Button" parent="Panel/MatchIDContainer"]
-margin_left = 776.0
-margin_right = 880.0
+margin_left = 520.0
+margin_right = 624.0
 margin_bottom = 58.0
 text = "Copy"
 
