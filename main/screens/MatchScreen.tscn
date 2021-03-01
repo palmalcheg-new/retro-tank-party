@@ -27,33 +27,33 @@ margin_bottom = -50.0
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 917.0
-margin_bottom = 533.0
+margin_right = 1173.0
+margin_bottom = 613.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 10
 
 [node name="MatchPanel" type="Panel" parent="PanelContainer/VBoxContainer"]
-margin_right = 910.0
-margin_bottom = 168.0
+margin_right = 1166.0
+margin_bottom = 195.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MatchPanel"]
-margin_left = 16.0
-margin_top = 50.0
-margin_right = 326.0
-margin_bottom = 98.0
+margin_left = 18.8284
+margin_top = 71.2132
+margin_right = 328.828
+margin_bottom = 119.213
 text = "Find at least"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="SpinBox" type="SpinBox" parent="PanelContainer/VBoxContainer/MatchPanel"]
-margin_left = 327.0
-margin_top = 47.0
-margin_right = 629.0
-margin_bottom = 105.0
+margin_left = 329.828
+margin_top = 68.2132
+margin_right = 631.828
+margin_bottom = 126.213
 min_value = 2.0
 max_value = 4.0
 value = 2.0
@@ -78,17 +78,17 @@ __meta__ = {
 }
 
 [node name="CreatePanel" type="Panel" parent="PanelContainer/VBoxContainer"]
-margin_top = 178.0
-margin_right = 910.0
-margin_bottom = 347.0
+margin_top = 205.0
+margin_right = 1166.0
+margin_bottom = 400.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/CreatePanel"]
 margin_left = 17.0
-margin_top = 52.0
+margin_top = 70.3848
 margin_right = 523.0
-margin_bottom = 100.0
+margin_bottom = 118.385
 text = "Create a private match"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -109,17 +109,17 @@ __meta__ = {
 }
 
 [node name="JoinPanel" type="Panel" parent="PanelContainer/VBoxContainer"]
-margin_top = 357.0
-margin_right = 910.0
-margin_bottom = 526.0
+margin_top = 410.0
+margin_right = 1166.0
+margin_bottom = 606.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/JoinPanel"]
 margin_left = 19.0
-margin_top = 52.0
+margin_top = 73.2132
 margin_right = 274.0
-margin_bottom = 100.0
+margin_bottom = 121.213
 text = "Join match:"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -127,18 +127,18 @@ __meta__ = {
 
 [node name="LineEdit" type="LineEdit" parent="PanelContainer/VBoxContainer/JoinPanel"]
 margin_left = 274.0
-margin_top = 51.0
+margin_top = 72.2132
 margin_right = 560.0
-margin_bottom = 109.0
+margin_bottom = 130.213
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="PasteButton" type="Button" parent="PanelContainer/VBoxContainer/JoinPanel"]
 margin_left = 560.0
-margin_top = 52.0
+margin_top = 73.2132
 margin_right = 687.0
-margin_bottom = 108.0
+margin_bottom = 129.213
 text = "Paste"
 __meta__ = {
 "_edit_use_anchors_": false
