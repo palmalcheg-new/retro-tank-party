@@ -78,6 +78,11 @@ _global_script_classes=[ {
 "class": "NakamaWriteStorageObject",
 "language": "GDScript",
 "path": "res://addons/com.heroiclabs.nakama/api/NakamaWriteStorageObject.gd"
+}, {
+"base": "CanvasLayer",
+"class": "UILayer",
+"language": "GDScript",
+"path": "res://main/UILayer.gd"
 } ]
 _global_script_class_icons={
 "NakamaAPI": "",
@@ -93,7 +98,8 @@ _global_script_class_icons={
 "NakamaSocket": "",
 "NakamaSocketAdapter": "",
 "NakamaStorageObjectId": "",
-"NakamaWriteStorageObject": ""
+"NakamaWriteStorageObject": "",
+"UILayer": ""
 }
 
 [application]
@@ -107,7 +113,8 @@ config/icon="res://icon.png"
 Constants="*res://Constants.gd"
 Build="*res://autoload/Build.gd"
 Nakama="*res://addons/com.heroiclabs.nakama/Nakama.gd"
-NakamaWebRTC="*res://addons/nakama-webrtc/NakamaWebRTC.gd"
+OnlineMatch="*res://addons/nakama-webrtc/OnlineMatch.gd"
+Online="*res://autoload/Online.gd"
 GameState="*res://autoload/GameState.gd"
 
 [display]

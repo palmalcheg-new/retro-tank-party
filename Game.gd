@@ -13,6 +13,7 @@ onready var players_node := $Players
 onready var watch_camera := $WatchCamera
 
 var game_started := false
+var game_over := false
 var players_alive := {}
 var players_setup := {}
 var i_am_dead := false
@@ -41,6 +42,7 @@ remotesync func _do_game_setup(players: Dictionary) -> void:
 		game_stop()
 	
 	game_started = true
+	game_over = false
 	players_alive = players
 	
 	reload_map()
@@ -124,7 +126,7 @@ func _create_camera() -> Camera2D:
 	
 	return camera
 
-func kill_player(player_id):
+func kill_player(player_id) -> void:
 	var player_node = players_node.get_node(str(player_id))
 	if player_node:
 		if player_node.has_method("die"):
@@ -135,7 +137,7 @@ func kill_player(player_id):
 			player_node.queue_free()
 			_on_player_dead(player_id)
 
-func _on_player_dead(player_id):
+func _on_player_dead(player_id) -> void:
 	emit_signal("player_dead", player_id)
 	
 	var my_id = get_tree().get_network_unique_id()
@@ -145,6 +147,7 @@ func _on_player_dead(player_id):
 		i_am_dead = true
 	
 	players_alive.erase(player_id)
-	if players_alive.size() == 1:
+	if not game_over and players_alive.size() == 1:
+		game_over = true
 		var player_keys = players_alive.keys()
 		emit_signal("game_over", player_keys[0])
