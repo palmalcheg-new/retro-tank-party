@@ -14,6 +14,8 @@ func _ready() -> void:
 	OnlineMatch.connect("disconnected", self, "_on_OnlineMatch_disconnected")
 	OnlineMatch.connect("player_status_changed", self, "_on_OnlineMatch_player_status_changed")
 	OnlineMatch.connect("player_left", self, "_on_OnlineMatch_player_left")
+	
+	randomize()
 
 #func _unhandled_input(event: InputEvent) -> void:
 #	# Trigger debugging action!

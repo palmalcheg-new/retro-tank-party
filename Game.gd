@@ -1,5 +1,7 @@
 extends Node2D
 
+var ShakeCamera = preload("res://ShakeCamera.tscn")
+
 var Player1 = preload("res://tanks/Player1.tscn")
 var Player2 = preload("res://tanks/Player2.tscn")
 var Player3 = preload("res://tanks/Player3.tscn")
@@ -114,7 +116,8 @@ func reload_map() -> void:
 	move_child(map, map_index)
 
 func _create_camera() -> Camera2D:	
-	var camera = Camera2D.new()
+	var camera = ShakeCamera.instance()
+	camera.name = "Camera"
 	camera.current = true
 	
 	camera.limit_top = 0
