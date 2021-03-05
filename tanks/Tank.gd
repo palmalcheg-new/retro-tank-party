@@ -152,7 +152,8 @@ func _on_ShootCooldownTimer_timeout() -> void:
 
 func take_damage(damage : int) -> void:
 	if has_node("Camera"):
-		get_node("Camera").add_trauma(10.0)
+		# Between 0.25 and 0.5 seems good
+		get_node("Camera").add_trauma(0.5)
 	
 	animation_player.play("Flash")
 	if is_network_master():
