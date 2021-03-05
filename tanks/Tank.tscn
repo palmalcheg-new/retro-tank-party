@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://tanks/Tank.gd" type="Script" id=1]
 [ext_resource path="res://assets/objects.png" type="Texture" id=2]
 [ext_resource path="res://assets/fonts/monogram_extended.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://tanks/whitening_shader.tres" type="Material" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 42, 42 )
@@ -10,6 +11,23 @@ extents = Vector2( 42, 42 )
 [sub_resource type="DynamicFont" id=2]
 size = 24
 font_data = ExtResource( 3 )
+
+[sub_resource type="Animation" id=4]
+resource_name = "Flash"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("BodySprite:material:shader_param/amount")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05, 0.1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0, 0.0 ]
+}
 
 [node name="Tank" type="KinematicBody2D"]
 collision_layer = 2
@@ -20,6 +38,7 @@ script = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="BodySprite" type="Sprite" parent="."]
+material = ExtResource( 4 )
 rotation = 4.71239
 texture = ExtResource( 2 )
 region_enabled = true
@@ -110,4 +129,7 @@ color = Color( 0, 1, 0.0392157, 1 )
 [node name="ShootCooldownTimer" type="Timer" parent="."]
 wait_time = 0.25
 one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Flash = SubResource( 4 )
 [connection signal="timeout" from="ShootCooldownTimer" to="." method="_on_ShootCooldownTimer_timeout"]

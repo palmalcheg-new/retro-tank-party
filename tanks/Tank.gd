@@ -9,6 +9,11 @@ export (String) var input_prefix := "player1_"
 
 signal player_dead ()
 
+onready var body_sprite = $BodySprite
+onready var turret_sprite = $TurretPivot/TurretSprite
+onready var turret_pivot = $TurretPivot
+onready var animation_player = $AnimationPlayer
+
 var turn_speed : int = 5
 var speed : int = 400
 var velocity := Vector2()
@@ -49,6 +54,10 @@ func _ready():
 	$Info.position = global_position + info_offset
 	
 	health_bar_max = $Info/Health.rect_size.x
+	
+	var sprite_material = body_sprite.material.duplicate()
+	body_sprite.material = sprite_material
+	turret_sprite.material = sprite_material
 	
 	# If testing tank on its own, make player controlled
 	if get_tree().current_scene == self:
@@ -142,6 +151,7 @@ func _on_ShootCooldownTimer_timeout() -> void:
 	can_shoot = true
 
 func take_damage(damage : int) -> void:
+	animation_player.play("Flash")
 	if is_network_master():
 		health -= damage
 		if health <= 0:
