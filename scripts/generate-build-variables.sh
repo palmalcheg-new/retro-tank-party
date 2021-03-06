@@ -34,6 +34,9 @@ func _ready() -> void:
 			"urls": ["$ICE_SERVER"],
 			"username": "$ICE_SERVER_USERNAME",
 			"credentials": "$ICE_SERVER_CREDENTIALS",
+			# GDNative WebRTC plugin erroneously uses 'credential' (with the 's')
+			# See: https://github.com/godotengine/webrtc-native/pull/26
+			"credential": "$ICE_SERVER_CREDENTIALS",
 		},
 	]
 
