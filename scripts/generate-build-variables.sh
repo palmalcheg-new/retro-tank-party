@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -z "$NAKAMA_SERVER_KEY" -o -z "$NAKAMA_HOST" -o -z "$NAKAMA_PORT" ]; then
+if [ -z "$NAKAMA_SERVER_KEY" -o -z "$NAKAMA_HOST" -o -z "$NAKAMA_PORT" -o -z "$ICE_SERVER" ]; then
 	exit 0
 fi
 
@@ -28,6 +28,14 @@ func _ready() -> void:
 	Online.nakama_scheme = 'https'
 	
 	OnlineMatch.client_version = '$CLIENT_VERSION'
+
+	OnlineMatch.ice_servers = [
+		{
+			"urls": ["$ICE_SERVER"],
+			"username": "$ICE_SERVER_USERNAME",
+			"credentials": "$ICE_SERVER_CREDENTIALS",
+		},
+	]
 
 EOF
 
