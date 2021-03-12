@@ -1,5 +1,7 @@
 extends "res://main/Screen.gd"
 
+var Steam = Engine.get_singleton("Steam")
+
 onready var tab_container := $TabContainer
 onready var login_email_field := $TabContainer/Login/GridContainer/Email
 onready var login_password_field := $TabContainer/Login/GridContainer/Password

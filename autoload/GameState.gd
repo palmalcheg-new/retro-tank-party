@@ -2,6 +2,7 @@ extends Node
 
 var online_play := false
 
+var Steam = Engine.get_singleton("Steam")
 var use_steam := Engine.has_singleton("Steam")
 var steam_app_id := 1568570
 
