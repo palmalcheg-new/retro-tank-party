@@ -27,7 +27,7 @@ func _show_screen(info: Dictionary = {}) -> void:
 		clear_players()
 	
 	for session_id in players:
-		add_player(session_id, players[session_id]['username'])
+		add_player(session_id, players[session_id]['username'], players[session_id]['peer_id'] == 1)
 	
 	if match_id:
 		match_id_container.visible = true
@@ -46,12 +46,13 @@ func clear_players() -> void:
 func hide_match_id() -> void:
 	match_id_container.visible = false
 
-func add_player(session_id: String, username: String) -> void:
+func add_player(session_id: String, username: String, is_host: bool = false) -> void:
 	if not status_container.has_node(session_id):
 		var status = PeerStatus.instance()
 		status_container.add_child(status)
 		status.initialize(username)
 		status.name = session_id
+		status.host = is_host
 
 func remove_player(session_id: String) -> void:
 	var status = status_container.get_node(session_id)
@@ -94,7 +95,7 @@ func _on_MatchCopyButton_pressed() -> void:
 #####
 
 func _on_OnlineMatch_player_joined(player) -> void:
-	add_player(player.session_id, player.username)
+	add_player(player.session_id, player.username, player.peer_id == 1)
 
 func _on_OnlineMatch_player_left(player) -> void:
 	remove_player(player.session_id)

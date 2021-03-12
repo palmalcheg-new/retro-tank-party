@@ -13,23 +13,32 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ScoreLabel" type="Label" parent="."]
+[node name="HostIcon" type="TextureRect" parent="."]
 margin_right = 50.0
-margin_bottom = 48.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 50, 50 )
+
+[node name="ScoreLabel" type="Label" parent="."]
+margin_left = 54.0
+margin_top = 1.0
+margin_right = 104.0
+margin_bottom = 49.0
 rect_min_size = Vector2( 50, 0 )
 text = "10"
 
 [node name="NameLabel" type="Label" parent="."]
-margin_left = 54.0
+margin_left = 108.0
+margin_top = 1.0
 margin_right = 297.0
-margin_bottom = 48.0
+margin_bottom = 49.0
 size_flags_horizontal = 3
 text = "User"
 
 [node name="StatusLabel" type="Label" parent="."]
 margin_left = 301.0
+margin_top = 1.0
 margin_right = 600.0
-margin_bottom = 48.0
+margin_bottom = 49.0
 size_flags_horizontal = 3
 text = "Connecting..."
 align = 2

@@ -43,7 +43,7 @@ text = "Match ID:"
 
 [node name="MatchID" type="LineEdit" parent="Panel/MatchIDContainer"]
 margin_left = 207.0
-margin_right = 520.0
+margin_right = 776.0
 margin_bottom = 58.0
 size_flags_horizontal = 3
 text = "XXXX-XXXX-XXXX-XXXX"
@@ -51,8 +51,8 @@ align = 1
 editable = false
 
 [node name="MatchCopyButton" type="Button" parent="Panel/MatchIDContainer"]
-margin_left = 520.0
-margin_right = 624.0
+margin_left = 776.0
+margin_right = 880.0
 margin_bottom = 58.0
 text = "Copy"
 
@@ -70,6 +70,7 @@ __meta__ = {
 }
 
 [node name="PeerStatus" parent="Panel/StatusContainer" instance=ExtResource( 3 )]
+margin_bottom = 50.0
 
 [node name="ReadyButton" type="Button" parent="Panel"]
 anchor_top = 1.0
