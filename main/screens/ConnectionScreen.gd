@@ -3,6 +3,9 @@ extends "res://main/Screen.gd"
 onready var tab_container := $TabContainer
 onready var login_email_field := $TabContainer/Login/GridContainer/Email
 onready var login_password_field := $TabContainer/Login/GridContainer/Password
+onready var create_account_tab := $"TabContainer/Create Account"
+onready var steam_tab = $TabContainer/Steam
+onready var steam_username_field := $TabContainer/Steam/GridContainer/Username
 
 const CREDENTIALS_FILENAME = 'user://credentials.json'
 
@@ -12,13 +15,26 @@ var password: String = ''
 var _reconnect: bool = false
 var _next_screen
 
+enum LoginType {
+	EMAIL,
+	STEAM
+}
+var _login_type = LoginType.EMAIL
+
 var _steam_auth_session_ticket: String = ''
+var _steam_create := false
 
 func _ready() -> void:
 	if GameState.use_steam:
 		Steam.connect("get_auth_session_ticket_response", self, "_on_steam_auth_session_ticket_response")
-		return
 		
+		create_account_tab.queue_free()
+		tab_container.set_tab_title(0, "Create account")
+		steam_username_field.text = Steam.getPersonaName()
+	else:
+		tab_container.current_tab = 1
+		steam_tab.queue_free()
+	
 	var file = File.new()
 	if file.file_exists(CREDENTIALS_FILENAME):
 		file.open(CREDENTIALS_FILENAME, File.READ)
@@ -26,10 +42,10 @@ func _ready() -> void:
 		if result.result is Dictionary:
 			email = result.result['email']
 			password = result.result['password']
+			
 			login_email_field.text = email
 			login_password_field.text = password
 		file.close()
-
 
 func _save_credentials() -> void:
 	var file = File.new()
@@ -45,22 +61,25 @@ func _show_screen(info: Dictionary = {}) -> void:
 	_reconnect = info.get('reconnect', false)
 	_next_screen = info.get('next_screen', 'MatchScreen')
 	
+	tab_container.current_tab = 0
+	
+	# If we're in the Steam version, try to login via Steam first.
 	if GameState.use_steam:
-		visible = false
 		do_steam_login()
 		return
-	
-	tab_container.current_tab = 0
 	
 	# If we have a stored email and password, attempt to login straight away.
 	if email != '' and password != '':
 		do_login()
+		return
 
 func do_login(save_credentials: bool = false) -> void:
+	_login_type = LoginType.EMAIL
 	visible = false
 	
 	if _reconnect:
 		ui_layer.show_message("Session expired! Reconnecting...")
+		_reconnect = false
 	else:
 		ui_layer.show_message("Logging in...")
 	
@@ -81,18 +100,31 @@ func do_login(save_credentials: bool = false) -> void:
 	else:
 		if save_credentials:
 			_save_credentials()
+		
 		Online.nakama_session = nakama_session
+		if GameState.use_steam:
+			# This will lead to linking the Steam account.
+			_get_steam_auth_session_ticket()
+		
 		ui_layer.hide_message()
 		
 		if _next_screen:
 			ui_layer.show_screen(_next_screen)
 
-func do_steam_login() -> void:
+func do_steam_login(create: bool = false) -> void:
+	_login_type = LoginType.STEAM
+	_steam_create = create
+	visible = false
+	
 	if _reconnect:
 		ui_layer.show_message("Session expired! Reconnecting via Steam...")
+		_reconnect = false
 	else:
 		ui_layer.show_message("Logging in via Steam...")
 	
+	_get_steam_auth_session_ticket()
+
+func _get_steam_auth_session_ticket() -> void:
 	var result = Steam.getAuthSessionTicket()
 	
 	# Convert binary ticket to hexidecimal.
@@ -103,22 +135,46 @@ func do_steam_login() -> void:
 		_steam_auth_session_ticket += "%02x" % result['buffer'][i]
 
 func _on_steam_auth_session_ticket_response(_auth_ticket_id, _result) -> void:
-	if _result == Steam.RESULT_OK:
-		pass
-	else:
-		ui_layer.show_message("Unable to login via Steam. Please try again later.")
-	
-	# TODO: handle if the username is taken!
-	var nakama_session = yield(Online.nakama_client.authenticate_steam_async(_steam_auth_session_ticket, Steam.getPersonaName(), true), "completed")
+	if _login_type == LoginType.STEAM:
+		if _result != Steam.RESULT_OK:
+			ui_layer.show_message("Unable to connect to Steam. Please try again later.")
+			visible = true
+			return
+		
+		_finish_authenticate_steam()
+	elif _login_type == LoginType.EMAIL:
+		if _result != Steam.RESULT_OK:
+			# We just silently don't link to Steam.
+			return
+		_finish_link_steam()
+
+func _finish_authenticate_steam() -> void:
+	var nakama_session = yield(Online.nakama_client.authenticate_steam_async(_steam_auth_session_ticket, steam_username_field.text.strip_edges(), _steam_create), "completed")
 	if nakama_session.is_exception():
-		#ui_layer.show_message("Server backend is unable to verify your Steam token")
-		ui_layer.show_message(nakama_session.get_exception().message)
+		print (nakama_session.get_exception().message)
+		var exception: NakamaException = nakama_session.get_exception()
+		if exception.grpc_status_code == 5:
+			ui_layer.show_message("No user account found")
+		elif exception.grpc_status_code == 6:
+			ui_layer.show_message("Username already taken")
+		else:
+			ui_layer.show_message("Unable to login via Steam")
+		visible = true
 	else:
 		Online.nakama_session = nakama_session
 		ui_layer.hide_message()
 		
 		if _next_screen:
 			ui_layer.show_screen(_next_screen)
+
+func _finish_link_steam() -> void:
+	# We don't check if this succeeded or not. Even if it fails, we're still
+	# logged in, so we keep going, and we'll try again the next time the user
+	# logs in.
+	Online.nakama_client.link_steam_async(Online.nakama_session, _steam_auth_session_ticket)
+
+func _on_SteamLoginButton_pressed() -> void:
+	do_steam_login(true)
 
 func _on_LoginButton_pressed() -> void:
 	email = login_email_field.text.strip_edges()

@@ -1,9 +1,13 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/theme.tres" type="Theme" id=1]
 [ext_resource path="res://assets/fonts/monogram.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/fonts/monogram.tres" type="DynamicFont" id=3]
 [ext_resource path="res://main/screens/ConnectionScreen.gd" type="Script" id=4]
+
+[sub_resource type="DynamicFont" id=2]
+size = 36
+font_data = ExtResource( 2 )
 
 [sub_resource type="DynamicFont" id=1]
 size = 36
@@ -29,7 +33,72 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Steam" type="Control" parent="TabContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 4.0
+margin_top = 66.0
+margin_right = -4.0
+margin_bottom = -4.0
+
+[node name="Label" type="Label" parent="TabContainer/Steam"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -483.0
+margin_top = 50.0
+margin_right = 454.0
+margin_bottom = 157.0
+custom_fonts/font = SubResource( 2 )
+text = "If you already have a SnopekGames account, use the \"Login\" tab and it'll link your Steam account for the future. Otherwise, you'll end up with two accounts."
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GridContainer" type="GridContainer" parent="TabContainer/Steam"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -369.0
+margin_top = -29.0
+margin_right = 369.0
+margin_bottom = 29.0
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="UsernameLabel" type="Label" parent="TabContainer/Steam/GridContainer"]
+margin_top = 5.0
+margin_right = 207.0
+margin_bottom = 53.0
+custom_fonts/font = ExtResource( 3 )
+text = "Username:"
+
+[node name="Username" type="LineEdit" parent="TabContainer/Steam/GridContainer"]
+margin_left = 211.0
+margin_right = 738.0
+margin_bottom = 58.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 3 )
+caret_blink = true
+
+[node name="SteamLoginButton" type="Button" parent="TabContainer/Steam"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 300.0
+margin_top = -100.0
+margin_right = -300.0
+margin_bottom = -50.0
+text = "Create Account"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Login" type="Control" parent="TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -210,5 +279,6 @@ margin_top = -76.0
 margin_right = -228.737
 margin_bottom = -22.0
 text = "Create Account"
+[connection signal="pressed" from="TabContainer/Steam/SteamLoginButton" to="." method="_on_SteamLoginButton_pressed"]
 [connection signal="pressed" from="TabContainer/Login/LoginButton" to="." method="_on_LoginButton_pressed"]
 [connection signal="pressed" from="TabContainer/Create Account/CreateAccountButton" to="." method="_on_CreateAccountButton_pressed"]
