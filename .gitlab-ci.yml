@@ -34,6 +34,8 @@ windows:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
       - build/windows
+  except:
+    - steam
 
 linux:
   <<: *export_before_script
@@ -52,6 +54,8 @@ linux:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
       - build/linux
+  except:
+    - steam
 
 macosx:
   <<: *export_before_script
@@ -73,6 +77,8 @@ macosx:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
       - build/macosx
+  except:
+    - steam
 
 web:
   <<: *export_before_script
@@ -84,6 +90,8 @@ web:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
       - build/web
+  except:
+    - steam
 
 pages:
   stage: deploy
@@ -111,7 +119,7 @@ itch:
     - butler push build/windows $ITCHIO_NAME:windows-stable
     - butler push build/macosx $ITCHIO_NAME:macosx-stable
   only:
-   - master
+    - master
 
 windows-steam:
   <<: *export_before_script
