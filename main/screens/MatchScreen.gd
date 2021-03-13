@@ -1,5 +1,6 @@
 extends "res://main/Screen.gd"
 
+onready var matchmaker_match_button := $PanelContainer/VBoxContainer/MatchPanel/MatchButton
 onready var matchmaker_player_count_control := $PanelContainer/VBoxContainer/MatchPanel/SpinBox
 onready var join_match_id_control := $PanelContainer/VBoxContainer/JoinPanel/LineEdit
 
@@ -15,6 +16,7 @@ func _ready() -> void:
 func _show_screen(_info: Dictionary = {}) -> void:
 	matchmaker_player_count_control.value = 2
 	join_match_id_control.text = ''
+	matchmaker_match_button.grab_focus()
 
 func _on_match_button_pressed(mode) -> void:
 	# If our session has expired, show the ConnectionScreen again.
