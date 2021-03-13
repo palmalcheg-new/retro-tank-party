@@ -216,9 +216,10 @@ steam:
     - linux-steam
   script:
     # Copy config and sentry files from the cache if they exist
-    - [ ! -d ./steam_cache ] && mkdir ./steam_cache
-    - [ -f ./steam_cache/config.vdf ] && cp ./steam_cache/cache.vdf /home/steam/Steam/config/
-    - [ -n ./steam_cache/ssfn* ] && cp ./steam_cache/ssfn* /home/steam/Steam/
+    - >
+      [ ! -d ./steam_cache ] && mkdir ./steam_cache;
+      [ -f ./steam_cache/config.vdf ] && cp ./steam_cache/cache.vdf /home/steam/Steam/config/;
+      [ -n ./steam_cache/ssfn* ] && cp ./steam_cache/ssfn* /home/steam/Steam/;
 
     # Push build to Steam
     - /home/steam/steamcmd/steamcmd.sh +set_steam_guard_code "$STEAM_GUARD_CODE" +login "$STEAM_BUILD_USERNAME" "$STEAM_BUILD_PASSWORD" +run_app_build "$PWD/scripts/steam/app_build_1568570.vdf" +quit
