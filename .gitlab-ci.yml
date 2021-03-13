@@ -17,34 +17,12 @@ stages:
     # Put in the production Nakama info
     - ./scripts/generate-build-variables.sh
 
-linux:
-  <<: *export_before_script
-  stage: export
-  script:
-    # Pull in the WebRTC GDNative plugin
-    - wget https://github.com/godotengine/webrtc-native/releases/download/0.3/webrtc_native_0.3_multi-release.zip
-    - unzip -a webrtc_native_0.3_multi-release.zip
-    - rm webrtc_native_0.3_multi-release.zip
-
-    # Delete the debug version of the plugin.
-    - rm webrtc_debug/webrtc_debug.gdnlib
-
-    # Export!
-    - mkdir -v -p build/linux
-    - godot -v --export "Linux/X11" ./build/linux/$EXPORT_NAME.x86_64
-  artifacts:
-    name: $EXPORT_NAME-$CI_JOB_NAME
-    paths:
-      - build/linux
-
 windows:
   <<: *export_before_script
   stage: export
   script:
     # Pull in the WebRTC GDNative plugin
-    - wget https://github.com/godotengine/webrtc-native/releases/download/0.3/webrtc_native_0.3_multi-release.zip
-    - unzip -a webrtc_native_0.3_multi-release.zip
-    - rm webrtc_native_0.3_multi-release.zip
+    - ./scripts/download-webrtc-plugin.sh windows release
 
     # Delete the debug version of the plugin.
     - rm webrtc_debug/webrtc_debug.gdnlib
@@ -56,16 +34,35 @@ windows:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
       - build/windows
+  except:
+    - steam
+
+linux:
+  <<: *export_before_script
+  stage: export
+  script:
+    # Pull in the WebRTC GDNative plugin
+    - ./scripts/download-webrtc-plugin.sh linux release
+
+    # Delete the debug version of the plugin.
+    - rm webrtc_debug/webrtc_debug.gdnlib
+
+    # Export!
+    - mkdir -v -p build/linux
+    - godot -v --export "Linux/X11" ./build/linux/$EXPORT_NAME.x86_64
+  artifacts:
+    name: $EXPORT_NAME-$CI_JOB_NAME
+    paths:
+      - build/linux
+  except:
+    - steam
 
 macosx:
   <<: *export_before_script
   stage: export
   script:
     # Pull in the WebRTC GDNative plugin
-    - wget https://github.com/godotengine/webrtc-native/files/3796078/webrtc_0.3_mac_only-with-debug.zip
-    - unzip -a webrtc_0.3_mac_only-with-debug.zip
-    - cp -r webrtc_mac/webrtc/lib webrtc/
-    - rm -rf webrtc_0.3_mac_only-with-debug.zip __MACOSX webrtc_mac
+    - ./scripts/download-webrtc-plugin.sh macosx release
 
     # Delete the debug version of the plugin.
     - rm webrtc_debug/webrtc_debug.gdnlib
@@ -80,6 +77,8 @@ macosx:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
       - build/macosx
+  except:
+    - steam
 
 web:
   <<: *export_before_script
@@ -91,6 +90,8 @@ web:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
       - build/web
+  except:
+    - steam
 
 pages:
   stage: deploy
@@ -118,5 +119,118 @@ itch:
     - butler push build/windows $ITCHIO_NAME:windows-stable
     - butler push build/macosx $ITCHIO_NAME:macosx-stable
   only:
-   - master
+    - master
+
+windows-steam:
+  <<: *export_before_script
+  stage: export
+  script:
+    # Pull in the WebRTC GDNative plugin
+    - ./scripts/download-webrtc-plugin.sh windows release
+
+    # Delete the debug version of the plugin.
+    - rm webrtc_debug/webrtc_debug.gdnlib
+
+    # Get the GodotSteam export templates.
+    - wget "https://github.com/Gramps/GodotSteam/releases/download/g3-s150-gs381/windows-323-64bit.zip" -O ./build/templates/templates.zip
+    - (cd ./build/templates && unzip templates.zip)
+    - ./scripts/update-export-setting.py export_presets.cfg preset.4.options custom_template/debug "\"$PWD/build/templates/windows-323-template-64bit.exe\""
+    - ./scripts/update-export-setting.py export_presets.cfg preset.4.options custom_template/release "\"$PWD/build/templates/windows-323-template-64bit.exe\""
+
+    # Export!
+    - mkdir -v -p build/windows-steam
+    - godot -v --export "Windows Desktop (Steam)" ./build/windows-steam/$EXPORT_NAME.exe
+    - ./scripts/download-steam-redistributables.sh win64/steam_api64.dll ./build/windows-steam/
+  artifacts:
+    name: $EXPORT_NAME-$CI_JOB_NAME
+    paths:
+      - build/windows-steam
+  only:
+    - master
+    - steam
+
+linux-steam:
+  <<: *export_before_script
+  stage: export
+  script:
+    # Pull in the WebRTC GDNative plugin
+    - ./scripts/download-webrtc-plugin.sh linux release
+
+    # Delete the debug version of the plugin.
+    - rm webrtc_debug/webrtc_debug.gdnlib
+
+    # Get the GodotSteam export templates.
+    - wget "https://github.com/Gramps/GodotSteam/releases/download/g3-s150-gs381/linux-323-64bit.tar.gz" -O ./build/templates/templates.tgz
+    - (cd ./build/templates && tar -xzvf templates.tgz)
+    - ./scripts/update-export-setting.py export_presets.cfg preset.5.options custom_template/debug "\"$PWD/build/templates/linux-323-template-64bit\""
+    - ./scripts/update-export-setting.py export_presets.cfg preset.5.options custom_template/release "\"$PWD/build/templates/linux-323-template-64bit\""
+
+    # Export!
+    - mkdir -v -p build/linux-steam
+    - godot -v --export "Linux/X11 (Steam)" ./build/linux-steam/$EXPORT_NAME.x86_64
+    - ./scripts/download-steam-redistributables.sh linux64/libsteam_api.so ./build/linux-steam/
+  artifacts:
+    name: $EXPORT_NAME-$CI_JOB_NAME
+    paths:
+      - build/linux-steam
+  only:
+    - master
+    - steam
+
+macosx-steam:
+  <<: *export_before_script
+  stage: export
+  script:
+    # Pull in the WebRTC GDNative plugin
+    - ./scripts/download-webrtc-plugin.sh macosx release
+
+    # Delete the debug version of the plugin.
+    - rm webrtc_debug/webrtc_debug.gdnlib
+
+    # Get the GodotSteam export templates.
+    - wget "https://github.com/Gramps/GodotSteam/releases/download/g3-s150-gs381/osx-323.zip" -O ./build/templates/templates.zip
+    - (cd ./build/templates && unzip templates.zip)
+    - ./scripts/update-export-setting.py export_presets.cfg preset.6.options custom_template/debug "\"$PWD/build/templates/osx-323-template.zip\""
+    - ./scripts/update-export-setting.py export_presets.cfg preset.6.options custom_template/release "\"$PWD/build/templates/osx-323-template.zip\""
+
+    # Export!
+    - mkdir -v -p build/macosx-steam
+    - godot -v --export "Mac OSX (Steam)" ./build/macosx-steam/$EXPORT_NAME.zip
+
+    # Extract the zip file since GitLab CI will zip it up again.
+    - (cd ./build/macosx-steam && unzip -a $EXPORT_NAME.zip && rm $EXPORT_NAME.zip)
+    - ./scripts/download-steam-redistributables.sh osx/libsteam_api.dylib ./build/macosx-steam/$EXPORT_NAME.app/Contents/MacOS/
+  artifacts:
+    name: $EXPORT_NAME-$CI_JOB_NAME
+    paths:
+      - build/macosx-steam
+  only:
+    - master
+    - steam
+
+steam:
+  stage: deploy
+  image: cm2network/steamcmd
+  dependencies:
+    - windows-steam
+    - linux-steam
+  script:
+    # Copy config and sentry files from the cache if they exist
+    - >
+      [ ! -d ./steam_cache ] && mkdir ./steam_cache;
+      cp ./steam_cache/cache.vdf /home/steam/Steam/config/ 2>/dev/null || echo "No cached config file";
+      cp ./steam_cache/ssfn* /home/steam/Steam/ 2>/dev/null || echo "No cached sentry file";
+
+    # Push build to Steam
+    - /home/steam/steamcmd/steamcmd.sh +set_steam_guard_code "$STEAM_GUARD_CODE" +login "$STEAM_BUILD_USERNAME" "$STEAM_BUILD_PASSWORD" +run_app_build "$PWD/scripts/steam/app_build_1568570.vdf" +quit
+
+    # Copy config and setry files into the cache
+    - cp /home/steam/Steam/config/config.vdf /home/steam/Steam/ssfn* ./steam_cache/
+  cache:
+    paths:
+      - ./steam_cache/
+      - ./steam_build_output/
+  only:
+    - master
+    - steam
 

@@ -5,11 +5,11 @@
 [ext_resource path="res://assets/fonts/monogram.tres" type="DynamicFont" id=3]
 [ext_resource path="res://main/screens/ConnectionScreen.gd" type="Script" id=4]
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=1]
 size = 36
 font_data = ExtResource( 2 )
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=2]
 size = 36
 font_data = ExtResource( 2 )
 
@@ -48,7 +48,7 @@ margin_left = -483.0
 margin_top = 50.0
 margin_right = 454.0
 margin_bottom = 157.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 1 )
 text = "If you already have a SnopekGames account, use the \"Login\" tab and it'll link your Steam account for the future. Otherwise, you'll end up with two accounts."
 autowrap = true
 __meta__ = {
@@ -165,7 +165,7 @@ margin_left = 211.0
 margin_top = 124.0
 margin_right = 738.0
 margin_bottom = 161.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 pressed = true
 text = "Save email and password"
 
@@ -266,7 +266,7 @@ margin_left = 211.0
 margin_top = 186.0
 margin_right = 750.0
 margin_bottom = 223.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 pressed = true
 text = "Save email and password"
 

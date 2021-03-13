@@ -6,8 +6,10 @@ onready var tab_container := $TabContainer
 onready var login_email_field := $TabContainer/Login/GridContainer/Email
 onready var login_password_field := $TabContainer/Login/GridContainer/Password
 onready var create_account_tab := $"TabContainer/Create Account"
+onready var create_account_username_field = $"TabContainer/Create Account/GridContainer/Username"
 onready var steam_tab = $TabContainer/Steam
 onready var steam_username_field := $TabContainer/Steam/GridContainer/Username
+onready var steam_login_button := $TabContainer/Steam/SteamLoginButton
 
 const CREDENTIALS_FILENAME = 'user://credentials.json'
 
@@ -89,6 +91,7 @@ func do_login(save_credentials: bool = false) -> void:
 	
 	if nakama_session.is_exception():
 		visible = true
+		login_email_field.grab_focus()
 		ui_layer.show_message("Login failed!")
 		
 		# Clear stored email and password, but leave the fields alone so the
@@ -141,6 +144,7 @@ func _on_steam_auth_session_ticket_response(_auth_ticket_id, _result) -> void:
 		if _result != Steam.RESULT_OK:
 			ui_layer.show_message("Unable to connect to Steam. Please try again later.")
 			visible = true
+			steam_login_button.grab_focus()
 			return
 		
 		_finish_authenticate_steam()
@@ -162,6 +166,7 @@ func _finish_authenticate_steam() -> void:
 		else:
 			ui_layer.show_message("Unable to login via Steam")
 		visible = true
+		steam_login_button.grab_focus()
 	else:
 		Online.nakama_session = nakama_session
 		ui_layer.hide_message()
@@ -207,6 +212,7 @@ func _on_CreateAccountButton_pressed() -> void:
 	
 	if nakama_session.is_exception():
 		visible = true
+		create_account_username_field.grab_focus()
 		
 		var msg = nakama_session.get_exception().message
 		# Nakama treats registration as logging in, so this is what we get if the
