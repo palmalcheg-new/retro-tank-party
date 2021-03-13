@@ -218,7 +218,7 @@ steam:
     - whoami
     - pwd
     #- /home/steam/steamcmd/steamcmd.sh set_steam_guard_code $STEAM_GUARD_CODE
-    - /home/steam/steamcmd/steamcmd.sh +set_steam_guard_code "$STEAM_GUARD_CODE" +login "$STEAM_BUILD_USERNAME" "$STEAM_BUILD_PASSWORD" +run_app_build ./scripts/steam/app_build_1568570.vdf +quit
+    - /home/steam/steamcmd/steamcmd.sh +set_steam_guard_code "$STEAM_GUARD_CODE" +login "$STEAM_BUILD_USERNAME" "$STEAM_BUILD_PASSWORD" +run_app_build "$PWD/scripts/steam/app_build_1568570.vdf" +quit
   cache:
     paths:
       - ./steam_build_output/
