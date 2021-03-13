@@ -13,6 +13,7 @@ func _ready() -> void:
 func _initialize_steam() -> void:
 	if Steam.restartAppIfNecessary(steam_app_id):
 		get_tree().quit()
+		return
 	
 	var init: Dictionary = Steam.steamInit(false)
 	if init['status'] != 1:
