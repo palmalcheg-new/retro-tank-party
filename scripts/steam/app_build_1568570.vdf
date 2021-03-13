@@ -1,0 +1,16 @@
+"AppBuild"
+{
+	"AppID" "1568570"
+	"Desc" "No description"
+	"Preview" "0"
+	//"Preview" "1" // make this a preview build only, nothing is uploaded
+	//"Local" "..\..\ContentServer\htdocs" // put content on local content server instead of uploading to Steam
+	//"SetLive" "Beta"
+	"ContentRoot" "../../build/"
+	"BuildOutput" "../../steam_build_output/"
+	"Depots"
+	{
+		"1568571" "depot_build_1568571.vdf"
+		"1568572" "depot_build_1568572.vdf"
+	}
+}
