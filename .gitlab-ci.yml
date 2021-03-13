@@ -22,9 +22,7 @@ linux:
   stage: export
   script:
     # Pull in the WebRTC GDNative plugin
-    - wget https://github.com/godotengine/webrtc-native/releases/download/0.3/webrtc_native_0.3_multi-release.zip
-    - unzip -a webrtc_native_0.3_multi-release.zip
-    - rm webrtc_native_0.3_multi-release.zip
+    - ./scripts/download-webrtc-plugin.sh linux release
 
     # Delete the debug version of the plugin.
     - rm webrtc_debug/webrtc_debug.gdnlib
@@ -42,9 +40,7 @@ windows:
   stage: export
   script:
     # Pull in the WebRTC GDNative plugin
-    - wget https://github.com/godotengine/webrtc-native/releases/download/0.3/webrtc_native_0.3_multi-release.zip
-    - unzip -a webrtc_native_0.3_multi-release.zip
-    - rm webrtc_native_0.3_multi-release.zip
+    - ./scripts/download-webrtc-plugin.sh windows release
 
     # Delete the debug version of the plugin.
     - rm webrtc_debug/webrtc_debug.gdnlib
@@ -62,10 +58,7 @@ macosx:
   stage: export
   script:
     # Pull in the WebRTC GDNative plugin
-    - wget https://github.com/godotengine/webrtc-native/files/3796078/webrtc_0.3_mac_only-with-debug.zip
-    - unzip -a webrtc_0.3_mac_only-with-debug.zip
-    - cp -r webrtc_mac/webrtc/lib webrtc/
-    - rm -rf webrtc_0.3_mac_only-with-debug.zip __MACOSX webrtc_mac
+    - ./scripts/download-webrtc-plugin.sh macosx release
 
     # Delete the debug version of the plugin.
     - rm webrtc_debug/webrtc_debug.gdnlib
