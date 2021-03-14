@@ -36,10 +36,3 @@ cat << EOF >> autoload/Build.gd
 EOF
 fi
 
-if [ -n "$TWILIO_ACCOUNT_SID" -a -n "$TWILIO_AUTH_TOKEN" ]; then
-cat << EOF >> autoload/Build.gd
-	OnlineMatch.twilio_account_sid = "$TWILIO_ACCOUNT_SID"
-	OnlineMatch.twilio_auth_token = "$TWILIO_AUTH_TOKEN"
-EOF
-fi
-
