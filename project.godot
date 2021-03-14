@@ -116,6 +116,7 @@ Nakama="*res://addons/com.heroiclabs.nakama/Nakama.gd"
 OnlineMatch="*res://addons/nakama-webrtc/OnlineMatch.gd"
 Online="*res://autoload/Online.gd"
 GameState="*res://autoload/GameState.gd"
+TwilioNTS="*res://autoload/TwilioNTS.tscn"
 
 [display]
 

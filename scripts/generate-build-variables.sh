@@ -28,17 +28,18 @@ func _ready() -> void:
 	Online.nakama_scheme = 'https'
 	
 	OnlineMatch.client_version = '$CLIENT_VERSION'
-
-	OnlineMatch.ice_servers = [
-		{
-			"urls": ["$ICE_SERVER"],
-			"username": "$ICE_SERVER_USERNAME",
-			"credentials": "$ICE_SERVER_CREDENTIALS",
-			# GDNative WebRTC plugin erroneously uses 'credential' (with the 's')
-			# See: https://github.com/godotengine/webrtc-native/pull/26
-			"credential": "$ICE_SERVER_CREDENTIALS",
-		},
-	]
-
 EOF
+
+if [ -n "$ICE_SERVERS" ]; then
+cat << EOF >> autoload/Build.gd
+	OnlineMatch.ice_servers = $ICE_SERVERS
+EOF
+fi
+
+if [ -n "$TWILIO_ACCOUNT_SID" -a -n "$TWILIO_AUTH_TOKEN" ]; then
+cat << EOF >> autoload/Build.gd
+	OnlineMatch.twilio_account_sid = "$TWILIO_ACCOUNT_SID"
+	OnlineMatch.twilio_auth_token = "$TWILIO_AUTH_TOKEN"
+EOF
+fi
 

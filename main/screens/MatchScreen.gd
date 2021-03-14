@@ -35,6 +35,16 @@ func _on_match_button_pressed(mode) -> void:
 	
 	ui_layer.hide_message()
 	
+	# Grab ICE servers from TwilioNTS if it's available.
+	if TwilioNTS.generate_tokens():
+		var ice_servers = yield(TwilioNTS, "tokens_generated")
+		if not ice_servers.empty():
+			for server in ice_servers:
+				# Set 'credentials' due to bug in WebRTC GDNative plugin.
+				if server.has('credential'):
+					server['credentials'] = server['credential']
+			OnlineMatch.ice_servers = ice_servers
+	
 	# Call internal method to do actual work.
 	match mode:
 		OnlineMatch.MatchMode.MATCHMAKER:
