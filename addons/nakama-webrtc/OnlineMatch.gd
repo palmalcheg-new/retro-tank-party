@@ -3,10 +3,19 @@ extends Node
 # For developers to set from the outside, for example:
 #   OnlineMatch.max_players = 8
 #   OnlineMatch.client_version = 'v1.2'
+#   OnlineMatch.ice_servers = [ ... ]
+#   OnlineMatch.use_network_relay = OnlineMatch.NetworkRelay.FORCED
 var min_players := 2
 var max_players := 4
 var client_version := 'dev'
 var ice_servers = [{ "urls": ["stun:stun.l.google.com:19302"] }]
+
+enum NetworkRelay {
+	AUTO,
+	FORCED,
+	DISABLED
+}
+var use_network_relay: int = NetworkRelay.AUTO
 
 # Nakama variables:
 var nakama_socket: NakamaSocket setget _set_readonly_variable
@@ -390,7 +399,9 @@ func _on_nakama_match_state(data: NakamaRTAPI.MatchData) -> void:
 					webrtc_peer.set_remote_description(content['type'], content['sdp'])
 				
 				'add_ice_candidate':
-					webrtc_peer.add_ice_candidate(content['media'], content['index'], content['name'])
+					if _webrtc_check_ice_candidate(content['name']):
+						print ("Receiving ice candidate: %s" % content['name'])
+						webrtc_peer.add_ice_candidate(content['media'], content['index'], content['name'])
 				
 				'reconnect':
 					_webrtc_multiplayer.remove_peer(players[session_id]['peer_id'])
@@ -473,6 +484,16 @@ func _webrtc_reconnect_peer(player: Player) -> void:
 		match_state = MatchState.CONNECTING
 		emit_signal("match_not_ready")
 
+func _webrtc_check_ice_candidate(name: String) -> bool:
+	if use_network_relay == NetworkRelay.AUTO:
+		return true
+	
+	var is_relay: bool = "typ relay" in name
+	
+	if use_network_relay == NetworkRelay.FORCED:
+		return is_relay
+	return !is_relay
+
 func _on_webrtc_peer_session_description_created(type: String, sdp: String, session_id: String) -> void:
 	var webrtc_peer = _webrtc_peers[session_id]
 	webrtc_peer.set_local_description(type, sdp)
@@ -486,6 +507,11 @@ func _on_webrtc_peer_session_description_created(type: String, sdp: String, sess
 	}))
 
 func _on_webrtc_peer_ice_candidate_created(media: String, index: int, name: String, session_id: String) -> void:
+	if not _webrtc_check_ice_candidate(name):
+		return
+	
+	print ("Sending ice candidate: %s" % name)
+	
 	# Send this data to the peer so they can call .add_ice_candidate()
 	nakama_socket.send_match_state_async(match_id, MatchOpCode.WEBRTC_PEER_METHOD, JSON.print({
 		method = "add_ice_candidate",

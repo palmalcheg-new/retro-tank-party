@@ -63,17 +63,25 @@ __meta__ = {
 }
 
 [node name="LocalButton" type="Button" parent="HBoxContainer"]
-margin_left = 415.0
-margin_right = 615.0
+margin_left = 260.0
+margin_right = 480.0
 margin_bottom = 200.0
-rect_min_size = Vector2( 200, 0 )
+rect_min_size = Vector2( 220, 0 )
 text = "Practice"
 
 [node name="OnlineButton" type="Button" parent="HBoxContainer"]
-margin_left = 665.0
-margin_right = 865.0
+margin_left = 530.0
+margin_right = 750.0
 margin_bottom = 200.0
-rect_min_size = Vector2( 200, 0 )
+rect_min_size = Vector2( 220, 0 )
 text = "Battle"
+
+[node name="SettingsButton" type="Button" parent="HBoxContainer"]
+margin_left = 800.0
+margin_right = 1020.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 220, 0 )
+text = "Settings"
 [connection signal="pressed" from="HBoxContainer/LocalButton" to="." method="_on_LocalButton_pressed"]
 [connection signal="pressed" from="HBoxContainer/OnlineButton" to="." method="_on_OnlineButton_pressed"]
+[connection signal="pressed" from="HBoxContainer/SettingsButton" to="." method="_on_SettingsButton_pressed"]

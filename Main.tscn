@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Main.gd" type="Script" id=1]
 [ext_resource path="res://main/screens/ConnectionScreen.tscn" type="PackedScene" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://main/screens/ReadyScreen.tscn" type="PackedScene" id=6]
 [ext_resource path="res://main/screens/TitleScreen.tscn" type="PackedScene" id=7]
 [ext_resource path="res://assets/fonts/monogram.tres" type="DynamicFont" id=8]
+[ext_resource path="res://main/screens/SettingsScreen.tscn" type="PackedScene" id=9]
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 1 )
@@ -35,6 +36,9 @@ visible = false
 visible = false
 
 [node name="ReadyScreen" parent="UILayer/Screens" instance=ExtResource( 6 )]
+visible = false
+
+[node name="SettingsScreen" parent="UILayer/Screens" instance=ExtResource( 9 )]
 visible = false
 
 [node name="Overlay" type="Control" parent="UILayer"]

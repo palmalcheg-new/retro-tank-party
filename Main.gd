@@ -62,7 +62,7 @@ func _on_UILayer_back_button() -> void:
 	
 	stop_game()
 	
-	if ui_layer.current_screen_name in ['ConnectionScreen', 'MatchScreen']:
+	if ui_layer.current_screen_name in ['ConnectionScreen', 'MatchScreen', 'SettingsScreen']:
 		ui_layer.show_screen("TitleScreen")
 	elif not GameState.online_play:
 		ui_layer.show_screen("TitleScreen")

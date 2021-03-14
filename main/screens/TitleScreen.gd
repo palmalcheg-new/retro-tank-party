@@ -11,3 +11,6 @@ func _on_LocalButton_pressed() -> void:
 
 func _on_OnlineButton_pressed() -> void:
 	emit_signal("play_online")
+
+func _on_SettingsButton_pressed() -> void:
+	ui_layer.show_screen("SettingsScreen")
