@@ -46,8 +46,11 @@ func _on_match_button_pressed(mode) -> void:
 					# Set 'credentials' due to bug in WebRTC GDNative plugin.
 					if server.has('credential'):
 						server['credentials'] = server['credential']
-				# @todo remove!
-				print (ice_servers)
+					# I'm not sure this is necessary, but we usually give 'urls'
+					# as an array.
+					if server.has('urls') and typeof(server['urls']) != TYPE_ARRAY:
+						server['urls'] = [ server['urls'] ]
+				
 				OnlineMatch.ice_servers = ice_servers
 	
 	# Call internal method to do actual work.
