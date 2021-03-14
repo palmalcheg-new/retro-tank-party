@@ -36,22 +36,22 @@ func _on_match_button_pressed(mode) -> void:
 	ui_layer.hide_message()
 	
 	# Ask Nakma for the ICE servers via RPC.
-	var ice_servers_result: NakamaAPI.ApiRpc = yield(Online.nakama_client.rpc_async(Online.nakama_session, 'get_ice_servers'), "completed")
-	if not ice_servers_result.is_exception():
-		var json_result = JSON.parse(ice_servers_result.payload)
-		if json_result.error == OK:
-			if json_result.result["success"]:
-				var ice_servers = json_result.result["response"]["ice_servers"]
-				for server in ice_servers:
-					# Set 'credentials' due to bug in WebRTC GDNative plugin.
-					if server.has('credential'):
-						server['credentials'] = server['credential']
-					# I'm not sure this is necessary, but we usually give 'urls'
-					# as an array.
-					if server.has('urls') and typeof(server['urls']) != TYPE_ARRAY:
-						server['urls'] = [ server['urls'] ]
-				
-				OnlineMatch.ice_servers = ice_servers
+#	var ice_servers_result: NakamaAPI.ApiRpc = yield(Online.nakama_client.rpc_async(Online.nakama_session, 'get_ice_servers'), "completed")
+#	if not ice_servers_result.is_exception():
+#		var json_result = JSON.parse(ice_servers_result.payload)
+#		if json_result.error == OK:
+#			if json_result.result["success"]:
+#				var ice_servers = json_result.result["response"]["ice_servers"]
+#				for server in ice_servers:
+#					# Set 'credentials' due to bug in WebRTC GDNative plugin.
+#					if server.has('credential'):
+#						server['credentials'] = server['credential']
+#					# I'm not sure this is necessary, but we usually give 'urls'
+#					# as an array.
+#					if server.has('urls') and typeof(server['urls']) != TYPE_ARRAY:
+#						server['urls'] = [ server['urls'] ]
+#
+#				OnlineMatch.ice_servers = ice_servers
 	
 	# Call internal method to do actual work.
 	match mode:
