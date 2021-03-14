@@ -400,7 +400,7 @@ func _on_nakama_match_state(data: NakamaRTAPI.MatchData) -> void:
 				
 				'add_ice_candidate':
 					if _webrtc_check_ice_candidate(content['name']):
-						print ("Receiving ice candidate: %s" % content['name'])
+						#print ("Receiving ice candidate: %s" % content['name'])
 						webrtc_peer.add_ice_candidate(content['media'], content['index'], content['name'])
 				
 				'reconnect':
@@ -510,7 +510,7 @@ func _on_webrtc_peer_ice_candidate_created(media: String, index: int, name: Stri
 	if not _webrtc_check_ice_candidate(name):
 		return
 	
-	print ("Sending ice candidate: %s" % name)
+	#print ("Sending ice candidate: %s" % name)
 	
 	# Send this data to the peer so they can call .add_ice_candidate()
 	nakama_socket.send_match_state_async(match_id, MatchOpCode.WEBRTC_PEER_METHOD, JSON.print({
