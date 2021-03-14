@@ -50,8 +50,15 @@ func _on_match_button_pressed(mode) -> void:
 					# as an array.
 					if server.has('urls') and typeof(server['urls']) != TYPE_ARRAY:
 						server['urls'] = [ server['urls'] ]
-				
+
+				print ("Using ICE server list from server")
 				OnlineMatch.ice_servers = ice_servers
+			else:
+				print ("Error in RPC call get_ice_servers(): %s" % json_result.result["response"])
+		else:
+			print ("Unable to parse JSON: %s" % ice_servers_result.payload)
+	else:
+		print ("Error in making RPC call get_ice_servers()")
 	
 	# Call internal method to do actual work.
 	match mode:
