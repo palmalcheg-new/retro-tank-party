@@ -13,6 +13,9 @@ func _ready() -> void:
 	network_relay_field.add_item("Disabled", OnlineMatch.NetworkRelay.DISABLED)
 	network_relay_field.selected = GameSettings.use_network_relay
 
+func _show_screen(info: Dictionary = {}) -> void:
+	screenshake_field.grab_focus()
+
 func _hide_screen() -> void:
 	GameSettings.save_settings()
 
