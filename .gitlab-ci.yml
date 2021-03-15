@@ -92,7 +92,7 @@ macosx-sign:
     - mkdir -v -p build/macosx-signed
     - >
       APP_PATH=$(find ./build/macosx/ -name \*.app -print -quit);
-      APP_NAME=$(basname "$APP_PATH");
+      APP_NAME=$(basename "$APP_PATH");
       cp -a "./build/macosx/$APP_NAME" ./build/macosx-signed/ && \
       ./scripts/macosx-notarize.sh "./build/macosx-signed/$APP_NAME.app";
   artifacts:
