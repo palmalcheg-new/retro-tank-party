@@ -1,9 +1,5 @@
 image: barichello/godot-ci:3.2.3
 
-tags:
-  - docker
-  - linux
-
 variables:
   EXPORT_NAME: retro-tank-party
   ITCHIO_NAME: dsnopek/retro-tank-party
