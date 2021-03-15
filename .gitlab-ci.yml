@@ -81,7 +81,7 @@ macosx:
   except:
     - steam
 
-macosx-sign:
+macosx-signed:
   stage: sign
   tags:
     - osx
@@ -230,7 +230,7 @@ macosx-steam:
     - master
     - steam
 
-macosx-steam-sign:
+macosx-steam-signed:
   stage: sign
   tags:
     - osx
