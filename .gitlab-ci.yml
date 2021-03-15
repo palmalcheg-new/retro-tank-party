@@ -239,8 +239,11 @@ macosx-steam-sign:
     - macosx-steam
   script:
     - mkdir -v -p build/macosx-steam-signed
-    - cp -a ./build/macosx-steam/$EXPORT_NAME.app ./build/macosx-steam-signed/
-    - ./scripts/macosx-notarize.sh "./build/macosx-steam-signed/$EXPORT_NAME.app"
+    - >
+      APP_PATH=$(find ./build/macosx-steam/ -name \*.app -print -quit);
+      APP_NAME=$(basename "$APP_PATH");
+      cp -a "./build/macosx-steam/$APP_NAME" ./build/macosx-steam-signed/ &&
+      ./scripts/macosx-notarize.sh "./build/macosx-steam-signed/$APP_NAME";
   artifacts:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
