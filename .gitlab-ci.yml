@@ -90,8 +90,11 @@ macosx-sign:
     - macosx
   script:
     - mkdir -v -p build/macosx-signed
-    - cp -a ./build/macosx/$EXPORT_NAME.app ./build/macosx-signed/
-    - ./scripts/macosx-notarize.sh "./build/macosx-signed/$EXPORT_NAME.app"
+    - >
+      APP_PATH=$(find ./build/macosx/ -name \*.app -print -quit);
+      APP_NAME=$(basname "$APP_PATH");
+      cp -a "./build/macosx/$APP_NAME" ./build/macosx-signed/ && \
+      ./scripts/macosx-notarize.sh "./build/macosx-signed/$APP_NAME.app";
   artifacts:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
