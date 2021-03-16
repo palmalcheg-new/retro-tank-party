@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://main/screens/SettingsScreen.gd" type="Script" id=1]
 [ext_resource path="res://assets/theme.tres" type="Theme" id=2]
+[ext_resource path="res://ui/OptionSwitcher.tscn" type="PackedScene" id=3]
 
 [node name="SettingsScreen" type="Control"]
 anchor_right = 1.0
@@ -12,26 +13,25 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" type="PanelContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+theme = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 20.0
-margin_top = 20.0
-margin_right = -20.0
-margin_bottom = -20.0
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1273.0
+margin_bottom = 713.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer"]
-margin_right = 1240.0
+margin_right = 1266.0
 margin_bottom = 75.0
 rect_min_size = Vector2( 0, 75 )
 text = "Settings"
@@ -39,49 +39,78 @@ align = 1
 
 [node name="GridContainer" type="GridContainer" parent="Panel/VBoxContainer"]
 margin_top = 79.0
-margin_right = 1240.0
-margin_bottom = 622.0
+margin_right = 1266.0
+margin_bottom = 645.0
 size_flags_vertical = 3
 custom_constants/vseparation = 10
 columns = 2
 
-[node name="ScreenshakeLabel" type="Label" parent="Panel/VBoxContainer/GridContainer"]
-margin_top = 3.0
-margin_right = 1026.0
+[node name="MusicLabel" type="Label" parent="Panel/VBoxContainer/GridContainer"]
+margin_right = 762.0
 margin_bottom = 51.0
+text = "Music"
+
+[node name="MusicSlider" type="HSlider" parent="Panel/VBoxContainer/GridContainer"]
+margin_left = 766.0
+margin_top = 9.0
+margin_right = 1266.0
+margin_bottom = 51.0
+rect_min_size = Vector2( 500, 0 )
+size_flags_vertical = 12
+step = 5.0
+value = 70.0
+
+[node name="SoundLabel" type="Label" parent="Panel/VBoxContainer/GridContainer"]
+margin_top = 61.0
+margin_right = 762.0
+margin_bottom = 112.0
+text = "Sound"
+
+[node name="SoundSlider" type="HSlider" parent="Panel/VBoxContainer/GridContainer"]
+margin_left = 766.0
+margin_top = 70.0
+margin_right = 1266.0
+margin_bottom = 112.0
+rect_min_size = Vector2( 500, 0 )
+size_flags_vertical = 12
+step = 5.0
+value = 70.0
+
+[node name="ScreenshakeLabel" type="Label" parent="Panel/VBoxContainer/GridContainer"]
+margin_top = 122.0
+margin_right = 762.0
+margin_bottom = 173.0
 size_flags_horizontal = 3
 text = "Screen shake"
 
-[node name="ScreenshakeOptions" type="OptionButton" parent="Panel/VBoxContainer/GridContainer"]
-margin_left = 1030.0
-margin_right = 1240.0
-margin_bottom = 54.0
-rect_min_size = Vector2( 210, 0 )
-text = "Enabled"
-align = 1
+[node name="ScreenshakeOptions" parent="Panel/VBoxContainer/GridContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 766.0
+margin_top = 122.0
+margin_right = 1266.0
+margin_bottom = 173.0
 
 [node name="NetworkRelayLabel" type="Label" parent="Panel/VBoxContainer/GridContainer"]
-margin_top = 67.0
-margin_right = 1026.0
-margin_bottom = 115.0
+margin_top = 183.0
+margin_right = 762.0
+margin_bottom = 234.0
 text = "Network relay"
 
-[node name="NetworkRelayOptions" type="OptionButton" parent="Panel/VBoxContainer/GridContainer"]
-margin_left = 1030.0
-margin_top = 64.0
-margin_right = 1240.0
-margin_bottom = 118.0
-text = "Auto"
-align = 1
+[node name="NetworkRelayOptions" parent="Panel/VBoxContainer/GridContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 766.0
+margin_top = 183.0
+margin_right = 1266.0
+margin_bottom = 234.0
 
 [node name="DoneButton" type="Button" parent="Panel/VBoxContainer"]
-margin_left = 545.0
-margin_top = 626.0
-margin_right = 695.0
-margin_bottom = 680.0
+margin_left = 558.0
+margin_top = 649.0
+margin_right = 708.0
+margin_bottom = 706.0
 rect_min_size = Vector2( 150, 0 )
 size_flags_horizontal = 4
 text = "Done"
-[connection signal="item_selected" from="Panel/VBoxContainer/GridContainer/ScreenshakeOptions" to="." method="_on_ScreenshakeOptions_item_selected"]
-[connection signal="item_selected" from="Panel/VBoxContainer/GridContainer/NetworkRelayOptions" to="." method="_on_NetworkRelayOptions_item_selected"]
 [connection signal="pressed" from="Panel/VBoxContainer/DoneButton" to="." method="_on_DoneButton_pressed"]

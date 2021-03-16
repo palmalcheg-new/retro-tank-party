@@ -53,10 +53,10 @@ __meta__ = {
 }
 
 [node name="SpinBox" type="SpinBox" parent="PanelContainer/VBoxContainer/MatchPanel"]
-margin_left = 329.828
-margin_top = 68.2132
-margin_right = 631.828
-margin_bottom = 126.213
+margin_left = 355.055
+margin_top = 61.486
+margin_right = 677.203
+margin_bottom = 126.76
 min_value = 2.0
 max_value = 4.0
 value = 2.0
@@ -129,19 +129,19 @@ __meta__ = {
 }
 
 [node name="LineEdit" type="LineEdit" parent="PanelContainer/VBoxContainer/JoinPanel"]
-margin_left = 274.0
-margin_top = 72.2132
-margin_right = 560.0
-margin_bottom = 130.213
+margin_left = 291.545
+margin_top = 59.0271
+margin_right = 613.874
+margin_bottom = 146.117
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="PasteButton" type="Button" parent="PanelContainer/VBoxContainer/JoinPanel"]
-margin_left = 560.0
-margin_top = 73.2132
-margin_right = 687.0
-margin_bottom = 129.213
+margin_left = 619.136
+margin_top = 65.0
+margin_right = 760.136
+margin_bottom = 142.0
 text = "Paste"
 __meta__ = {
 "_edit_use_anchors_": false

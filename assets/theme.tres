@@ -1,6 +1,13 @@
-[gd_resource type="Theme" load_steps=2 format=2]
+[gd_resource type="Theme" load_steps=9 format=2]
 
 [ext_resource path="res://assets/fonts/monogram.tres" type="DynamicFont" id=1]
+[ext_resource path="res://assets/ui/grey_sliderDown.png" type="Texture" id=2]
+[ext_resource path="res://assets/ui/blue_boxCheckmark.png" type="Texture" id=3]
+[ext_resource path="res://assets/ui/blue_boxTick.png" type="Texture" id=4]
+[ext_resource path="res://assets/ui/grey_box.png" type="Texture" id=5]
+[ext_resource path="res://assets/ui/scrollVertical.png" type="Texture" id=6]
+[ext_resource path="res://assets/ui/grey_sliderDown_hover.png" type="Texture" id=7]
+[ext_resource path="res://assets/ui/grey_sliderDown_disabled.png" type="Texture" id=8]
 
 [resource]
 default_font = ExtResource( 1 )
@@ -10,16 +17,42 @@ CheckBox/colors/font_color_hover = Color( 0.94, 0.94, 0.94, 1 )
 CheckBox/colors/font_color_hover_pressed = Color( 1, 1, 1, 1 )
 CheckBox/colors/font_color_pressed = Color( 1, 1, 1, 1 )
 CheckBox/constants/ = 0
-CheckBox/constants/check_vadjust = 3
+CheckBox/constants/check_vadjust = 0
 CheckBox/constants/hseparation = 15
 CheckBox/fonts/font = null
-CheckBox/icons/checked = null
-CheckBox/icons/radio_checked = null
-CheckBox/icons/radio_unchecked = null
-CheckBox/icons/unchecked = null
+CheckBox/icons/checked = ExtResource( 3 )
+CheckBox/icons/radio_checked = ExtResource( 4 )
+CheckBox/icons/radio_unchecked = ExtResource( 5 )
+CheckBox/icons/unchecked = ExtResource( 5 )
 CheckBox/styles/disabled = null
 CheckBox/styles/focus = null
 CheckBox/styles/hover = null
 CheckBox/styles/hover_pressed = null
 CheckBox/styles/normal = null
 CheckBox/styles/pressed = null
+HSlider/icons/grabber = ExtResource( 2 )
+HSlider/icons/grabber_disabled = ExtResource( 8 )
+HSlider/icons/grabber_highlight = ExtResource( 7 )
+HSlider/icons/tick = null
+HSlider/styles/grabber_area = null
+HSlider/styles/grabber_area_highlight = null
+HSlider/styles/slider = null
+PopupMenu/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
+PopupMenu/colors/font_color_accel = Color( 0.7, 0.7, 0.7, 0.8 )
+PopupMenu/colors/font_color_disabled = Color( 0.4, 0.4, 0.4, 0.8 )
+PopupMenu/colors/font_color_hover = Color( 0.88, 0.88, 0.88, 1 )
+PopupMenu/constants/hseparation = 4
+PopupMenu/constants/vseparation = 4
+PopupMenu/fonts/font = null
+PopupMenu/icons/checked = null
+PopupMenu/icons/radio_checked = null
+PopupMenu/icons/radio_unchecked = null
+PopupMenu/icons/submenu = null
+PopupMenu/icons/unchecked = null
+PopupMenu/styles/hover = null
+PopupMenu/styles/labeled_separator_left = null
+PopupMenu/styles/labeled_separator_right = null
+PopupMenu/styles/panel = null
+PopupMenu/styles/panel_disabled = null
+PopupMenu/styles/separator = null
+SpinBox/icons/updown = ExtResource( 6 )

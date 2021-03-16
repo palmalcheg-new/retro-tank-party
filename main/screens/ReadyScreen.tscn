@@ -37,23 +37,22 @@ __meta__ = {
 
 [node name="Label" type="Label" parent="Panel/MatchIDContainer"]
 margin_top = 5.0
-margin_right = 207.0
-margin_bottom = 53.0
+margin_right = 216.0
+margin_bottom = 56.0
 text = "Match ID:"
 
 [node name="MatchID" type="LineEdit" parent="Panel/MatchIDContainer"]
-margin_left = 207.0
-margin_right = 776.0
-margin_bottom = 58.0
+margin_left = 216.0
+margin_right = 772.0
+margin_bottom = 61.0
 size_flags_horizontal = 3
 text = "XXXX-XXXX-XXXX-XXXX"
-align = 1
 editable = false
 
 [node name="MatchCopyButton" type="Button" parent="Panel/MatchIDContainer"]
-margin_left = 776.0
+margin_left = 772.0
 margin_right = 880.0
-margin_bottom = 58.0
+margin_bottom = 61.0
 text = "Copy"
 
 [node name="StatusContainer" type="VBoxContainer" parent="Panel"]
@@ -70,7 +69,7 @@ __meta__ = {
 }
 
 [node name="PeerStatus" parent="Panel/StatusContainer" instance=ExtResource( 3 )]
-margin_bottom = 50.0
+margin_bottom = 51.0
 
 [node name="ReadyButton" type="Button" parent="Panel"]
 anchor_top = 1.0
