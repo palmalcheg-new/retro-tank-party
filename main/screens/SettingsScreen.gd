@@ -13,7 +13,7 @@ func _ready() -> void:
 	network_relay_field.add_item("Auto", OnlineMatch.NetworkRelay.AUTO)
 	network_relay_field.add_item("Forced", OnlineMatch.NetworkRelay.FORCED)
 	network_relay_field.add_item("Disabled", OnlineMatch.NetworkRelay.DISABLED)
-	network_relay_field.selected = GameSettings.use_network_relay
+	network_relay_field.value = GameSettings.use_network_relay
 
 func _show_screen(info: Dictionary = {}) -> void:
 	music_slider.grab_focus()

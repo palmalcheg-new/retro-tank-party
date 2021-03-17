@@ -113,4 +113,6 @@ margin_bottom = 706.0
 rect_min_size = Vector2( 150, 0 )
 size_flags_horizontal = 4
 text = "Done"
+[connection signal="item_selected" from="Panel/VBoxContainer/GridContainer/ScreenshakeOptions" to="." method="_on_ScreenshakeOptions_item_selected"]
+[connection signal="item_selected" from="Panel/VBoxContainer/GridContainer/NetworkRelayOptions" to="." method="_on_NetworkRelayOptions_item_selected"]
 [connection signal="pressed" from="Panel/VBoxContainer/DoneButton" to="." method="_on_DoneButton_pressed"]

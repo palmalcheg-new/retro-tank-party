@@ -41,11 +41,15 @@ func _show_buttons(show: bool) -> void:
 func set_selected(_selected) -> bool:
 	if _selected >= 0 and _selected < _options.size():
 		selected = _selected
-		_label.text = _options[selected].label
-		_reset_button_colors()
+		_update_display()
 		emit_signal("item_selected", _options[selected].value, selected)
 	
 	return selected == _selected
+
+func _update_display() -> void:
+	if selected >= 0 and selected < _options.size():
+		_label.text = _options[selected].label
+		_reset_button_colors()
 
 func _reset_button_colors() -> void:
 	_back_button.modulate = modulate_disabled if selected == 0 else modulate_normal
@@ -67,7 +71,7 @@ func add_item(label: String, value = null) -> void:
 		value = label
 	var option = Option.new(label, value)
 	_options.push_back(option)
-	set_selected(selected)
+	_update_display()
 
 func _gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_left"):
