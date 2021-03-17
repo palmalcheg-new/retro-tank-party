@@ -1,9 +1,5 @@
 image: barichello/godot-ci:3.2.3
 
-tags:
-  - docker
-  - linux
-
 variables:
   EXPORT_NAME: retro-tank-party
   ITCHIO_NAME: dsnopek/retro-tank-party
@@ -94,8 +90,11 @@ macosx-signed:
     - macosx
   script:
     - mkdir -v -p build/macosx-signed
-    - cp -a ./build/macosx/$EXPORT_NAME.app ./build/macosx-signed/
-    - ./scripts/macosx-notarize.sh "./build/macosx-signed/$EXPORT_NAME.app"
+    - >
+      APP_PATH=$(find ./build/macosx/ -name \*.app -print -quit);
+      APP_NAME=$(basename "$APP_PATH");
+      cp -a "./build/macosx/$APP_NAME" ./build/macosx-signed/ &&
+      ./scripts/macosx-notarize.sh "./build/macosx-signed/$APP_NAME";
   artifacts:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
@@ -240,8 +239,11 @@ macosx-steam-signed:
     - macosx-steam
   script:
     - mkdir -v -p build/macosx-steam-signed
-    - cp -a ./build/macosx-steam/$EXPORT_NAME.app ./build/macosx-steam-signed/
-    - ./scripts/macosx-notarize.sh "./build/macosx-steam-signed/$EXPORT_NAME.app"
+    - >
+      APP_PATH=$(find ./build/macosx-steam/ -name \*.app -print -quit);
+      APP_NAME=$(basename "$APP_PATH");
+      cp -a "./build/macosx-steam/$APP_NAME" ./build/macosx-steam-signed/ &&
+      ./scripts/macosx-notarize.sh "./build/macosx-steam-signed/$APP_NAME";
   artifacts:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
