@@ -394,7 +394,6 @@ func _on_nakama_match_state(data: NakamaRTAPI.MatchData) -> void:
 		if content['target'] == my_session_id:
 			var session_id = data.presence.session_id
 			if not _webrtc_peers.has(session_id):
-				print ("Received WEBRTC_PEER_METHOD for connection we don't have")
 				return
 			var webrtc_peer = _webrtc_peers[session_id]
 			match content['method']:
