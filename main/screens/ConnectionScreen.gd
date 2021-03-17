@@ -11,7 +11,8 @@ onready var steam_tab = $TabContainer/Steam
 onready var steam_username_field := $TabContainer/Steam/GridContainer/Username
 onready var steam_login_button := $TabContainer/Steam/SteamLoginButton
 
-const CREDENTIALS_FILENAME = 'user://credentials.json'
+const CREDENTIALS_FILENAME = 'user://credentials.json.enc'
+const CREDENTIALS_FILENAME_OLD = 'user://credentials.json'
 
 var email: String = ''
 var password: String = ''
@@ -41,19 +42,29 @@ func _ready() -> void:
 	
 	var file = File.new()
 	if file.file_exists(CREDENTIALS_FILENAME):
-		file.open(CREDENTIALS_FILENAME, File.READ)
-		var result := JSON.parse(file.get_as_text())
-		if result.result is Dictionary:
-			email = result.result['email']
-			password = result.result['password']
-			
-			login_email_field.text = email
-			login_password_field.text = password
-		file.close()
+		if file.open_encrypted_with_pass(CREDENTIALS_FILENAME, File.READ, Build.encryption_password) == OK:
+			_load_credentials(file)
+	elif file.file_exists(CREDENTIALS_FILENAME_OLD):
+		if file.open(CREDENTIALS_FILENAME_OLD, File.READ) == OK:
+			_load_credentials(file)
+			# Remove this file and replace with the new one.
+			var dir = Directory.new()
+			dir.remove(CREDENTIALS_FILENAME_OLD)
+			_save_credentials()
+
+func _load_credentials(file: File) -> void:
+	var result := JSON.parse(file.get_as_text())
+	if result.result is Dictionary:
+		email = result.result['email']
+		password = result.result['password']
+		
+		login_email_field.text = email
+		login_password_field.text = password
+	file.close()
 
 func _save_credentials() -> void:
 	var file = File.new()
-	file.open(CREDENTIALS_FILENAME, File.WRITE)
+	file.open_encrypted_with_pass(CREDENTIALS_FILENAME, File.WRITE, Build.encryption_password)
 	var credentials = {
 		email = email,
 		password = password,

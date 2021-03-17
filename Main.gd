@@ -84,6 +84,9 @@ func _on_OnlineMatch_error(message: String):
 func _on_OnlineMatch_disconnected():
 	#_on_OnlineMatch_error("Disconnected from host")
 	_on_OnlineMatch_error('')
+	
+	if game.game_started:
+		game.game_stop()
 
 func _on_OnlineMatch_player_left(player) -> void:
 	ui_layer.show_message(player.username + " has left")

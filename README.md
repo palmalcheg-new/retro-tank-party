@@ -3,7 +3,6 @@ Battle Tanks
 
 Multiplayer battle tank game for MDW Gamejam 2019-09.
 
-
 Credits
 -------
 

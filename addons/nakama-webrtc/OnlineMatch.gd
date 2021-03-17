@@ -300,13 +300,13 @@ func _on_nakama_match_presence(data: NakamaRTAPI.MatchPresenceEvent) -> void:
 				players[u.session_id] = new_player
 				emit_signal("player_joined", new_player)
 				
-				_webrtc_connect_peer(new_player)
-				
 				# Tell this player (and the others) about all the players peer ids.
 				nakama_socket.send_match_state_async(match_id, MatchOpCode.JOIN_SUCCESS, JSON.print({
 					players = serialize_players(players),
 					client_version = client_version,
 				}))
+				
+				_webrtc_connect_peer(new_player)
 			else:
 				# Tell this player that we're full up!
 				nakama_socket.send_match_state_async(match_id, MatchOpCode.JOIN_ERROR, JSON.print({
@@ -393,6 +393,8 @@ func _on_nakama_match_state(data: NakamaRTAPI.MatchData) -> void:
 	if data.op_code == MatchOpCode.WEBRTC_PEER_METHOD:
 		if content['target'] == my_session_id:
 			var session_id = data.presence.session_id
+			if not _webrtc_peers.has(session_id):
+				return
 			var webrtc_peer = _webrtc_peers[session_id]
 			match content['method']:
 				'set_remote_description':
@@ -428,6 +430,7 @@ func _on_nakama_match_state(data: NakamaRTAPI.MatchData) -> void:
 		if content['target'] == my_session_id:
 			leave()
 			emit_signal("error", content['reason'])
+			return
 
 func _webrtc_connect_peer(player: Player) -> void:
 	# Don't add the same peer twice!

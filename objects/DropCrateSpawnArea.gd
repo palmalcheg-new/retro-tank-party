@@ -6,7 +6,8 @@ func _ready():
 	pass
 
 func map_object_start():
-	$DropTimer.start()
+	if is_network_master():
+		$DropTimer.start()
 
 func map_object_stop():
 	clear()
