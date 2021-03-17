@@ -428,6 +428,7 @@ func _on_nakama_match_state(data: NakamaRTAPI.MatchData) -> void:
 		if content['target'] == my_session_id:
 			leave()
 			emit_signal("error", content['reason'])
+			return
 
 func _webrtc_connect_peer(player: Player) -> void:
 	# Don't add the same peer twice!
