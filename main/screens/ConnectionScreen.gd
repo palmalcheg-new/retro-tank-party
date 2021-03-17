@@ -42,15 +42,15 @@ func _ready() -> void:
 	
 	var file = File.new()
 	if file.file_exists(CREDENTIALS_FILENAME):
-		file.open_encrypted_with_pass(CREDENTIALS_FILENAME, File.READ, Build.encryption_password)
-		_load_credentials(file)
+		if file.open_encrypted_with_pass(CREDENTIALS_FILENAME, File.READ, Build.encryption_password) == OK:
+			_load_credentials(file)
 	elif file.file_exists(CREDENTIALS_FILENAME_OLD):
-		file.open(CREDENTIALS_FILENAME_OLD, File.READ)
-		_load_credentials(file)
-		# Remove this file and replace with the new one.
-		var dir = Directory.new()
-		dir.remove(CREDENTIALS_FILENAME_OLD)
-		_save_credentials()
+		if file.open(CREDENTIALS_FILENAME_OLD, File.READ) == OK:
+			_load_credentials(file)
+			# Remove this file and replace with the new one.
+			var dir = Directory.new()
+			dir.remove(CREDENTIALS_FILENAME_OLD)
+			_save_credentials()
 
 func _load_credentials(file: File) -> void:
 	var result := JSON.parse(file.get_as_text())
