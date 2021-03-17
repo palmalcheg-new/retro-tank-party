@@ -85,7 +85,7 @@ macosx:
   except:
     - steam
 
-macosx-sign:
+macosx-signed:
   stage: sign
   tags:
     - osx
@@ -100,8 +100,8 @@ macosx-sign:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
       - build/macosx-signed
-  except:
-    - steam
+  only:
+    - master
 
 web:
   <<: *export_before_script
@@ -135,12 +135,12 @@ itch:
     - web
     - linux
     - windows
-    - macosx
+    - macosx-signed
   script:
     - butler push build/web $ITCHIO_NAME:web-stable
     - butler push build/linux $ITCHIO_NAME:linux-stable
     - butler push build/windows $ITCHIO_NAME:windows-stable
-    - butler push build/macosx $ITCHIO_NAME:macosx-stable
+    - butler push build/macosx-signed $ITCHIO_NAME:macosx-stable
   only:
     - master
 
@@ -231,7 +231,7 @@ macosx-steam:
     - master
     - steam
 
-macosx-steam-sign:
+macosx-steam-signed:
   stage: sign
   tags:
     - osx
@@ -256,6 +256,7 @@ steam:
   dependencies:
     - windows-steam
     - linux-steam
+    - macosx-steam-signed
   script:
     # Copy config and sentry files from the cache if they exist
     - >
