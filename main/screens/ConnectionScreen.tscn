@@ -102,10 +102,10 @@ __meta__ = {
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 6.93966
-margin_top = 66.493
-margin_right = -6.81115
-margin_bottom = -6.04007
+margin_left = 4.0
+margin_top = 69.0
+margin_right = -4.0
+margin_bottom = -4.0
 
 [node name="GridContainer" type="GridContainer" parent="TabContainer/Login"]
 anchor_left = 0.5
@@ -187,10 +187,10 @@ __meta__ = {
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 6.93966
-margin_top = 66.493
-margin_right = -6.81115
-margin_bottom = -6.04007
+margin_left = 4.0
+margin_top = 69.0
+margin_right = -4.0
+margin_bottom = -4.0
 
 [node name="GridContainer" type="GridContainer" parent="TabContainer/Create Account"]
 anchor_left = 0.5
