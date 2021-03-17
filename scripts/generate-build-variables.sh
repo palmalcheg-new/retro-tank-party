@@ -1,7 +1,8 @@
 #!/bin/bash
 
-if [ -z "$NAKAMA_SERVER_KEY" -o -z "$NAKAMA_HOST" -o -z "$NAKAMA_PORT" -o -z "$ICE_SERVER" ]; then
-	exit 0
+if [ -z "$NAKAMA_SERVER_KEY" -o -z "$NAKAMA_HOST" -o -z "$NAKAMA_PORT" -o -z "$ENCRYPTION_PASSWORD" ]; then
+	echo " ** ERROR: Missing required environment variable" >/dev/stderr
+	exit 1
 fi
 
 NAKAMA_SERVER_KEY=$(base64 -d <<< "$NAKAMA_SERVER_KEY")
@@ -20,6 +21,8 @@ fi
 
 cat << EOF > autoload/Build.gd
 extends Node
+
+var encryption_password := '$ENCRYPTION_PASSWORD'
 
 func _ready() -> void:
 	Online.nakama_host = '$NAKAMA_HOST'
