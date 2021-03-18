@@ -22,7 +22,7 @@ cd "$WORKDIR"
 rm -f /tmp/notarize-*.xml
 
 echo "Signing..."
-codesign --force --deep --sign "$MACOSX_SIGNATURE_IDENTITY" --options runtime "$ENTITLEMENTS" --timestamp "$NAME" \
+codesign --force --deep --sign "$MACOSX_SIGNATURE_IDENTITY" --options runtime $ENTITLEMENTS --timestamp "$NAME" \
 	|| die "Failed to sign app"
 
 echo "Uploading for notarization..."
