@@ -1,4 +1,4 @@
-extends "res://src/main/Screen.gd"
+extends "res://src/ui/Screen.gd"
 
 onready var music_slider := $Panel/VBoxContainer/GridContainer/MusicSlider
 onready var sound_slider := $Panel/VBoxContainer/GridContainer/SoundSlider

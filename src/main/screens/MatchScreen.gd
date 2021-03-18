@@ -1,4 +1,4 @@
-extends "res://src/main/Screen.gd"
+extends "res://src/ui/Screen.gd"
 
 onready var matchmaker_match_button := $PanelContainer/VBoxContainer/MatchPanel/MatchButton
 onready var matchmaker_player_count_control := $PanelContainer/VBoxContainer/MatchPanel/SpinBox

@@ -1,4 +1,4 @@
-extends "res://src/main/Screen.gd"
+extends "res://src/ui/Screen.gd"
 
 var Steam = Engine.get_singleton("Steam")
 

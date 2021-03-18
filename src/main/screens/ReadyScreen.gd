@@ -1,4 +1,4 @@
-extends "res://src/main/Screen.gd"
+extends "res://src/ui/Screen.gd"
 
 var PeerStatus = preload("res://src/main/screens/PeerStatus.tscn");
 
