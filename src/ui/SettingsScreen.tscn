@@ -1,0 +1,151 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/theme.tres" type="Theme" id=2]
+[ext_resource path="res://src/ui/OptionSwitcher.tscn" type="PackedScene" id=3]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends \"res://src/main/Screen.gd\"
+
+onready var music_slider := $Panel/VBoxContainer/GridContainer/MusicSlider
+onready var sound_slider := $Panel/VBoxContainer/GridContainer/SoundSlider
+onready var screenshake_field := $Panel/VBoxContainer/GridContainer/ScreenshakeOptions
+onready var network_relay_field:= $Panel/VBoxContainer/GridContainer/NetworkRelayOptions
+
+func _ready() -> void:
+	screenshake_field.add_item(\"Enabled\", true)
+	screenshake_field.add_item(\"Disabled\", false)
+	screenshake_field.value = GameSettings.use_screenshake
+	
+	network_relay_field.add_item(\"Auto\", OnlineMatch.NetworkRelay.AUTO)
+	network_relay_field.add_item(\"Forced\", OnlineMatch.NetworkRelay.FORCED)
+	network_relay_field.add_item(\"Disabled\", OnlineMatch.NetworkRelay.DISABLED)
+	network_relay_field.value = GameSettings.use_network_relay
+
+func _show_screen(info: Dictionary = {}) -> void:
+	music_slider.grab_focus()
+
+func _hide_screen() -> void:
+	GameSettings.save_settings()
+
+func _on_ScreenshakeOptions_item_selected(value, _index) -> void:
+	GameSettings.use_screenshake = value
+
+func _on_NetworkRelayOptions_item_selected(value, _index) -> void:
+	GameSettings.use_network_relay = value
+
+func _on_DoneButton_pressed() -> void:
+	ui_layer.go_back()
+"
+
+[node name="SettingsScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+script = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="PanelContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 1273.0
+margin_bottom = 713.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Panel/VBoxContainer"]
+margin_right = 1266.0
+margin_bottom = 75.0
+rect_min_size = Vector2( 0, 75 )
+text = "Settings"
+align = 1
+
+[node name="GridContainer" type="GridContainer" parent="Panel/VBoxContainer"]
+margin_top = 79.0
+margin_right = 1266.0
+margin_bottom = 645.0
+size_flags_vertical = 3
+custom_constants/vseparation = 10
+columns = 2
+
+[node name="MusicLabel" type="Label" parent="Panel/VBoxContainer/GridContainer"]
+margin_right = 762.0
+margin_bottom = 51.0
+text = "Music"
+
+[node name="MusicSlider" type="HSlider" parent="Panel/VBoxContainer/GridContainer"]
+margin_left = 766.0
+margin_top = 9.0
+margin_right = 1266.0
+margin_bottom = 51.0
+rect_min_size = Vector2( 500, 0 )
+size_flags_vertical = 12
+step = 5.0
+value = 70.0
+
+[node name="SoundLabel" type="Label" parent="Panel/VBoxContainer/GridContainer"]
+margin_top = 61.0
+margin_right = 762.0
+margin_bottom = 112.0
+text = "Sound"
+
+[node name="SoundSlider" type="HSlider" parent="Panel/VBoxContainer/GridContainer"]
+margin_left = 766.0
+margin_top = 70.0
+margin_right = 1266.0
+margin_bottom = 112.0
+rect_min_size = Vector2( 500, 0 )
+size_flags_vertical = 12
+step = 5.0
+value = 70.0
+
+[node name="ScreenshakeLabel" type="Label" parent="Panel/VBoxContainer/GridContainer"]
+margin_top = 122.0
+margin_right = 762.0
+margin_bottom = 173.0
+size_flags_horizontal = 3
+text = "Screen shake"
+
+[node name="ScreenshakeOptions" parent="Panel/VBoxContainer/GridContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 766.0
+margin_top = 122.0
+margin_right = 1266.0
+margin_bottom = 173.0
+
+[node name="NetworkRelayLabel" type="Label" parent="Panel/VBoxContainer/GridContainer"]
+margin_top = 183.0
+margin_right = 762.0
+margin_bottom = 234.0
+text = "Network relay"
+
+[node name="NetworkRelayOptions" parent="Panel/VBoxContainer/GridContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 766.0
+margin_top = 183.0
+margin_right = 1266.0
+margin_bottom = 234.0
+
+[node name="DoneButton" type="Button" parent="Panel/VBoxContainer"]
+margin_left = 558.0
+margin_top = 649.0
+margin_right = 708.0
+margin_bottom = 706.0
+rect_min_size = Vector2( 150, 0 )
+size_flags_horizontal = 4
+text = "Done"
+[connection signal="item_selected" from="Panel/VBoxContainer/GridContainer/ScreenshakeOptions" to="." method="_on_ScreenshakeOptions_item_selected"]
+[connection signal="item_selected" from="Panel/VBoxContainer/GridContainer/NetworkRelayOptions" to="." method="_on_NetworkRelayOptions_item_selected"]
+[connection signal="pressed" from="Panel/VBoxContainer/DoneButton" to="." method="_on_DoneButton_pressed"]

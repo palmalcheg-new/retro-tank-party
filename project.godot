@@ -82,7 +82,7 @@ _global_script_classes=[ {
 "base": "CanvasLayer",
 "class": "UILayer",
 "language": "GDScript",
-"path": "res://ui/UILayer.gd"
+"path": "res://src/ui/UILayer.gd"
 } ]
 _global_script_class_icons={
 "NakamaAPI": "",
@@ -105,19 +105,19 @@ _global_script_class_icons={
 [application]
 
 config/name="Retro Tank Party"
-run/main_scene="res://TitleScreen.tscn"
+run/main_scene="res://src/TitleScreen.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-Constants="*res://Constants.gd"
-Build="*res://autoload/Build.gd"
+Constants="*res://src/Constants.gd"
+Build="*res://src/autoload/Build.gd"
 Nakama="*res://addons/com.heroiclabs.nakama/Nakama.gd"
 OnlineMatch="*res://addons/nakama-webrtc/OnlineMatch.gd"
-Online="*res://autoload/Online.gd"
-GameSettings="*res://autoload/GameSettings.gd"
-SteamManager="*res://autoload/SteamManager.gd"
-Globals="*res://autoload/Globals.gd"
+Online="*res://src/autoload/Online.gd"
+GameSettings="*res://src/autoload/GameSettings.gd"
+SteamManager="*res://src/autoload/SteamManager.gd"
+Globals="*res://src/autoload/Globals.gd"
 
 [display]
 

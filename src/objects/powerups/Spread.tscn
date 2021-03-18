@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/objects/powerups/Powerup.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/objects/powerups/Spread.gd" type="Script" id=2]
+
+[node name="Powerup" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="Label" parent="Visual/OuterRect/InnerRect" index="0"]
+text = "S"
