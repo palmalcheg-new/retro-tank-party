@@ -243,7 +243,7 @@ macosx-steam-signed:
       APP_PATH=$(find ./build/macosx-steam/ -name \*.app -print -quit);
       APP_NAME=$(basename "$APP_PATH");
       cp -a "./build/macosx-steam/$APP_NAME" ./build/macosx-steam-signed/ &&
-      ./scripts/macosx-notarize.sh "./build/macosx-steam-signed/$APP_NAME" "$PWD/macosx/entitlements.plist";
+      ./scripts/macosx-notarize.sh "./build/macosx-steam-signed/$APP_NAME" "$PWD/scripts/steam/macosx-entitlements.plist";
   artifacts:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:

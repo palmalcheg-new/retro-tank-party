@@ -11,13 +11,18 @@ fi
 
 NAME=$(basename "$1")
 WORKDIR=$(dirname "$1")
-ENTITLEMENTS="$2"
+
+if [ -n "$2" ]; then
+	ENTITLEMENTS="--entitlements '$2'"
+else
+	ENTITLEMENTS=""
+fi
 
 cd "$WORKDIR"
 rm -f /tmp/notarize-*.xml
 
 echo "Signing..."
-codesign --force --deep --sign "$MACOSX_SIGNATURE_IDENTITY" --options runtime --entitlements "$ENTITLEMENTS" --timestamp "$NAME" \
+codesign --force --deep --sign "$MACOSX_SIGNATURE_IDENTITY" --options runtime "$ENTITLEMENTS" --timestamp "$NAME" \
 	|| die "Failed to sign app"
 
 echo "Uploading for notarization..."
