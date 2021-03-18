@@ -16,12 +16,9 @@ func _ready() -> void:
 	OnlineMatch.connect("player_left", self, "_on_OnlineMatch_player_left")
 	
 	randomize()
-
-func _input(event: InputEvent) -> void:
-	if event is InputEventJoypadMotion or event is InputEventJoypadButton:
-		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-	elif event is InputEventMouseMotion:
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	
+	ui_layer.show_screen("ConnectionScreen")
+	ui_layer.show_back_button()
 
 #func _unhandled_input(event: InputEvent) -> void:
 #	# Trigger debugging action!
@@ -35,37 +32,13 @@ func _input(event: InputEvent) -> void:
 # UI callbacks
 #####
 
-func _on_TitleScreen_play_local() -> void:
-	GameState.online_play = false
-	
-	ui_layer.hide_screen()
-	ui_layer.show_back_button()
-	
-	start_game()
-
-func _on_TitleScreen_play_online() -> void:
-	GameState.online_play = true
-	
-	# Show the game map in the background because we have nothing better.
-	game.reload_map()
-	
-	ui_layer.show_screen("ConnectionScreen")
-
-func _on_UILayer_change_screen(name: String, _screen) -> void:
-	if name == 'TitleScreen':
-		ui_layer.hide_back_button()
-	else:
-		ui_layer.show_back_button()
-
 func _on_UILayer_back_button() -> void:
 	ui_layer.hide_message()
 	
 	stop_game()
 	
-	if ui_layer.current_screen_name in ['ConnectionScreen', 'MatchScreen', 'SettingsScreen']:
-		ui_layer.show_screen("TitleScreen")
-	elif not GameState.online_play:
-		ui_layer.show_screen("TitleScreen")
+	if ui_layer.current_screen_name in ['ConnectionScreen', 'MatchScreen']:
+		get_tree().change_scene("res://TitleScreen.tscn")
 	else:
 		ui_layer.show_screen("MatchScreen")
 
@@ -118,13 +91,7 @@ remotesync func player_ready(session_id: String) -> void:
 			start_game()
 
 func start_game() -> void:
-	if GameState.online_play:
-		players = OnlineMatch.get_player_names_by_peer_id()
-	else:
-		players = {
-			1: "Practice",
-		}
-	
+	players = OnlineMatch.get_player_names_by_peer_id()
 	game.game_start(players)
 
 func stop_game() -> void:
@@ -146,17 +113,14 @@ func _on_Game_game_started() -> void:
 	ui_layer.show_back_button()
 
 func _on_Game_player_dead(player_id: int) -> void:
-	if GameState.online_play:
-		var my_id = get_tree().get_network_unique_id()
-		if player_id == my_id:
-			ui_layer.show_message("You lose!")
+	var my_id = get_tree().get_network_unique_id()
+	if player_id == my_id:
+		ui_layer.show_message("You lose!")
 
 func _on_Game_game_over(player_id: int) -> void:
 	players_ready.clear()
 	
-	if not GameState.online_play:
-		show_winner(players[player_id])
-	elif get_tree().is_network_server():
+	if get_tree().is_network_server():
 		if not players_score.has(player_id):
 			players_score[player_id] = 1
 		else:
@@ -176,15 +140,12 @@ remotesync func show_winner(name: String, session_id: String = '', score: int = 
 	if not game.game_started:
 		return
 	
-	if GameState.online_play:
-		if is_match:
-			stop_game()
-			ui_layer.show_screen("MatchScreen")
-		else:
-			ready_screen.hide_match_id()
-			ready_screen.reset_status("Waiting...")
-			ready_screen.set_score(session_id, score)
-			ui_layer.show_screen("ReadyScreen")
+	if is_match:
+		stop_game()
+		ui_layer.show_screen("MatchScreen")
 	else:
-		restart_game()
+		ready_screen.hide_match_id()
+		ready_screen.reset_status("Waiting...")
+		ready_screen.set_score(session_id, score)
+		ui_layer.show_screen("ReadyScreen")
 

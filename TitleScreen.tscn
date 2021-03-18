@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/fonts/monogram_extended.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/theme.tres" type="Theme" id=2]
-[ext_resource path="res://main/screens/TitleScreen.gd" type="Script" id=3]
+[ext_resource path="res://TitleScreen.gd" type="Script" id=3]
+[ext_resource path="res://ui/SettingsScreen.tscn" type="PackedScene" id=4]
+[ext_resource path="res://ui/UILayer.tscn" type="PackedScene" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 160
@@ -82,6 +84,14 @@ margin_right = 1020.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 220, 0 )
 text = "Settings"
+
+[node name="UILayer" parent="." instance=ExtResource( 5 )]
+
+[node name="SettingsScreen" parent="UILayer/Screens" index="0" instance=ExtResource( 4 )]
+visible = false
 [connection signal="pressed" from="HBoxContainer/LocalButton" to="." method="_on_LocalButton_pressed"]
 [connection signal="pressed" from="HBoxContainer/OnlineButton" to="." method="_on_OnlineButton_pressed"]
 [connection signal="pressed" from="HBoxContainer/SettingsButton" to="." method="_on_SettingsButton_pressed"]
+[connection signal="back_button" from="UILayer" to="." method="_on_UILayer_back_button"]
+
+[editable path="UILayer"]

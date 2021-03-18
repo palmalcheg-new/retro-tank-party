@@ -28,4 +28,4 @@ func _on_NetworkRelayOptions_item_selected(value, _index) -> void:
 	GameSettings.use_network_relay = value
 
 func _on_DoneButton_pressed() -> void:
-	ui_layer.show_screen("TitleScreen")
+	ui_layer.go_back()

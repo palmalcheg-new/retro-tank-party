@@ -21,7 +21,6 @@ func _ready() -> void:
 		if screen.has_method('_setup_screen'):
 			screen._setup_screen(self)
 	
-	show_screen("TitleScreen")
 	_is_ready = true
 
 func get_current_screen_name() -> String:
@@ -69,8 +68,11 @@ func hide_all() -> void:
 	hide_message()
 	hide_back_button()
 
-func _on_BackButton_pressed() -> void:
+func go_back() -> void:
 	emit_signal("back_button")
+
+func _on_BackButton_pressed() -> void:
+	go_back()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action('ui_cancel') and back_button.visible and event.is_pressed():

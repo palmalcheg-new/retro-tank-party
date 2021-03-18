@@ -96,8 +96,7 @@ func _physics_process(delta: float) -> void:
 			shoot()
 			shooting = true
 		
-		if GameState.online_play:
-			rpc("update_remote_player", rotation, position, $TurretPivot.rotation, shooting, bullet_type)
+		rpc("update_remote_player", rotation, position, $TurretPivot.rotation, shooting, bullet_type)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:

@@ -31,10 +31,7 @@ func _ready() -> void:
 	TankScenes['Player4'] = Player4
 
 func game_start(players: Dictionary) -> void:
-	if GameState.online_play:
-		rpc("_do_game_setup", players)
-	else:
-		_do_game_setup(players)
+	rpc("_do_game_setup", players)
 
 # Initializes the game so that it is ready to really start.
 remotesync func _do_game_setup(players: Dictionary) -> void:
@@ -61,24 +58,15 @@ remotesync func _do_game_setup(players: Dictionary) -> void:
 		other_player.rotation = map.get_node("PlayerStartPositions/Player" + str(player_index)).rotation
 		other_player.connect("player_dead", self, "_on_player_dead", [peer_id])
 		
-		if not GameState.online_play:
-			other_player.player_controlled = true
-			other_player.input_prefix = "player" + str(player_index) + "_"
-		
 		player_index += 1
 	
-	# @todo Deal with multiple local players
-	var my_id: int = get_tree().get_network_unique_id() if GameState.online_play else 1
+	var my_id: int = get_tree().get_network_unique_id()
 	var my_player := players_node.get_node(str(my_id))
+	my_player.player_controlled = true
 	my_player.add_child(_create_camera())
 	
-	if GameState.online_play:
-		my_player.player_controlled = true
-		
-		# Tell the host that we've finished setup.
-		rpc_id(1, "_finished_game_setup", my_id)
-	else:
-		_do_game_start()
+	# Tell the host that we've finished setup.
+	rpc_id(1, "_finished_game_setup", my_id)
 
 # Records when each player has finished setup so we know when all players are ready.
 mastersync func _finished_game_setup(player_id: int) -> void:
