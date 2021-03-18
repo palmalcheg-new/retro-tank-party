@@ -13,7 +13,7 @@ NAME=$(basename "$1")
 WORKDIR=$(dirname "$1")
 
 if [ -n "$2" ]; then
-	ENTITLEMENTS="--entitlements '$2'"
+	ENTITLEMENTS="--entitlements $2"
 else
 	ENTITLEMENTS=""
 fi
