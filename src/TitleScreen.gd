@@ -1,9 +1,9 @@
-extends Control
+extends Node2D
 
 onready var ui_layer = $UILayer
 
 func _ready() -> void:
-	$HBoxContainer/OnlineButton.grab_focus()
+	$CanvasLayer/Control/HBoxContainer/OnlineButton.grab_focus()
 
 func _on_LocalButton_pressed() -> void:
 	get_tree().change_scene("res://src/Practice.tscn")
