@@ -105,19 +105,19 @@ _global_script_class_icons={
 [application]
 
 config/name="Retro Tank Party"
-run/main_scene="res://src/TitleScreen.tscn"
+run/main_scene="res://src/Title.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-Constants="*res://src/Constants.gd"
-Build="*res://src/autoload/Build.gd"
 Nakama="*res://addons/com.heroiclabs.nakama/Nakama.gd"
 OnlineMatch="*res://addons/nakama-webrtc/OnlineMatch.gd"
-Online="*res://src/autoload/Online.gd"
-GameSettings="*res://src/autoload/GameSettings.gd"
-SteamManager="*res://src/autoload/SteamManager.gd"
+Constants="*res://src/autoload/Constants.gd"
+Build="*res://src/autoload/Build.gd"
 Globals="*res://src/autoload/Globals.gd"
+GameSettings="*res://src/autoload/GameSettings.gd"
+Online="*res://src/autoload/Online.gd"
+SteamManager="*res://src/autoload/SteamManager.gd"
 
 [display]
 

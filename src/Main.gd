@@ -38,7 +38,7 @@ func _on_UILayer_back_button() -> void:
 	stop_game()
 	
 	if ui_layer.current_screen_name in ['ConnectionScreen', 'MatchScreen']:
-		get_tree().change_scene("res://src/TitleScreen.tscn")
+		get_tree().change_scene("res://src/Title.tscn")
 	else:
 		ui_layer.show_screen("MatchScreen")
 

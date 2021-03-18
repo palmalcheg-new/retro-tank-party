@@ -16,4 +16,4 @@ func _ready() -> void:
 	ui_layer.show_back_button()
 
 func _on_UILayer_back_button() -> void:
-	get_tree().change_scene("res://src/TitleScreen.tscn")
+	get_tree().change_scene("res://src/Title.tscn")
