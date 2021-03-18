@@ -117,6 +117,7 @@ OnlineMatch="*res://addons/nakama-webrtc/OnlineMatch.gd"
 Online="*res://autoload/Online.gd"
 GameState="*res://autoload/GameState.gd"
 GameSettings="*res://autoload/GameSettings.gd"
+SteamManager="*res://autoload/SteamManager.gd"
 
 [display]
 

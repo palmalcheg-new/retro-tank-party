@@ -30,7 +30,7 @@ var _steam_auth_session_ticket: String = ''
 var _steam_create := false
 
 func _ready() -> void:
-	if GameState.use_steam:
+	if SteamManager.use_steam:
 		Steam.connect("get_auth_session_ticket_response", self, "_on_steam_auth_session_ticket_response")
 		
 		create_account_tab.queue_free()
@@ -79,7 +79,7 @@ func _show_screen(info: Dictionary = {}) -> void:
 	tab_container.current_tab = 0
 	
 	# If we're in the Steam version, try to login via Steam first.
-	if GameState.use_steam:
+	if SteamManager.use_steam:
 		do_steam_login()
 		return
 	
@@ -118,7 +118,7 @@ func do_login(save_credentials: bool = false) -> void:
 			_save_credentials()
 		
 		Online.nakama_session = nakama_session
-		if GameState.use_steam:
+		if SteamManager.use_steam:
 			# This will lead to linking the Steam account.
 			_get_steam_auth_session_ticket()
 		
