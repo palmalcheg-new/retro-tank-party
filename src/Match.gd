@@ -3,7 +3,7 @@ extends Node2D
 onready var game := $Game
 onready var ui_layer := $UILayer
 
-var match_info: Dictionary
+var match_manager
 
 var players_score := {}
 
@@ -15,7 +15,13 @@ func _ready() -> void:
 	randomize()
 
 func scene_setup(operation: RemoteOperations.ClientOperation, info: Dictionary) -> void:
-	match_info = info
+	print (info)
+	if info.has('mode_path'):
+		var match_mode: MatchMode = load(info['mode_path'])
+		match_manager = match_mode.manager_scene.instance()
+		match_manager.name = "MatchManager"
+		add_child(match_manager)
+		match_manager.match_manager_setup(info, self, game, ui_layer)
 	
 	game.game_setup(OnlineMatch.get_player_names_by_peer_id())
 	ui_layer.show_back_button()

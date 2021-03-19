@@ -10,7 +10,7 @@ var current_config
 const MODES_PATH = "res://src/modes/"
 
 func _ready() -> void:
-	load_match_modes()
+	_load_match_modes()
 	
 	for match_mode_id in match_modes:
 		mode_field.add_item(match_modes[match_mode_id].name, match_mode_id)
@@ -18,8 +18,7 @@ func _ready() -> void:
 	
 	mode_field.grab_focus()
 
-func load_match_modes() -> void:
-	match_modes.clear()
+func _load_match_modes() -> void:
 	var dir = Directory.new()
 	if dir.open(MODES_PATH) == OK:
 		dir.list_dir_begin()
@@ -28,7 +27,7 @@ func load_match_modes() -> void:
 			if not dir.current_is_dir() and file_name.ends_with(".tres"):
 				var resource = load(MODES_PATH + file_name)
 				if resource is MatchMode:
-					match_modes[file_name] = resource
+					match_modes[MODES_PATH + file_name] = resource
 			file_name = dir.get_next()
 
 func change_mode(mode: MatchMode) -> void:
@@ -44,10 +43,16 @@ func change_mode(mode: MatchMode) -> void:
 	else:
 		current_config = null
 
-#func _show_screen(info: Dictionary = {}) -> void:
-#	# @todo do something better to get the default
-#	var mode_ids = match_modes.keys()
-#	mode_field.value = mode_ids
-
 func _on_ModeSwitcher_item_selected(value, index) -> void:
 	change_mode(match_modes[value])
+
+func get_mode_path() -> String:
+	return mode_field.value
+
+func get_config_values() -> Dictionary:
+	if current_config.has_method('get_config_values'):
+		return current_config.get_config_values()
+	return {}
+
+func _on_NextButton_pressed() -> void:
+	ui_layer.show_screen("ReadyScreen")

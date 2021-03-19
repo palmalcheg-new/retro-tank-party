@@ -66,3 +66,4 @@ rect_min_size = Vector2( 150, 0 )
 size_flags_horizontal = 4
 text = "Next"
 [connection signal="item_selected" from="Panel/VBoxContainer/ModeSwitcher" to="." method="_on_ModeSwitcher_item_selected"]
+[connection signal="pressed" from="Panel/VBoxContainer/NextButton" to="." method="_on_NextButton_pressed"]

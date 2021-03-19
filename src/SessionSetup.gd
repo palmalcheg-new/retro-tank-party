@@ -38,7 +38,7 @@ remotesync func player_ready(session_id: String) -> void:
 			if OnlineMatch.match_state != OnlineMatch.MatchState.PLAYING:
 				OnlineMatch.start_playing()
 			
-			RemoteOperations.change_scene("res://src/Match.tscn")
+			RemoteOperations.change_scene("res://src/MatchSetup.tscn")
 
 #####
 # OnlineMatch callbacks
