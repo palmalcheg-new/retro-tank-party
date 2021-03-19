@@ -141,7 +141,7 @@ func change_scene(path: String, info: Dictionary = {}) -> HostOperation:
 	if operation == null:
 		return null
 	
-	operation.connect("completed", self, "_change_scene_host_operation_completed")
+	operation.connect("completed", self, "_change_scene_host_operation_completed", [path])
 	
 	return operation
 
@@ -164,18 +164,22 @@ func _finish_op_change_scene(operation: ClientOperation, info: Dictionary) -> vo
 	else:
 		operation.mark_done(true)
 
-func _change_scene_host_operation_completed(success: bool) -> void:
+func _change_scene_host_operation_completed(success: bool, path: String) -> void:
 	if not success:
 		if get_tree().change_scene(FALLBACK_SCENE) != OK:
-			OS.alert("Unable to change scene")
-		else:
-			var scene = get_tree().current_scene
-			scene.ui_layer.show_message("Unable to change scene")
+			OS.alert("Unable to change scene!")
+			get_tree().quit(1)
+		
+		call_deferred("_change_scene_host_operation_total_failure", path)
 		return
 	
 	var scene = get_tree().current_scene
 	if scene.has_method('scene_start'):
 		scene.scene_start()
+
+func _change_scene_host_operation_total_failure(path: String) -> void:
+	var scene = get_tree().current_scene
+	scene.ui_layer.show_message("Unable to change scene: %s" % path)
 
 func synchronized_rpc(node: Node, method: String, args: Array, pass_operation: bool = false):
 	var info := {
