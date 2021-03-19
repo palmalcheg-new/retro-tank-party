@@ -24,6 +24,7 @@ func scene_start() -> void:
 	game.rpc("game_start")
 
 func quit_match() -> void:
+	game.game_stop()
 	OnlineMatch.leave()
 	get_tree().change_scene("res://src/SessionSetup.tscn")
 
@@ -32,8 +33,6 @@ func quit_match() -> void:
 #####
 
 func _on_UILayer_back_button() -> void:
-	game.game_stop()
-	
 	# TODO: allow the host to go back to match setup rather than leaving.
 	quit_match()
 
@@ -52,8 +51,8 @@ func _on_UILayer_back_button() -> void:
 func _on_OnlineMatch_error(message: String):
 	if message != '':
 		ui_layer.show_message(message)
-		
-	yield(get_tree().create_timer(5.0), "timeout")
+	ui_layer.hide_screen()
+	yield(get_tree().create_timer(2.0), "timeout")
 	quit_match()
 
 func _on_OnlineMatch_disconnected():
