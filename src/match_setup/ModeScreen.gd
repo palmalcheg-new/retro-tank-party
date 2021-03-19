@@ -38,7 +38,7 @@ func change_mode(mode: MatchMode) -> void:
 	description_label.text = mode.description
 	
 	if mode.config_scene:
-		current_config = mode.config_scene.instance()
+		current_config = mode.instance_config_scene()
 		config_parent.add_child(current_config)
 	else:
 		current_config = null
@@ -46,13 +46,13 @@ func change_mode(mode: MatchMode) -> void:
 func _on_ModeSwitcher_item_selected(value, index) -> void:
 	change_mode(match_modes[value])
 
-func get_mode_path() -> String:
-	return mode_field.value
+func _on_NextButton_pressed() -> void:
+	ui_layer.show_screen("ReadyScreen")
+
+func get_mode() -> String:
+	return match_modes[mode_field.value]
 
 func get_config_values() -> Dictionary:
 	if current_config.has_method('get_config_values'):
 		return current_config.get_config_values()
 	return {}
-
-func _on_NextButton_pressed() -> void:
-	ui_layer.show_screen("ReadyScreen")

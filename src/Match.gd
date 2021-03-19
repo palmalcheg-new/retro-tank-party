@@ -16,9 +16,8 @@ func _ready() -> void:
 
 func scene_setup(operation: RemoteOperations.ClientOperation, info: Dictionary) -> void:
 	print (info)
-	if info.has('mode_path'):
-		var match_mode: MatchMode = load(info['mode_path'])
-		match_manager = match_mode.manager_scene.instance()
+	if info.has('manager_path'):
+		var match_manager = load(info['manager_path']).instance()
 		match_manager.name = "MatchManager"
 		add_child(match_manager)
 		match_manager.match_manager_setup(info, self, game, ui_layer)
@@ -64,9 +63,6 @@ func _on_OnlineMatch_error(message: String):
 	quit_match()
 
 func _on_OnlineMatch_disconnected():
-	if game.game_started:
-		game.game_stop()
-	
 	#_on_OnlineMatch_error("Disconnected from host")
 	_on_OnlineMatch_error('')
 
