@@ -11,6 +11,8 @@ func _ready() -> void:
 	OnlineMatch.connect("error", self, "_on_OnlineMatch_error")
 	OnlineMatch.connect("disconnected", self, "_on_OnlineMatch_disconnected")
 	OnlineMatch.connect("player_left", self, "_on_OnlineMatch_player_left")
+	
+	randomize()
 
 func scene_setup(operation: RemoteOperations.ClientOperation, info: Dictionary) -> void:
 	match_info = info

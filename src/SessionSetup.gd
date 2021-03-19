@@ -11,8 +11,6 @@ func _ready() -> void:
 	OnlineMatch.connect("player_status_changed", self, "_on_OnlineMatch_player_status_changed")
 	OnlineMatch.connect("player_left", self, "_on_OnlineMatch_player_left")
 	
-	randomize()
-	
 	ui_layer.show_screen("ConnectionScreen")
 	ui_layer.show_back_button()
 
