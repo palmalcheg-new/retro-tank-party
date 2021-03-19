@@ -54,6 +54,8 @@ var _next_id := 0
 func _ready() -> void:
 	OnlineMatch.connect("player_left", self, "_on_OnlineMatch_player_left")
 	
+	pause_mode = Node.PAUSE_MODE_PROCESS
+	
 	var timer = Timer.new()
 	timer.autostart = true
 	timer.connect("timeout", self, "_on_timer_timeout")
@@ -139,7 +141,7 @@ func change_scene(path: String, info: Dictionary = {}) -> HostOperation:
 	if operation == null:
 		return null
 	
-	operation.connect("completed", self, "_change_scene_completed")
+	operation.connect("completed", self, "_change_scene_host_operation_completed")
 	
 	return operation
 
@@ -151,6 +153,10 @@ func _op_change_scene(operation: ClientOperation, full_info: Dictionary) -> void
 		operation.mark_done(false)
 		return
 	
+	# We need to defer so that the scene tree can fully update.
+	call_deferred("_finish_op_change_scene", operation, info)
+
+func _finish_op_change_scene(operation: ClientOperation, info: Dictionary) -> void:
 	var scene = get_tree().current_scene
 	if scene.has_method('scene_setup'):
 		# We leave it up to the scene to mark the operation as done.
@@ -158,7 +164,7 @@ func _op_change_scene(operation: ClientOperation, full_info: Dictionary) -> void
 	else:
 		operation.mark_done(true)
 
-func _change_scene_completed(success: bool) -> void:
+func _change_scene_host_operation_completed(success: bool) -> void:
 	if not success:
 		if get_tree().change_scene(FALLBACK_SCENE) != OK:
 			OS.alert("Unable to change scene")
@@ -170,3 +176,35 @@ func _change_scene_completed(success: bool) -> void:
 	var scene = get_tree().current_scene
 	if scene.has_method('scene_start'):
 		scene.scene_start()
+
+func synchronized_rpc(node: Node, method: String, args: Array, pass_operation: bool = false):
+	var info := {
+		node_path = str(node.get_path()),
+		method = method,
+		args = args,
+		pass_operation = pass_operation
+	}
+	return perform_operation("_op_synchronized_rpc", info)
+
+func _op_synchronized_rpc(operation: ClientOperation, info: Dictionary) -> void:
+	var node_path = info['node_path']
+	var method = info['method']
+	var args = info['args']
+	var pass_operation = info['pass_operation']
+	
+	var node = get_node(node_path)
+	if not node or not is_instance_valid(node) or node.is_queued_for_deletion():
+		push_warning("Synchronized RPC: Cannot find node at path: %s" % [node_path])
+		return
+	
+	if not node.has_method('_get_synchronized_rpc_methods') or not node._get_synchronized_rpc_methods().has(method):
+		push_error("Synchronized RPC: Method %s is not returned by %s._get_synchronized_rpc_methods()" % [method, node_path])
+		return
+	
+	if pass_operation:
+		args.append(operation)
+	
+	node.callv(method, args)
+	
+	if not pass_operation:
+		operation.mark_done()

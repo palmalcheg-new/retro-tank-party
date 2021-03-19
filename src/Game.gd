@@ -30,11 +30,11 @@ func _ready() -> void:
 	TankScenes['Player3'] = Player3
 	TankScenes['Player4'] = Player4
 
-func game_start(players: Dictionary) -> void:
-	rpc("_do_game_setup", players)
+func _get_synchronized_rpc_methods() -> Array:
+	return ['game_setup']
 
 # Initializes the game so that it is ready to really start.
-remotesync func _do_game_setup(players: Dictionary) -> void:
+func game_setup(players: Dictionary) -> void:
 	get_tree().set_pause(true)
 	
 	if game_started:
@@ -64,19 +64,9 @@ remotesync func _do_game_setup(players: Dictionary) -> void:
 	var my_player := players_node.get_node(str(my_id))
 	my_player.player_controlled = true
 	my_player.add_child(_create_camera())
-	
-	# Tell the host that we've finished setup.
-	rpc_id(1, "_finished_game_setup", my_id)
-
-# Records when each player has finished setup so we know when all players are ready.
-mastersync func _finished_game_setup(player_id: int) -> void:
-	players_setup[player_id] = players_alive[player_id]
-	if players_setup.size() == players_alive.size():
-		# Once all clients have finished setup, tell them to start the game.
-		rpc("_do_game_start")
 
 # Actually start the game on this client.
-remotesync func _do_game_start() -> void:
+remotesync func game_start() -> void:
 	if map.has_method('map_start'):
 		map.map_start()
 	emit_signal("game_started")
