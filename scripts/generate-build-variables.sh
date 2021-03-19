@@ -12,20 +12,22 @@ if [ -z "$CLIENT_VERSION" ]; then
 	fi
 fi
 
-cat << EOF > autoload/Build.gd
+BUILD_FILE=src/autoload/Build.gd
+
+cat << EOF > $BUILD_FILE
 extends Node
 
 var encryption_password := '${ENCRYPTION_PASSWORD:-dev}'
 EOF
 
-cat << EOF >> autoload/Build.gd
+cat << EOF >> $BUILD_FILE
 func _ready() -> void:
 	OnlineMatch.client_version = '$CLIENT_VERSION'
 EOF
 
 if [ -n "$NAKAMA_SERVER_KEY" -a -n "$NAKAMA_HOST" -a -n "$NAKAMA_PORT" ]; then
 NAKAMA_SERVER_KEY=$(base64 -d <<< "$NAKAMA_SERVER_KEY")
-cat << EOF >> autoload/Build.gd
+cat << EOF >> $BUILD_FILE
 	Online.nakama_host = '$NAKAMA_HOST'
 	Online.nakama_port = $NAKAMA_PORT
 	Online.nakama_server_key = '$NAKAMA_SERVER_KEY'
@@ -35,7 +37,7 @@ EOF
 fi
 
 if [ -n "$ICE_SERVERS" ]; then
-cat << EOF >> autoload/Build.gd
+cat << EOF >> $BUILD_FILE
 	OnlineMatch.ice_servers = $ICE_SERVERS
 EOF
 fi
