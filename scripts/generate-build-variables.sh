@@ -1,12 +1,5 @@
 #!/bin/bash
 
-if [ -z "$NAKAMA_SERVER_KEY" -o -z "$NAKAMA_HOST" -o -z "$NAKAMA_PORT" -o -z "$ENCRYPTION_PASSWORD" ]; then
-	echo " ** ERROR: Missing required environment variable" >/dev/stderr
-	exit 1
-fi
-
-NAKAMA_SERVER_KEY=$(base64 -d <<< "$NAKAMA_SERVER_KEY")
-
 # Use the Git hash if no CLIENT_VERSION is given.
 if [ -z "$CLIENT_VERSION" ]; then
 	# GitLab CI:
@@ -22,16 +15,24 @@ fi
 cat << EOF > autoload/Build.gd
 extends Node
 
-var encryption_password := '$ENCRYPTION_PASSWORD'
+var encryption_password := '${ENCRYPTION_PASSWORD:-dev}'
+EOF
 
+cat << EOF >> autoload/Build.gd
 func _ready() -> void:
+	OnlineMatch.client_version = '$CLIENT_VERSION'
+EOF
+
+if [ -n "$NAKAMA_SERVER_KEY" -a -n "$NAKAMA_HOST" -a -n "$NAKAMA_PORT" ]; then
+NAKAMA_SERVER_KEY=$(base64 -d <<< "$NAKAMA_SERVER_KEY")
+cat << EOF >> autoload/Build.gd
 	Online.nakama_host = '$NAKAMA_HOST'
 	Online.nakama_port = $NAKAMA_PORT
 	Online.nakama_server_key = '$NAKAMA_SERVER_KEY'
 	Online.nakama_scheme = 'https'
 	
-	OnlineMatch.client_version = '$CLIENT_VERSION'
 EOF
+fi
 
 if [ -n "$ICE_SERVERS" ]; then
 cat << EOF >> autoload/Build.gd
