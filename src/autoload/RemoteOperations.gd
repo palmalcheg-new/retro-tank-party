@@ -5,6 +5,9 @@ extends Node
 # and to be notified once they have all finished executing that operation.
 #
 
+const TIMEOUT_SECONDS := 30
+const FALLBACK_SCENE = "res://src/Main.tscn"
+
 class HostOperation:
 	var id: int
 	var name: String
@@ -29,7 +32,7 @@ class HostOperation:
 			parent._complete_operation(self, true)
 	
 	func check_done():
-		for player in OnlineMatch.players:
+		for player in OnlineMatch.players.values():
 			if not done.has(player.peer_id):
 				return false
 		return true
@@ -45,7 +48,7 @@ class ClientOperation:
 	func mark_done(success: bool = true) -> void:
 		parent.rpc_id(1, "_mark_done", id, success)
 
-const TIMEOUT_SECONDS := 15
+
 
 var _host_operations := {}
 var _next_id := 0
@@ -138,7 +141,7 @@ func change_scene(path: String, info: Dictionary = {}) -> HostOperation:
 	if operation == null:
 		return null
 	
-	operation.connect("completed", self, "_change_scene_start")
+	operation.connect("completed", self, "_change_scene_completed")
 	
 	return operation
 
@@ -157,7 +160,15 @@ func _op_change_scene(operation: ClientOperation, full_info: Dictionary) -> void
 	else:
 		operation.mark_done(true)
 
-func _change_scene_start(success: bool) -> void:
+func _change_scene_completed(success: bool) -> void:
+	if not success:
+		if get_tree().change_scene(FALLBACK_SCENE) != OK:
+			OS.alert("Unable to change scene")
+		else:
+			var scene = get_tree().current_scene
+			scene.ui_layer.show_message("Unable to change scene")
+		return
+	
 	var scene = get_tree().current_scene
 	if scene.has_method('scene_start'):
-		scene.scene_start(success)
+		scene.scene_start()
