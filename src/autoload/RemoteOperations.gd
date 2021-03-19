@@ -48,8 +48,6 @@ class ClientOperation:
 	func mark_done(success: bool = true) -> void:
 		parent.rpc_id(1, "_mark_done", id, success)
 
-
-
 var _host_operations := {}
 var _next_id := 0
 
