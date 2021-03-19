@@ -1,4 +1,4 @@
-extends Control
+extends "res://src/ui/Screen.gd"
 
 var PlayerStatus = preload("res://src/ui/PlayerStatus.tscn")
 

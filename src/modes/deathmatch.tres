@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://src/modes/MatchMode.gd" type="Script" id=1]
+[ext_resource path="res://src/modes/deathmatch/DeathmatchConfig.tscn" type="PackedScene" id=2]
+
+[resource]
+script = ExtResource( 1 )
+name = "Deathmatch"
+description = "The tank with the most kills wins."
+config_scene = ExtResource( 2 )

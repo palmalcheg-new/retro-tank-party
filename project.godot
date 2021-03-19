@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "MatchMode",
+"language": "GDScript",
+"path": "res://src/modes/MatchMode.gd"
+}, {
 "base": "Reference",
 "class": "NakamaAPI",
 "language": "GDScript",
@@ -85,6 +90,7 @@ _global_script_classes=[ {
 "path": "res://src/ui/UILayer.gd"
 } ]
 _global_script_class_icons={
+"MatchMode": "",
 "NakamaAPI": "",
 "NakamaAsyncResult": "",
 "NakamaClient": "",
