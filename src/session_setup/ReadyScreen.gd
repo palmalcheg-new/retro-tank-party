@@ -1,6 +1,6 @@
 extends "res://src/ui/Screen.gd"
 
-var PeerStatus = preload("res://src/session_setup/PeerStatus.tscn");
+var PlayerStatus = preload("res://src/ui/PlayerStatus.tscn");
 
 onready var ready_button := $Panel/ReadyButton
 onready var match_id_container := $Panel/MatchIDContainer
@@ -48,9 +48,9 @@ func hide_match_id() -> void:
 
 func add_player(session_id: String, username: String, is_host: bool = false) -> void:
 	if not status_container.has_node(session_id):
-		var status = PeerStatus.instance()
+		var status = PlayerStatus.instance()
 		status_container.add_child(status)
-		status.initialize(username)
+		status.initialize(username, "Connecting...")
 		status.name = session_id
 		status.host = is_host
 
@@ -73,11 +73,6 @@ func get_status(session_id: String) -> String:
 func reset_status(status: String) -> void:
 	for child in status_container.get_children():
 		child.set_status(status)
-
-func set_score(session_id: String, score: int) -> void:
-	var status_node = status_container.get_node(session_id)
-	if status_node:
-		status_node.set_score(score)
 
 func set_ready_button_enabled(enabled: bool = true) -> void:
 	ready_button.disabled = !enabled
