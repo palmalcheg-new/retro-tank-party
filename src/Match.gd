@@ -25,7 +25,7 @@ func scene_start() -> void:
 
 func quit_match() -> void:
 	OnlineMatch.leave()
-	get_tree().change_scene("res://src/Main.tscn")
+	get_tree().change_scene("res://src/SessionSetup.tscn")
 
 #####
 # UI callbacks
