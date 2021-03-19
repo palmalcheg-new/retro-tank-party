@@ -23,6 +23,10 @@ func scene_setup(operation: RemoteOperations.ClientOperation, info: Dictionary) 
 func scene_start() -> void:
 	game.rpc("game_start")
 
+func quit_match() -> void:
+	OnlineMatch.leave()
+	get_tree().change_scene("res://src/Main.tscn")
+
 #####
 # UI callbacks
 #####
@@ -83,10 +87,6 @@ func _on_Game_player_dead(player_id: int) -> void:
 	var my_id = get_tree().get_network_unique_id()
 	if player_id == my_id:
 		ui_layer.show_message("You lose!")
-
-func quit_match() -> void:
-	OnlineMatch.leave()
-	get_tree().change_scene("res://src/Main.tscn")
 
 func _on_Game_game_over(player_id: int) -> void:
 	if get_tree().is_network_server():
