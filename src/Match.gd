@@ -97,9 +97,11 @@ func _on_Game_game_over(player_id: int) -> void:
 		
 		var player_session_id = OnlineMatch.get_session_id(player_id)
 		var is_match: bool = players_score[player_id] >= 5
-		rpc("show_winner", OnlineMatch.get_player_by_peer_id(player_id).username, player_session_id, players_score[player_id], is_match)
+		rpc("show_winner", player_id, players_score, is_match)
 
-remotesync func show_winner(name: String, session_id: String = '', score: int = 0, is_match: bool = false) -> void:
+remotesync func show_winner(peer_id: int, host_players_score: Dictionary, is_match: bool = false) -> void:
+	var name = OnlineMatch.get_player_by_peer_id(peer_id).username
+	
 	if is_match:
 		ui_layer.show_message(name + " WINS THE WHOLE MATCH!")
 	else:
@@ -107,7 +109,11 @@ remotesync func show_winner(name: String, session_id: String = '', score: int = 
 	
 	yield(get_tree().create_timer(2.0), "timeout")
 	
+	ui_layer.show_screen("RoundScreen", {players_score = host_players_score})
+	
+	yield(get_tree().create_timer(2.0), "timeout")
+	
 	if is_match:
 		quit_match()
-	else:
+	elif get_tree().is_network_server():
 		restart()
