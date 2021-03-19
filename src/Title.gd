@@ -9,7 +9,7 @@ func _on_LocalButton_pressed() -> void:
 	get_tree().change_scene("res://src/Practice.tscn")
 
 func _on_OnlineButton_pressed() -> void:
-	get_tree().change_scene("res://src/Main.tscn")
+	get_tree().change_scene("res://src/SessionSetup.tscn")
 
 func _on_SettingsButton_pressed() -> void:
 	ui_layer.show_screen("SettingsScreen")

@@ -12,7 +12,8 @@ func _ready() -> void:
 		1: "Practice",
 	}
 	
-	game.game_start(players)
+	game.game_setup(players)
+	game.game_start()
 	ui_layer.show_back_button()
 
 func _on_UILayer_back_button() -> void:
