@@ -45,6 +45,17 @@ func _on_UILayer_back_button() -> void:
 func _on_ReadyScreen_ready_pressed() -> void:
 	rpc("player_ready", OnlineMatch.get_my_session_id())
 
+remotesync func player_ready(session_id: String) -> void:
+	ready_screen.set_status(session_id, "READY!")
+	
+	if get_tree().is_network_server() and not players_ready.has(session_id):
+		players_ready[session_id] = true
+		if players_ready.size() == OnlineMatch.players.size():
+			if OnlineMatch.match_state != OnlineMatch.MatchState.PLAYING:
+				OnlineMatch.start_playing()
+			
+			RemoteOperations.change_scene("res://src/MatchSetup.tscn")
+
 #####
 # OnlineMatch callbacks
 #####
@@ -80,24 +91,14 @@ func _on_OnlineMatch_player_status_changed(player, status) -> void:
 # Gameplay methods and callbacks
 #####
 
-remotesync func player_ready(session_id: String) -> void:
-	ready_screen.set_status(session_id, "READY!")
-	
-	if get_tree().is_network_server() and not players_ready.has(session_id):
-		players_ready[session_id] = true
-		if players_ready.size() == OnlineMatch.players.size():
-			if OnlineMatch.match_state != OnlineMatch.MatchState.PLAYING:
-				OnlineMatch.start_playing()
-			start_game()
+
 
 func start_game() -> void:
-	players = OnlineMatch.get_player_names_by_peer_id()
-	game.game_start(players)
+	game.game_start(OnlineMatch.get_player_names_by_peer_id())
 
 func stop_game() -> void:
 	OnlineMatch.leave()
 	
-	players.clear()
 	players_ready.clear()
 	players_score.clear()
 	
@@ -128,7 +129,7 @@ func _on_Game_game_over(player_id: int) -> void:
 		
 		var player_session_id = OnlineMatch.get_session_id(player_id)
 		var is_match: bool = players_score[player_id] >= 5
-		rpc("show_winner", players[player_id], player_session_id, players_score[player_id], is_match)
+		rpc("show_winner", OnlineMatch.players[player_id].name, player_session_id, players_score[player_id], is_match)
 
 remotesync func show_winner(name: String, session_id: String = '', score: int = 0, is_match: bool = false) -> void:
 	if is_match:

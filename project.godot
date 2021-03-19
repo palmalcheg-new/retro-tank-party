@@ -118,6 +118,7 @@ Globals="*res://src/autoload/Globals.gd"
 GameSettings="*res://src/autoload/GameSettings.gd"
 Online="*res://src/autoload/Online.gd"
 SteamManager="*res://src/autoload/SteamManager.gd"
+RemoteOperations="*res://src/autoload/RemoteOperations.gd"
 
 [display]
 
