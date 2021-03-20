@@ -20,6 +20,7 @@ class Option:
 
 var _options := []
 var selected := 0 setget set_selected
+var disabled := false setget set_disabled
 var value setget set_value, get_value
 
 onready var _label_normal_style_box = _label.get_stylebox("normal")
@@ -46,14 +47,19 @@ func set_selected(_selected) -> bool:
 	
 	return selected == _selected
 
+func set_disabled(_disabled) -> void:
+	disabled = _disabled
+	focus_mode = Control.FOCUS_NONE if disabled else Control.FOCUS_ALL
+	_reset_button_colors()
+
 func _update_display() -> void:
 	if selected >= 0 and selected < _options.size():
 		_label.text = _options[selected].label
 		_reset_button_colors()
 
 func _reset_button_colors() -> void:
-	_back_button.modulate = modulate_disabled if selected == 0 else modulate_normal
-	_forward_button.modulate = modulate_disabled if selected == _options.size() - 1 else modulate_normal
+	_back_button.modulate = modulate_disabled if disabled or selected == 0 else modulate_normal
+	_forward_button.modulate = modulate_disabled if disabled or selected == _options.size() - 1 else modulate_normal
 
 func set_value(_value) -> void:
 	for index in range(_options.size()):
@@ -101,7 +107,9 @@ func _on_OptionSwitcher_focus_exited() -> void:
 	_label.add_stylebox_override("normal", _label_normal_style_box)
 
 func _on_ForwardButton_pressed() -> void:
-	set_selected(selected + 1)
+	if not disabled:
+		set_selected(selected + 1)
 
 func _on_BackButton_pressed() -> void:
-	set_selected(selected - 1)
+	if not disabled:
+		set_selected(selected - 1)

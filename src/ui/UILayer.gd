@@ -2,6 +2,7 @@ extends CanvasLayer
 class_name UILayer
 
 onready var screens = $Screens
+onready var cover = $Overlay/Cover
 onready var message_label = $Overlay/Message
 onready var back_button = $Overlay/BackButton
 
@@ -23,12 +24,15 @@ func _ready() -> void:
 	
 	_is_ready = true
 
+func get_screens():
+	return screens.get_children()
+
 func get_current_screen_name() -> String:
 	if current_screen:
 		return current_screen.name
 	return ''
 
-func show_screen(name: String, info: Dictionary = {}) -> void:
+remotesync func show_screen(name: String, info: Dictionary = {}) -> void:
 	var screen = screens.get_node(name)
 	if not screen:
 		return
@@ -57,6 +61,12 @@ func show_message(text: String) -> void:
 func hide_message() -> void:
 	message_label.visible = false
 
+func show_cover() -> void:
+	cover.visible = true
+
+func hide_cover() -> void:
+	cover.visible = false
+
 func show_back_button() -> void:
 	back_button.visible = true
 
@@ -65,6 +75,7 @@ func hide_back_button() -> void:
 
 func hide_all() -> void:
 	hide_screen()
+	hide_cover()
 	hide_message()
 	hide_back_button()
 
