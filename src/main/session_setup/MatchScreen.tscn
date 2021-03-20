@@ -17,12 +17,14 @@ __meta__ = {
 }
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 50.0
-margin_top = 50.0
-margin_right = -50.0
-margin_bottom = -50.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -591.414
+margin_top = -207.346
+margin_right = 588.586
+margin_bottom = 317.654
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -31,32 +33,32 @@ __meta__ = {
 margin_left = 7.0
 margin_top = 7.0
 margin_right = 1173.0
-margin_bottom = 613.0
+margin_bottom = 518.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 10
 
 [node name="MatchPanel" type="Panel" parent="PanelContainer/VBoxContainer"]
 margin_right = 1166.0
-margin_bottom = 195.0
+margin_bottom = 163.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MatchPanel"]
-margin_left = 18.8284
-margin_top = 71.2132
-margin_right = 328.828
-margin_bottom = 119.213
+margin_left = 25.178
+margin_top = 52.5108
+margin_right = 337.178
+margin_bottom = 103.511
 text = "Find at least"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="SpinBox" type="SpinBox" parent="PanelContainer/VBoxContainer/MatchPanel"]
-margin_left = 355.055
-margin_top = 61.486
-margin_right = 677.203
-margin_bottom = 126.76
+margin_left = 361.405
+margin_top = 42.7836
+margin_right = 709.405
+margin_bottom = 108.058
 min_value = 2.0
 max_value = 4.0
 value = 2.0
@@ -81,17 +83,17 @@ __meta__ = {
 }
 
 [node name="CreatePanel" type="Panel" parent="PanelContainer/VBoxContainer"]
-margin_top = 205.0
+margin_top = 173.0
 margin_right = 1166.0
-margin_bottom = 400.0
+margin_bottom = 337.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/CreatePanel"]
-margin_left = 17.0
-margin_top = 70.3848
-margin_right = 523.0
-margin_bottom = 118.385
+margin_left = 24.3887
+margin_top = 56.0982
+margin_right = 552.389
+margin_bottom = 107.098
 text = "Create a private match"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -112,36 +114,36 @@ __meta__ = {
 }
 
 [node name="JoinPanel" type="Panel" parent="PanelContainer/VBoxContainer"]
-margin_top = 410.0
+margin_top = 347.0
 margin_right = 1166.0
-margin_bottom = 606.0
+margin_bottom = 511.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/JoinPanel"]
 margin_left = 19.0
-margin_top = 73.2132
-margin_right = 274.0
-margin_bottom = 121.213
+margin_top = 52.577
+margin_right = 283.0
+margin_bottom = 103.577
 text = "Join match:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="LineEdit" type="LineEdit" parent="PanelContainer/VBoxContainer/JoinPanel"]
-margin_left = 291.545
-margin_top = 59.0271
-margin_right = 613.874
-margin_bottom = 146.117
+margin_left = 293.132
+margin_top = 38.3909
+margin_right = 615.461
+margin_bottom = 125.481
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="PasteButton" type="Button" parent="PanelContainer/VBoxContainer/JoinPanel"]
-margin_left = 619.136
-margin_top = 65.0
-margin_right = 760.136
-margin_bottom = 142.0
+margin_left = 620.723
+margin_top = 44.3638
+margin_right = 761.723
+margin_bottom = 121.364
 text = "Paste"
 __meta__ = {
 "_edit_use_anchors_": false

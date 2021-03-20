@@ -11,6 +11,7 @@ script = ExtResource( 3 )
 [node name="UILayer" parent="." instance=ExtResource( 1 )]
 
 [node name="ModeScreen" parent="UILayer/Screens" index="0" instance=ExtResource( 2 )]
+visible = false
 
 [node name="ReadyScreen" parent="UILayer/Screens" index="1" instance=ExtResource( 4 )]
 visible = false
