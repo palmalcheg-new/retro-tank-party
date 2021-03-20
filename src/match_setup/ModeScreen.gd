@@ -25,10 +25,13 @@ func _load_match_modes() -> void:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
-			if not dir.current_is_dir() and file_name.ends_with(".tres"):
-				var resource = load(MODES_PATH + file_name)
-				if resource is MatchMode:
-					match_modes[MODES_PATH + file_name] = resource
+			if not dir.current_is_dir():
+				if file_name.ends_with(".tres.converted.res"):
+					file_name = file_name.left(file_name.length() - 14)
+				if file_name.ends_with(".tres"):
+					var resource = load(MODES_PATH + file_name)
+					if resource is MatchMode:
+						match_modes[MODES_PATH + file_name] = resource
 			file_name = dir.get_next()
 
 func change_mode(mode: MatchMode) -> void:
