@@ -19,7 +19,7 @@ var game_over := false
 var players_alive := {}
 
 signal game_started ()
-signal player_dead (player_id)
+signal player_dead (player_id, killer_id)
 
 func _ready() -> void:
 	TankScenes['Player1'] = Player1
@@ -114,13 +114,13 @@ func kill_player(player_id) -> void:
 			# If there is no die method, we do the most important things it
 			# would have done.
 			player_node.queue_free()
-			_on_player_dead(player_id)
+			_on_player_dead(-1, player_id)
 
 func enable_watch_camera(enable: bool = true) -> void:
 	watch_camera.current = enable
 
-func _on_player_dead(player_id) -> void:
+func _on_player_dead(killer_id, player_id) -> void:
 	players_alive.erase(player_id)
-	emit_signal("player_dead", player_id)
+	emit_signal("player_dead", player_id, killer_id)
 
 

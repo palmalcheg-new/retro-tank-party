@@ -14,7 +14,7 @@ func start_new_round() -> void:
 	else:
 		match_scene.quit_match()
 
-func _on_game_player_dead(player_id: int) -> void:
+func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 	var my_id = get_tree().get_network_unique_id()
 	if player_id == my_id:
 		ui_layer.show_message("You lose!")
