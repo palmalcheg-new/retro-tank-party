@@ -21,6 +21,8 @@ func _ready() -> void:
 func _on_UILayer_back_button() -> void:
 	ui_layer.hide_message()
 	
+	OnlineMatch.leave()
+	
 	if ui_layer.current_screen_name in ['ConnectionScreen', 'MatchScreen']:
 		get_tree().change_scene("res://src/Title.tscn")
 	else:
