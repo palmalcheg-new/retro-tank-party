@@ -10,7 +10,7 @@
 [ext_resource path="res://assets/smoke-explosion/explosionSmoke3.png" type="Texture" id=8]
 [ext_resource path="res://assets/smoke-explosion/explosionSmoke4.png" type="Texture" id=9]
 [ext_resource path="res://assets/smoke-explosion/explosionSmoke5.png" type="Texture" id=10]
-[ext_resource path="res://src/Explosion.gd" type="Script" id=11]
+[ext_resource path="res://src/objects/Explosion.gd" type="Script" id=11]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {

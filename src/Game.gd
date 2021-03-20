@@ -2,11 +2,7 @@ extends Node2D
 
 var ShakeCamera = preload("res://src/game/ShakeCamera.tscn")
 
-var Player1 = preload("res://src/tanks/Player1.tscn")
-var Player2 = preload("res://src/tanks/Player2.tscn")
-var Player3 = preload("res://src/tanks/Player3.tscn")
-var Player4 = preload("res://src/tanks/Player4.tscn")
-var TankScenes = {}
+var TankScene = preload("res://src/objects/Tank.tscn")
 
 export (PackedScene) var map_scene = preload("res://src/maps/Map1.tscn")
 
@@ -20,12 +16,6 @@ var players_index := {}
 
 signal game_started ()
 signal player_dead (player_id, killer_id)
-
-func _ready() -> void:
-	TankScenes['Player1'] = Player1
-	TankScenes['Player2'] = Player2
-	TankScenes['Player3'] = Player3
-	TankScenes['Player4'] = Player4
 
 func _get_synchronized_rpc_methods() -> Array:
 	return ['game_setup', 'respawn_player']
@@ -57,12 +47,13 @@ func respawn_player(peer_id, username) -> void:
 	
 	var player_index = players_index[peer_id]
 	
-	var player = TankScenes["Player" + str(player_index)].instance()
+	var player = TankScene.instance()
 	player.name = str(peer_id)
 	players_node.add_child(player)
 	
 	player.set_network_master(peer_id)
 	player.set_player_name(username)
+	player.player_index = player_index
 	player.position = map.get_node("PlayerStartPositions/Player" + str(player_index)).position
 	player.rotation = map.get_node("PlayerStartPositions/Player" + str(player_index)).rotation
 	player.connect("player_dead", self, "_on_player_dead", [peer_id])

@@ -1,8 +1,11 @@
 extends Area2D
 
-var Explosion = preload("res://src/Explosion.tscn")
+var Explosion = preload("res://src/objects/Explosion.tscn")
+
+onready var bullet_sprite = $BulletPivot/Sprite
 
 var player_id: int
+var player_index: int
 var target: Node2D = null
 var vector := Vector2()
 
@@ -10,11 +13,20 @@ var speed = 700
 var damage = 10
 var target_seek_speed = 10
 
+const BULLET_COLORS = {
+	1: Rect2(570, 584, 16, 28),
+	2: Rect2(407, 308, 16, 28),
+	3: Rect2(391, 308, 16, 28),
+	4: Rect2(560, 348, 16, 28),
+}
+
 func _ready():
 	pass
 
-func setup(_player_id: int, _position: Vector2, _rotation: float, _target: Node2D) -> void:
+func setup(_player_id: int, _player_index: int, _position: Vector2, _rotation: float, _target: Node2D) -> void:
 	player_id = _player_id
+	player_index = _player_index
+	bullet_sprite.region_rect = BULLET_COLORS[player_index]
 	position = _position
 	rotation = _rotation
 	target = _target

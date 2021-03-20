@@ -1,52 +1,51 @@
 extends KinematicBody2D
 
-var Explosion = preload("res://src/Explosion.tscn")
-
-export (PackedScene) var Bullet = preload("res://src/bullets/Bullet.tscn")
+var Bullet = preload("res://src/objects/Bullet.tscn")
+var Explosion = preload("res://src/objects/Explosion.tscn")
 
 export (bool) var player_controlled = false
 export (String) var input_prefix := "player1_"
 
 signal player_dead (killer_id)
 
-onready var body_sprite = $BodySprite
-onready var turret_sprite = $TurretPivot/TurretSprite
-onready var turret_pivot = $TurretPivot
-onready var animation_player = $AnimationPlayer
+onready var body_sprite := $BodySprite
+onready var turret_sprite := $TurretPivot/TurretSprite
+onready var turret_pivot := $TurretPivot
+onready var animation_player := $AnimationPlayer
 
-var turn_speed : int = 5
-var speed : int = 400
-var velocity := Vector2()
+var turn_speed := 5
+var speed := 400
+var velocity: Vector2
 
-var info_offset : Vector2
-var health_bar_max : int
+var info_offset: Vector2
+var health_bar_max: int
 
 var health := 100
 var can_shoot := true
 
-var mouse_control = true
+var mouse_control := true
 
-var bullet_type = Constants.BulletType.NORMAL
+var bullet_type: int = Constants.BulletType.NORMAL
 
-# TODO: Actually use to re-color the same scene.
-const colors = {
-	blue = {
+const TANK_COLORS = {
+	1: {
 		body_sprite_region = Rect2( 434, 0, 84, 83 ),
 		turret_sprite_region = Rect2( 722, 199, 24, 60 ),
 	},
-	green = {
+	2: {
 		body_sprite_region = Rect2( 436, 308, 84, 80 ),
 		turret_sprite_region = Rect2( 744, 684, 24, 60 ),
 	},
-	red = {
+	3: {
 		body_sprite_region = Rect2( 520, 268, 76, 80 ),
 		turret_sprite_region = Rect2( 724, 452, 24, 60 ),
 	},
-	black = {
+	4: {
 		body_sprite_region = Rect2( 436, 692, 84, 80 ),
 		turret_sprite_region = Rect2( 724, 512, 24, 60 ),
 	},
 }
+var player_index: int setget set_player_index
 
 func _ready():
 	info_offset = $Info.position
@@ -62,6 +61,11 @@ func _ready():
 	# If testing tank on its own, make player controlled
 	if get_tree().current_scene == self:
 		player_controlled = true
+
+func set_player_index(_player_index: int) -> void:
+	player_index = _player_index
+	body_sprite.region_rect = TANK_COLORS[player_index]['body_sprite_region']
+	turret_sprite.region_rect = TANK_COLORS[player_index]['turret_sprite_region']
 
 func _physics_process(delta: float) -> void:
 	if player_controlled:
@@ -104,7 +108,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventJoypadButton or event is InputEventJoypadMotion:
 		mouse_control = false
 
-puppet func update_remote_player(player_rotation : float, player_position : Vector2, turret_rotation : float, shooting : bool, _bullet_type : int) -> void:
+puppet func update_remote_player(player_rotation: float, player_position: Vector2, turret_rotation: float, shooting: bool, _bullet_type: int) -> void:
 	rotation = player_rotation
 	position = player_position
 	$TurretPivot.rotation = turret_rotation
@@ -141,9 +145,9 @@ func shoot():
 func _create_bullet(target = null):
 	var bullet = Bullet.instance()
 	get_parent().add_child(bullet)
-	bullet.setup(get_network_master(), $TurretPivot/BulletStartPosition.global_position, $TurretPivot.global_rotation, target)
+	bullet.setup(get_network_master(), player_index, $TurretPivot/BulletStartPosition.global_position, $TurretPivot.global_rotation, target)
 
-func set_player_name(_name : String) -> void:
+func set_player_name(_name: String) -> void:
 	$Info/PlayerName.text = _name
 	
 func _on_ShootCooldownTimer_timeout() -> void:
