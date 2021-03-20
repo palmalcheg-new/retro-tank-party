@@ -15,8 +15,8 @@ onready var players_node := $Players
 onready var watch_camera := $WatchCamera
 
 var game_started := false
-var game_over := false
 var players_alive := {}
+var players_index := {}
 
 signal game_started ()
 signal player_dead (player_id, killer_id)
@@ -28,7 +28,7 @@ func _ready() -> void:
 	TankScenes['Player4'] = Player4
 
 func _get_synchronized_rpc_methods() -> Array:
-	return ['game_setup']
+	return ['game_setup', 'respawn_player']
 
 # Initializes the game so that it is ready to really start.
 func game_setup(players: Dictionary) -> void:
@@ -38,27 +38,37 @@ func game_setup(players: Dictionary) -> void:
 		game_stop()
 	
 	game_started = true
-	game_over = false
 	players_alive = players
 	
 	reload_map()
 	
 	var player_index := 1
 	for peer_id in players:
-		var other_player = TankScenes["Player" + str(player_index)].instance()
-		other_player.name = str(peer_id)
-		players_node.add_child(other_player)
-		
-		other_player.set_network_master(peer_id)
-		other_player.set_player_name(players[peer_id])
-		other_player.position = map.get_node("PlayerStartPositions/Player" + str(player_index)).position
-		other_player.rotation = map.get_node("PlayerStartPositions/Player" + str(player_index)).rotation
-		other_player.connect("player_dead", self, "_on_player_dead", [peer_id])
-		
+		players_index[peer_id] = player_index
+		respawn_player(peer_id, players[peer_id])
 		player_index += 1
 	
 	var my_id: int = get_tree().get_network_unique_id()
-	var my_player := players_node.get_node(str(my_id))
+	make_player_controlled(my_id)
+
+func respawn_player(peer_id, username) -> void:
+	if players_node.has_node(str(peer_id)):
+		return
+	
+	var player_index = players_index[peer_id]
+	
+	var player = TankScenes["Player" + str(player_index)].instance()
+	player.name = str(peer_id)
+	players_node.add_child(player)
+	
+	player.set_network_master(peer_id)
+	player.set_player_name(username)
+	player.position = map.get_node("PlayerStartPositions/Player" + str(player_index)).position
+	player.rotation = map.get_node("PlayerStartPositions/Player" + str(player_index)).rotation
+	player.connect("player_dead", self, "_on_player_dead", [peer_id])
+
+func make_player_controlled(peer_id) -> void:
+	var my_player := players_node.get_node(str(peer_id))
 	my_player.player_controlled = true
 	my_player.add_child(_create_camera())
 

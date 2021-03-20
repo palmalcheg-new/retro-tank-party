@@ -19,6 +19,7 @@ func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 	var my_id = get_tree().get_network_unique_id()
 	if player_id == my_id:
 		ui_layer.show_message("Wasted!")
+		game.enable_watch_camera(true)
 	
 	if get_tree().is_network_server() and killer_id != -1:
 		if not players_score.has(killer_id):
@@ -27,7 +28,23 @@ func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 			players_score[killer_id] += 1
 		print (players_score)
 		
-		# @todo how to respawn player?
+		yield(get_tree().create_timer(2.0), "timeout")
+		respawn_player(player_id)
+
+func respawn_player(player_id: int) -> void:
+	var player = OnlineMatch.get_player_by_peer_id(player_id)
+	var operation = RemoteOperations.synchronized_rpc(game, "respawn_player", [player_id, player.username])
+	if yield(operation, "completed"):
+		rpc_id(player_id, "_take_control_of_my_player")
+	else:
+		# @todo what can we do if this fails?
+		pass
+
+remotesync func _take_control_of_my_player() -> void:
+	game.enable_watch_camera(false)
+	
+	var player_id = get_tree().get_network_unique_id()
+	game.make_player_controlled(player_id)
 
 func _on_countdown_finished() -> void:
 	pass

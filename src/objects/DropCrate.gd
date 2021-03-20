@@ -13,7 +13,7 @@ func _ready():
 func set_contents(_contents : String):
 	contents = _contents
 
-func take_damage(damage : int) -> void:
+func take_damage(damage: int, attacker_id: int) -> void:
 	rpc("open_crate")
 	
 remotesync func open_crate() -> void:
