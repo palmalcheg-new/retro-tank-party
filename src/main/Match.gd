@@ -29,11 +29,11 @@ func finish_match() -> void:
 	if get_tree().is_network_server():
 		match_manager.match_stop()
 		# @todo pass current config so we start from the same settings
-		RemoteOperations.change_scene("res://src/MatchSetup.tscn")
+		RemoteOperations.change_scene("res://src/main/MatchSetup.tscn")
 
 func quit_match() -> void:
 	OnlineMatch.leave()
-	get_tree().change_scene("res://src/SessionSetup.tscn")
+	get_tree().change_scene("res://src/main/SessionSetup.tscn")
 
 func _on_Game_game_started() -> void:
 	ui_layer.hide_screen()

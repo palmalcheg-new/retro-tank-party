@@ -3,7 +3,7 @@
 [ext_resource path="res://assets/theme.tres" type="Theme" id=1]
 [ext_resource path="res://assets/fonts/monogram.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/fonts/monogram.tres" type="DynamicFont" id=3]
-[ext_resource path="res://src/session_setup/ConnectionScreen.gd" type="Script" id=4]
+[ext_resource path="res://src/main/session_setup/ConnectionScreen.gd" type="Script" id=4]
 [ext_resource path="res://assets/fonts/monogram_small.tres" type="DynamicFont" id=5]
 
 [sub_resource type="DynamicFont" id=1]

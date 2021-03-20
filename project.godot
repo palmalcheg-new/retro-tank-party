@@ -111,7 +111,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Retro Tank Party"
-run/main_scene="res://src/Title.tscn"
+run/main_scene="res://src/main/Title.tscn"
 config/icon="res://icon.png"
 
 [autoload]

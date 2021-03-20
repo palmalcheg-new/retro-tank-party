@@ -27,7 +27,7 @@ func _on_UILayer_back_button() -> void:
 	OnlineMatch.leave()
 	
 	if ui_layer.current_screen_name in ['ConnectionScreen', 'MatchScreen']:
-		get_tree().change_scene("res://src/Title.tscn")
+		get_tree().change_scene("res://src/main/Title.tscn")
 	else:
 		ui_layer.show_screen("MatchScreen")
 
@@ -43,7 +43,7 @@ remotesync func player_ready(session_id: String) -> void:
 			if OnlineMatch.match_state != OnlineMatch.MatchState.PLAYING:
 				OnlineMatch.start_playing()
 			
-			RemoteOperations.change_scene("res://src/MatchSetup.tscn")
+			RemoteOperations.change_scene("res://src/main/MatchSetup.tscn")
 
 #####
 # OnlineMatch callbacks

@@ -26,7 +26,7 @@ func _on_UILayer_back_button() -> void:
 	var current_screen = ui_layer.current_screen_name
 	if not is_network_master() or current_screen == 'ModeScreen':
 		OnlineMatch.leave()
-		get_tree().change_scene("res://src/SessionSetup.tscn")
+		get_tree().change_scene("res://src/main/SessionSetup.tscn")
 	elif current_screen == 'ReadyScreen':
 		ui_layer.show_screen('ModeScreen')
 
@@ -35,14 +35,14 @@ func _on_ReadyScreen_ready_pressed() -> void:
 		manager_path = mode_screen.get_mode().manager_scene,
 		config = mode_screen.get_config_values(),
 	}
-	RemoteOperations.change_scene("res://src/Match.tscn", match_info)
+	RemoteOperations.change_scene("res://src/main/Match.tscn", match_info)
 
 func _on_OnlineMatch_error(message: String):
 	if message != '':
 		ui_layer.show_message(message)
 	ui_layer.hide_screen()
 	yield(get_tree().create_timer(2.0), "timeout")
-	get_tree().change_scene("res://src/SessionSetup.tscn")
+	get_tree().change_scene("res://src/main/SessionSetup.tscn")
 
 func _on_OnlineMatch_disconnected():
 	#_on_OnlineMatch_error("Disconnected from host")
