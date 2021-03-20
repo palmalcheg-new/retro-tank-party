@@ -1,6 +1,6 @@
 extends Node2D
 
-var ShakeCamera = preload("res://src/ShakeCamera.tscn")
+var ShakeCamera = preload("res://src/game/ShakeCamera.tscn")
 
 var Player1 = preload("res://src/tanks/Player1.tscn")
 var Player2 = preload("res://src/tanks/Player2.tscn")
