@@ -35,6 +35,11 @@ func _on_NetworkRelayOptions_item_selected(value, _index) -> void:
 
 func _on_DoneButton_pressed() -> void:
 	ui_layer.go_back()
+
+func _unhandled_input(event: InputEvent) -> void:
+	if visible and event.is_action_pressed('ui_accept'):
+		get_tree().set_input_as_handled()
+		_on_DoneButton_pressed()
 "
 
 [node name="SettingsScreen" type="Control"]

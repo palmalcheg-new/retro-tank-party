@@ -59,6 +59,11 @@ func _on_ModeSwitcher_item_selected(value, index) -> void:
 func _on_NextButton_pressed() -> void:
 	ui_layer.rpc("show_screen", "ReadyScreen")
 
+func _unhandled_input(event: InputEvent) -> void:
+	if visible and event.is_action_pressed('ui_accept'):
+		get_tree().set_input_as_handled()
+		_on_NextButton_pressed()
+
 func _on_config_changed() -> void:
 	send_remote_update()
 
