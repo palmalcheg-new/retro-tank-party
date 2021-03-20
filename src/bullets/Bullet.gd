@@ -2,7 +2,8 @@ extends Area2D
 
 var Explosion = preload("res://src/Explosion.tscn")
 
-var target : Node2D = null
+var player_id: int
+var target: Node2D = null
 var vector := Vector2()
 
 var speed = 700
@@ -12,7 +13,8 @@ var target_seek_speed = 10
 func _ready():
 	pass
 
-func setup(_position : Vector2, _rotation : float, _target : Node2D) -> void:
+func setup(_player_id: int, _position: Vector2, _rotation: float, _target: Node2D) -> void:
+	player_id = _player_id
 	position = _position
 	rotation = _rotation
 	target = _target
@@ -37,7 +39,7 @@ func explode(type : String = "smoke"):
 
 func _on_Bullet_body_entered(body: PhysicsBody2D) -> void:
 	if body.has_method("take_damage"):
-		body.take_damage(damage)
+		body.take_damage(damage, player_id)
 		explode("fire")
 	else:
 		explode("smoke")

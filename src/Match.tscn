@@ -14,9 +14,7 @@ script = ExtResource( 2 )
 
 [node name="RoundScreen" parent="UILayer/Screens" index="0" instance=ExtResource( 4 )]
 visible = false
-[connection signal="game_over" from="Game" to="." method="_on_Game_game_over"]
 [connection signal="game_started" from="Game" to="." method="_on_Game_game_started"]
-[connection signal="player_dead" from="Game" to="." method="_on_Game_player_dead"]
 [connection signal="back_button" from="UILayer" to="." method="_on_UILayer_back_button"]
 
 [editable path="UILayer"]

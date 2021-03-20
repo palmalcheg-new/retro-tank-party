@@ -7,7 +7,7 @@ export (PackedScene) var Bullet = preload("res://src/bullets/Bullet.tscn")
 export (bool) var player_controlled = false
 export (String) var input_prefix := "player1_"
 
-signal player_dead ()
+signal player_dead (killer_id)
 
 onready var body_sprite = $BodySprite
 onready var turret_sprite = $TurretPivot/TurretSprite
@@ -141,7 +141,7 @@ func shoot():
 func _create_bullet(target = null):
 	var bullet = Bullet.instance()
 	get_parent().add_child(bullet)
-	bullet.setup($TurretPivot/BulletStartPosition.global_position, $TurretPivot.global_rotation, target)
+	bullet.setup(get_network_master(), $TurretPivot/BulletStartPosition.global_position, $TurretPivot.global_rotation, target)
 
 func set_player_name(_name : String) -> void:
 	$Info/PlayerName.text = _name
@@ -149,7 +149,7 @@ func set_player_name(_name : String) -> void:
 func _on_ShootCooldownTimer_timeout() -> void:
 	can_shoot = true
 
-func take_damage(damage : int) -> void:
+func take_damage(damage: int, attacker_id: int = -1) -> void:
 	if has_node("Camera"):
 		if GameSettings.use_screenshake:
 			# Between 0.25 and 0.5 seems good
@@ -159,28 +159,28 @@ func take_damage(damage : int) -> void:
 	if is_network_master():
 		health -= damage
 		if health <= 0:
-			rpc("die")
+			rpc("die", attacker_id)
 		else:
 			rpc("update_health", health)
 
-func restore_health(_health : int) -> void:
+func restore_health(_health: int) -> void:
 	if is_network_master():
 		health += _health
 		if health > 100:
 			health = 100
 		rpc("update_health", health)
 
-func set_bullet_type(_bullet_type : int) -> void:
+func set_bullet_type(_bullet_type: int) -> void:
 	bullet_type = _bullet_type
 
 remotesync func update_health(_health) -> void:
 	$Info/Health.rect_size.x = (float(_health) / 100) * health_bar_max
 
-remotesync func die() -> void:
+remotesync func die(killer_id: int = -1) -> void:
 	var explosion = Explosion.instance()
 	get_parent().add_child(explosion)
 	explosion.setup(global_position, 1.5, "fire")
 	
 	queue_free()
 	
-	emit_signal("player_dead")
+	emit_signal("player_dead", killer_id)
