@@ -130,7 +130,9 @@ func enable_watch_camera(enable: bool = true) -> void:
 	watch_camera.current = enable
 
 func _on_player_dead(killer_id, player_id) -> void:
-	players_alive.erase(player_id)
-	emit_signal("player_dead", player_id, killer_id)
+	# Ensure this will only ever be called once per player
+	if players_alive.has(player_id):
+		players_alive.erase(player_id)
+		emit_signal("player_dead", player_id, killer_id)
 
 
