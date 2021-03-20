@@ -17,12 +17,9 @@ onready var watch_camera := $WatchCamera
 var game_started := false
 var game_over := false
 var players_alive := {}
-var players_setup := {}
-var i_am_dead := false
 
 signal game_started ()
 signal player_dead (player_id)
-signal game_over (player_id)
 
 func _ready() -> void:
 	TankScenes['Player1'] = Player1
@@ -77,9 +74,7 @@ func game_stop() -> void:
 		map.map_stop()
 	
 	game_started = false
-	players_setup.clear()
 	players_alive.clear()
-	i_am_dead = false
 	watch_camera.current = false
 	
 	for child in players_node.get_children():
@@ -121,17 +116,11 @@ func kill_player(player_id) -> void:
 			player_node.queue_free()
 			_on_player_dead(player_id)
 
+func enable_watch_camera(enable: bool = true) -> void:
+	watch_camera.current = enable
+
 func _on_player_dead(player_id) -> void:
-	emit_signal("player_dead", player_id)
-	
-	var my_id = get_tree().get_network_unique_id()
-	if player_id == my_id:
-		# Switch to "watch" mode
-		$WatchCamera.current = true
-		i_am_dead = true
-	
 	players_alive.erase(player_id)
-	if not game_over and players_alive.size() == 1:
-		game_over = true
-		var player_keys = players_alive.keys()
-		emit_signal("game_over", player_keys[0])
+	emit_signal("player_dead", player_id)
+
+

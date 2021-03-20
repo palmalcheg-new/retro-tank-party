@@ -88,4 +88,4 @@ func _on_BackButton_pressed() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action('ui_cancel') and back_button.visible and event.is_pressed():
 		get_tree().set_input_as_handled()
-		emit_signal("back_button")
+		go_back()
