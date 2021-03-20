@@ -23,9 +23,12 @@ func _ready() -> void:
 	ui_layer.show_back_button()
 
 func _on_UILayer_back_button() -> void:
-	# @todo: this should actually allow us to backwards in the screen stack
-	OnlineMatch.leave()
-	get_tree().change_scene("res://src/SessionSetup.tscn")
+	var current_screen = ui_layer.current_screen_name
+	if not is_network_master() or current_screen == 'ModeScreen':
+		OnlineMatch.leave()
+		get_tree().change_scene("res://src/SessionSetup.tscn")
+	elif current_screen == 'ReadyScreen':
+		ui_layer.show_screen('ModeScreen')
 
 func _on_ReadyScreen_ready_pressed() -> void:
 	var match_info = {
@@ -46,4 +49,7 @@ func _on_OnlineMatch_disconnected():
 	_on_OnlineMatch_error('')
 
 func _on_OnlineMatch_player_left(player) -> void:
-	ui_layer.show_message(player.username + " has left")
+	if OnlineMatch.players.size() < 2:
+		_on_OnlineMatch_error(player.username + " has left - not enough players!")
+	else:
+		ui_layer.show_message(player.username + " has left")

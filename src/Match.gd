@@ -71,5 +71,8 @@ func _on_OnlineMatch_disconnected():
 	_on_OnlineMatch_error('')
 
 func _on_OnlineMatch_player_left(player) -> void:
-	ui_layer.show_message(player.username + " has left")
 	game.kill_player(player.peer_id)
+	if OnlineMatch.players.size() < 2:
+		_on_OnlineMatch_error(player.username + " has left - not enough players!")
+	else:
+		ui_layer.show_message(player.username + " has left")
