@@ -6,6 +6,9 @@ onready var ready_screen = $UILayer/Screens/ReadyScreen
 var players_ready := {}
 
 func _ready() -> void:
+	# Make extra sure that we aren't in an existing match when this scene starts.
+	OnlineMatch.leave()
+	
 	OnlineMatch.connect("error", self, "_on_OnlineMatch_error")
 	OnlineMatch.connect("disconnected", self, "_on_OnlineMatch_disconnected")
 	OnlineMatch.connect("player_status_changed", self, "_on_OnlineMatch_player_status_changed")
