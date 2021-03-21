@@ -14,6 +14,7 @@ func _do_match_setup() -> void:
 	
 	var player_names = OnlineMatch.get_player_names_by_peer_id()
 	for player_id in player_names:
+		players_score[player_id] = 0
 		score_hud.set_player_name(game.players_index[player_id], player_names[player_id])
 	
 	score_hud.set_player_count(OnlineMatch.players.size())
@@ -29,6 +30,7 @@ func match_start() -> void:
 
 func _on_OnlineMatch_player_left(player) -> void:
 	score_hud.set_player_count(OnlineMatch.players.size())
+	players_score.erase(player.peer_id)
 
 func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 	var my_id = get_tree().get_network_unique_id()
@@ -38,10 +40,7 @@ func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 	
 	if get_tree().is_network_server():
 		if killer_id != -1:
-			if not players_score.has(killer_id):
-				players_score[killer_id] = 1
-			else:
-				players_score[killer_id] += 1
+			players_score[killer_id] += 1
 			var player_index = game.players_index[killer_id]
 			score_hud.rpc("set_score", player_index, players_score[killer_id])
 
@@ -89,7 +88,10 @@ func _on_countdown_finished() -> void:
 			if not player_id in winners:
 				rpc("kill_player", player_id)
 		
-		instant_death_label.visible = true
+		rpc("show_instant_death_label")
+
+remotesync func show_instant_death_label() -> void:
+	instant_death_label.visible = true
 
 remotesync func kill_player(peer_id: int) -> void:
 	if get_tree().get_rpc_sender_id() != 1:
