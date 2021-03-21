@@ -8,13 +8,14 @@ var match_modes := {}
 var current_config
 
 const MODES_PATH = "res://src/modes/"
+const DEFAULT_MODE = "res://src/modes/battle_royale.tres"
 
 func _ready() -> void:
 	_load_match_modes()
 	
 	for match_mode_id in match_modes:
 		mode_field.add_item(match_modes[match_mode_id].name, match_mode_id)
-	change_mode(match_modes[mode_field.value])
+	mode_field.value = DEFAULT_MODE
 
 func _show_screen(info: Dictionary = {}) -> void:
 	mode_field.grab_focus()
