@@ -4,6 +4,10 @@ onready var ui_layer = $UILayer
 onready var mode_screen = $UILayer/Screens/ModeScreen
 
 func _ready() -> void:
+	if OnlineMatch.players.size() < 2:
+		get_tree().change_scene("res://src/main/SessionSetup.tscn")
+		return
+	
 	OnlineMatch.connect("error", self, "_on_OnlineMatch_error")
 	OnlineMatch.connect("disconnected", self, "_on_OnlineMatch_disconnected")
 	OnlineMatch.connect("player_left", self, "_on_OnlineMatch_player_left")

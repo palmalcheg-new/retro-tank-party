@@ -2,6 +2,7 @@ extends "res://src/modes/base/BaseManager.gd"
 
 onready var countdown_timer := $CanvasLayer/Control/CountdownTimer
 onready var instant_death_label := $CanvasLayer/Control/InstantDeathLabel
+onready var score_hud := $CanvasLayer/Control/ScoreHUD
 
 var players_score := {}
 
@@ -11,6 +12,13 @@ var winners := []
 func _do_match_setup() -> void:
 	._do_match_setup()
 	
+	var player_names = OnlineMatch.get_player_names_by_peer_id()
+	for player_id in player_names:
+		score_hud.set_player_name(game.players_index[player_id], player_names[player_id])
+	
+	score_hud.set_player_count(OnlineMatch.players.size())
+	OnlineMatch.connect("player_left", self, '_on_OnlineMatch_player_left')
+	
 	game.connect("player_dead", self, "_on_game_player_dead")
 	
 	countdown_timer.connect("countdown_finished", self, "_on_countdown_finished")
@@ -18,6 +26,9 @@ func _do_match_setup() -> void:
 func match_start() -> void:
 	.match_start()
 	countdown_timer.start_countdown(config['timelimit'] * 60)
+
+func _on_OnlineMatch_player_left(player) -> void:
+	score_hud.set_player_count(OnlineMatch.players.size())
 
 func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 	var my_id = get_tree().get_network_unique_id()
@@ -31,6 +42,8 @@ func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 				players_score[killer_id] = 1
 			else:
 				players_score[killer_id] += 1
+			var player_index = game.players_index[killer_id]
+			score_hud.rpc("set_score", player_index, players_score[killer_id])
 
 		if instant_death:
 			winners.erase(player_id)
