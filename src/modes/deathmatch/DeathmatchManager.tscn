@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://src/modes/deathmatch/DeathmatchManager.gd" type="Script" id=1]
 [ext_resource path="res://src/ui/CountdownTimer.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/theme.tres" type="Theme" id=3]
 
 [node name="DeathmatchManager" type="Node"]
 script = ExtResource( 1 )
@@ -12,6 +13,7 @@ script = ExtResource( 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
+theme = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -22,3 +24,10 @@ anchor_right = 0.5
 margin_left = -60.0
 margin_right = 60.0
 margin_bottom = 55.0
+
+[node name="InstantDeathLabel" type="Label" parent="CanvasLayer/Control"]
+visible = false
+anchor_right = 1.0
+margin_bottom = 51.0
+text = "INSTANT DEATH!"
+align = 1

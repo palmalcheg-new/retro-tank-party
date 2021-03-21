@@ -28,7 +28,7 @@ func game_setup(players: Dictionary) -> void:
 		game_stop()
 	
 	game_started = true
-	players_alive = players
+	players_alive.clear()
 	
 	reload_map()
 	
@@ -44,6 +44,8 @@ func game_setup(players: Dictionary) -> void:
 func respawn_player(peer_id, username) -> void:
 	if players_node.has_node(str(peer_id)):
 		return
+	
+	players_alive[peer_id] = username
 	
 	var player_index = players_index[peer_id]
 	
