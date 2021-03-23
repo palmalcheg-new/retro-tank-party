@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/theme.tres" type="Theme" id=1]
 [ext_resource path="res://assets/fonts/monogram_extended.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://src/main/Title.gd" type="Script" id=3]
 [ext_resource path="res://src/ui/UILayer.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/ui/SettingsScreen.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/ui/MyButton.tscn" type="PackedScene" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 160
@@ -60,21 +61,21 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="LocalButton" type="Button" parent="CanvasLayer/Control/HBoxContainer"]
+[node name="LocalButton" parent="CanvasLayer/Control/HBoxContainer" instance=ExtResource( 6 )]
 margin_left = 260.0
 margin_right = 480.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 220, 0 )
 text = "Practice"
 
-[node name="OnlineButton" type="Button" parent="CanvasLayer/Control/HBoxContainer"]
+[node name="OnlineButton" parent="CanvasLayer/Control/HBoxContainer" instance=ExtResource( 6 )]
 margin_left = 530.0
 margin_right = 750.0
 margin_bottom = 200.0
 rect_min_size = Vector2( 220, 0 )
 text = "Battle"
 
-[node name="SettingsButton" type="Button" parent="CanvasLayer/Control/HBoxContainer"]
+[node name="SettingsButton" parent="CanvasLayer/Control/HBoxContainer" instance=ExtResource( 6 )]
 margin_left = 800.0
 margin_right = 1020.0
 margin_bottom = 200.0

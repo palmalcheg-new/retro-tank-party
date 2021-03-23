@@ -5,6 +5,7 @@ onready var screens = $Screens
 onready var cover = $Overlay/Cover
 onready var message_label = $Overlay/Message
 onready var back_button = $Overlay/BackButton
+onready var back_sound = $BackSound
 
 signal change_screen (name, screen)
 signal back_button ()
@@ -80,6 +81,7 @@ func hide_all() -> void:
 	hide_back_button()
 
 func go_back() -> void:
+	back_sound.play()
 	emit_signal("back_button")
 
 func _on_BackButton_pressed() -> void:
