@@ -64,6 +64,9 @@ func _ready():
 	# If testing tank on its own, make player controlled
 	if get_tree().current_scene == self:
 		player_controlled = true
+	
+	if player_controlled:
+		Globals.my_player_position = global_position
 
 func set_player_index(_player_index: int) -> void:
 	player_index = _player_index
@@ -83,6 +86,9 @@ func _physics_process(delta: float) -> void:
 		velocity.x = x_motion
 		velocity = velocity.rotated(rotation) * speed
 		move_and_slide(velocity)
+		
+		if player_controlled:
+			Globals.my_player_position = global_position
 		
 		if x_motion >= 0.1 or x_motion <= -0.1:
 			engine_sound.engine_state = engine_sound.EngineState.DRIVING

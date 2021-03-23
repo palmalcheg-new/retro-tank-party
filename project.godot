@@ -14,6 +14,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/modes/MatchMode.gd"
 }, {
+"base": "AudioStreamPlayer",
+"class": "MyAudioStreamPlayer2D",
+"language": "GDScript",
+"path": "res://src/components/MyAudioStreamPlayer2D.gd"
+}, {
 "base": "Reference",
 "class": "NakamaAPI",
 "language": "GDScript",
@@ -91,6 +96,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "MatchMode": "",
+"MyAudioStreamPlayer2D": "",
 "NakamaAPI": "",
 "NakamaAsyncResult": "",
 "NakamaClient": "",
