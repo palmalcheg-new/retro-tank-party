@@ -11,6 +11,8 @@ signal player_dead (killer_id)
 onready var body_sprite := $BodySprite
 onready var turret_sprite := $TurretPivot/TurretSprite
 onready var turret_pivot := $TurretPivot
+
+onready var sounds := $Sounds
 onready var animation_player := $AnimationPlayer
 
 var turn_speed := 5
@@ -120,6 +122,8 @@ puppet func update_remote_player(player_rotation: float, player_position: Vector
 func shoot():
 	if not get_parent():
 		return
+	
+	sounds.play("Shoot")
 	
 	match bullet_type:
 		Constants.BulletType.NORMAL:

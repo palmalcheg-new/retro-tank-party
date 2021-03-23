@@ -12,6 +12,9 @@ onready var screenshake_field := $Panel/VBoxContainer/GridContainer/ScreenshakeO
 onready var network_relay_field:= $Panel/VBoxContainer/GridContainer/NetworkRelayOptions
 
 func _ready() -> void:
+	music_slider.value = GameSettings.music_volume_db
+	sound_slider.value = GameSettings.sound_volume_db
+	
 	screenshake_field.add_item(\"Enabled\", true)
 	screenshake_field.add_item(\"Disabled\", false)
 	screenshake_field.value = GameSettings.use_screenshake
@@ -40,6 +43,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	if visible and event.is_action_pressed('ui_accept'):
 		get_tree().set_input_as_handled()
 		_on_DoneButton_pressed()
+
+func _on_MusicSlider_value_changed(value: float) -> void:
+	GameSettings.music_volume_db = value
+
+func _on_SoundSlider_value_changed(value: float) -> void:
+	GameSettings.sound_volume_db = value
 "
 
 [node name="SettingsScreen" type="Control"]
@@ -94,8 +103,9 @@ margin_right = 1266.0
 margin_bottom = 51.0
 rect_min_size = Vector2( 500, 0 )
 size_flags_vertical = 12
-step = 5.0
-value = 70.0
+min_value = -40.0
+max_value = 10.0
+step = 1.0
 
 [node name="SoundLabel" type="Label" parent="Panel/VBoxContainer/GridContainer"]
 margin_top = 61.0
@@ -110,8 +120,9 @@ margin_right = 1266.0
 margin_bottom = 112.0
 rect_min_size = Vector2( 500, 0 )
 size_flags_vertical = 12
-step = 5.0
-value = 70.0
+min_value = -40.0
+max_value = 10.0
+step = 1.0
 
 [node name="ScreenshakeLabel" type="Label" parent="Panel/VBoxContainer/GridContainer"]
 margin_top = 122.0
@@ -150,6 +161,8 @@ margin_bottom = 706.0
 rect_min_size = Vector2( 150, 0 )
 size_flags_horizontal = 4
 text = "Done"
+[connection signal="value_changed" from="Panel/VBoxContainer/GridContainer/MusicSlider" to="." method="_on_MusicSlider_value_changed"]
+[connection signal="value_changed" from="Panel/VBoxContainer/GridContainer/SoundSlider" to="." method="_on_SoundSlider_value_changed"]
 [connection signal="item_selected" from="Panel/VBoxContainer/GridContainer/ScreenshakeOptions" to="." method="_on_ScreenshakeOptions_item_selected"]
 [connection signal="item_selected" from="Panel/VBoxContainer/GridContainer/NetworkRelayOptions" to="." method="_on_NetworkRelayOptions_item_selected"]
 [connection signal="pressed" from="Panel/VBoxContainer/DoneButton" to="." method="_on_DoneButton_pressed"]
