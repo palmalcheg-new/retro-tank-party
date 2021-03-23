@@ -12,8 +12,9 @@ onready var body_sprite := $BodySprite
 onready var turret_sprite := $TurretPivot/TurretSprite
 onready var turret_pivot := $TurretPivot
 
-onready var sounds := $Sounds
 onready var animation_player := $AnimationPlayer
+onready var shoot_sound := $ShootSound
+onready var engine_sound := $EngineSound
 
 var turn_speed := 5
 var speed := 400
@@ -76,10 +77,17 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_pressed(input_prefix + "turn_right"):
 			rotation += Input.get_action_strength(input_prefix + "turn_right") * turn_speed * delta
 		
+		var x_motion = Input.get_action_strength(input_prefix + "forward") - Input.get_action_strength(input_prefix + "backward")
+		
 		velocity = Vector2()
-		velocity.x = Input.get_action_strength(input_prefix + "forward") - Input.get_action_strength(input_prefix + "backward")
+		velocity.x = x_motion
 		velocity = velocity.rotated(rotation) * speed
 		move_and_slide(velocity)
+		
+		if x_motion >= 0.1 or x_motion <= -0.1:
+			engine_sound.engine_state = engine_sound.EngineState.DRIVING
+		else:
+			engine_sound.engine_state = engine_sound.EngineState.IDLE
 		
 		if mouse_control:
 			$TurretPivot.look_at(get_global_mouse_position())
@@ -123,7 +131,7 @@ func shoot():
 	if not get_parent():
 		return
 	
-	sounds.play("Shoot")
+	shoot_sound.play()
 	
 	match bullet_type:
 		Constants.BulletType.NORMAL:
