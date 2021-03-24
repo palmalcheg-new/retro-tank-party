@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/objects/powerups/Powerup.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/monogram.tres" type="DynamicFont" id=2]
+[ext_resource path="res://src/components/MyAudioStreamPlayer2D.gd" type="Script" id=3]
+[ext_resource path="res://assets/sounds/Pickup__010.wav" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 18, 18 )
@@ -83,4 +85,10 @@ shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/shine = SubResource( 2 )
+
+[node name="Sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+bus = "Sound"
+script = ExtResource( 3 )
 [connection signal="body_entered" from="." to="." method="_on_Powerup_body_entered"]
+[connection signal="finished" from="Sound" to="." method="_on_Sound_finished"]
