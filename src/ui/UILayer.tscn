@@ -47,6 +47,7 @@ text = "Waiting for players..."
 align = 1
 
 [node name="BackButton" type="Button" parent="Overlay"]
+visible = false
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -72.0
