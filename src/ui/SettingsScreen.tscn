@@ -10,6 +10,7 @@ script/source = "extends \"res://src/ui/Screen.gd\"
 
 onready var music_slider := $Panel/VBoxContainer/GridContainer/MusicSlider
 onready var sound_slider := $Panel/VBoxContainer/GridContainer/SoundSlider
+onready var tank_engine_sounds_field = $Panel/VBoxContainer/GridContainer/TankEngineSoundsOptions
 onready var screenshake_field := $Panel/VBoxContainer/GridContainer/ScreenshakeOptions
 onready var network_relay_field:= $Panel/VBoxContainer/GridContainer/NetworkRelayOptions
 
@@ -18,6 +19,10 @@ var _is_ready := false
 func _ready() -> void:
 	music_slider.value = GameSettings.music_volume
 	sound_slider.value = GameSettings.sound_volume
+	
+	tank_engine_sounds_field.add_item(\"Enabled\", true)
+	tank_engine_sounds_field.add_item(\"Disabled\", false)
+	tank_engine_sounds_field.value = GameSettings.tank_engine_sounds
 	
 	screenshake_field.add_item(\"Enabled\", true)
 	screenshake_field.add_item(\"Disabled\", false)
@@ -36,6 +41,19 @@ func _show_screen(info: Dictionary = {}) -> void:
 func _hide_screen() -> void:
 	GameSettings.save_settings()
 
+func _on_MusicSlider_value_changed(value: float) -> void:
+	if _is_ready:
+		Sounds.play(\"Select\")
+	GameSettings.music_volume = value
+
+func _on_SoundSlider_value_changed(value: float) -> void:
+	if _is_ready:
+		Sounds.play(\"Select\")
+	GameSettings.sound_volume = value
+
+func _on_TankEngineSoundsOptions_item_selected(value, index) -> void:
+	GameSettings.tank_engine_sounds = value
+
 func _on_ScreenshakeOptions_item_selected(value, _index) -> void:
 	GameSettings.use_screenshake = value
 
@@ -50,16 +68,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	if visible and event.is_action_pressed('ui_accept'):
 		get_tree().set_input_as_handled()
 		_on_DoneButton_pressed()
-
-func _on_MusicSlider_value_changed(value: float) -> void:
-	if _is_ready:
-		Sounds.play(\"Select\")
-	GameSettings.music_volume = value
-
-func _on_SoundSlider_value_changed(value: float) -> void:
-	if _is_ready:
-		Sounds.play(\"Select\")
-	GameSettings.sound_volume = value
 "
 
 [node name="SettingsScreen" type="Control"]
@@ -137,10 +145,24 @@ step = 0.05
 value = 1.0
 script = ExtResource( 1 )
 
-[node name="ScreenshakeLabel" type="Label" parent="Panel/VBoxContainer/GridContainer"]
+[node name="TankEngineSoundsLabel" type="Label" parent="Panel/VBoxContainer/GridContainer"]
 margin_top = 122.0
 margin_right = 762.0
 margin_bottom = 173.0
+text = "Tank engine sounds"
+
+[node name="TankEngineSoundsOptions" parent="Panel/VBoxContainer/GridContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 766.0
+margin_top = 122.0
+margin_right = 1266.0
+margin_bottom = 173.0
+
+[node name="ScreenshakeLabel" type="Label" parent="Panel/VBoxContainer/GridContainer"]
+margin_top = 183.0
+margin_right = 762.0
+margin_bottom = 234.0
 size_flags_horizontal = 3
 text = "Screen shake"
 
@@ -148,23 +170,23 @@ text = "Screen shake"
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 766.0
-margin_top = 122.0
+margin_top = 183.0
 margin_right = 1266.0
-margin_bottom = 173.0
+margin_bottom = 234.0
 
 [node name="NetworkRelayLabel" type="Label" parent="Panel/VBoxContainer/GridContainer"]
-margin_top = 183.0
+margin_top = 244.0
 margin_right = 762.0
-margin_bottom = 234.0
+margin_bottom = 295.0
 text = "Network relay"
 
 [node name="NetworkRelayOptions" parent="Panel/VBoxContainer/GridContainer" instance=ExtResource( 3 )]
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = 766.0
-margin_top = 183.0
+margin_top = 244.0
 margin_right = 1266.0
-margin_bottom = 234.0
+margin_bottom = 295.0
 
 [node name="DoneButton" type="Button" parent="Panel/VBoxContainer"]
 margin_left = 558.0
@@ -177,6 +199,7 @@ text = "Done"
 script = ExtResource( 4 )
 [connection signal="value_changed" from="Panel/VBoxContainer/GridContainer/MusicSlider" to="." method="_on_MusicSlider_value_changed"]
 [connection signal="value_changed" from="Panel/VBoxContainer/GridContainer/SoundSlider" to="." method="_on_SoundSlider_value_changed"]
+[connection signal="item_selected" from="Panel/VBoxContainer/GridContainer/TankEngineSoundsOptions" to="." method="_on_TankEngineSoundsOptions_item_selected"]
 [connection signal="item_selected" from="Panel/VBoxContainer/GridContainer/ScreenshakeOptions" to="." method="_on_ScreenshakeOptions_item_selected"]
 [connection signal="item_selected" from="Panel/VBoxContainer/GridContainer/NetworkRelayOptions" to="." method="_on_NetworkRelayOptions_item_selected"]
 [connection signal="pressed" from="Panel/VBoxContainer/DoneButton" to="." method="_on_DoneButton_pressed"]

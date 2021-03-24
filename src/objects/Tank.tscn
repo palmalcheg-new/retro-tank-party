@@ -154,12 +154,12 @@ script = ExtResource( 6 )
 
 [node name="Idle" type="AudioStreamPlayer" parent="EngineSound"]
 stream = ExtResource( 7 )
-bus = "Sound"
+bus = "Tank Engine"
 script = ExtResource( 8 )
 
 [node name="Fast" type="AudioStreamPlayer" parent="EngineSound"]
 stream = ExtResource( 9 )
-bus = "Sound"
+bus = "Tank Engine"
 script = ExtResource( 8 )
 
 [node name="Tween" type="Tween" parent="EngineSound"]
