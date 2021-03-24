@@ -18,7 +18,7 @@ func _ready() -> void:
 	mode_field.value = DEFAULT_MODE
 
 func _show_screen(info: Dictionary = {}) -> void:
-	mode_field.grab_focus()
+	mode_field.focus.grab_without_sound()
 
 func _load_match_modes() -> void:
 	var dir = Directory.new()

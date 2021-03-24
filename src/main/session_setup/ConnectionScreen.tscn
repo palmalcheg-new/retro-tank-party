@@ -36,7 +36,6 @@ __meta__ = {
 }
 
 [node name="Steam" type="Control" parent="TabContainer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
@@ -182,6 +181,7 @@ text = "Login"
 script = ExtResource( 6 )
 
 [node name="Create Account" type="Control" parent="TabContainer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
