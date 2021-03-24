@@ -11,6 +11,9 @@ func _ready() -> void:
 	OnlineMatch.connect("player_left", self, "_on_OnlineMatch_player_left")
 	
 	randomize()
+	
+	var songs := ['Track1', 'Track2', 'Track3']
+	Music.play(songs[randi() % songs.size()])
 
 func scene_setup(operation: RemoteOperations.ClientOperation, info: Dictionary) -> void:
 	match_manager = load(info['manager_path']).instance()

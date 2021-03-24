@@ -25,6 +25,8 @@ func _ready() -> void:
 	
 	ui_layer.show_screen("ModeScreen")
 	ui_layer.show_back_button()
+	
+	Music.play("Menu")
 
 func _on_UILayer_back_button() -> void:
 	var current_screen = ui_layer.current_screen_name

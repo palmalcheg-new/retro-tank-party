@@ -15,4 +15,6 @@ Credits
  - [Engine-loop heavy vehicle/tank](https://opengameart.org/content/engine-loop-heavy-vehicletank) by Nayckron
 
  - [Interface Sounds](https://www.kenney.nl/assets/interface-sounds/) by Kenney.nl
+ 
+ - [5 Action Chiptunes](https://opengameart.org/content/5-chiptunes-action) by Juhani Junkala
 

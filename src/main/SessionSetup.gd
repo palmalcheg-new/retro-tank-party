@@ -16,6 +16,8 @@ func _ready() -> void:
 	
 	ui_layer.show_screen("ConnectionScreen")
 	ui_layer.show_back_button()
+	
+	Music.play("Menu")
 
 #####
 # UI callbacks
