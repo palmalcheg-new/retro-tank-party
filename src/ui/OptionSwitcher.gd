@@ -23,12 +23,17 @@ var selected := 0 setget set_selected
 var disabled := false setget set_disabled
 var value setget set_value, get_value
 
+var focus: ControlFocusComponent
+
 onready var _label_normal_style_box = _label.get_stylebox("normal")
 var _label_selected_style_box = preload("res://src/ui/option_switcher_label_stylebox.tres")
 
 signal item_selected (value, index)
 
 func _ready() -> void:
+	focus = ControlFocusComponent.new()
+	add_child(focus)
+	
 	_show_buttons(false)
 
 func _show_buttons(show: bool) -> void:
@@ -82,10 +87,12 @@ func add_item(label: String, value = null) -> void:
 func _gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_left"):
 		if set_selected(selected - 1):
+			Sounds.play("Select")
 			_back_button.modulate = modulate_pressed
 		accept_event()
 	elif event.is_action_pressed("ui_right"):
 		if set_selected(selected + 1):
+			Sounds.play("Select")
 			_forward_button.modulate = modulate_pressed
 		accept_event()
 	elif event.is_action_released("ui_left") or event.is_action_released("ui_right"):
@@ -93,6 +100,7 @@ func _gui_input(event: InputEvent) -> void:
 		accept_event()
 
 func _on_OptionSwitcher_mouse_entered() -> void:
+	Sounds.play("Focus")
 	_show_buttons(true)
 
 func _on_OptionSwitcher_mouse_exited() -> void:
@@ -108,8 +116,10 @@ func _on_OptionSwitcher_focus_exited() -> void:
 
 func _on_ForwardButton_pressed() -> void:
 	if not disabled:
-		set_selected(selected + 1)
+		if set_selected(selected + 1):
+			Sounds.play("Select")
 
 func _on_BackButton_pressed() -> void:
 	if not disabled:
-		set_selected(selected - 1)
+		if set_selected(selected - 1):
+			Sounds.play("Select")

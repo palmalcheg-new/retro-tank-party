@@ -35,7 +35,7 @@ func _show_screen(info: Dictionary = {}) -> void:
 	else:
 		match_id_container.visible = false
 	
-	ready_button.grab_focus()
+	ready_button.focus.grab_without_sound()
 
 func clear_players() -> void:
 	for child in status_container.get_children():
@@ -77,7 +77,7 @@ func reset_status(status: String) -> void:
 func set_ready_button_enabled(enabled: bool = true) -> void:
 	ready_button.disabled = !enabled
 	if enabled:
-		ready_button.grab_focus()
+		ready_button.focus.grab_without_sound()
 
 func _on_ReadyButton_pressed() -> void:
 	emit_signal("ready_pressed")

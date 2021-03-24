@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://assets/theme.tres" type="Theme" id=1]
 [ext_resource path="res://src/main/session_setup/MatchScreen.gd" type="Script" id=2]
+[ext_resource path="res://src/ui/MyButton.gd" type="Script" id=3]
 
 [node name="MatchScreen" type="Control"]
 anchor_right = 1.0
@@ -78,8 +79,9 @@ margin_top = -39.5
 margin_right = -12.0
 margin_bottom = 39.5
 text = "Match"
+script = ExtResource( 3 )
 __meta__ = {
-"_edit_use_anchors_": true
+"_edit_use_anchors_": false
 }
 
 [node name="CreatePanel" type="Panel" parent="PanelContainer/VBoxContainer"]
@@ -109,9 +111,7 @@ margin_top = -42.5
 margin_right = -13.0
 margin_bottom = 36.5
 text = "Create"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource( 3 )
 
 [node name="JoinPanel" type="Panel" parent="PanelContainer/VBoxContainer"]
 margin_top = 347.0
@@ -145,9 +145,7 @@ margin_top = 44.3638
 margin_right = 761.723
 margin_bottom = 121.364
 text = "Paste"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource( 3 )
 
 [node name="JoinButton" type="Button" parent="PanelContainer/VBoxContainer/JoinPanel"]
 anchor_left = 1.0
@@ -159,7 +157,5 @@ margin_top = -40.0
 margin_right = -15.0
 margin_bottom = 39.0
 text = "Join"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource( 3 )
 [connection signal="pressed" from="PanelContainer/VBoxContainer/JoinPanel/PasteButton" to="." method="_on_PasteButton_pressed"]

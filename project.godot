@@ -9,10 +9,30 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node",
+"class": "ControlFocusComponent",
+"language": "GDScript",
+"path": "res://src/ui/ControlFocusComponent.gd"
+}, {
 "base": "Resource",
 "class": "MatchMode",
 "language": "GDScript",
 "path": "res://src/modes/MatchMode.gd"
+}, {
+"base": "AudioStreamPlayer",
+"class": "MyAudioStreamPlayer2D",
+"language": "GDScript",
+"path": "res://src/components/MyAudioStreamPlayer2D.gd"
+}, {
+"base": "Button",
+"class": "MyButton",
+"language": "GDScript",
+"path": "res://src/ui/MyButton.gd"
+}, {
+"base": "HSlider",
+"class": "MySlider",
+"language": "GDScript",
+"path": "res://src/ui/MySlider.gd"
 }, {
 "base": "Reference",
 "class": "NakamaAPI",
@@ -90,7 +110,11 @@ _global_script_classes=[ {
 "path": "res://src/ui/UILayer.gd"
 } ]
 _global_script_class_icons={
+"ControlFocusComponent": "",
 "MatchMode": "",
+"MyAudioStreamPlayer2D": "",
+"MyButton": "",
+"MySlider": "",
 "NakamaAPI": "",
 "NakamaAsyncResult": "",
 "NakamaClient": "",
@@ -125,6 +149,7 @@ GameSettings="*res://src/autoload/GameSettings.gd"
 Online="*res://src/autoload/Online.gd"
 SteamManager="*res://src/autoload/SteamManager.gd"
 RemoteOperations="*res://src/autoload/RemoteOperations.gd"
+Sounds="*res://src/autoload/Sounds.tscn"
 
 [display]
 

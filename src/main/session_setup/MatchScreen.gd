@@ -16,7 +16,7 @@ func _ready() -> void:
 func _show_screen(_info: Dictionary = {}) -> void:
 	matchmaker_player_count_control.value = 2
 	join_match_id_control.text = ''
-	matchmaker_match_button.grab_focus()
+	matchmaker_match_button.focus.grab_without_sound()
 
 func _on_match_button_pressed(mode) -> void:
 	# If our session has expired, show the ConnectionScreen again.

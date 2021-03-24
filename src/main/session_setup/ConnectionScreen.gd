@@ -155,7 +155,7 @@ func _on_steam_auth_session_ticket_response(_auth_ticket_id, _result) -> void:
 		if _result != Steam.RESULT_OK:
 			ui_layer.show_message("Unable to connect to Steam. Please try again later.")
 			visible = true
-			steam_login_button.grab_focus()
+			steam_login_button.focus.grab_without_sound()
 			return
 		
 		_finish_authenticate_steam()
@@ -177,7 +177,7 @@ func _finish_authenticate_steam() -> void:
 		else:
 			ui_layer.show_message("Unable to login via Steam")
 		visible = true
-		steam_login_button.grab_focus()
+		steam_login_button.focus.grab_without_sound()
 	else:
 		Online.nakama_session = nakama_session
 		ui_layer.hide_message()

@@ -11,7 +11,10 @@ signal player_dead (killer_id)
 onready var body_sprite := $BodySprite
 onready var turret_sprite := $TurretPivot/TurretSprite
 onready var turret_pivot := $TurretPivot
+
 onready var animation_player := $AnimationPlayer
+onready var shoot_sound := $ShootSound
+onready var engine_sound := $EngineSound
 
 var turn_speed := 5
 var speed := 400
@@ -21,6 +24,8 @@ var info_offset: Vector2
 var health_bar_max: int
 
 var health := 100
+
+var shooting := false
 var can_shoot := true
 
 var mouse_control := true
@@ -61,6 +66,9 @@ func _ready():
 	# If testing tank on its own, make player controlled
 	if get_tree().current_scene == self:
 		player_controlled = true
+	
+	if player_controlled:
+		Globals.my_player_position = global_position
 
 func set_player_index(_player_index: int) -> void:
 	player_index = _player_index
@@ -74,10 +82,20 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_pressed(input_prefix + "turn_right"):
 			rotation += Input.get_action_strength(input_prefix + "turn_right") * turn_speed * delta
 		
+		var x_motion = Input.get_action_strength(input_prefix + "forward") - Input.get_action_strength(input_prefix + "backward")
+		
 		velocity = Vector2()
-		velocity.x = Input.get_action_strength(input_prefix + "forward") - Input.get_action_strength(input_prefix + "backward")
+		velocity.x = x_motion
 		velocity = velocity.rotated(rotation) * speed
 		move_and_slide(velocity)
+		
+		if player_controlled:
+			Globals.my_player_position = global_position
+		
+		if x_motion >= 0.1 or x_motion <= -0.1:
+			engine_sound.engine_state = engine_sound.EngineState.DRIVING
+		else:
+			engine_sound.engine_state = engine_sound.EngineState.IDLE
 		
 		if mouse_control:
 			$TurretPivot.look_at(get_global_mouse_position())
@@ -93,20 +111,22 @@ func _physics_process(delta: float) -> void:
 		# Make info follow the tank
 		$Info.position = global_position + info_offset
 		
-		var shooting := false
-		if Input.is_action_just_pressed(input_prefix + "shoot") and can_shoot:
+		if shooting:
 			can_shoot = false
 			$ShootCooldownTimer.start()
 			shoot()
-			shooting = true
 		
 		rpc("update_remote_player", rotation, position, $TurretPivot.rotation, shooting, bullet_type)
+		
+		shooting = false
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		mouse_control = true
 	if event is InputEventJoypadButton or event is InputEventJoypadMotion:
 		mouse_control = false
+	if event.is_action_pressed(input_prefix + "shoot") and can_shoot:
+		shooting = true
 
 puppet func update_remote_player(player_rotation: float, player_position: Vector2, turret_rotation: float, shooting: bool, _bullet_type: int) -> void:
 	rotation = player_rotation
@@ -120,6 +140,8 @@ puppet func update_remote_player(player_rotation: float, player_position: Vector
 func shoot():
 	if not get_parent():
 		return
+	
+	shoot_sound.play()
 	
 	match bullet_type:
 		Constants.BulletType.NORMAL:

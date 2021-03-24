@@ -58,4 +58,5 @@ script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+button_type = 1
 [connection signal="pressed" from="Overlay/BackButton" to="." method="_on_BackButton_pressed"]
