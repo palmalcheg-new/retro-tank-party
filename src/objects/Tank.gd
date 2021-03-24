@@ -77,9 +77,12 @@ func set_player_index(_player_index: int) -> void:
 
 func _physics_process(delta: float) -> void:
 	if player_controlled:
+		engine_sound.turning = false
 		if Input.is_action_pressed(input_prefix + "turn_left"):
+			engine_sound.turning = true
 			rotation -= Input.get_action_strength(input_prefix + "turn_left") * turn_speed * delta
 		if Input.is_action_pressed(input_prefix + "turn_right"):
+			engine_sound.turning = true
 			rotation += Input.get_action_strength(input_prefix + "turn_right") * turn_speed * delta
 		
 		var x_motion = Input.get_action_strength(input_prefix + "forward") - Input.get_action_strength(input_prefix + "backward")

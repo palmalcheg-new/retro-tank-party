@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://src/objects/Tank.gd" type="Script" id=1]
 [ext_resource path="res://assets/objects.png" type="Texture" id=2]
@@ -32,159 +32,6 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ 0.0, 1.0, 0.0 ]
-}
-
-[sub_resource type="Animation" id=4]
-resource_name = "off"
-tracks/0/type = "value"
-tracks/0/path = NodePath("Idle:playing")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Fast:playing")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Fast:volume_db")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ -17.0 ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Idle:volume_db")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ -22.0 ]
-}
-
-[sub_resource type="Animation" id=5]
-resource_name = "switch_to_driving"
-tracks/0/type = "value"
-tracks/0/path = NodePath("Idle:playing")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ false ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Fast:playing")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Fast:pitch_scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 0.5, 1.0 ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Fast:volume_db")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ -22.0, -17.0 ]
-}
-
-[sub_resource type="Animation" id=6]
-resource_name = "switch_to_idle"
-tracks/0/type = "value"
-tracks/0/path = NodePath("Idle:playing")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ false, true ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Fast:playing")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ true, false ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Fast:pitch_scale")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ 1.0, 0.5 ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Fast:volume_db")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.2 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ -17.0, -22.0 ]
 }
 
 [node name="Tank" type="KinematicBody2D"]
@@ -266,7 +113,11 @@ position = Vector2( -66, -83 )
 margin_right = 51.0
 margin_bottom = 40.0
 rect_scale = Vector2( 2.76, 0.643416 )
+mouse_filter = 2
 color = Color( 0, 0, 0, 0.443137 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="PlayerName" type="Label" parent="Info"]
 margin_left = 3.0
@@ -282,6 +133,7 @@ clip_text = true
 margin_top = 26.0
 margin_right = 141.0
 margin_bottom = 31.0
+mouse_filter = 2
 color = Color( 0, 1, 0.0392157, 1 )
 
 [node name="ShootCooldownTimer" type="Timer" parent="."]
@@ -302,19 +154,14 @@ script = ExtResource( 6 )
 
 [node name="Idle" type="AudioStreamPlayer" parent="EngineSound"]
 stream = ExtResource( 7 )
-volume_db = -22.0
 bus = "Sound"
 script = ExtResource( 8 )
 
 [node name="Fast" type="AudioStreamPlayer" parent="EngineSound"]
 stream = ExtResource( 9 )
-volume_db = -15.0
 bus = "Sound"
 script = ExtResource( 8 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="EngineSound"]
-autoplay = "off"
-anims/off = SubResource( 4 )
-anims/switch_to_driving = SubResource( 5 )
-anims/switch_to_idle = SubResource( 6 )
+[node name="Tween" type="Tween" parent="EngineSound"]
 [connection signal="timeout" from="ShootCooldownTimer" to="." method="_on_ShootCooldownTimer_timeout"]
+[connection signal="tween_all_completed" from="EngineSound/Tween" to="EngineSound" method="_on_Tween_tween_all_completed"]

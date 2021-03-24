@@ -13,7 +13,7 @@ class_name MyAudioStreamPlayer2D
 export (float) var max_distance := 2000.0
 export (float) var attenuation := 1.0
 
-onready var _original_volume_db: float = volume_db
+onready var base_volume_db: float = volume_db
 
 func _ready() -> void:
 	adjust_volume()
@@ -29,7 +29,7 @@ func adjust_volume() -> void:
 	# It's too far away, we can't hear it.
 	var distance = Globals.my_player_position.distance_to(parent.global_position)
 	if distance < max_distance:
-		linear_volume = pow(1.0 - (distance / max_distance), attenuation) * db2linear(_original_volume_db)
+		linear_volume = pow(1.0 - (distance / max_distance), attenuation) * db2linear(base_volume_db)
 	
 	volume_db = linear2db(linear_volume)
 
