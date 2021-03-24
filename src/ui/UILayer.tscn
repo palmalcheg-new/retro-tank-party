@@ -1,10 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/fonts/monogram.tres" type="DynamicFont" id=1]
 [ext_resource path="res://src/ui/UILayer.gd" type="Script" id=2]
 [ext_resource path="res://assets/ui/return.png" type="Texture" id=3]
 [ext_resource path="res://src/ui/TransparentButton.gd" type="Script" id=4]
-[ext_resource path="res://assets/sounds/back_002.ogg" type="AudioStream" id=5]
 
 [node name="UILayer" type="CanvasLayer"]
 script = ExtResource( 2 )
@@ -59,8 +58,5 @@ script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="BackSound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 5 )
-bus = "Sound"
+button_type = 1
 [connection signal="pressed" from="Overlay/BackButton" to="." method="_on_BackButton_pressed"]

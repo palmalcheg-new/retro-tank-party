@@ -24,6 +24,8 @@ var info_offset: Vector2
 var health_bar_max: int
 
 var health := 100
+
+var shooting := false
 var can_shoot := true
 
 var mouse_control := true
@@ -109,20 +111,22 @@ func _physics_process(delta: float) -> void:
 		# Make info follow the tank
 		$Info.position = global_position + info_offset
 		
-		var shooting := false
-		if Input.is_action_just_pressed(input_prefix + "shoot") and can_shoot:
+		if shooting:
 			can_shoot = false
 			$ShootCooldownTimer.start()
 			shoot()
-			shooting = true
 		
 		rpc("update_remote_player", rotation, position, $TurretPivot.rotation, shooting, bullet_type)
+		
+		shooting = false
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		mouse_control = true
 	if event is InputEventJoypadButton or event is InputEventJoypadMotion:
 		mouse_control = false
+	if event.is_action_pressed(input_prefix + "shoot") and can_shoot:
+		shooting = true
 
 puppet func update_remote_player(player_rotation: float, player_position: Vector2, turret_rotation: float, shooting: bool, _bullet_type: int) -> void:
 	rotation = player_rotation

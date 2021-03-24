@@ -1,21 +1,35 @@
 extends Button
+class_name MyButton
 
-onready var hover_sound := $HoverSound
-onready var click_sound := $ClickSound
+enum ButtonType {
+	OK,
+	CANCEL,
+}
+export (ButtonType) var button_type := ButtonType.OK
+
+var focus: ControlFocusComponent
 
 func _ready() -> void:
-	self.connect("mouse_entered", self, "_on_mouse_entered")
-	self.connect("mouse_exited", self, "_on_mouse_exited")
+	focus = ControlFocusComponent.new()
+	add_child(focus)
+	
 	self.connect("pressed", self, "_on_pressed")
 
-func _on_mouse_entered() -> void:
-	if hover_sound:
-		hover_sound.play()
-
-func _on_mouse_exited() -> void:
-	pass
+#func grab_focus_without_sound() -> void:
+#	_play_focus_sound = false
+#	grab_focus()
+#	_play_focus_sound = true
+#
+#func _on_mouse_entered() -> void:
+#	Sounds.play("Focus")
+#
+#func _on_mouse_exited() -> void:
+#	pass
+#
+#func _on_focus_entered() -> void:
+#	if _play_focus_sound:
+#		Sounds.play("Focus")
 
 func _on_pressed() -> void:
-	if click_sound:
-		click_sound.play()
+	Sounds.play("Select" if button_type == OK else "Back")
 
