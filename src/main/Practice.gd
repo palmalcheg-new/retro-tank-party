@@ -15,6 +15,9 @@ func _ready() -> void:
 	game.game_setup(players)
 	game.game_start()
 	ui_layer.show_back_button()
+	
+	var songs := ['Track1', 'Track2', 'Track3']
+	Music.play(songs[randi() % songs.size()])
 
 func _on_UILayer_back_button() -> void:
 	get_tree().change_scene("res://src/main/Title.tscn")

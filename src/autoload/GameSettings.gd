@@ -1,7 +1,7 @@
 extends Node
 
-var sound_volume := 0.0 setget set_sound_volume
-var music_volume := 0.0 setget set_music_volume
+var sound_volume := 1.0 setget set_sound_volume
+var music_volume := 1.0 setget set_music_volume
 var use_network_relay := 0 setget set_use_network_relay
 var use_screenshake := true
 
@@ -17,7 +17,7 @@ const SETTINGS_FILENAME = 'user://settings.json'
 func set_sound_volume(_sound_volume: float) -> void:
 	sound_volume = _sound_volume
 	
-	var bus_index = AudioServer.get_bus_index("Sound")
+	var bus_index = AudioServer.get_bus_index("Sound (User)")
 	if sound_volume < 0.05:
 		AudioServer.set_bus_mute(bus_index, true)
 	else:
@@ -27,7 +27,7 @@ func set_sound_volume(_sound_volume: float) -> void:
 func set_music_volume(_music_volume: float) -> void:
 	music_volume = _music_volume
 	
-	var bus_index = AudioServer.get_bus_index("Music")
+	var bus_index = AudioServer.get_bus_index("Music (User)")
 	if music_volume < 0.05:
 		AudioServer.set_bus_mute(bus_index, true)
 	else:

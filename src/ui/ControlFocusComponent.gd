@@ -21,12 +21,20 @@ func grab_without_sound() -> void:
 	_parent.grab_focus()
 	_play_focus_sound = true
 
+func _is_parent_disabled() -> bool:
+	var disabled = _parent.get('disabled')
+	if disabled == null:
+		disabled = false
+	return disabled
+
 func _on_mouse_entered() -> void:
-	_has_mouse_focus = true
-	Sounds.play("Focus")
+	if not _is_parent_disabled():
+		_has_mouse_focus = true
+		Sounds.play("Focus")
 
 func _on_mouse_exited() -> void:
-	_has_mouse_focus = false
+	if not _is_parent_disabled():
+		_has_mouse_focus = false
 
 func _on_focus_entered() -> void:
 	if _play_focus_sound and not _has_mouse_focus:

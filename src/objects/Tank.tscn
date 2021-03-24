@@ -60,6 +60,30 @@ tracks/1/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("Fast:volume_db")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -17.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Idle:volume_db")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -22.0 ]
+}
 
 [sub_resource type="Animation" id=5]
 resource_name = "switch_to_driving"
@@ -109,7 +133,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ -25.0, -20.0 ]
+"values": [ -22.0, -17.0 ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -160,7 +184,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ -20.0, -25.0 ]
+"values": [ -17.0, -22.0 ]
 }
 
 [node name="Tank" type="KinematicBody2D"]
@@ -278,13 +302,13 @@ script = ExtResource( 6 )
 
 [node name="Idle" type="AudioStreamPlayer" parent="EngineSound"]
 stream = ExtResource( 7 )
-volume_db = -25.0
+volume_db = -22.0
 bus = "Sound"
 script = ExtResource( 8 )
 
 [node name="Fast" type="AudioStreamPlayer" parent="EngineSound"]
 stream = ExtResource( 9 )
-volume_db = -20.0
+volume_db = -15.0
 bus = "Sound"
 script = ExtResource( 8 )
 
