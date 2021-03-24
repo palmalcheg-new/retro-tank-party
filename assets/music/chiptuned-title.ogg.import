@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/chiptuned-title.ogg-6106170166859f2b02a992541f0171e2.oggstr"
+
+[deps]
+
+source_file="res://assets/music/chiptuned-title.ogg"
+dest_files=[ "res://.import/chiptuned-title.ogg-6106170166859f2b02a992541f0171e2.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

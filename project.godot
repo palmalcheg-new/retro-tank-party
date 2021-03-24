@@ -150,6 +150,7 @@ Online="*res://src/autoload/Online.gd"
 SteamManager="*res://src/autoload/SteamManager.gd"
 RemoteOperations="*res://src/autoload/RemoteOperations.gd"
 Sounds="*res://src/autoload/Sounds.tscn"
+Music="*res://src/autoload/Music.tscn"
 
 [display]
 

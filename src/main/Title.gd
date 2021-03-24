@@ -5,6 +5,9 @@ onready var ui_layer = $UILayer
 
 func _ready() -> void:
 	online_button.focus.grab_without_sound()
+	
+	yield(get_tree().create_timer(0.5), "timeout")
+	Music.play("Title")
 
 func _on_LocalButton_pressed() -> void:
 	get_tree().change_scene("res://src/main/Practice.tscn")
