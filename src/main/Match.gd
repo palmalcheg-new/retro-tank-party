@@ -44,6 +44,12 @@ func _on_Game_game_started() -> void:
 	ui_layer.show_back_button()
 
 func _on_UILayer_back_button() -> void:
+	if ui_layer.current_screen_name in ['', 'SettingsScreen']:
+		ui_layer.show_screen('MenuScreen')
+	else:
+		ui_layer.hide_screen()
+
+func _on_MenuScreen_exit_pressed() -> void:
 	# @todo add some kind of confirmation dialog
 	if get_tree().is_network_server():
 		finish_match()
@@ -79,3 +85,6 @@ func _on_OnlineMatch_player_left(player) -> void:
 		_on_OnlineMatch_error(player.username + " has left - not enough players!")
 	else:
 		ui_layer.show_message(player.username + " has left")
+
+
+

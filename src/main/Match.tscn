@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/Game.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/main/Match.gd" type="Script" id=2]
 [ext_resource path="res://src/ui/UILayer.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/main/match/RoundScreen.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/ui/SettingsScreen.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/main/match/MenuScreen.tscn" type="PackedScene" id=6]
 
 [node name="Match" type="Node2D"]
 script = ExtResource( 2 )
@@ -14,7 +16,14 @@ script = ExtResource( 2 )
 
 [node name="RoundScreen" parent="UILayer/Screens" index="0" instance=ExtResource( 4 )]
 visible = false
+
+[node name="MenuScreen" parent="UILayer/Screens" index="1" instance=ExtResource( 6 )]
+visible = false
+
+[node name="SettingsScreen" parent="UILayer/Screens" index="2" instance=ExtResource( 5 )]
+visible = false
 [connection signal="game_started" from="Game" to="." method="_on_Game_game_started"]
 [connection signal="back_button" from="UILayer" to="." method="_on_UILayer_back_button"]
+[connection signal="exit_pressed" from="UILayer/Screens/MenuScreen" to="." method="_on_MenuScreen_exit_pressed"]
 
 [editable path="UILayer"]
