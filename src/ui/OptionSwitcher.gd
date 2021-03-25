@@ -6,9 +6,9 @@ onready var _label = $VBoxContainer/Label
 onready var _forward_texture = _forward_button.texture_normal
 onready var _back_texture = _back_button.texture_normal
 
-export (Color) var modulate_normal = Color(1.0, 1.0, 1.0, 1.0)
-export (Color) var modulate_disabled = Color(0.5, 0.5, 0.5, 0.7)
-export (Color) var modulate_pressed = Color(0.8, 0.8, 1.0, 1.0)
+export (Color) var modulate_normal = Color(0.6, 0.6, 0.6, 1.0)
+export (Color) var modulate_disabled = Color(0.8, 0.8, 0.8, 0.7)
+export (Color) var modulate_pressed = Color(1.0, 1.0, 1.0, 1.0)
 
 class Option:
 	var label: String
@@ -26,7 +26,7 @@ var value setget set_value, get_value
 var focus: ControlFocusComponent
 
 onready var _label_normal_style_box = _label.get_stylebox("normal")
-var _label_selected_style_box = preload("res://src/ui/option_switcher_label_stylebox.tres")
+var _label_selected_style_box = preload("res://assets/ui/grey_button5_stylebox.tres")
 
 signal item_selected (value, index)
 
