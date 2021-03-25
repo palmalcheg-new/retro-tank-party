@@ -100,11 +100,12 @@ func _gui_input(event: InputEvent) -> void:
 		accept_event()
 
 func _on_OptionSwitcher_mouse_entered() -> void:
-	Sounds.play("Focus")
-	_show_buttons(true)
+	if not has_focus():
+		_show_buttons(true)
 
 func _on_OptionSwitcher_mouse_exited() -> void:
-	_show_buttons(false)
+	if not has_focus():
+		_show_buttons(false)
 
 func _on_OptionSwitcher_focus_entered() -> void:
 	_show_buttons(true)
