@@ -42,16 +42,16 @@ __meta__ = {
 margin_left = 50.0
 margin_top = 30.0
 margin_right = 328.0
-margin_bottom = 331.0
+margin_bottom = 336.0
 custom_constants/margin_top = 15
 custom_constants/margin_left = 50
 custom_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
 margin_left = 50.0
-margin_top = 40.0
+margin_top = 15.0
 margin_right = 278.0
-margin_bottom = 256.0
+margin_bottom = 286.0
 size_flags_vertical = 4
 __meta__ = {
 "_edit_use_anchors_": false
@@ -90,7 +90,6 @@ custom_styles/normal = SubResource( 5 )
 text = "Settings"
 
 [node name="CreditsButton" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource( 3 )]
-visible = false
 margin_top = 165.0
 margin_right = 228.0
 margin_bottom = 216.0
@@ -102,9 +101,9 @@ custom_styles/normal = SubResource( 5 )
 text = "Credits"
 
 [node name="Exit" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource( 3 )]
-margin_top = 165.0
+margin_top = 220.0
 margin_right = 228.0
-margin_bottom = 216.0
+margin_bottom = 271.0
 custom_styles/hover = SubResource( 1 )
 custom_styles/pressed = SubResource( 2 )
 custom_styles/focus = SubResource( 3 )
@@ -114,4 +113,5 @@ text = "Exit"
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/OnlineButton" to="." method="_on_OnlineButton_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/LocalButton" to="." method="_on_LocalButton_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_SettingsButton_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/CreditsButton" to="." method="_on_CreditsButton_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Exit" to="." method="_on_Exit_pressed"]

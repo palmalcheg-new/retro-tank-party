@@ -15,5 +15,8 @@ func _on_OnlineButton_pressed() -> void:
 func _on_SettingsButton_pressed() -> void:
 	ui_layer.show_screen("SettingsScreen")
 
+func _on_CreditsButton_pressed() -> void:
+	ui_layer.show_screen("CreditsScreen")
+
 func _on_Exit_pressed() -> void:
 	get_tree().quit()
