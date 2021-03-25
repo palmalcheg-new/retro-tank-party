@@ -43,6 +43,7 @@ anchor_right = 1.0
 margin_top = 77.7726
 margin_bottom = 128.773
 custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Waiting for players..."
 align = 1
 
