@@ -28,12 +28,12 @@ func _is_parent_disabled() -> bool:
 	return disabled
 
 func _on_mouse_entered() -> void:
-	if not _is_parent_disabled() and not _parent.has_focus():
+	if not _is_parent_disabled():
 		_has_mouse_focus = true
 		Sounds.play("Focus")
 
 func _on_mouse_exited() -> void:
-	if not _is_parent_disabled() and not _parent.has_focus():
+	if not _is_parent_disabled():
 		_has_mouse_focus = false
 
 func _on_focus_entered() -> void:
