@@ -96,7 +96,7 @@ __meta__ = {
 margin_left = 25.0
 margin_top = 6.0
 margin_right = 1055.0
-margin_bottom = 525.0
+margin_bottom = 520.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -112,7 +112,7 @@ align = 1
 [node name="GridContainer" type="GridContainer" parent="Panel/VBoxContainer"]
 margin_top = 79.0
 margin_right = 1030.0
-margin_bottom = 450.0
+margin_bottom = 445.0
 size_flags_vertical = 3
 custom_constants/vseparation = 10
 columns = 2
@@ -194,9 +194,9 @@ margin_bottom = 340.0
 
 [node name="DoneButton" type="Button" parent="Panel/VBoxContainer"]
 margin_left = 440.0
-margin_top = 454.0
+margin_top = 449.0
 margin_right = 590.0
-margin_bottom = 519.534
+margin_bottom = 514.534
 rect_min_size = Vector2( 150, 0 )
 size_flags_horizontal = 4
 text = "Done"
