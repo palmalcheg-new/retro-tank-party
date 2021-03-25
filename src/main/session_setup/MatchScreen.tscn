@@ -166,9 +166,8 @@ size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/MatchPanel"]
 margin_left = 23.0
-margin_top = -1.0
 margin_right = 823.0
-margin_bottom = 124.0
+margin_bottom = 125.0
 rect_min_size = Vector2( 800, 125 )
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 5 )
@@ -178,7 +177,7 @@ autowrap = true
 [node name="Fields" type="GridContainer" parent="PanelContainer/VBoxContainer/MarginContainer/MatchPanel"]
 margin_top = 129.0
 margin_right = 847.0
-margin_bottom = 247.0
+margin_bottom = 323.0
 size_flags_vertical = 3
 columns = 2
 
@@ -187,7 +186,8 @@ margin_top = 7.0
 margin_right = 421.0
 margin_bottom = 58.0
 size_flags_horizontal = 3
-text = "Find at least"
+text = "Find at least:"
+align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -201,9 +201,9 @@ size_flags_horizontal = 3
 
 [node name="MatchButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/MatchPanel"]
 margin_left = 323.0
-margin_top = 251.0
+margin_top = 327.0
 margin_right = 523.0
-margin_bottom = 316.534
+margin_bottom = 392.534
 rect_min_size = Vector2( 200, 0 )
 size_flags_horizontal = 4
 text = "Match"
