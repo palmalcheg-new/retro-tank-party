@@ -4,6 +4,7 @@ onready var online_button = $PanelContainer/MarginContainer/VBoxContainer/Online
 
 func _show_screen(info: Dictionary = {}) -> void:
 	online_button.focus.grab_without_sound()
+	ui_layer.hide_back_button()
 
 func _on_LocalButton_pressed() -> void:
 	get_tree().change_scene("res://src/main/Practice.tscn")

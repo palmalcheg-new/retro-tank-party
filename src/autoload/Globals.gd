@@ -1,5 +1,6 @@
 extends Node
 
+var title_shown := false
 var my_player_position: Vector2
 
 func _input(event: InputEvent) -> void:
