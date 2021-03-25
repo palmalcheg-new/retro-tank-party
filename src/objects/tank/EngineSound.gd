@@ -22,7 +22,9 @@ var engine_state: int = EngineState.IDLE setget set_engine_state
 var turning := false
 
 func _ready() -> void:
+	fast_sound.volume_db = -40.0
 	fast_sound.base_volume_db = DRIVING_VOLUME_DB
+	idle_sound.volume_db = -40.0
 	idle_sound.base_volume_db = IDLE_VOLUME_DB
 	idle_sound.play()
 
