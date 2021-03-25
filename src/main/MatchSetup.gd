@@ -15,7 +15,7 @@ func _ready() -> void:
 	# Make the host in charge of this scene.
 	set_network_master(1)
 	if get_tree().is_network_server():
-		ui_layer.show_message("You're the host! How you wanna do this tank party?")
+		ui_layer.show_message("You're the host! How you wanna do this?")
 	else:
 		ui_layer.show_cover()
 		ui_layer.show_message("The host is configuring the match...")

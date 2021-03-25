@@ -40,12 +40,20 @@ __meta__ = {
 [node name="Message" type="Label" parent="Overlay"]
 visible = false
 anchor_right = 1.0
-margin_top = 77.7726
-margin_bottom = 128.773
+margin_left = 100.0
+margin_top = 50.0
+margin_right = -100.0
+margin_bottom = 120.0
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Waiting for players..."
 align = 1
+autowrap = true
+clip_text = true
+max_lines_visible = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="BackButton" type="Button" parent="Overlay"]
 visible = false
