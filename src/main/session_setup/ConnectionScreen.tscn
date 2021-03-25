@@ -25,12 +25,14 @@ __meta__ = {
 }
 
 [node name="TabContainer" type="TabContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 100.0
-margin_top = 149.081
-margin_right = -100.0
-margin_bottom = -50.9186
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -540.0
+margin_top = -233.572
+margin_right = 540.0
+margin_bottom = 286.429
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -38,10 +40,10 @@ __meta__ = {
 [node name="Steam" type="Control" parent="TabContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 69.0
-margin_right = -4.0
-margin_bottom = -4.0
+margin_left = 6.93966
+margin_top = 66.493
+margin_right = -6.81115
+margin_bottom = -6.04007
 
 [node name="Label" type="Label" parent="TabContainer/Steam"]
 anchor_left = 0.5
@@ -72,16 +74,16 @@ __meta__ = {
 }
 
 [node name="UsernameLabel" type="Label" parent="TabContainer/Steam/GridContainer"]
-margin_top = 5.0
+margin_top = 7.0
 margin_right = 216.0
-margin_bottom = 56.0
+margin_bottom = 58.0
 custom_fonts/font = ExtResource( 3 )
 text = "Username:"
 
 [node name="Username" type="LineEdit" parent="TabContainer/Steam/GridContainer"]
 margin_left = 220.0
 margin_right = 738.0
-margin_bottom = 61.0
+margin_bottom = 66.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 3 )
 caret_blink = true
@@ -101,10 +103,10 @@ script = ExtResource( 6 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 69.0
-margin_right = -4.0
-margin_bottom = -4.0
+margin_left = 6.93966
+margin_top = 66.493
+margin_right = -6.81115
+margin_bottom = -6.04007
 
 [node name="GridContainer" type="GridContainer" parent="TabContainer/Login"]
 anchor_left = 0.5
@@ -121,50 +123,50 @@ __meta__ = {
 }
 
 [node name="EmailLabel" type="Label" parent="TabContainer/Login/GridContainer"]
-margin_top = 5.0
+margin_top = 7.0
 margin_right = 216.0
-margin_bottom = 56.0
+margin_bottom = 58.0
 custom_fonts/font = ExtResource( 3 )
 text = "E-mail:"
 
 [node name="Email" type="LineEdit" parent="TabContainer/Login/GridContainer"]
 margin_left = 220.0
 margin_right = 738.0
-margin_bottom = 61.0
+margin_bottom = 66.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 3 )
 caret_blink = true
 
 [node name="PasswordLabel" type="Label" parent="TabContainer/Login/GridContainer"]
-margin_top = 70.0
+margin_top = 77.0
 margin_right = 216.0
-margin_bottom = 121.0
+margin_bottom = 128.0
 custom_fonts/font = ExtResource( 3 )
 text = "Password:"
 
 [node name="Password" type="LineEdit" parent="TabContainer/Login/GridContainer"]
 margin_left = 220.0
-margin_top = 65.0
+margin_top = 70.0
 margin_right = 738.0
-margin_bottom = 126.0
+margin_bottom = 136.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 3 )
 secret = true
 caret_blink = true
 
 [node name="Empty" type="Control" parent="TabContainer/Login/GridContainer"]
-margin_top = 130.0
+margin_top = 140.0
 margin_right = 216.0
-margin_bottom = 174.0
+margin_bottom = 176.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="SaveCheckBox" type="CheckBox" parent="TabContainer/Login/GridContainer"]
 margin_left = 220.0
-margin_top = 130.0
+margin_top = 140.0
 margin_right = 738.0
-margin_bottom = 174.0
+margin_bottom = 176.0
 custom_fonts/font = ExtResource( 5 )
 pressed = true
 text = "Save email and password"
@@ -184,10 +186,10 @@ script = ExtResource( 6 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 4.0
-margin_top = 69.0
-margin_right = -4.0
-margin_bottom = -4.0
+margin_left = 6.93966
+margin_top = 66.493
+margin_right = -6.81115
+margin_bottom = -6.04007
 
 [node name="GridContainer" type="GridContainer" parent="TabContainer/Create Account"]
 anchor_left = 0.5
@@ -204,66 +206,66 @@ __meta__ = {
 }
 
 [node name="UsernameLabel" type="Label" parent="TabContainer/Create Account/GridContainer"]
-margin_top = 5.0
+margin_top = 7.0
 margin_right = 216.0
-margin_bottom = 56.0
+margin_bottom = 58.0
 custom_fonts/font = ExtResource( 3 )
 text = "Username:"
 
 [node name="Username" type="LineEdit" parent="TabContainer/Create Account/GridContainer"]
 margin_left = 220.0
 margin_right = 750.0
-margin_bottom = 61.0
+margin_bottom = 66.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 3 )
 caret_blink = true
 
 [node name="EmailLabel" type="Label" parent="TabContainer/Create Account/GridContainer"]
-margin_top = 70.0
+margin_top = 77.0
 margin_right = 216.0
-margin_bottom = 121.0
+margin_bottom = 128.0
 custom_fonts/font = ExtResource( 3 )
 text = "E-mail:"
 
 [node name="Email" type="LineEdit" parent="TabContainer/Create Account/GridContainer"]
 margin_left = 220.0
-margin_top = 65.0
+margin_top = 70.0
 margin_right = 750.0
-margin_bottom = 126.0
+margin_bottom = 136.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 3 )
 caret_blink = true
 
 [node name="PasswordLabel" type="Label" parent="TabContainer/Create Account/GridContainer"]
-margin_top = 135.0
+margin_top = 147.0
 margin_right = 216.0
-margin_bottom = 186.0
+margin_bottom = 198.0
 custom_fonts/font = ExtResource( 3 )
 text = "Password:"
 
 [node name="Password" type="LineEdit" parent="TabContainer/Create Account/GridContainer"]
 margin_left = 220.0
-margin_top = 130.0
+margin_top = 140.0
 margin_right = 750.0
-margin_bottom = 191.0
+margin_bottom = 206.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 3 )
 secret = true
 caret_blink = true
 
 [node name="Empty" type="Control" parent="TabContainer/Create Account/GridContainer"]
-margin_top = 195.0
+margin_top = 210.0
 margin_right = 216.0
-margin_bottom = 239.0
+margin_bottom = 246.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="SaveCheckBox" type="CheckBox" parent="TabContainer/Create Account/GridContainer"]
 margin_left = 220.0
-margin_top = 195.0
+margin_top = 210.0
 margin_right = 750.0
-margin_bottom = 239.0
+margin_bottom = 246.0
 custom_fonts/font = ExtResource( 5 )
 pressed = true
 text = "Save email and password"

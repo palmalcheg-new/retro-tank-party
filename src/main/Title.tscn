@@ -1,18 +1,43 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/theme.tres" type="Theme" id=1]
-[ext_resource path="res://assets/fonts/monogram_extended.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/TitleText.png" type="Texture" id=2]
 [ext_resource path="res://src/main/Title.gd" type="Script" id=3]
 [ext_resource path="res://src/ui/UILayer.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/ui/SettingsScreen.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/ui/MyButton.gd" type="Script" id=6]
+[ext_resource path="res://src/main/common/BackgroundMap1.tscn" type="PackedScene" id=7]
 
-[sub_resource type="DynamicFont" id=1]
-size = 160
-font_data = ExtResource( 2 )
+[sub_resource type="Animation" id=1]
+resource_name = "TextMotion"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("TitleText:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.025, 1.025 ) ]
+}
 
 [node name="Title" type="Node2D"]
 script = ExtResource( 3 )
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="Map" parent="Background" instance=ExtResource( 7 )]
+
+[node name="TitleText" type="Sprite" parent="Background"]
+position = Vector2( 640, 244 )
+texture = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Background"]
+autoplay = "TextMotion"
+anims/TextMotion = SubResource( 1 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -24,37 +49,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control"]
-anchor_right = 1.0
-margin_left = 100.0
-margin_top = 100.0
-margin_right = 1020.0
-margin_bottom = 285.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="DavidSnopekLabel" type="Label" parent="CanvasLayer/Control/VBoxContainer"]
-margin_right = 2200.0
-margin_bottom = 51.0
-text = "David Snopek's"
-
-[node name="TitleLabel" type="Label" parent="CanvasLayer/Control/VBoxContainer"]
-margin_top = 55.0
-margin_right = 2200.0
-margin_bottom = 185.0
-custom_fonts/font = SubResource( 1 )
-text = "Retro Tank Party"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = -302.0
-margin_bottom = -102.0
+margin_top = -248.0
+margin_bottom = -48.0
 custom_constants/separation = 50
 alignment = 1
 __meta__ = {

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/fonts/monogram.tres" type="DynamicFont" id=1]
 [ext_resource path="res://src/ui/UILayer.gd" type="Script" id=2]
 [ext_resource path="res://assets/ui/return.png" type="Texture" id=3]
 [ext_resource path="res://src/ui/TransparentButton.gd" type="Script" id=4]
+[ext_resource path="res://assets/theme.tres" type="Theme" id=5]
 
 [node name="UILayer" type="CanvasLayer"]
 script = ExtResource( 2 )
@@ -22,6 +23,7 @@ pause_mode = 2
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
+theme = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -38,11 +40,20 @@ __meta__ = {
 [node name="Message" type="Label" parent="Overlay"]
 visible = false
 anchor_right = 1.0
-margin_top = 77.7726
-margin_bottom = 128.773
+margin_left = 100.0
+margin_top = 50.0
+margin_right = -100.0
+margin_bottom = 120.0
 custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 text = "Waiting for players..."
 align = 1
+autowrap = true
+clip_text = true
+max_lines_visible = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="BackButton" type="Button" parent="Overlay"]
 visible = false
@@ -50,8 +61,8 @@ anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -72.0
 margin_top = 10.0
-margin_right = -10.0
-margin_bottom = 57.0
+margin_right = -9.67554
+margin_bottom = 75.5339
 custom_fonts/font = ExtResource( 1 )
 icon = ExtResource( 3 )
 script = ExtResource( 4 )

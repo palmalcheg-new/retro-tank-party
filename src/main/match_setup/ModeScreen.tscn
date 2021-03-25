@@ -20,10 +20,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -335.0
-margin_top = -210.328
-margin_right = 335.0
-margin_bottom = 313.672
+margin_left = -329.655
+margin_top = -237.055
+margin_right = 340.345
+margin_bottom = 286.945
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 anchor_right = 1.0
@@ -39,30 +42,33 @@ __meta__ = {
 
 [node name="ModeSwitcher" parent="Panel/VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
-anchor_bottom = 0.0
 margin_right = 650.0
-margin_bottom = 50.0
+margin_bottom = 66.0
 
 [node name="DescriptionLabel" type="Label" parent="Panel/VBoxContainer"]
-margin_top = 75.0
+margin_top = 91.0
 margin_right = 650.0
-margin_bottom = 104.0
+margin_bottom = 120.0
 custom_fonts/font = ExtResource( 4 )
 text = "Description of the mode."
 align = 1
 autowrap = true
 
-[node name="ConfigParent" type="Control" parent="Panel/VBoxContainer"]
-margin_top = 129.0
+[node name="ConfigParent" type="MarginContainer" parent="Panel/VBoxContainer"]
+margin_top = 145.0
 margin_right = 650.0
-margin_bottom = 422.0
+margin_bottom = 414.0
 size_flags_vertical = 3
+custom_constants/margin_right = 25
+custom_constants/margin_top = 25
+custom_constants/margin_left = 25
+custom_constants/margin_bottom = 25
 
 [node name="NextButton" type="Button" parent="Panel/VBoxContainer"]
 margin_left = 250.0
-margin_top = 447.0
+margin_top = 439.0
 margin_right = 400.0
-margin_bottom = 504.0
+margin_bottom = 504.534
 rect_min_size = Vector2( 150, 0 )
 size_flags_horizontal = 4
 text = "Next"

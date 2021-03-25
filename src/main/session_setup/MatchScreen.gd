@@ -1,22 +1,41 @@
 extends "res://src/ui/Screen.gd"
 
-onready var matchmaker_match_button := $PanelContainer/VBoxContainer/MatchPanel/MatchButton
-onready var matchmaker_player_count_control := $PanelContainer/VBoxContainer/MatchPanel/SpinBox
-onready var join_match_id_control := $PanelContainer/VBoxContainer/JoinPanel/LineEdit
+onready var option_switcher := $PanelContainer/VBoxContainer/OptionSwitcher
+onready var panel_parent := $PanelContainer/VBoxContainer/MarginContainer
+onready var matchmaker_player_count_control := $PanelContainer/VBoxContainer/MarginContainer/MatchPanel/Fields/PlayerCount
+onready var join_match_id_control := $PanelContainer/VBoxContainer/MarginContainer/JoinPanel/Fields/LineEdit
 
 func _ready() -> void:
-	$PanelContainer/VBoxContainer/MatchPanel/MatchButton.connect("pressed", self, "_on_match_button_pressed", [OnlineMatch.MatchMode.MATCHMAKER])
-	$PanelContainer/VBoxContainer/CreatePanel/CreateButton.connect("pressed", self, "_on_match_button_pressed", [OnlineMatch.MatchMode.CREATE])
-	$PanelContainer/VBoxContainer/JoinPanel/JoinButton.connect("pressed", self, "_on_match_button_pressed", [OnlineMatch.MatchMode.JOIN])
+	option_switcher.add_item("Create a private match", "CreatePanel")
+	option_switcher.add_item("Join a private match", "JoinPanel")
+	option_switcher.add_item("Find a public match", "MatchPanel")
+	
+	matchmaker_player_count_control.add_item("2 players", 2)
+	matchmaker_player_count_control.add_item("3 players", 3)
+	matchmaker_player_count_control.add_item("4 players", 4)
+	
+	$PanelContainer/VBoxContainer/MarginContainer/MatchPanel/MatchButton.connect("pressed", self, "_on_match_button_pressed", [OnlineMatch.MatchMode.MATCHMAKER])
+	$PanelContainer/VBoxContainer/MarginContainer/CreatePanel/CreateButton.connect("pressed", self, "_on_match_button_pressed", [OnlineMatch.MatchMode.CREATE])
+	$PanelContainer/VBoxContainer/MarginContainer/JoinPanel/JoinButton.connect("pressed", self, "_on_match_button_pressed", [OnlineMatch.MatchMode.JOIN])
 	
 	OnlineMatch.connect("matchmaker_matched", self, "_on_OnlineMatch_matchmaker_matched")
 	OnlineMatch.connect("match_created", self, "_on_OnlineMatch_created")
 	OnlineMatch.connect("match_joined", self, "_on_OnlineMatch_joined")
 
 func _show_screen(_info: Dictionary = {}) -> void:
+	option_switcher.value = "CreatePanel"
 	matchmaker_player_count_control.value = 2
 	join_match_id_control.text = ''
-	matchmaker_match_button.focus.grab_without_sound()
+	option_switcher.focus.grab_without_sound()
+
+func _on_OptionSwitcher_item_selected(value, index) -> void:
+	var panel = panel_parent.get_node(value)
+	if not panel:
+		return
+	
+	for child in panel_parent.get_children():
+		child.visible = false
+	panel.visible = true
 
 func _on_match_button_pressed(mode) -> void:
 	# If our session has expired, show the ConnectionScreen again.
@@ -110,3 +129,5 @@ func _on_OnlineMatch_joined(match_id: String):
 
 func _on_PasteButton_pressed() -> void:
 	join_match_id_control.text = OS.clipboard
+
+
