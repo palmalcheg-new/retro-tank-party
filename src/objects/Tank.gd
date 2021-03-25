@@ -24,6 +24,7 @@ var info_offset: Vector2
 var health_bar_max: int
 
 var health := 100
+var dead := false
 
 var shooting := false
 var can_shoot := true
@@ -206,10 +207,13 @@ remotesync func update_health(_health) -> void:
 	$Info/Health.rect_size.x = (float(_health) / 100) * health_bar_max
 
 remotesync func die(killer_id: int = -1) -> void:
-	var explosion = Explosion.instance()
-	get_parent().add_child(explosion)
-	explosion.setup(global_position, 1.5, "fire")
-	
-	queue_free()
-	
-	emit_signal("player_dead", killer_id)
+	if not dead:
+		dead = true
+		
+		var explosion = Explosion.instance()
+		get_parent().add_child(explosion)
+		explosion.setup(global_position, 1.5, "fire")
+		
+		queue_free()
+		
+		emit_signal("player_dead", killer_id)
