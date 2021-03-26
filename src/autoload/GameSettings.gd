@@ -3,6 +3,7 @@ extends Node
 var sound_volume := 1.0 setget set_sound_volume
 var music_volume := 1.0 setget set_music_volume
 var tank_engine_sounds := true setget set_tank_engine_sounds
+var use_full_screen := false setget set_use_full_screen
 var use_screenshake := true
 var use_network_relay := 0 setget set_use_network_relay
 
@@ -10,6 +11,7 @@ const SETTINGS_KEYS = [
 	'music_volume',
 	'sound_volume',
 	'tank_engine_sounds',
+	'use_full_screen',
 	'use_screenshake',
 	'use_network_relay',
 ]
@@ -40,6 +42,10 @@ func set_tank_engine_sounds(_tank_engine_sounds: bool) -> void:
 	tank_engine_sounds = _tank_engine_sounds
 	var bus_index = AudioServer.get_bus_index("Tank Engine")
 	AudioServer.set_bus_mute(bus_index, !_tank_engine_sounds)
+
+func set_use_full_screen(_use_full_screen: bool) -> void:
+	use_full_screen = _use_full_screen
+	OS.window_fullscreen = use_full_screen
 
 func set_use_network_relay(_use_network_relay: int) -> void:
 	use_network_relay = _use_network_relay
