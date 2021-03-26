@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/theme.tres" type="Theme" id=1]
 [ext_resource path="res://src/main/session_setup/MatchScreen.gd" type="Script" id=2]
 [ext_resource path="res://src/ui/MyButton.gd" type="Script" id=3]
 [ext_resource path="res://src/ui/OptionSwitcher.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/fonts/monogram_small.tres" type="DynamicFont" id=5]
+[ext_resource path="res://assets/ui/gray_panel_screws_stylebox.tres" type="StyleBox" id=6]
 
 [node name="MatchScreen" type="Control"]
 anchor_right = 1.0
@@ -24,32 +25,33 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -455.5
+margin_left = -475.0
 margin_top = -227.0
-margin_right = 455.5
+margin_right = 475.0
 margin_bottom = 227.0
+custom_styles/panel = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
-margin_left = 6.93966
-margin_top = 5.49302
-margin_right = 904.189
-margin_bottom = 447.96
+margin_left = 50.0
+margin_top = 30.0
+margin_right = 900.0
+margin_bottom = 424.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/separation = 10
 
 [node name="OptionSwitcher" parent="PanelContainer/VBoxContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
-margin_right = 897.0
+margin_right = 850.0
 margin_bottom = 66.0
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
 margin_top = 76.0
-margin_right = 897.0
-margin_bottom = 442.0
+margin_right = 850.0
+margin_bottom = 394.0
 size_flags_vertical = 3
 custom_constants/margin_right = 25
 custom_constants/margin_top = 25
@@ -59,13 +61,13 @@ custom_constants/margin_bottom = 25
 [node name="CreatePanel" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer"]
 margin_left = 25.0
 margin_top = 25.0
-margin_right = 872.0
-margin_bottom = 341.0
+margin_right = 825.0
+margin_bottom = 293.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/CreatePanel"]
-margin_right = 847.0
+margin_right = 800.0
 margin_bottom = 29.0
 size_flags_vertical = 2
 custom_fonts/font = ExtResource( 5 )
@@ -76,10 +78,10 @@ __meta__ = {
 }
 
 [node name="CreateButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/CreatePanel"]
-margin_left = 323.0
-margin_top = 251.0
-margin_right = 523.0
-margin_bottom = 316.534
+margin_left = 300.0
+margin_top = 203.0
+margin_right = 500.0
+margin_bottom = 268.534
 rect_min_size = Vector2( 200, 0 )
 size_flags_horizontal = 4
 text = "Create"
@@ -89,8 +91,8 @@ script = ExtResource( 3 )
 visible = false
 margin_left = 25.0
 margin_top = 25.0
-margin_right = 872.0
-margin_bottom = 341.0
+margin_right = 825.0
+margin_bottom = 293.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
@@ -159,31 +161,32 @@ script = ExtResource( 3 )
 visible = false
 margin_left = 25.0
 margin_top = 25.0
-margin_right = 872.0
-margin_bottom = 341.0
+margin_right = 825.0
+margin_bottom = 293.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/MatchPanel"]
-margin_left = 23.0
-margin_right = 823.0
-margin_bottom = 125.0
-rect_min_size = Vector2( 800, 125 )
+margin_left = -1.0
+margin_top = -1.0
+margin_right = 799.0
+margin_bottom = 99.0
+rect_min_size = Vector2( 800, 100 )
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 5 )
 text = "There is matchmaking, but this is a tiny indie game. Don't expect to find randos to battle! It's super cheap - buy a couple copies for your friends!"
 autowrap = true
 
 [node name="Fields" type="GridContainer" parent="PanelContainer/VBoxContainer/MarginContainer/MatchPanel"]
-margin_top = 129.0
-margin_right = 847.0
-margin_bottom = 323.0
+margin_top = 104.0
+margin_right = 800.0
+margin_bottom = 199.0
 size_flags_vertical = 3
 columns = 2
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/MatchPanel/Fields"]
 margin_top = 7.0
-margin_right = 421.0
+margin_right = 398.0
 margin_bottom = 58.0
 size_flags_horizontal = 3
 text = "Find at least:"
@@ -194,16 +197,16 @@ __meta__ = {
 
 [node name="PlayerCount" parent="PanelContainer/VBoxContainer/MarginContainer/MatchPanel/Fields" instance=ExtResource( 4 )]
 anchor_right = 0.0
-margin_left = 425.0
-margin_right = 846.0
+margin_left = 402.0
+margin_right = 800.0
 margin_bottom = 66.0
 size_flags_horizontal = 3
 
 [node name="MatchButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/MatchPanel"]
-margin_left = 323.0
-margin_top = 327.0
-margin_right = 523.0
-margin_bottom = 392.534
+margin_left = 300.0
+margin_top = 203.0
+margin_right = 500.0
+margin_bottom = 268.534
 rect_min_size = Vector2( 200, 0 )
 size_flags_horizontal = 4
 text = "Match"
