@@ -140,6 +140,7 @@ boot_splash/image="res://assets/Loading.png"
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 run/main_scene.standalone="res://src/main/Splash.tscn"
+run/main_scene.HTML5="res://src/main/Title.tscn"
 
 [autoload]
 
