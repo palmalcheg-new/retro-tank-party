@@ -15,21 +15,6 @@ func _ready() -> void:
 	
 	self.connect("pressed", self, "_on_pressed")
 
-#func grab_focus_without_sound() -> void:
-#	_play_focus_sound = false
-#	grab_focus()
-#	_play_focus_sound = true
-#
-#func _on_mouse_entered() -> void:
-#	Sounds.play("Focus")
-#
-#func _on_mouse_exited() -> void:
-#	pass
-#
-#func _on_focus_entered() -> void:
-#	if _play_focus_sound:
-#		Sounds.play("Focus")
-
 func _on_pressed() -> void:
 	Sounds.play("Select" if button_type == OK else "Back")
 

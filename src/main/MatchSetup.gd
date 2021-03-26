@@ -30,11 +30,24 @@ func _ready() -> void:
 
 func _on_UILayer_back_button() -> void:
 	var current_screen = ui_layer.current_screen_name
-	if not is_network_master() or current_screen == 'ModeScreen':
-		OnlineMatch.leave()
-		get_tree().change_scene("res://src/main/SessionSetup.tscn")
-	elif current_screen == 'ReadyScreen':
+	
+	if is_network_master() and current_screen == 'ReadyScreen':
 		ui_layer.show_screen('ModeScreen')
+	else:
+		var alert_content: String
+	
+		if get_tree().is_network_server():
+			alert_content = 'This will end the session for everyone.'
+		else:
+			alert_content = 'You will leave the session and won\'t be able to to rejoin.'
+		
+		ui_layer.show_alert('Are you sure you want to exit?', alert_content)
+		var result: bool = yield(ui_layer, "alert_completed")
+		if result:
+			OnlineMatch.leave()
+			get_tree().change_scene("res://src/main/SessionSetup.tscn")
+		elif not is_network_master():
+			ui_layer.show_cover()
 
 func _on_ReadyScreen_ready_pressed() -> void:
 	var match_info = {

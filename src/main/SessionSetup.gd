@@ -26,6 +26,19 @@ func _ready() -> void:
 func _on_UILayer_back_button() -> void:
 	ui_layer.hide_message()
 	
+	if ui_layer.current_screen_name == 'ReadyScreen':
+		var alert_content: String
+	
+		if get_tree().is_network_server():
+			alert_content = 'This will end the match for everyone.'
+		else:
+			alert_content = 'You will leave the session and won\'t be able to to rejoin.'
+		
+		ui_layer.show_alert('Are you sure you want to exit?', alert_content)
+		var result: bool = yield(ui_layer, "alert_completed")
+		if not result:
+			return
+	
 	OnlineMatch.leave()
 	
 	if ui_layer.current_screen_name in ['ConnectionScreen', 'MatchScreen']:
