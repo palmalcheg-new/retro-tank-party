@@ -1,0 +1,80 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/theme.tres" type="Theme" id=1]
+[ext_resource path="res://assets/ui/blue_title_panel.tres" type="StyleBox" id=2]
+[ext_resource path="res://src/ui/MyButton.gd" type="Script" id=3]
+[ext_resource path="res://src/ui/Alert.gd" type="Script" id=4]
+
+[node name="Alert" type="PanelContainer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -386.5
+margin_top = -171.5
+margin_right = 386.5
+margin_bottom = 171.5
+theme = ExtResource( 1 )
+custom_styles/panel = ExtResource( 2 )
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_left = 25.0
+margin_top = 6.0
+margin_right = 748.0
+margin_bottom = 318.0
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+margin_right = 723.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 0, 64 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Are you sure you want to exit?"
+autowrap = true
+clip_text = true
+
+[node name="ContentLabel" type="Label" parent="VBoxContainer"]
+margin_top = 67.0
+margin_right = 723.0
+margin_bottom = 242.0
+rect_min_size = Vector2( 0, 175 )
+text = "This will end the match for everyone and return to the match setup screen."
+autowrap = true
+clip_text = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+margin_top = 247.0
+margin_right = 723.0
+margin_bottom = 312.0
+
+[node name="Spacer1" type="Control" parent="VBoxContainer/HBoxContainer"]
+margin_right = 155.0
+margin_bottom = 65.0
+size_flags_horizontal = 3
+
+[node name="OkButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_left = 159.0
+margin_right = 359.0
+margin_bottom = 65.5339
+rect_min_size = Vector2( 200, 0 )
+text = "OK"
+script = ExtResource( 3 )
+
+[node name="CancelButton" type="Button" parent="VBoxContainer/HBoxContainer"]
+margin_left = 363.0
+margin_right = 563.0
+margin_bottom = 65.5339
+rect_min_size = Vector2( 200, 0 )
+text = "Cancel"
+script = ExtResource( 3 )
+
+[node name="Spacer2" type="Control" parent="VBoxContainer/HBoxContainer"]
+margin_left = 567.0
+margin_right = 723.0
+margin_bottom = 65.0
+size_flags_horizontal = 3
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/OkButton" to="." method="_on_OkButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/CancelButton" to="." method="_on_CancelButton_pressed"]

@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/fonts/monogram.tres" type="DynamicFont" id=1]
 [ext_resource path="res://src/ui/UILayer.gd" type="Script" id=2]
 [ext_resource path="res://assets/ui/return.png" type="Texture" id=3]
 [ext_resource path="res://src/ui/TransparentButton.gd" type="Script" id=4]
 [ext_resource path="res://assets/theme.tres" type="Theme" id=5]
+[ext_resource path="res://src/ui/Alert.tscn" type="PackedScene" id=6]
 
 [node name="UILayer" type="CanvasLayer"]
 script = ExtResource( 2 )
@@ -70,4 +71,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 button_type = 1
+
+[node name="Alert" parent="Overlay" instance=ExtResource( 6 )]
+visible = false
 [connection signal="pressed" from="Overlay/BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="completed" from="Overlay/Alert" to="." method="_on_Alert_completed"]

@@ -50,11 +50,20 @@ func _on_UILayer_back_button() -> void:
 		ui_layer.hide_screen()
 
 func _on_MenuScreen_exit_pressed() -> void:
-	# @todo add some kind of confirmation dialog
+	var alert_content: String
+	
 	if get_tree().is_network_server():
-		finish_match()
+		alert_content = 'This will end the match for everyone and return to the match setup screen.'
 	else:
-		quit_match()
+		alert_content = 'You will leave the session and won\'t be able to to rejoin.'
+	
+	ui_layer.show_alert('Are you sure you want to exit?', alert_content)
+	var result: bool = yield(ui_layer, "alert_completed")
+	if result:
+		if get_tree().is_network_server():
+			finish_match()
+		else:
+			quit_match()
 
 #func _unhandled_input(event: InputEvent) -> void:
 #	# Trigger debugging action!

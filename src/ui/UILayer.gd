@@ -5,9 +5,11 @@ onready var screens = $Screens
 onready var cover = $Overlay/Cover
 onready var message_label = $Overlay/Message
 onready var back_button = $Overlay/BackButton
+onready var alert = $Overlay/Alert
 
 signal change_screen (name, screen)
 signal back_button ()
+signal alert_completed (result)
 
 var current_screen: Control = null setget _set_readonly_variable
 var current_screen_name: String = '' setget _set_readonly_variable, get_current_screen_name
@@ -73,6 +75,20 @@ func show_back_button() -> void:
 func hide_back_button() -> void:
 	back_button.visible = false
 
+func show_alert(title: String, content: String, ok_text: String = 'Ok', cancel_text: String = 'Cancel') -> void:
+	alert.setup(title, content, ok_text, cancel_text)
+	alert.visible = true
+	show_cover()
+	show_back_button()
+
+func hide_alert(result: bool = false) -> void:
+	alert.visible = false
+	hide_cover()
+	emit_signal("alert_completed", result)
+
+func _on_Alert_completed(result) -> void:
+	hide_alert(result)
+
 func hide_all() -> void:
 	hide_screen()
 	hide_cover()
@@ -80,7 +96,10 @@ func hide_all() -> void:
 	hide_back_button()
 
 func go_back() -> void:
-	emit_signal("back_button")
+	if alert.visible:
+		hide_alert()
+	else:
+		emit_signal("back_button")
 
 func _on_BackButton_pressed() -> void:
 	go_back()
@@ -90,3 +109,4 @@ func _unhandled_input(event: InputEvent) -> void:
 		Sounds.play("Back")
 		get_tree().set_input_as_handled()
 		go_back()
+
