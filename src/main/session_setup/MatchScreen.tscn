@@ -212,4 +212,5 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 [connection signal="item_selected" from="PanelContainer/VBoxContainer/OptionSwitcher" to="." method="_on_OptionSwitcher_item_selected"]
+[connection signal="text_entered" from="PanelContainer/VBoxContainer/MarginContainer/JoinPanel/Fields/LineEdit" to="." method="_on_LineEdit_text_entered"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/JoinPanel/Fields/PasteButton" to="." method="_on_PasteButton_pressed"]

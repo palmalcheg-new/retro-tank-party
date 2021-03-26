@@ -130,4 +130,27 @@ func _on_OnlineMatch_joined(match_id: String):
 func _on_PasteButton_pressed() -> void:
 	join_match_id_control.text = OS.clipboard
 
+func _unhandled_input(event: InputEvent) -> void:
+	if not visible:
+		return
+	if get_focus_owner() is Button:
+		return
+	
+	if event.is_action_pressed("ui_accept"):
+		get_tree().set_input_as_handled()
+		_ui_accept_pressed()
+	
+func _ui_accept_pressed() -> void:
+	var match_mode: int
+	match option_switcher.value:
+		"CreatePanel":
+			match_mode = OnlineMatch.MatchMode.CREATE
+		"JoinPanel":
+			match_mode = OnlineMatch.MatchMode.JOIN
+		"MatchPanel":
+			match_mode = OnlineMatch.MatchMode.MATCHMAKER
+	
+	_on_match_button_pressed(match_mode)
 
+func _on_LineEdit_text_entered(new_text: String) -> void:
+	_ui_accept_pressed()
