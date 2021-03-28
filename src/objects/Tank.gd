@@ -76,27 +76,41 @@ func set_player_index(_player_index: int) -> void:
 	body_sprite.region_rect = TANK_COLORS[player_index]['body_sprite_region']
 	turret_sprite.region_rect = TANK_COLORS[player_index]['turret_sprite_region']
 
+func _get_input_vector() -> Vector2:
+	var input: Vector2
+	
+	if Input.is_action_pressed(input_prefix + "turn_left"):
+		input.y -= min(Input.get_action_strength(input_prefix + "turn_left") + 0.5, 1.0)
+	if Input.is_action_pressed(input_prefix + "turn_right"):
+		input.y = min(Input.get_action_strength(input_prefix + "turn_right") + 0.5, 1.0)
+	if Input.is_action_pressed(input_prefix + "backward"):
+		input.x -= min(Input.get_action_strength(input_prefix + "backward") + 0.5, 1.0)
+	if Input.is_action_pressed(input_prefix + "forward"):
+		input.x += min(Input.get_action_strength(input_prefix + "forward") + 0.5, 1.0)
+	
+	return input
+
 func _physics_process(delta: float) -> void:
 	if player_controlled:
-		engine_sound.turning = false
-		if Input.is_action_pressed(input_prefix + "turn_left"):
-			engine_sound.turning = true
-			rotation -= Input.get_action_strength(input_prefix + "turn_left") * turn_speed * delta
-		if Input.is_action_pressed(input_prefix + "turn_right"):
-			engine_sound.turning = true
-			rotation += Input.get_action_strength(input_prefix + "turn_right") * turn_speed * delta
+		var input_vector = _get_input_vector()
 		
-		var x_motion = Input.get_action_strength(input_prefix + "forward") - Input.get_action_strength(input_prefix + "backward")
+		engine_sound.turning = false
+		if input_vector.y < 0:
+			engine_sound.turning = true
+		if input_vector.y > 0:
+			engine_sound.turning = true
+		
+		rotation += input_vector.y * turn_speed * delta
 		
 		velocity = Vector2()
-		velocity.x = x_motion
+		velocity.x = input_vector.x
 		velocity = velocity.rotated(rotation) * speed
 		move_and_slide(velocity)
 		
 		if player_controlled:
 			Globals.my_player_position = global_position
 		
-		if x_motion >= 0.1 or x_motion <= -0.1:
+		if input_vector.x >= 0.1 or input_vector.x <= -0.1:
 			engine_sound.engine_state = engine_sound.EngineState.DRIVING
 		else:
 			engine_sound.engine_state = engine_sound.EngineState.IDLE
