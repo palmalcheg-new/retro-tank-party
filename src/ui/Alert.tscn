@@ -37,9 +37,9 @@ autowrap = true
 clip_text = true
 
 [node name="ContentLabel" type="Label" parent="VBoxContainer"]
-margin_top = 67.0
+margin_top = 68.0
 margin_right = 723.0
-margin_bottom = 242.0
+margin_bottom = 243.0
 rect_min_size = Vector2( 0, 175 )
 text = "This will end the match for everyone and return to the match setup screen."
 autowrap = true

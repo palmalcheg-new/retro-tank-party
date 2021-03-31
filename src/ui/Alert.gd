@@ -11,6 +11,7 @@ func setup(title: String, content: String, ok_text: String = 'Ok', cancel_text: 
 	title_label.text = title
 	content_label.text = content
 	ok_button.text = ok_text
+	ok_button.focus.grab_without_sound()
 	if cancel_text != '':
 		cancel_button.text = cancel_text
 		cancel_button.visible = true
