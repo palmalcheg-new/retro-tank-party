@@ -84,7 +84,8 @@ func _on_countdown_finished() -> void:
 		instant_death = true
 		
 		# Kill all the players that aren't winners.
-		for player_id in game.players_alive:
+		var players_alive = game.players_alive.duplicate()
+		for player_id in players_alive:
 			if not player_id in winners:
 				rpc("kill_player", player_id)
 		
