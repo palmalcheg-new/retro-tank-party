@@ -17,20 +17,20 @@ func _ready() -> void:
 	
 	tank_engine_sounds_field.add_item("Disabled", false)
 	tank_engine_sounds_field.add_item("Enabled", true)
-	tank_engine_sounds_field.value = GameSettings.tank_engine_sounds
+	tank_engine_sounds_field.set_value(GameSettings.tank_engine_sounds, false)
 	
 	full_screen_field.add_item("Disabled", false)
 	full_screen_field.add_item("Enabled", true)
-	full_screen_field.value = GameSettings.use_full_screen
+	full_screen_field.set_value(GameSettings.use_full_screen, false)
 	
 	screenshake_field.add_item("Disabled", false)
 	screenshake_field.add_item("Enabled", true)
-	screenshake_field.value = GameSettings.use_screenshake
+	screenshake_field.set_value(GameSettings.use_screenshake, false)
 	
 	network_relay_field.add_item("Disabled", OnlineMatch.NetworkRelay.DISABLED)
 	network_relay_field.add_item("Auto", OnlineMatch.NetworkRelay.AUTO)
 	network_relay_field.add_item("Forced", OnlineMatch.NetworkRelay.FORCED)
-	network_relay_field.value = GameSettings.use_network_relay
+	network_relay_field.set_value(GameSettings.use_network_relay, false)
 	
 	_setup_field_neighbors()
 	

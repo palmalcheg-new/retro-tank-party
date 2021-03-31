@@ -44,11 +44,12 @@ func _show_buttons(show: bool) -> void:
 		_forward_button.texture_normal = null
 		_back_button.texture_normal = null
 
-func set_selected(_selected) -> bool:
+func set_selected(_selected, emit_signal: bool = true) -> bool:
 	if _selected >= 0 and _selected < _options.size():
 		selected = _selected
 		_update_display()
-		emit_signal("item_selected", _options[selected].value, selected)
+		if emit_signal:
+			emit_signal("item_selected", _options[selected].value, selected)
 	
 	return selected == _selected
 
@@ -66,11 +67,11 @@ func _reset_button_colors() -> void:
 	_back_button.modulate = modulate_disabled if disabled or selected == 0 else modulate_normal
 	_forward_button.modulate = modulate_disabled if disabled or selected == _options.size() - 1 else modulate_normal
 
-func set_value(_value) -> void:
+func set_value(_value, emit_signal: bool = true) -> void:
 	for index in range(_options.size()):
 		var option = _options[index]
 		if option.value == _value:
-			set_selected(index)
+			set_selected(index, emit_signal)
 			return
 
 func get_value():
