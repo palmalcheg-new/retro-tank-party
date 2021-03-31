@@ -223,7 +223,7 @@ macosx-steam:
     - >
       APP_PATH=$(find ./build/macosx-steam/ -name \*.app -print -quit);
       APP_NAME=$(basename "$APP_PATH");
-      ./scripts/download-steam-redistributables.sh osx/libsteam_api.dylib "./build/macosx-steam/$APP_NAME.app/Contents/MacOS/"
+      ./scripts/download-steam-redistributables.sh osx/libsteam_api.dylib "./build/macosx-steam/$APP_NAME/Contents/MacOS/"
   artifacts:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
