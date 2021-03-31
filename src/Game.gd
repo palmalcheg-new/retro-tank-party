@@ -62,8 +62,11 @@ func respawn_player(peer_id, username) -> void:
 
 func make_player_controlled(peer_id) -> void:
 	var my_player := players_node.get_node(str(peer_id))
-	my_player.player_controlled = true
-	my_player.add_child(_create_camera())
+	if my_player:
+		my_player.player_controlled = true
+		my_player.add_child(_create_camera())
+	else:
+		print ("Unable to make player controlled: node not found")
 
 # Actually start the game on this client.
 remotesync func game_start() -> void:
