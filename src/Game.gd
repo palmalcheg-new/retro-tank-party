@@ -102,12 +102,13 @@ func _create_camera() -> Camera2D:
 	camera.name = "Camera"
 	camera.current = true
 	
-	camera.limit_top = 0
-	camera.limit_left = 0
-	
-	var tilemap_rect = $Map/TileMap.get_used_rect()
-	camera.limit_right = tilemap_rect.size.x * $Map/TileMap.cell_size.x
-	camera.limit_bottom = tilemap_rect.size.y * $Map/TileMap.cell_size.y
+	if map.has_method('get_map_rect'):
+		var map_rect = map.get_map_rect()
+		
+		camera.limit_left = map_rect.position.x
+		camera.limit_top = map_rect.position.y
+		camera.limit_right = map_rect.end.x
+		camera.limit_bottom = map_rect.end.y
 	
 	return camera
 
