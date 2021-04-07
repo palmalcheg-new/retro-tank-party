@@ -8,6 +8,7 @@ export (PackedScene) var map_scene = preload("res://src/maps/Map1.tscn")
 
 onready var map: Node2D = $Map
 onready var players_node := $Players
+onready var player_camera := $PlayerCamera
 onready var watch_camera := $WatchCamera
 
 var game_started := false
@@ -64,7 +65,7 @@ func make_player_controlled(peer_id) -> void:
 	var my_player := players_node.get_node(str(peer_id))
 	if my_player:
 		my_player.player_controlled = true
-		my_player.add_child(_create_camera())
+		_setup_player_camera(my_player)
 	else:
 		print ("Unable to make player controlled: node not found")
 
@@ -81,7 +82,7 @@ func game_stop() -> void:
 	
 	game_started = false
 	players_alive.clear()
-	watch_camera.current = false
+	watch_camera.current = true
 	
 	for child in players_node.get_children():
 		players_node.remove_child(child)
@@ -97,20 +98,19 @@ func reload_map() -> void:
 	add_child(map)
 	move_child(map, map_index)
 
-func _create_camera() -> Camera2D:	
-	var camera = ShakeCamera.instance()
-	camera.name = "Camera"
-	camera.current = true
+func _setup_player_camera(my_player) -> void:
+	my_player.camera = player_camera
+	player_camera.global_position = my_player.global_position
+	watch_camera.current = false
+	player_camera.current = true
 	
 	if map.has_method('get_map_rect'):
 		var map_rect = map.get_map_rect()
 		
-		camera.limit_left = map_rect.position.x
-		camera.limit_top = map_rect.position.y
-		camera.limit_right = map_rect.end.x
-		camera.limit_bottom = map_rect.end.y
-	
-	return camera
+		player_camera.limit_left = map_rect.position.x
+		player_camera.limit_top = map_rect.position.y
+		player_camera.limit_right = map_rect.end.x
+		player_camera.limit_bottom = map_rect.end.y
 
 func kill_player(player_id) -> void:
 	var player_node = players_node.get_node(str(player_id))
@@ -124,6 +124,7 @@ func kill_player(player_id) -> void:
 			_on_player_dead(-1, player_id)
 
 func enable_watch_camera(enable: bool = true) -> void:
+	player_camera.current = not enable
 	watch_camera.current = enable
 
 func _on_player_dead(killer_id, player_id) -> void:

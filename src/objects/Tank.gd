@@ -31,6 +31,8 @@ var can_shoot := true
 
 var mouse_control := true
 
+var camera: Camera2D = null
+
 var bullet_type: int = Constants.BulletType.NORMAL
 
 const TANK_COLORS = {
@@ -134,6 +136,9 @@ func _physics_process(delta: float) -> void:
 			$ShootCooldownTimer.start()
 			shoot()
 		
+		if camera:
+			camera.global_position = global_position
+		
 		rpc("update_remote_player", rotation, position, $TurretPivot.rotation, shooting, bullet_type)
 		
 		shooting = false
@@ -194,10 +199,10 @@ func _on_ShootCooldownTimer_timeout() -> void:
 	can_shoot = true
 
 func take_damage(damage: int, attacker_id: int = -1) -> void:
-	if has_node("Camera"):
+	if player_controlled and camera:
 		if GameSettings.use_screenshake:
 			# Between 0.25 and 0.5 seems good
-			get_node("Camera").add_trauma(0.5)
+			camera.add_trauma(0.5)
 	
 	animation_player.play("Flash")
 	if is_network_master():

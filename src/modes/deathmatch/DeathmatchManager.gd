@@ -36,7 +36,6 @@ func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 	var my_id = get_tree().get_network_unique_id()
 	if player_id == my_id:
 		ui_layer.show_message("Wasted!")
-		game.enable_watch_camera(true)
 	
 	if get_tree().is_network_server():
 		if killer_id != -1:
@@ -66,7 +65,6 @@ func respawn_player(player_id: int) -> void:
 
 remotesync func _take_control_of_my_player() -> void:
 	ui_layer.hide_message()
-	game.enable_watch_camera(false)
 	
 	var player_id = get_tree().get_network_unique_id()
 	game.make_player_controlled(player_id)
