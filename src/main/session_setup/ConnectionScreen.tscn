@@ -280,6 +280,56 @@ margin_right = -228.737
 margin_bottom = -22.0
 text = "Create Account"
 script = ExtResource( 6 )
+
+[node name="Forgot password\?" type="Control" parent="TabContainer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 6.93966
+margin_top = 66.493
+margin_right = -6.81128
+margin_bottom = -6.03992
+
+[node name="GridContainer" type="GridContainer" parent="TabContainer/Forgot password\?"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -375.0
+margin_top = -74.5
+margin_right = 375.0
+margin_bottom = 74.5
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EmailLabel" type="Label" parent="TabContainer/Forgot password\?/GridContainer"]
+margin_top = 7.0
+margin_right = 168.0
+margin_bottom = 58.0
+text = "E-mail:"
+
+[node name="Email" type="LineEdit" parent="TabContainer/Forgot password\?/GridContainer"]
+margin_left = 172.0
+margin_right = 750.0
+margin_bottom = 66.0
+size_flags_horizontal = 3
+
+[node name="ResetPasswordButton" type="Button" parent="TabContainer/Forgot password\?"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 253.263
+margin_top = -76.0002
+margin_right = -228.737
+margin_bottom = -10.4662
+text = "Reset Password"
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="TabContainer/Steam/SteamLoginButton" to="." method="_on_SteamLoginButton_pressed"]
 [connection signal="pressed" from="TabContainer/Login/LoginButton" to="." method="_on_LoginButton_pressed"]
 [connection signal="pressed" from="TabContainer/Create Account/CreateAccountButton" to="." method="_on_CreateAccountButton_pressed"]
+[connection signal="pressed" from="TabContainer/Forgot password?/ResetPasswordButton" to="." method="_on_ResetPasswordButton_pressed"]
