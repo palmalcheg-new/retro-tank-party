@@ -37,7 +37,6 @@ func _ready() -> void:
 		Steam.connect("get_auth_session_ticket_response", self, "_on_steam_auth_session_ticket_response")
 		
 		create_account_tab.queue_free()
-		forgot_password_tab.queue_free()
 		tab_container.set_tab_title(0, "Create account")
 		steam_username_field.text = Steam.getPersonaName()
 	else:
