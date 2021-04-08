@@ -45,6 +45,8 @@ windows-signed:
   image: ubuntu:20.04
   dependencies:
     - windows
+  needs:
+    - windows
   before_script:
     - apt-get update
     - apt-get install -y --no-install-recommends osslsigncode
@@ -108,6 +110,8 @@ macosx-signed:
     - shell
   dependencies:
     - macosx
+  needs:
+    - macosx
   script:
     - mkdir -v -p build/macosx-signed
     - >
@@ -138,6 +142,8 @@ web:
 pages:
   stage: deploy
   dependencies:
+    - web
+  needs:
     - web
   script:
     - rm -rf public
@@ -195,6 +201,8 @@ windows-steam-signed:
   stage: sign
   image: ubuntu:20.04
   dependencies:
+    - windows-steam
+  needs:
     - windows-steam
   before_script:
     - apt-get update
@@ -277,6 +285,8 @@ macosx-steam-signed:
     - osx
     - shell
   dependencies:
+    - macosx-steam
+  needs:
     - macosx-steam
   script:
     - mkdir -v -p build/macosx-steam-signed
