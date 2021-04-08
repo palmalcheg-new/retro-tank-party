@@ -151,12 +151,12 @@ itch:
   dependencies:
     - web
     - linux
-    - windows
+    - windows-signed
     - macosx-signed
   script:
     - butler push build/web $ITCHIO_NAME:web-stable
     - butler push build/linux $ITCHIO_NAME:linux-stable
-    - butler push build/windows $ITCHIO_NAME:windows-stable
+    - butler push build/windows-signed $ITCHIO_NAME:windows-stable
     - butler push build/macosx-signed $ITCHIO_NAME:macosx-stable
   only:
     - master
@@ -185,6 +185,25 @@ windows-steam:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
       - build/windows-steam
+  only:
+    - master
+    - steam
+
+windows-steam-signed:
+  stage: sign
+  image: ubuntu:20.04
+  dependencies:
+    - windows-steam
+  before_script:
+    - apt-get update
+    - apt-get install -y --no-install-recommends osslsigncode
+  script:
+    - cp -a ./build/windows-steam ./build/windows-steam-signed
+    - ./scripts/windows-sign.sh ./build/windows-steam-signed/$EXPORT_NAME.exe "$APPLICATION_NAME" "$APPLICATION_URL"
+  artifacts:
+    name: $EXPORT_NAME-$CI_JOB_NAME
+    paths:
+      - build/windows-steam-signed
   only:
     - master
     - steam
@@ -276,7 +295,7 @@ steam:
   stage: deploy
   image: cm2network/steamcmd
   dependencies:
-    - windows-steam
+    - windows-steam-signed
     - linux-steam
     - macosx-steam-signed
   script:

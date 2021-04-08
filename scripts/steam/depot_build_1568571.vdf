@@ -7,7 +7,7 @@
 	"FileMapping"
 	{
 		// This can be a full path, or a path relative to ContentRoot
-		"LocalPath" "windows-steam/*"
+		"LocalPath" "windows-steam-signed/*"
 
 		// This is a path relative to the install folder of your game
 		"DepotPath" "."
