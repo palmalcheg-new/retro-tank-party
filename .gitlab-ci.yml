@@ -3,6 +3,8 @@ image: barichello/godot-ci:3.2.3
 variables:
   EXPORT_NAME: retro-tank-party
   ITCHIO_NAME: dsnopek/retro-tank-party
+  APPLICATION_NAME: "Retro Tank Party"
+  APPLICATION_URL: "https://www.snopekgames.com"
 
 stages:
   - build
@@ -37,6 +39,22 @@ windows:
       - build/windows
   except:
     - steam
+
+windows-signed:
+  stage: sign
+  image: ubuntu:20.04
+  dependencies:
+    - windows
+  before_script:
+    - apt-get update
+    - apt-get install -y --no-install-recommends osslsigncode
+  script:
+    - cp -a ./build/windows ./build/windows-signed
+    - ./scripts/windows-sign.sh ./build/windows-signed/$EXPORT_NAME.exe "$APPLICATION_NAME" "$APPLICATION_URL"
+  artifacts:
+    name: $EXPORT_NAME-$CI_JOB_NAME
+    paths:
+      - build/windows-signed
 
 linux:
   <<: *export_before_script
