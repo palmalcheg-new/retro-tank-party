@@ -28,6 +28,7 @@ var dead := false
 
 var shooting := false
 var can_shoot := true
+var shoot_rumble := 0.025
 
 var mouse_control := true
 
@@ -134,6 +135,7 @@ func _physics_process(delta: float) -> void:
 			can_shoot = false
 			$ShootCooldownTimer.start()
 			shoot()
+			Globals.rumble.add_weak_rumble(shoot_rumble)
 		
 		if camera:
 			camera.global_position = global_position
