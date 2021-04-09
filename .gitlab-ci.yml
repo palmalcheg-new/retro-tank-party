@@ -257,7 +257,7 @@ macosx-steam:
     - rm webrtc_debug/webrtc_debug.gdnlib
 
     # Get the GodotSteam export templates.
-    - wget "https://www.dropbox.com/s/msuggnzdnwgov22/osx_template.zip?dl=1" -O ./build/templates/templates.zip
+    - wget "https://www.dropbox.com/s/aoov2jqap1iptql/osx_template-issue-168.zip?dl=1" -O ./build/templates/templates.zip
     - ./scripts/update-export-setting.py export_presets.cfg preset.6.options custom_template/debug "\"$PWD/build/templates/templates.zip\""
     - ./scripts/update-export-setting.py export_presets.cfg preset.6.options custom_template/release "\"$PWD/build/templates/templates.zip\""
 
