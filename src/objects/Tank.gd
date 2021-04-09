@@ -109,8 +109,7 @@ func _physics_process(delta: float) -> void:
 		velocity = velocity.rotated(rotation) * speed
 		move_and_slide(velocity)
 		
-		if player_controlled:
-			Globals.my_player_position = global_position
+		Globals.my_player_position = global_position
 		
 		if input_vector.x >= 0.1 or input_vector.x <= -0.1:
 			engine_sound.engine_state = engine_sound.EngineState.DRIVING
@@ -199,10 +198,12 @@ func _on_ShootCooldownTimer_timeout() -> void:
 	can_shoot = true
 
 func take_damage(damage: int, attacker_id: int = -1) -> void:
-	if player_controlled and camera:
-		if GameSettings.use_screenshake:
+	if player_controlled:
+		if GameSettings.use_screenshake and camera:
 			# Between 0.25 and 0.5 seems good
 			camera.add_trauma(0.5)
+		
+		Globals.rumble.add_rumble(0.25)
 	
 	animation_player.play("Flash")
 	if is_network_master():
