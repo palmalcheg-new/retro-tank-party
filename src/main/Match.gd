@@ -38,6 +38,9 @@ func quit_match() -> void:
 	OnlineMatch.leave()
 	get_tree().change_scene("res://src/main/SessionSetup.tscn")
 
+func _on_Game_game_error(message) -> void:
+	_on_OnlineMatch_error(message)
+
 func _on_Game_game_started() -> void:
 	ui_layer.hide_screen()
 	ui_layer.hide_all()
@@ -94,6 +97,3 @@ func _on_OnlineMatch_player_left(player) -> void:
 		_on_OnlineMatch_error(player.username + " has left - not enough players!")
 	else:
 		ui_layer.show_message(player.username + " has left")
-
-
-

@@ -21,3 +21,8 @@ func _ready() -> void:
 
 func _on_UILayer_back_button() -> void:
 	get_tree().change_scene("res://src/main/Title.tscn")
+
+func _on_Game_game_error(message) -> void:
+	ui_layer.show_message(message)
+	yield(get_tree().create_timer(2.0), "timeout")
+	_on_UILayer_back_button()

@@ -12,6 +12,7 @@ var game_started := false
 var players_alive := {}
 var players_index := {}
 
+signal game_error (message)
 signal game_started ()
 signal player_dead (player_id, killer_id)
 
@@ -19,7 +20,7 @@ func _get_synchronized_rpc_methods() -> Array:
 	return ['game_setup', 'respawn_player']
 
 # Initializes the game so that it is ready to really start.
-func game_setup(players: Dictionary, map_path: String) -> void:
+func game_setup(players: Dictionary, map_path: String, operation: RemoteOperations.ClientOperation = null) -> void:
 	get_tree().set_pause(true)
 	
 	if game_started:
@@ -29,7 +30,9 @@ func game_setup(players: Dictionary, map_path: String) -> void:
 	players_alive.clear()
 	
 	if not load_map(map_path):
-		# TODO: we need to give some kind of sane error here!
+		emit_signal("game_error", "Unable to load map")
+		if operation:
+			operation.mark_done(false)
 		return
 	
 	var player_index := 1
@@ -40,6 +43,9 @@ func game_setup(players: Dictionary, map_path: String) -> void:
 	
 	var my_id: int = get_tree().get_network_unique_id()
 	make_player_controlled(my_id)
+	
+	if operation:
+		operation.mark_done(true)
 
 func respawn_player(peer_id, username) -> void:
 	if players_node.has_node(str(peer_id)):
@@ -109,6 +115,8 @@ func reload_map() -> void:
 	map.name = 'Map'
 	add_child(map)
 	move_child(map, map_index)
+	
+	# TODO: we should setup the zoom on the watch camera to show the whole map
 
 func _setup_player_camera(my_player) -> void:
 	my_player.camera = player_camera
