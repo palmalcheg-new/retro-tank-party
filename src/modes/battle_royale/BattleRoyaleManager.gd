@@ -8,7 +8,7 @@ func _do_match_setup() -> void:
 	game.connect("player_dead", self, "_on_game_player_dead")
 
 func start_new_round() -> void:
-	var operation = RemoteOperations.synchronized_rpc(game, "game_setup", [OnlineMatch.get_player_names_by_peer_id()])
+	var operation = RemoteOperations.synchronized_rpc(game, "game_setup", [OnlineMatch.get_player_names_by_peer_id(), map_path])
 	if yield(operation, "completed"):
 		game.rpc("game_start")
 	else:

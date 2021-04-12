@@ -53,6 +53,7 @@ func _on_ReadyScreen_ready_pressed() -> void:
 	var match_info = {
 		manager_path = mode_screen.get_mode().manager_scene,
 		config = mode_screen.get_config_values(),
+		map_path = "res://src/maps/Map2.tscn",
 	}
 	RemoteOperations.change_scene("res://src/main/Match.tscn", match_info)
 

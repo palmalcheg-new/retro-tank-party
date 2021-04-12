@@ -1,16 +1,13 @@
 extends Node2D
 
-var ShakeCamera = preload("res://src/game/ShakeCamera.tscn")
-
 var TankScene = preload("res://src/objects/Tank.tscn")
-
-export (PackedScene) var map_scene = preload("res://src/maps/Map1.tscn")
 
 onready var map: Node2D = $Map
 onready var players_node := $Players
 onready var player_camera := $PlayerCamera
 onready var watch_camera := $WatchCamera
 
+var map_scene: PackedScene
 var game_started := false
 var players_alive := {}
 var players_index := {}
@@ -22,7 +19,7 @@ func _get_synchronized_rpc_methods() -> Array:
 	return ['game_setup', 'respawn_player']
 
 # Initializes the game so that it is ready to really start.
-func game_setup(players: Dictionary) -> void:
+func game_setup(players: Dictionary, map_path: String) -> void:
 	get_tree().set_pause(true)
 	
 	if game_started:
@@ -31,7 +28,9 @@ func game_setup(players: Dictionary) -> void:
 	game_started = true
 	players_alive.clear()
 	
-	reload_map()
+	if not load_map(map_path):
+		# TODO: we need to give some kind of sane error here!
+		return
 	
 	var player_index := 1
 	for peer_id in players:
@@ -88,7 +87,20 @@ func game_stop() -> void:
 		players_node.remove_child(child)
 		child.queue_free()
 
+func load_map(path: String) -> bool:
+	var new_map_scene = load(path)
+	if not new_map_scene or not new_map_scene is PackedScene:
+		return false
+	
+	map_scene = new_map_scene
+	reload_map()
+	
+	return true
+
 func reload_map() -> void:
+	if not map_scene:
+		return
+	
 	var map_index = map.get_index()
 	remove_child(map)
 	map.queue_free()

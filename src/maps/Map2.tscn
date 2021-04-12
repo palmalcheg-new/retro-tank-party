@@ -38,81 +38,64 @@ rotation = -0.922228
 
 [node name="Objects" type="Node2D" parent="."]
 
-[node name="SandbagBiege" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 583, 1769 )
-collision_mask = 2
 
-[node name="SandbagBiege2" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege2" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 521, 1763 )
-collision_mask = 2
 
-[node name="SandbagBiege3" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege3" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 467, 1773 )
-collision_mask = 2
 
-[node name="SandbagBiege4" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege4" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 408, 1768 )
-collision_mask = 2
 
-[node name="SandbagBiege5" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege5" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 345, 1785 )
-collision_mask = 2
 
-[node name="SandbagBiege6" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege6" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 288, 1772 )
-collision_mask = 2
 
-[node name="SandbagBiege7" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege7" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 226, 1782 )
-collision_mask = 2
 
-[node name="SandbagBiege8" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege8" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 166, 1771 )
-collision_mask = 2
 
-[node name="SandbagBiege9" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege9" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 109, 1776 )
-collision_mask = 2
 
-[node name="SandbagBiege10" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege10" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 60, 1752 )
 rotation = 0.256921
-collision_mask = 2
 
-[node name="SandbagBiege11" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege11" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 22.0001, 1711 )
 rotation = -1.98205
-collision_mask = 2
 
-[node name="SandbagBiege12" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege12" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 16, 1652 )
 rotation = -1.61331
-collision_mask = 2
 
-[node name="SandbagBiege13" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege13" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 10, 1595 )
 rotation = -1.5708
-collision_mask = 2
 
-[node name="SandbagBiege14" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege14" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( -6, 1541 )
 rotation = -1.5708
-collision_mask = 2
 
-[node name="SandbagBiege15" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege15" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 8, 1484 )
 rotation = -1.5708
-collision_mask = 2
 
-[node name="SandbagBiege16" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege16" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 3, 1425 )
 rotation = -1.5708
-collision_mask = 2
 
-[node name="SandbagBiege17" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege17" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 20, 1369 )
 rotation = -1.5708
-collision_mask = 2
 
 [node name="SandbagBiege99" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( -4, 1323 )
@@ -134,78 +117,62 @@ rotation = -1.5708
 position = Vector2( 6, 1097 )
 rotation = -1.5708
 
-[node name="SandbagBiege18" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege18" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 532, 16 )
-collision_mask = 2
 
-[node name="SandbagBiege19" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege19" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 472, 3 )
-collision_mask = 2
 
-[node name="SandbagBiege20" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege20" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 415, 16 )
-collision_mask = 2
 
-[node name="SandbagBiege21" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege21" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 358, 21 )
-collision_mask = 2
 
-[node name="SandbagBiege22" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege22" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 304, 7 )
-collision_mask = 2
 
-[node name="SandbagBiege23" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege23" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 247, 10 )
-collision_mask = 2
 
-[node name="SandbagBiege25" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege25" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 131, 10 )
-collision_mask = 2
 
-[node name="SandbagBiege26" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege26" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 72, 12 )
 rotation = -0.328559
-collision_mask = 2
 
-[node name="SandbagBiege27" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege27" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 72, 12 )
 rotation = -0.247916
-collision_mask = 2
 
-[node name="SandbagBiege28" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege28" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 24, 41 )
 rotation = -1.02213
-collision_mask = 2
 
-[node name="SandbagBiege29" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege29" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 13, 97 )
 rotation = -1.68756
-collision_mask = 2
 
-[node name="SandbagBiege30" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege30" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 10, 148 )
 rotation = -1.5708
-collision_mask = 2
 
-[node name="SandbagBiege31" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege31" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( -9, 205 )
 rotation = -1.5708
-collision_mask = 2
 
-[node name="SandbagBiege32" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege32" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2, 262 )
 rotation = -1.5708
-collision_mask = 2
 
-[node name="SandbagBiege33" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege33" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( -1, 322 )
 rotation = -1.5708
-collision_mask = 2
 
-[node name="SandbagBiege34" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege34" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 1, 385 )
 rotation = -1.5708
-collision_mask = 2
 
 [node name="SandbagBiege94" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 4, 457 )
@@ -243,10 +210,9 @@ rotation = -1.5708
 position = Vector2( -7, 696 )
 rotation = -1.5708
 
-[node name="SandbagBiege24" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege24" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 187, 4 )
 rotation = -0.139493
-collision_mask = 2
 
 [node name="SandbagBiege67" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 996, 16 )
@@ -414,53 +380,42 @@ position = Vector2( 1577, 1769 )
 position = Vector2( 1633, 1763 )
 rotation = -0.139493
 
-[node name="SandbagBiege35" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege35" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2129, 1771 )
-collision_mask = 2
 
-[node name="SandbagBiege36" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege36" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2182, 1759 )
-collision_mask = 2
 
-[node name="SandbagBiege37" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege37" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2238, 1772 )
-collision_mask = 2
 
-[node name="SandbagBiege38" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege38" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2290, 1753 )
-collision_mask = 2
 
-[node name="SandbagBiege39" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege39" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2344, 1766 )
-collision_mask = 2
 
-[node name="SandbagBiege40" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege40" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2403, 1763 )
-collision_mask = 2
 
-[node name="SandbagBiege41" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege41" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2462, 1769 )
-collision_mask = 2
 
-[node name="SandbagBiege42" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege42" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2518, 1764 )
 rotation = 0.11924
-collision_mask = 2
 
-[node name="SandbagBiege43" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege43" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2575, 1753 )
 rotation = -0.524014
-collision_mask = 2
 
-[node name="SandbagBiege44" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege44" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2622, 1718 )
 rotation = -1.03599
-collision_mask = 2
 
-[node name="SandbagBiege45" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege45" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2643, 1662 )
 rotation = -1.68463
-collision_mask = 2
 
 [node name="SandbagBiege63" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2646, 1601 )
@@ -470,20 +425,17 @@ rotation = -1.50173
 position = Vector2( 2659, 1540 )
 rotation = -1.79495
 
-[node name="SandbagBiege46" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege46" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2649, 1222 )
 rotation = -1.5708
-collision_mask = 2
 
-[node name="SandbagBiege47" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege47" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2655, 1285 )
 rotation = -1.5708
-collision_mask = 2
 
-[node name="SandbagBiege48" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege48" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2650, 1347 )
 rotation = -1.5708
-collision_mask = 2
 
 [node name="SandbagBiege136" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2661, 1162 )
@@ -493,49 +445,39 @@ rotation = -1.46672
 position = Vector2( 2675, 1105 )
 rotation = -1.56409
 
-[node name="SandbagBiege49" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege49" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2653, 1407 )
 rotation = -1.5708
-collision_mask = 2
 
-[node name="SandbagBiege50" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege50" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2651, 1477 )
 rotation = -1.38456
-collision_mask = 2
 
-[node name="SandbagBiege51" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege51" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2150, 18 )
-collision_mask = 2
 
-[node name="SandbagBiege52" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege52" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2210, 13 )
-collision_mask = 2
 
-[node name="SandbagBiege53" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege53" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2272, 24 )
-collision_mask = 2
 
-[node name="SandbagBiege54" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege54" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2339, 12 )
-collision_mask = 2
 
-[node name="SandbagBiege55" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege55" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2399, 15 )
-collision_mask = 2
 
-[node name="SandbagBiege56" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege56" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2465, 10 )
-collision_mask = 2
 
-[node name="SandbagBiege57" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege57" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2535, 15 )
 rotation = 0.267366
-collision_mask = 2
 
-[node name="SandbagBiege58" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege58" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2655, 136 )
 rotation = -1.5708
-collision_mask = 2
 
 [node name="SandbagBiege65" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2641, 74 )
@@ -545,25 +487,21 @@ rotation = -1.95036
 position = Vector2( 2605, 21 )
 rotation = -2.87742
 
-[node name="SandbagBiege59" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege59" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2663, 196 )
 rotation = -1.5708
-collision_mask = 2
 
-[node name="SandbagBiege61" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege61" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2666, 312 )
 rotation = -1.5708
-collision_mask = 2
 
-[node name="SandbagBiege62" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege62" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2660, 400 )
 rotation = -1.27714
-collision_mask = 2
 
-[node name="SandbagBiege60" type="StaticBody2D" parent="Objects" instance=ExtResource( 8 )]
+[node name="SandbagBiege60" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 2652, 255 )
 rotation = -1.93344
-collision_mask = 2
 
 [node name="FenceRed" parent="Objects" instance=ExtResource( 6 )]
 position = Vector2( 4, 830 )
