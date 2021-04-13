@@ -2,7 +2,6 @@ extends Resource
 class_name GameMap
 
 export (String) var name: String
-export (String, MULTILINE) var description: String
 export (String, FILE, "*.tscn") var map_scene: String
 
 func instance_map_scene():

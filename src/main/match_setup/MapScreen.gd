@@ -1,8 +1,8 @@
 extends "res://src/ui/Screen.gd"
 
 onready var map_field = $Panel/VBoxContainer/MapSwitcher
-onready var description_label = $Panel/VBoxContainer/DescriptionLabel
 onready var next_button = $Panel/VBoxContainer/NextButton
+onready var map_parent = $MapParent
 
 const DEFAULT_MAP = "res://mods/core/maps/map1.tres"
 
@@ -25,9 +25,17 @@ func _load_maps() -> void:
 			maps[file_path] = resource
 
 func change_map(map: GameMap) -> void:
-	description_label.text = map.description
+	if map_parent.has_node('Map'):
+		var old_map_scene = map_parent.get_node('Map')
+		map_parent.remove_child(old_map_scene)
+		old_map_scene.queue_free()
 	
-	# TODO: show the map in the background
+	var map_scene = load(map.map_scene).instance()
+	map_scene.name = 'Map'
+	map_parent.add_child(map_scene)
+	
+	# Scale map to fit in the viewport.
+	map_scene.scale = get_viewport_rect().size / map_scene.get_map_rect().size
 
 func disable_screen() -> void:
 	map_field.disabled = true
