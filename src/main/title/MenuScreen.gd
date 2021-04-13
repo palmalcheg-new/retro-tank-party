@@ -1,6 +1,11 @@
 extends "res://src/ui/Screen.gd"
 
 onready var online_button = $PanelContainer/MarginContainer/VBoxContainer/OnlineButton
+onready var exit_button = $PanelContainer/MarginContainer/VBoxContainer/ExitButton
+
+func _ready() -> void:
+	if OS.has_feature('HTML5'):
+		exit_button.visible = false
 
 func _show_screen(info: Dictionary = {}) -> void:
 	online_button.focus.grab_without_sound()

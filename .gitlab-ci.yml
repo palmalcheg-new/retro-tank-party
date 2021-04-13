@@ -3,6 +3,8 @@ image: barichello/godot-ci:3.2.3
 variables:
   EXPORT_NAME: retro-tank-party
   ITCHIO_NAME: dsnopek/retro-tank-party
+  APPLICATION_NAME: "Retro Tank Party"
+  APPLICATION_URL: "https://www.snopekgames.com"
 
 stages:
   - build
@@ -35,6 +37,26 @@ windows:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
       - build/windows
+  except:
+    - steam
+
+windows-signed:
+  stage: sign
+  image: ubuntu:20.04
+  dependencies:
+    - windows
+  needs:
+    - windows
+  before_script:
+    - apt-get update
+    - apt-get install -y --no-install-recommends osslsigncode
+  script:
+    - cp -a ./build/windows ./build/windows-signed
+    - ./scripts/windows-sign.sh ./build/windows-signed/$EXPORT_NAME.exe "$APPLICATION_NAME" "$APPLICATION_URL"
+  artifacts:
+    name: $EXPORT_NAME-$CI_JOB_NAME
+    paths:
+      - build/windows-signed
   except:
     - steam
 
@@ -88,6 +110,8 @@ macosx-signed:
     - shell
   dependencies:
     - macosx
+  needs:
+    - macosx
   script:
     - mkdir -v -p build/macosx-signed
     - >
@@ -119,6 +143,8 @@ pages:
   stage: deploy
   dependencies:
     - web
+  needs:
+    - web
   script:
     - rm -rf public
     - cp -r build/web public
@@ -133,12 +159,12 @@ itch:
   dependencies:
     - web
     - linux
-    - windows
+    - windows-signed
     - macosx-signed
   script:
     - butler push build/web $ITCHIO_NAME:web-stable
     - butler push build/linux $ITCHIO_NAME:linux-stable
-    - butler push build/windows $ITCHIO_NAME:windows-stable
+    - butler push build/windows-signed $ITCHIO_NAME:windows-stable
     - butler push build/macosx-signed $ITCHIO_NAME:macosx-stable
   only:
     - master
@@ -167,6 +193,27 @@ windows-steam:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
       - build/windows-steam
+  only:
+    - master
+    - steam
+
+windows-steam-signed:
+  stage: sign
+  image: ubuntu:20.04
+  dependencies:
+    - windows-steam
+  needs:
+    - windows-steam
+  before_script:
+    - apt-get update
+    - apt-get install -y --no-install-recommends osslsigncode
+  script:
+    - cp -a ./build/windows-steam ./build/windows-steam-signed
+    - ./scripts/windows-sign.sh ./build/windows-steam-signed/$EXPORT_NAME.exe "$APPLICATION_NAME" "$APPLICATION_URL"
+  artifacts:
+    name: $EXPORT_NAME-$CI_JOB_NAME
+    paths:
+      - build/windows-steam-signed
   only:
     - master
     - steam
@@ -210,10 +257,9 @@ macosx-steam:
     - rm webrtc_debug/webrtc_debug.gdnlib
 
     # Get the GodotSteam export templates.
-    - wget "https://github.com/Gramps/GodotSteam/releases/download/g3-s150-gs381/osx-323.zip" -O ./build/templates/templates.zip
-    - (cd ./build/templates && unzip templates.zip)
-    - ./scripts/update-export-setting.py export_presets.cfg preset.6.options custom_template/debug "\"$PWD/build/templates/osx-323-template.zip\""
-    - ./scripts/update-export-setting.py export_presets.cfg preset.6.options custom_template/release "\"$PWD/build/templates/osx-323-template.zip\""
+    - wget "https://www.dropbox.com/s/aoov2jqap1iptql/osx_template-issue-168.zip?dl=1" -O ./build/templates/templates.zip
+    - ./scripts/update-export-setting.py export_presets.cfg preset.6.options custom_template/debug "\"$PWD/build/templates/templates.zip\""
+    - ./scripts/update-export-setting.py export_presets.cfg preset.6.options custom_template/release "\"$PWD/build/templates/templates.zip\""
 
     # Export!
     - mkdir -v -p build/macosx-steam
@@ -221,7 +267,10 @@ macosx-steam:
 
     # Extract the zip file since GitLab CI will zip it up again.
     - (cd ./build/macosx-steam && unzip -a $EXPORT_NAME.zip && rm $EXPORT_NAME.zip)
-    - ./scripts/download-steam-redistributables.sh osx/libsteam_api.dylib ./build/macosx-steam/$EXPORT_NAME.app/Contents/MacOS/
+    - >
+      APP_PATH=$(find ./build/macosx-steam/ -name \*.app -print -quit);
+      APP_NAME=$(basename "$APP_PATH");
+      ./scripts/download-steam-redistributables.sh osx/libsteam_api.dylib "./build/macosx-steam/$APP_NAME/Contents/MacOS/"
   artifacts:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
@@ -236,6 +285,8 @@ macosx-steam-signed:
     - osx
     - shell
   dependencies:
+    - macosx-steam
+  needs:
     - macosx-steam
   script:
     - mkdir -v -p build/macosx-steam-signed
@@ -256,7 +307,7 @@ steam:
   stage: deploy
   image: cm2network/steamcmd
   dependencies:
-    - windows-steam
+    - windows-steam-signed
     - linux-steam
     - macosx-steam-signed
   script:

@@ -100,7 +100,7 @@ custom_styles/disabled = SubResource( 4 )
 custom_styles/normal = SubResource( 5 )
 text = "Credits"
 
-[node name="Exit" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource( 3 )]
+[node name="ExitButton" parent="PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource( 3 )]
 margin_top = 220.0
 margin_right = 228.0
 margin_bottom = 271.0
@@ -114,4 +114,4 @@ text = "Exit"
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/LocalButton" to="." method="_on_LocalButton_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_SettingsButton_pressed"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/CreditsButton" to="." method="_on_CreditsButton_pressed"]
-[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/Exit" to="." method="_on_Exit_pressed"]
+[connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/ExitButton" to="." method="_on_Exit_pressed"]

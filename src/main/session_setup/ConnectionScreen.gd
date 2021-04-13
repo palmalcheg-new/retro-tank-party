@@ -7,12 +7,15 @@ onready var login_email_field := $TabContainer/Login/GridContainer/Email
 onready var login_password_field := $TabContainer/Login/GridContainer/Password
 onready var create_account_tab := $"TabContainer/Create Account"
 onready var create_account_username_field = $"TabContainer/Create Account/GridContainer/Username"
+onready var forgot_password_tab = $"TabContainer/Forgot password?"
 onready var steam_tab = $TabContainer/Steam
 onready var steam_username_field := $TabContainer/Steam/GridContainer/Username
 onready var steam_login_button := $TabContainer/Steam/SteamLoginButton
 
 const CREDENTIALS_FILENAME = 'user://credentials.json.enc'
 const CREDENTIALS_FILENAME_OLD = 'user://credentials.json'
+
+const FORGOT_PASSWORD_URL = 'https://www.snopekgames.com/player/forgot-password'
 
 var email: String = ''
 var password: String = ''
@@ -243,3 +246,42 @@ func _on_CreateAccountButton_pressed() -> void:
 		Online.nakama_session = nakama_session
 		ui_layer.hide_message()
 		ui_layer.show_screen("MatchScreen")
+
+func _on_ResetPasswordButton_pressed() -> void:
+	var email = $"TabContainer/Forgot password?/GridContainer/Email".text.strip_edges()
+	
+	if email == '':
+		ui_layer.show_message("Must provide email")
+		return
+	
+	var http_request := HTTPRequest.new()
+	add_child(http_request)
+	
+	ui_layer.show_message("Sending password reset email...")
+	
+	var data :=  {
+		form_id = "custom_forgot_password_form",
+		email = email,
+		op = "submit",
+	}
+	
+	var http_client := HTTPClient.new()
+	var query_string: String = http_client.query_string_from_dict(data)
+	
+	var headers := ["Content-Type: application/x-www-form-urlencoded"]
+	if http_request.request(FORGOT_PASSWORD_URL, headers, true, HTTPClient.METHOD_POST, query_string) != OK:
+		http_request.queue_free()
+		ui_layer.show_message("Unable to send password reset email! Try again later.")
+		return
+	
+	var response = yield(http_request, "request_completed")
+	var result = response[0]
+	var response_code = response[1]
+	
+	if result != HTTPRequest.RESULT_SUCCESS or response_code >= 400:
+		http_request.queue_free()
+		ui_layer.show_message("Unable to send password reset email! Try again later.")
+		return
+	
+	ui_layer.show_message("Password reset email sent!")
+	

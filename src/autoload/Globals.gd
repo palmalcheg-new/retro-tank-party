@@ -1,5 +1,7 @@
 extends Node
 
+onready var rumble = $Rumble
+
 var title_shown := false
 var my_player_position: Vector2
 
