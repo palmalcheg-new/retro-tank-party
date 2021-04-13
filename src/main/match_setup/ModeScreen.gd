@@ -7,7 +7,7 @@ onready var config_parent = $Panel/VBoxContainer/ConfigParent
 var match_modes := {}
 var current_config
 
-const DEFAULT_MODE = "res://src/modes/battle_royale.tres"
+const DEFAULT_MODE = "res://mods/core/modes/battle_royale.tres"
 
 func _ready() -> void:
 	_load_match_modes()

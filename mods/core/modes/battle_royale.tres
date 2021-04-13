@@ -6,5 +6,5 @@
 script = ExtResource( 1 )
 name = "Battle Royale"
 description = "The last tank standing wins the round."
-manager_scene = "res://src/modes/battle_royale/BattleRoyaleManager.tscn"
-config_scene = "res://src/modes/battle_royale/BattleRoyaleConfig.tscn"
+manager_scene = "res://mods/core/modes/battle_royale/BattleRoyaleManager.tscn"
+config_scene = "res://mods/core/modes/battle_royale/BattleRoyaleConfig.tscn"

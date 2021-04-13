@@ -57,7 +57,7 @@ func _list_resources(path) -> Array:
 	return file_paths
 
 func find_resources(resource_name: String) -> Array:
-	var file_paths = _list_resources("res://src/%s/" % resource_name)
+	var file_paths := []
 	
 	for mod in list_mods():
 		file_paths = file_paths + _list_resources("res://mods/%s/%s/" % [mod, resource_name])
