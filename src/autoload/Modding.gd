@@ -3,19 +3,14 @@ extends Node
 func _ready() -> void:
 	if OS.has_feature('standalone'):
 		_load_pcks()
-	
-	print (find_resources('modes'))
 
 func _load_pcks() -> void:
 	for file_path in list_pcks():
-		print ("Loading mod %s..." % file_path)
+		print (">> Loading mod %s..." % file_path)
 		ProjectSettings.load_resource_pack(file_path, false)
-	
 
 func list_pcks() -> Array:
-	#return ['res://mods/mod1-new.pck']
 	var file_paths = []
-	
 	var mods_path = OS.get_executable_path().get_base_dir() + '/mods/'
 	
 	var dir = Directory.new()
