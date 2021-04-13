@@ -12,7 +12,7 @@ func _ready() -> void:
 		1: "Practice",
 	}
 	
-	game.game_setup(players, "res://src/maps/Map1.tscn")
+	game.game_setup(players, "res://mods/core/maps/Map1.tscn")
 	game.game_start()
 	ui_layer.show_back_button()
 	
