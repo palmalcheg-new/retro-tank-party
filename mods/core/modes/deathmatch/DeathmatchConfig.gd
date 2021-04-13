@@ -1,4 +1,4 @@
-extends "res://src/modes/base/BaseConfig.gd"
+extends "res://src/modes/BaseConfig.gd"
 
 onready var timelimit_field = $Timelimit
 

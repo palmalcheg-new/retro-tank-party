@@ -155,6 +155,7 @@ SteamManager="*res://src/autoload/SteamManager.gd"
 RemoteOperations="*res://src/autoload/RemoteOperations.gd"
 Sounds="*res://src/autoload/Sounds.tscn"
 Music="*res://src/autoload/Music.tscn"
+Modding="*res://src/autoload/Modding.gd"
 
 [display]
 

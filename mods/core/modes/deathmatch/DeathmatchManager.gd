@@ -1,4 +1,4 @@
-extends "res://src/modes/base/BaseManager.gd"
+extends "res://src/modes/BaseManager.gd"
 
 onready var countdown_timer := $CanvasLayer/Control/CountdownTimer
 onready var instant_death_label := $CanvasLayer/Control/InstantDeathLabel

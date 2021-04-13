@@ -6,5 +6,5 @@
 script = ExtResource( 1 )
 name = "Deathmatch"
 description = "The tank with the most kills wins."
-manager_scene = "res://src/modes/deathmatch/DeathmatchManager.tscn"
-config_scene = "res://src/modes/deathmatch/DeathmatchConfig.tscn"
+manager_scene = "res://mods/core/modes/deathmatch/DeathmatchManager.tscn"
+config_scene = "res://mods/core/modes/deathmatch/DeathmatchConfig.tscn"

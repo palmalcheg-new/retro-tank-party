@@ -7,8 +7,7 @@ onready var config_parent = $Panel/VBoxContainer/ConfigParent
 var match_modes := {}
 var current_config
 
-const MODES_PATH = "res://src/modes/"
-const DEFAULT_MODE = "res://src/modes/battle_royale.tres"
+const DEFAULT_MODE = "res://mods/core/modes/battle_royale.tres"
 
 func _ready() -> void:
 	_load_match_modes()
@@ -21,19 +20,10 @@ func _show_screen(info: Dictionary = {}) -> void:
 	mode_field.focus.grab_without_sound()
 
 func _load_match_modes() -> void:
-	var dir = Directory.new()
-	if dir.open(MODES_PATH) == OK:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if not dir.current_is_dir():
-				if file_name.ends_with(".tres.converted.res"):
-					file_name = file_name.left(file_name.length() - 14)
-				if file_name.ends_with(".tres"):
-					var resource = load(MODES_PATH + file_name)
-					if resource is MatchMode:
-						match_modes[MODES_PATH + file_name] = resource
-			file_name = dir.get_next()
+	for file_path in Modding.find_resources('modes'):
+		var resource = load(file_path)
+		if resource is MatchMode:
+			match_modes[file_path] = resource
 
 func change_mode(mode: MatchMode) -> void:
 	for child in config_parent.get_children():
