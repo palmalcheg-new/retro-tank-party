@@ -116,7 +116,18 @@ func reload_map() -> void:
 	add_child(map)
 	move_child(map, map_index)
 	
-	# TODO: we should setup the zoom on the watch camera to show the whole map
+	_setup_watch_camera()
+	
+
+func _setup_watch_camera() -> void:
+	var viewport_rect = get_viewport_rect()
+	var map_rect = map.get_map_rect()
+	
+	watch_camera.global_position = map_rect.position + (map_rect.size / 2)
+	# Yes, on non-square maps, this will zoom differently on the X and Y,
+	# but so far, no one has ever noticed this.
+	watch_camera.zoom.x = max(1.0, map_rect.size.x / viewport_rect.size.x)
+	watch_camera.zoom.y = max(1.0, map_rect.size.y / viewport_rect.size.y)
 
 func _setup_player_camera(my_player) -> void:
 	my_player.camera = player_camera
