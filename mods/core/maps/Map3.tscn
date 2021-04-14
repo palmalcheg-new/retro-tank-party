@@ -684,1743 +684,2323 @@ position = Vector2( 376, 248 )
 
 [node name="TreeBig" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 575, 712 )
+tree_color = 1
 
 [node name="TreeBig2" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 546, 862 )
+tree_color = 1
 
 [node name="TreeBig3" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 581, 982 )
+tree_color = 1
 
 [node name="TreeBig4" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 528, 1180 )
+tree_color = 1
 
 [node name="TreeBig5" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 573, 1319 )
+tree_color = 1
 
 [node name="TreeBig6" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 418, 1300 )
+tree_color = 1
 
 [node name="TreeBig7" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 236, 1345 )
+tree_color = 1
 
 [node name="TreeBig8" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 172, 1523 )
+tree_color = 1
 
 [node name="TreeBig9" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 183, 1676 )
+tree_color = 1
 
 [node name="TreeBig10" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 212, 2984 )
+tree_color = 1
 
 [node name="TreeBig16" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 370, 3021 )
+tree_color = 1
 
 [node name="TreeBig17" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 576, 3000 )
+tree_color = 1
 
 [node name="TreeBig18" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 867, 3032 )
+tree_color = 1
 
 [node name="TreeBig19" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1078, 2971 )
+tree_color = 1
 
 [node name="TreeBig20" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1081, 2613 )
+tree_color = 1
 
 [node name="TreeBig21" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1724, 2632 )
+tree_color = 1
 
 [node name="TreeBig22" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1278, 2627 )
+tree_color = 1
 
 [node name="TreeBig23" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1604, 2611 )
+tree_color = 1
 
 [node name="TreeBig24" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1743, 2990 )
+tree_color = 1
 
 [node name="TreeBig25" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1714, 2835 )
+tree_color = 1
 
 [node name="TreeBig26" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1968, 2990 )
+tree_color = 1
 
 [node name="TreeBig27" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2147, 3030 )
+tree_color = 1
 
 [node name="TreeBig28" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2358, 2998 )
+tree_color = 1
 
 [node name="TreeBig29" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2662, 3027 )
+tree_color = 1
 
 [node name="TreeBig30" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2779, 2987 )
+tree_color = 1
 
 [node name="TreeBig31" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3054, 3024 )
+tree_color = 1
 
 [node name="TreeBig32" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3286, 3000 )
+tree_color = 1
 
 [node name="TreeBig33" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3494, 2989 )
+tree_color = 1
 
 [node name="TreeBig34" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3526, 2741 )
+tree_color = 1
 
 [node name="TreeBig35" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3507, 2557 )
+tree_color = 1
 
 [node name="TreeBig36" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3520, 2359 )
+tree_color = 1
 
 [node name="TreeBig37" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3512, 2124 )
+tree_color = 1
 
 [node name="TreeBig38" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3309, 2113 )
+tree_color = 1
 
 [node name="TreeBig39" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3125, 2129 )
+tree_color = 1
 
 [node name="TreeBig40" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3136, 1470 )
+tree_color = 1
 
 [node name="TreeBig41" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3136, 1676 )
+tree_color = 1
 
 [node name="TreeBig42" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3197, 1791 )
+tree_color = 1
 
 [node name="TreeBig43" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3205, 1946 )
+tree_color = 1
 
 [node name="TreeBig44" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3507, 1455 )
+tree_color = 1
 
 [node name="TreeBig45" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3349, 1455 )
+tree_color = 1
 
 [node name="TreeBig46" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3560, 1340 )
+tree_color = 1
 
 [node name="TreeBig47" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3525, 1164 )
+tree_color = 1
 
 [node name="TreeBig48" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3538, 956 )
+tree_color = 1
 
 [node name="TreeBig49" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3511, 742 )
+tree_color = 1
 
 [node name="TreeBig50" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3551, 478 )
+tree_color = 1
 
 [node name="TreeBig51" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3506, 363 )
+tree_color = 1
 
 [node name="TreeBig52" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3509, -179 )
+tree_color = 1
 
 [node name="TreeBig53" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2633, -171 )
+tree_color = 1
 
 [node name="TreeBig54" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2621, 181 )
+tree_color = 1
 
 [node name="TreeBig55" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1993, 185 )
+tree_color = 1
 
 [node name="TreeBig56" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1977, -179 )
+tree_color = 1
 
 [node name="TreeBig57" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 205, -179 )
+tree_color = 1
 
 [node name="TreeBig58" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 197, 697 )
+tree_color = 1
 
 [node name="TreeBig59" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 313, 689 )
+tree_color = 1
 
 [node name="TreeBig60" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 161, 501 )
+tree_color = 1
 
 [node name="TreeBig61" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 165, 329 )
+tree_color = 1
 
 [node name="TreeBig62" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 173, 57 )
+tree_color = 1
 
 [node name="TreeBig63" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 389, -210 )
+tree_color = 1
 
 [node name="TreeBig64" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 656, -185 )
+tree_color = 1
 
 [node name="TreeBig65" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 929, -210 )
+tree_color = 1
 
 [node name="TreeBig66" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1234, -254 )
+tree_color = 1
 
 [node name="TreeBig67" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1488, -203 )
+tree_color = 1
 
 [node name="TreeBig68" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1761, -235 )
+tree_color = 1
 
 [node name="TreeBig69" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2009, -64 )
+tree_color = 1
 
 [node name="TreeBig70" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2238, 165 )
+tree_color = 1
 
 [node name="TreeBig71" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2562, -13 )
+tree_color = 1
 
 [node name="TreeBig72" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2848, -229 )
+tree_color = 1
 
 [node name="TreeBig73" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3140, -210 )
+tree_color = 1
 
 [node name="TreeBig74" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3553, -70 )
+tree_color = 1
 
 [node name="TreeBig75" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3515, 120 )
+tree_color = 1
 
 [node name="TreeBig76" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2518, 145 )
+tree_color = 1
 
 [node name="TreeBig77" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1127, 2805 )
+tree_color = 1
 
 [node name="TreeBig11" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 162, 2011 )
+tree_color = 1
 
 [node name="TreeBig12" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 180, 2136 )
+tree_color = 1
 
 [node name="TreeBig13" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 144, 2282 )
+tree_color = 1
 
 [node name="TreeBig14" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 162, 2507 )
+tree_color = 1
 
 [node name="TreeBig15" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 223, 2721 )
+tree_color = 1
 
 [node name="TreeSmall" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 599, 1094 )
+tree_color = 1
 
 [node name="TreeSmall14" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 481, 2978 )
+tree_color = 1
 
 [node name="TreeSmall15" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 693, 2977 )
+tree_color = 1
 
 [node name="TreeSmall16" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 753, 3022 )
+tree_color = 1
 
 [node name="TreeSmall17" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 793, 2944 )
+tree_color = 1
 
 [node name="TreeSmall18" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 954, 2972 )
+tree_color = 1
 
 [node name="TreeSmall19" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1012, 3055 )
+tree_color = 1
 
 [node name="TreeSmall20" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1130, 2886 )
+tree_color = 1
 
 [node name="TreeSmall21" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1090, 2710 )
+tree_color = 1
 
 [node name="TreeSmall22" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1052, 2758 )
+tree_color = 1
 
 [node name="TreeSmall23" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1178, 2607 )
+tree_color = 1
 
 [node name="TreeSmall24" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1405, 2610 )
+tree_color = 1
 
 [node name="TreeSmall25" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1405, 2610 )
+tree_color = 1
 
 [node name="TreeSmall26" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1463, 2577 )
+tree_color = 1
 
 [node name="TreeSmall27" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1463, 2637 )
+tree_color = 1
 
 [node name="TreeSmall28" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1750, 2738 )
+tree_color = 1
 
 [node name="TreeSmall29" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1876, 2960 )
+tree_color = 1
 
 [node name="TreeSmall30" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1841, 3015 )
+tree_color = 1
 
 [node name="TreeSmall31" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2239, 2975 )
+tree_color = 1
 
 [node name="TreeSmall32" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2478, 2970 )
+tree_color = 1
 
 [node name="TreeSmall33" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2538, 2947 )
+tree_color = 1
 
 [node name="TreeSmall34" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2533, 3005 )
+tree_color = 1
 
 [node name="TreeSmall35" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2465, 3053 )
+tree_color = 1
 
 [node name="TreeSmall36" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2911, 2990 )
+tree_color = 1
 
 [node name="TreeSmall37" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3143, 3030 )
+tree_color = 1
 
 [node name="TreeSmall38" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3193, 2982 )
+tree_color = 1
 
 [node name="TreeSmall39" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3369, 2990 )
+tree_color = 1
 
 [node name="TreeSmall40" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3508, 2884 )
+tree_color = 1
 
 [node name="TreeSmall41" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3563, 2864 )
+tree_color = 1
 
 [node name="TreeSmall42" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3477, 2640 )
+tree_color = 1
 
 [node name="TreeSmall43" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3492, 2443 )
+tree_color = 1
 
 [node name="TreeSmall44" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3542, 2473 )
+tree_color = 1
 
 [node name="TreeSmall45" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3502, 2224 )
+tree_color = 1
 
 [node name="TreeSmall46" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3537, 2272 )
+tree_color = 1
 
 [node name="TreeSmall47" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3144, 2020 )
+tree_color = 1
 
 [node name="TreeSmall48" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3396, 2136 )
+tree_color = 1
 
 [node name="TreeSmall49" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3414, 2050 )
+tree_color = 1
 
 [node name="TreeSmall50" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3225, 2078 )
+tree_color = 1
 
 [node name="TreeSmall51" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3096, 1884 )
+tree_color = 1
 
 [node name="TreeSmall52" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3116, 1829 )
+tree_color = 1
 
 [node name="TreeSmall53" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3156, 1587 )
+tree_color = 1
 
 [node name="TreeSmall54" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3222, 1461 )
+tree_color = 1
 
 [node name="TreeSmall55" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3270, 1494 )
+tree_color = 1
 
 [node name="TreeSmall56" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3499, 1267 )
+tree_color = 1
 
 [node name="TreeSmall57" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3428, 1421 )
+tree_color = 1
 
 [node name="TreeSmall58" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3524, 1083 )
+tree_color = 1
 
 [node name="TreeSmall59" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3547, 1035 )
+tree_color = 1
 
 [node name="TreeSmall60" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3502, 881 )
+tree_color = 1
 
 [node name="TreeSmall61" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3505, 631 )
+tree_color = 1
 
 [node name="TreeSmall62" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3550, 603 )
+tree_color = 1
 
 [node name="TreeSmall63" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3449, 600 )
+tree_color = 1
 
 [node name="TreeSmall64" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3479, 444 )
+tree_color = 1
 
 [node name="TreeSmall65" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3550, 288 )
+tree_color = 1
 
 [node name="TreeBig84" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 360, 1122 )
+tree_color = 1
 
 [node name="TreeBig85" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 315, 1007 )
+tree_color = 1
 
 [node name="TreeSmall114" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 314, 1275 )
+tree_color = 1
 
 [node name="TreeSmall115" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 359, 1247 )
+tree_color = 1
 
 [node name="TreeSmall116" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 258, 1244 )
+tree_color = 1
 
 [node name="TreeSmall117" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 288, 1088 )
+tree_color = 1
 
 [node name="TreeSmall118" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 359, 932 )
+tree_color = 1
 
 [node name="TreeBig86" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3538, 1838 )
+tree_color = 1
 
 [node name="TreeBig87" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3493, 1723 )
+tree_color = 1
 
 [node name="TreeSmall119" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3492, 1991 )
+tree_color = 1
 
 [node name="TreeSmall120" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3537, 1963 )
+tree_color = 1
 
 [node name="TreeSmall121" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3436, 1960 )
+tree_color = 1
 
 [node name="TreeSmall122" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3466, 1804 )
+tree_color = 1
 
 [node name="TreeSmall123" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3537, 1648 )
+tree_color = 1
 
 [node name="TreeBig88" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2237, -107 )
+tree_color = 1
 
 [node name="TreeBig89" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2192, -222 )
+tree_color = 1
 
 [node name="TreeSmall124" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2191, 46 )
+tree_color = 1
 
 [node name="TreeSmall125" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2236, 18 )
+tree_color = 1
 
 [node name="TreeSmall126" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2135, 15 )
+tree_color = 1
 
 [node name="TreeSmall127" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2165, -141 )
+tree_color = 1
 
 [node name="TreeSmall128" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2236, -297 )
+tree_color = 1
 
 [node name="TreeBig90" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1486, 2915 )
+tree_color = 1
 
 [node name="TreeBig91" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1441, 2800 )
+tree_color = 1
 
 [node name="TreeSmall129" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1440, 3068 )
+tree_color = 1
 
 [node name="TreeSmall130" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1485, 3040 )
+tree_color = 1
 
 [node name="TreeSmall131" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1384, 3037 )
+tree_color = 1
 
 [node name="TreeSmall132" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1414, 2881 )
+tree_color = 1
 
 [node name="TreeSmall133" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1485, 2725 )
+tree_color = 1
 
 [node name="TreeSmall66" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3479, 235 )
+tree_color = 1
 
 [node name="TreeSmall67" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3484, -7 )
+tree_color = 1
 
 [node name="TreeSmall68" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3542, 13 )
+tree_color = 1
 
 [node name="TreeSmall69" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3434, -181 )
+tree_color = 1
 
 [node name="TreeSmall70" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3328, -151 )
+tree_color = 1
 
 [node name="TreeSmall71" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3280, -189 )
+tree_color = 1
 
 [node name="TreeSmall72" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3335, -212 )
+tree_color = 1
 
 [node name="TreeSmall73" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3063, -184 )
+tree_color = 1
 
 [node name="TreeSmall74" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2922, -280 )
+tree_color = 1
 
 [node name="TreeSmall134" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2494, -255 )
+tree_color = 1
 
 [node name="TreeSmall135" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2536, -221 )
+tree_color = 1
 
 [node name="TreeSmall136" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1142, -361 )
+tree_color = 1
 
 [node name="TreeSmall137" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 650, -369 )
+tree_color = 1
 
 [node name="TreeSmall138" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 391, -335 )
+tree_color = 1
 
 [node name="TreeSmall139" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 27, -115 )
+tree_color = 1
 
 [node name="TreeSmall140" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 35, -56 )
+tree_color = 1
 
 [node name="TreeSmall141" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -151, -204 )
+tree_color = 1
 
 [node name="TreeSmall142" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -278, 8 )
+tree_color = 1
 
 [node name="TreeSmall143" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -316, -39 )
+tree_color = 1
 
 [node name="TreeSmall144" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -413, -132 )
+tree_color = 1
 
 [node name="TreeSmall145" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -290, 228 )
+tree_color = 1
 
 [node name="TreeSmall146" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -150, 169 )
+tree_color = 1
 
 [node name="TreeSmall147" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -6, 360 )
+tree_color = 1
 
 [node name="TreeSmall148" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2, 292 )
+tree_color = 1
 
 [node name="TreeSmall149" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -151, 419 )
+tree_color = 1
 
 [node name="TreeSmall150" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -426, 444 )
+tree_color = 1
 
 [node name="TreeSmall151" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -303, 622 )
+tree_color = 1
 
 [node name="TreeSmall152" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -239, 588 )
+tree_color = 1
 
 [node name="TreeSmall153" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -243, 639 )
+tree_color = 1
 
 [node name="TreeSmall154" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -48, 635 )
+tree_color = 1
 
 [node name="TreeSmall155" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -290, 826 )
+tree_color = 1
 
 [node name="TreeSmall156" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -53, 822 )
+tree_color = 1
 
 [node name="TreeSmall157" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 146, 847 )
+tree_color = 1
 
 [node name="TreeSmall158" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 125, 906 )
+tree_color = 1
 
 [node name="TreeSmall159" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 405, 851 )
+tree_color = 1
 
 [node name="TreeSmall160" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -2, 1050 )
+tree_color = 1
 
 [node name="TreeSmall161" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 36, 1012 )
+tree_color = 1
 
 [node name="TreeSmall162" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -210, 1143 )
+tree_color = 1
 
 [node name="TreeSmall163" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -214, 961 )
+tree_color = 1
 
 [node name="TreeSmall164" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -460, 825 )
+tree_color = 1
 
 [node name="TreeSmall165" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -494, 876 )
+tree_color = 1
 
 [node name="TreeSmall166" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -354, 1075 )
+tree_color = 1
 
 [node name="TreeSmall167" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2083, -184 )
+tree_color = 1
 
 [node name="TreeSmall168" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2125, -341 )
+tree_color = 1
 
 [node name="TreeSmall169" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2231, -383 )
+tree_color = 1
 
 [node name="TreeSmall170" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -494, 1359 )
+tree_color = 1
 
 [node name="TreeSmall171" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -490, 1431 )
+tree_color = 1
 
 [node name="TreeSmall172" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -244, 1291 )
+tree_color = 1
 
 [node name="TreeSmall173" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -176, 1257 )
+tree_color = 1
 
 [node name="TreeSmall174" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 78, 1346 )
+tree_color = 1
 
 [node name="TreeSmall175" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 125, 1304 )
+tree_color = 1
 
 [node name="TreeSmall176" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 197, 1160 )
+tree_color = 1
 
 [node name="TreeSmall177" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -367, 1529 )
+tree_color = 1
 
 [node name="TreeSmall178" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -308, 1495 )
+tree_color = 1
 
 [node name="TreeSmall179" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -287, 1563 )
+tree_color = 1
 
 [node name="TreeSmall180" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -156, 1516 )
+tree_color = 1
 
 [node name="TreeSmall181" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -224, 1669 )
+tree_color = 1
 
 [node name="TreeSmall182" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -67, 1661 )
+tree_color = 1
 
 [node name="TreeSmall183" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -131, 1742 )
+tree_color = 1
 
 [node name="TreeSmall200" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -461, 2648 )
+tree_color = 1
 
 [node name="TreeSmall201" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -304, 2640 )
+tree_color = 1
 
 [node name="TreeSmall202" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -368, 2721 )
+tree_color = 1
 
 [node name="TreeSmall203" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -296, 3101 )
+tree_color = 1
 
 [node name="TreeSmall204" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -139, 3093 )
+tree_color = 1
 
 [node name="TreeSmall205" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -203, 3174 )
+tree_color = 1
 
 [node name="TreeSmall206" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 149, 3067 )
+tree_color = 1
 
 [node name="TreeSmall207" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 306, 3059 )
+tree_color = 1
 
 [node name="TreeSmall208" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 242, 3140 )
+tree_color = 1
 
 [node name="TreeSmall209" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1598, 3143 )
+tree_color = 1
 
 [node name="TreeSmall210" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1755, 3135 )
+tree_color = 1
 
 [node name="TreeSmall211" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1691, 3216 )
+tree_color = 1
 
 [node name="TreeSmall212" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2018, 3084 )
+tree_color = 1
 
 [node name="TreeSmall213" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2175, 3076 )
+tree_color = 1
 
 [node name="TreeSmall214" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2111, 3157 )
+tree_color = 1
 
 [node name="TreeSmall215" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2336, 3131 )
+tree_color = 1
 
 [node name="TreeSmall216" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2493, 3123 )
+tree_color = 1
 
 [node name="TreeSmall217" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2429, 3204 )
+tree_color = 1
 
 [node name="TreeSmall218" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2726, 3072 )
+tree_color = 1
 
 [node name="TreeSmall219" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2883, 3064 )
+tree_color = 1
 
 [node name="TreeSmall224" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -402, 3001 )
+tree_color = 1
 
 [node name="TreeSmall225" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 132, 2721 )
+tree_color = 1
 
 [node name="TreeSmall226" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -29, 2916 )
+tree_color = 1
 
 [node name="TreeSmall227" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 52, 2285 )
+tree_color = 1
 
 [node name="TreeSmall228" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -414, 1967 )
+tree_color = 1
 
 [node name="TreeSmall229" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -253, 2925 )
+tree_color = 1
 
 [node name="TreeSmall230" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2832, -338 )
+tree_color = 1
 
 [node name="TreeSmall231" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3141, -363 )
+tree_color = 1
 
 [node name="TreeSmall232" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3476, -363 )
+tree_color = 1
 
 [node name="TreeSmall220" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2819, 3145 )
+tree_color = 1
 
 [node name="TreeSmall221" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3162, 3123 )
+tree_color = 1
 
 [node name="TreeSmall222" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3319, 3115 )
+tree_color = 1
 
 [node name="TreeSmall223" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3255, 3196 )
+tree_color = 1
 
 [node name="TreeSmall184" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -84, 1789 )
+tree_color = 1
 
 [node name="TreeSmall185" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -266, 1895 )
+tree_color = 1
 
 [node name="TreeSmall186" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -266, 1895 )
+tree_color = 1
 
 [node name="TreeSmall187" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -228, 2094 )
+tree_color = 1
 
 [node name="TreeSmall195" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -335, 2149 )
+tree_color = 1
 
 [node name="TreeSmall196" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -288, 2196 )
+tree_color = 1
 
 [node name="TreeSmall197" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -470, 2302 )
+tree_color = 1
 
 [node name="TreeSmall198" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -470, 2302 )
+tree_color = 1
 
 [node name="TreeSmall199" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -432, 2501 )
+tree_color = 1
 
 [node name="TreeSmall188" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -177, 1988 )
+tree_color = 1
 
 [node name="TreeSmall189" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 14, 2158 )
+tree_color = 1
 
 [node name="TreeSmall190" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -134, 2340 )
+tree_color = 1
 
 [node name="TreeSmall191" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -248, 2493 )
+tree_color = 1
 
 [node name="TreeSmall192" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -40, 2557 )
+tree_color = 1
 
 [node name="TreeSmall193" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -226, 2714 )
+tree_color = 1
 
 [node name="TreeSmall194" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -175, 2756 )
+tree_color = 1
 
 [node name="TreeSmall75" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2925, -222 )
+tree_color = 1
 
 [node name="TreeSmall76" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2749, -179 )
+tree_color = 1
 
 [node name="TreeSmall77" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2595, 96 )
+tree_color = 1
 
 [node name="TreeSmall78" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2618, -80 )
+tree_color = 1
 
 [node name="TreeSmall79" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2671, 31 )
+tree_color = 1
 
 [node name="TreeSmall80" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2396, 157 )
+tree_color = 1
 
 [node name="TreeSmall81" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2351, 195 )
+tree_color = 1
 
 [node name="TreeSmall82" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2348, 145 )
+tree_color = 1
 
 [node name="TreeSmall83" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2159, 142 )
+tree_color = 1
 
 [node name="TreeSmall84" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2078, 213 )
+tree_color = 1
 
 [node name="TreeSmall85" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1985, 72 )
+tree_color = 1
 
 [node name="TreeSmall86" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2030, 32 )
+tree_color = 1
 
 [node name="TreeSmall87" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1901, -149 )
+tree_color = 1
 
 [node name="TreeSmall88" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1659, -142 )
+tree_color = 1
 
 [node name="TreeSmall89" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1606, -180 )
+tree_color = 1
 
 [node name="TreeSmall90" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1283, -175 )
+tree_color = 1
 
 [node name="TreeSmall91" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1223, -178 )
+tree_color = 1
 
 [node name="TreeSmall92" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1170, -201 )
+tree_color = 1
 
 [node name="TreeSmall93" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1054, -168 )
+tree_color = 1
 
 [node name="TreeSmall94" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 764, -160 )
+tree_color = 1
 
 [node name="TreeSmall95" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 802, -241 )
+tree_color = 1
 
 [node name="TreeSmall96" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 510, -163 )
+tree_color = 1
 
 [node name="TreeSmall97" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 525, -221 )
+tree_color = 1
 
 [node name="TreeSmall98" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 296, -153 )
+tree_color = 1
 
 [node name="TreeSmall99" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 215, -22 )
+tree_color = 1
 
 [node name="TreeSmall100" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 134, -88 )
+tree_color = 1
 
 [node name="TreeSmall101" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 172, 194 )
+tree_color = 1
 
 [node name="TreeSmall102" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 220, 219 )
+tree_color = 1
 
 [node name="TreeSmall103" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 230, 567 )
+tree_color = 1
 
 [node name="TreeSmall104" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 137, 622 )
+tree_color = 1
 
 [node name="TreeSmall105" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 394, 715 )
+tree_color = 1
 
 [node name="TreeSmall106" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 492, 665 )
+tree_color = 1
 
 [node name="TreeSmall107" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 487, 796 )
+tree_color = 1
 
 [node name="TreeSmall2" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 495, 1050 )
+tree_color = 1
 
 [node name="TreeBig78" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3305, 1680 )
+tree_color = 1
 
 [node name="TreeBig79" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3340, 1800 )
+tree_color = 1
 
 [node name="TreeSmall108" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3358, 1912 )
+tree_color = 1
 
 [node name="TreeSmall109" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3254, 1868 )
+tree_color = 1
 
 [node name="TreeBig80" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2407, -163 )
+tree_color = 1
 
 [node name="TreeBig92" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2301, -184 )
+tree_color = 1
 
 [node name="TreeBig93" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2712, -303 )
+tree_color = 1
 
 [node name="TreeBig94" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3021, -295 )
+tree_color = 1
 
 [node name="TreeBig95" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3246, -282 )
+tree_color = 1
 
 [node name="TreeBig96" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3390, -333 )
+tree_color = 1
 
 [node name="TreeBig97" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3496, -278 )
+tree_color = 1
 
 [node name="TreeBig98" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1072, -274 )
+tree_color = 1
 
 [node name="TreeBig99" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 521, -342 )
+tree_color = 1
 
 [node name="TreeBig100" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 716, -329 )
+tree_color = 1
 
 [node name="TreeBig101" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1369, -329 )
+tree_color = 1
 
 [node name="TreeBig102" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2009, -321 )
+tree_color = 1
 
 [node name="TreeBig103" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1852, -338 )
+tree_color = 1
 
 [node name="TreeBig104" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1657, -296 )
+tree_color = 1
 
 [node name="TreeBig105" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1547, -330 )
+tree_color = 1
 
 [node name="TreeBig106" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 894, -343 )
+tree_color = 1
 
 [node name="TreeBig107" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 275, -318 )
+tree_color = 1
 
 [node name="TreeBig108" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 67, -233 )
+tree_color = 1
 
 [node name="TreeBig109" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 139, -335 )
+tree_color = 1
 
 [node name="TreeBig110" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 283, 839 )
+tree_color = 1
 
 [node name="TreeBig111" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 169, 1013 )
+tree_color = 1
 
 [node name="TreeBig112" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 80, 1174 )
+tree_color = 1
 
 [node name="TreeBig113" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -9, 903 )
+tree_color = 1
 
 [node name="TreeBig114" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 25, 742 )
+tree_color = 1
 
 [node name="TreeBig115" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -123, 1183 )
+tree_color = 1
 
 [node name="TreeBig116" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -110, 1022 )
+tree_color = 1
 
 [node name="TreeBig117" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -144, 789 )
+tree_color = 1
 
 [node name="TreeBig118" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -34, 1272 )
+tree_color = 1
 
 [node name="TreeBig119" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -17, 1463 )
+tree_color = 1
 
 [node name="TreeBig120" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 34, 1573 )
+tree_color = 1
 
 [node name="TreeBig121" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -148, 1624 )
+tree_color = 1
 
 [node name="TreeBig122" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -173, 1433 )
+tree_color = 1
 
 [node name="TreeBig123" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -321, 1196 )
+tree_color = 1
 
 [node name="TreeBig124" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -287, 954 )
+tree_color = 1
 
 [node name="TreeBig125" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -351, 763 )
+tree_color = 1
 
 [node name="TreeBig126" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -160, 555 )
+tree_color = 1
 
 [node name="TreeBig127" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -270, 364 )
+tree_color = 1
 
 [node name="TreeBig128" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -79, 309 )
+tree_color = 1
 
 [node name="TreeBig129" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 23, 479 )
+tree_color = 1
 
 [node name="TreeBig130" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -28, 123 )
+tree_color = 1
 
 [node name="TreeBig131" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -159, 38 )
+tree_color = 1
 
 [node name="TreeBig132" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -265, 144 )
+tree_color = 1
 
 [node name="TreeBig133" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -87, -76 )
+tree_color = 1
 
 [node name="TreeBig134" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -282, -148 )
+tree_color = 1
 
 [node name="TreeBig135" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -430, 47 )
+tree_color = 1
 
 [node name="TreeBig136" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -400, 259 )
+tree_color = 1
 
 [node name="TreeBig137" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -375, 509 )
+tree_color = 1
 
 [node name="TreeBig138" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -358, 1395 )
+tree_color = 1
 
 [node name="TreeBig139" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -341, 1666 )
+tree_color = 1
 
 [node name="TreeBig140" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -222, 1840 )
+tree_color = 1
 
 [node name="TreeBig141" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -2, 1755 )
+tree_color = 1
 
 [node name="TreeBig142" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2, 1929 )
+tree_color = 1
 
 [node name="TreeBig143" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -45, 2077 )
+tree_color = 1
 
 [node name="TreeBig144" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -223, 2361 )
+tree_color = 1
 
 [node name="TreeBig145" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -210, 2179 )
+tree_color = 1
 
 [node name="TreeBig146" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -312, 2065 )
+tree_color = 1
 
 [node name="TreeBig147" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -384, 1857 )
+tree_color = 1
 
 [node name="TreeBig148" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -36, 2268 )
+tree_color = 1
 
 [node name="TreeBig149" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 11, 2421 )
+tree_color = 1
 
 [node name="TreeBig150" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -116, 2518 )
+tree_color = 1
 
 [node name="TreeBig151" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -385, 2236 )
+tree_color = 1
 
 [node name="TreeBig152" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -385, 2422 )
+tree_color = 1
 
 [node name="TreeBig153" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -304, 2566 )
+tree_color = 1
 
 [node name="TreeBig154" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 60, 2659 )
+tree_color = 1
 
 [node name="TreeBig155" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -71, 2744 )
+tree_color = 1
 
 [node name="TreeBig156" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -253, 2808 )
+tree_color = 1
 
 [node name="TreeBig157" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -113, 2905 )
+tree_color = 1
 
 [node name="TreeBig158" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 65, 2846 )
+tree_color = 1
 
 [node name="TreeBig159" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 52, 3020 )
+tree_color = 1
 
 [node name="TreeBig160" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -71, 3134 )
+tree_color = 1
 
 [node name="TreeBig161" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -215, 3053 )
+tree_color = 1
 
 [node name="TreeBig162" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -325, 3184 )
+tree_color = 1
 
 [node name="TreeBig163" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -456, 3082 )
+tree_color = 1
 
 [node name="TreeBig164" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -400, 2905 )
+tree_color = 1
 
 [node name="TreeBig165" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -506, 2710 )
+tree_color = 1
 
 [node name="TreeBig166" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -502, 2490 )
+tree_color = 1
 
 [node name="TreeBig167" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -481, 2075 )
+tree_color = 1
 
 [node name="TreeBig168" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -498, 1575 )
+tree_color = 1
 
 [node name="TreeBig169" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -490, 1227 )
+tree_color = 1
 
 [node name="TreeBig170" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -460, 989 )
+tree_color = 1
 
 [node name="TreeBig171" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -485, 646 )
+tree_color = 1
 
 [node name="TreeBig172" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -536, 396 )
+tree_color = 1
 
 [node name="TreeBig173" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -494, 150 )
+tree_color = 1
 
 [node name="TreeBig174" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -494, -100 )
+tree_color = 1
 
 [node name="TreeBig175" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -388, -278 )
+tree_color = 1
 
 [node name="TreeBig176" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -528, -375 )
+tree_color = 1
 
 [node name="TreeBig177" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -210, -316 )
+tree_color = 1
 
 [node name="TreeBig178" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -70, -231 )
+tree_color = 1
 
 [node name="TreeBig179" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -36, -379 )
+tree_color = 1
 
 [node name="TreeSmall233" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4161, -158 )
+tree_color = 1
 
 [node name="TreeSmall296" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3367, 1584 )
+tree_color = 1
 
 [node name="TreeSmall297" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3421, 1544 )
+tree_color = 1
 
 [node name="TreeSmall298" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3427, 1603 )
+tree_color = 1
 
 [node name="TreeSmall299" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3650, 1651 )
+tree_color = 1
 
 [node name="TreeSmall300" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3642, 1747 )
+tree_color = 1
 
 [node name="TreeSmall301" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3707, 1671 )
+tree_color = 1
 
 [node name="TreeSmall302" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3619, 1802 )
+tree_color = 1
 
 [node name="TreeSmall303" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3630, 1907 )
+tree_color = 1
 
 [node name="TreeSmall304" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3602, 2099 )
+tree_color = 1
 
 [node name="TreeSmall305" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3667, 2376 )
+tree_color = 1
 
 [node name="TreeSmall306" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3613, 2747 )
+tree_color = 1
 
 [node name="TreeSmall307" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3667, 3157 )
+tree_color = 1
 
 [node name="TreeSmall308" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3709, 3202 )
+tree_color = 1
 
 [node name="TreeSmall309" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3678, 1058 )
+tree_color = 1
 
 [node name="TreeSmall310" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3771, 1225 )
+tree_color = 1
 
 [node name="TreeSmall234" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4169, -99 )
+tree_color = 1
 
 [node name="TreeSmall235" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3983, -247 )
+tree_color = 1
 
 [node name="TreeSmall236" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3856, -35 )
+tree_color = 1
 
 [node name="TreeSmall237" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3818, -82 )
+tree_color = 1
 
 [node name="TreeSmall238" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3721, -175 )
+tree_color = 1
 
 [node name="TreeSmall239" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3844, 185 )
+tree_color = 1
 
 [node name="TreeSmall240" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3984, 126 )
+tree_color = 1
 
 [node name="TreeSmall241" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4128, 317 )
+tree_color = 1
 
 [node name="TreeSmall242" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4136, 249 )
+tree_color = 1
 
 [node name="TreeSmall243" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3983, 376 )
+tree_color = 1
 
 [node name="TreeSmall244" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3708, 401 )
+tree_color = 1
 
 [node name="TreeSmall245" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3831, 579 )
+tree_color = 1
 
 [node name="TreeSmall246" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3895, 545 )
+tree_color = 1
 
 [node name="TreeSmall247" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3891, 596 )
+tree_color = 1
 
 [node name="TreeSmall248" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4086, 592 )
+tree_color = 1
 
 [node name="TreeSmall249" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3844, 783 )
+tree_color = 1
 
 [node name="TreeSmall250" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4081, 779 )
+tree_color = 1
 
 [node name="TreeSmall251" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4132, 1007 )
+tree_color = 1
 
 [node name="TreeSmall252" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4170, 969 )
+tree_color = 1
 
 [node name="TreeSmall253" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3924, 1100 )
+tree_color = 1
 
 [node name="TreeSmall254" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3920, 918 )
+tree_color = 1
 
 [node name="TreeSmall255" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3674, 782 )
+tree_color = 1
 
 [node name="TreeSmall256" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3640, 833 )
+tree_color = 1
 
 [node name="TreeSmall257" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3780, 1032 )
+tree_color = 1
 
 [node name="TreeSmall258" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3640, 1316 )
+tree_color = 1
 
 [node name="TreeSmall259" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3644, 1388 )
+tree_color = 1
 
 [node name="TreeSmall260" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3890, 1248 )
+tree_color = 1
 
 [node name="TreeSmall261" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3958, 1214 )
+tree_color = 1
 
 [node name="TreeSmall262" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3767, 1486 )
+tree_color = 1
 
 [node name="TreeSmall263" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3826, 1452 )
+tree_color = 1
 
 [node name="TreeSmall264" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3847, 1520 )
+tree_color = 1
 
 [node name="TreeSmall265" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3978, 1473 )
+tree_color = 1
 
 [node name="TreeSmall266" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3910, 1626 )
+tree_color = 1
 
 [node name="TreeSmall267" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4067, 1618 )
+tree_color = 1
 
 [node name="TreeSmall268" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4003, 1699 )
+tree_color = 1
 
 [node name="TreeSmall269" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3673, 2605 )
+tree_color = 1
 
 [node name="TreeSmall270" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3830, 2597 )
+tree_color = 1
 
 [node name="TreeSmall271" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3766, 2678 )
+tree_color = 1
 
 [node name="TreeSmall272" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3838, 3058 )
+tree_color = 1
 
 [node name="TreeSmall273" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3995, 3050 )
+tree_color = 1
 
 [node name="TreeSmall274" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3931, 3131 )
+tree_color = 1
 
 [node name="TreeSmall275" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3732, 2958 )
+tree_color = 1
 
 [node name="TreeSmall311" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3627, 2923 )
+tree_color = 1
 
 [node name="TreeSmall276" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4105, 2873 )
+tree_color = 1
 
 [node name="TreeSmall277" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4186, 2242 )
+tree_color = 1
 
 [node name="TreeSmall278" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3720, 1924 )
+tree_color = 1
 
 [node name="TreeSmall279" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3881, 2882 )
+tree_color = 1
 
 [node name="TreeSmall280" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4050, 1746 )
+tree_color = 1
 
 [node name="TreeSmall281" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3868, 1852 )
+tree_color = 1
 
 [node name="TreeSmall282" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3868, 1852 )
+tree_color = 1
 
 [node name="TreeSmall283" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3906, 2051 )
+tree_color = 1
 
 [node name="TreeSmall284" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3799, 2106 )
+tree_color = 1
 
 [node name="TreeSmall285" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3846, 2153 )
+tree_color = 1
 
 [node name="TreeSmall286" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3664, 2259 )
+tree_color = 1
 
 [node name="TreeSmall287" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3664, 2259 )
+tree_color = 1
 
 [node name="TreeSmall288" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3702, 2458 )
+tree_color = 1
 
 [node name="TreeSmall289" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3957, 1945 )
+tree_color = 1
 
 [node name="TreeSmall290" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4148, 2115 )
+tree_color = 1
 
 [node name="TreeSmall291" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4000, 2297 )
+tree_color = 1
 
 [node name="TreeSmall292" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3886, 2450 )
+tree_color = 1
 
 [node name="TreeSmall293" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4094, 2514 )
+tree_color = 1
 
 [node name="TreeSmall294" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3908, 2671 )
+tree_color = 1
 
 [node name="TreeSmall295" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3959, 2713 )
+tree_color = 1
 
 [node name="TreeBig202" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4201, -276 )
+tree_color = 1
 
 [node name="TreeBig203" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4125, 860 )
+tree_color = 1
 
 [node name="TreeBig204" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4159, 699 )
+tree_color = 1
 
 [node name="TreeBig205" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4011, 1140 )
+tree_color = 1
 
 [node name="TreeBig206" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4024, 979 )
+tree_color = 1
 
 [node name="TreeBig207" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3990, 746 )
+tree_color = 1
 
 [node name="TreeBig208" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4100, 1229 )
+tree_color = 1
 
 [node name="TreeBig209" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4117, 1420 )
+tree_color = 1
 
 [node name="TreeBig210" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4168, 1530 )
+tree_color = 1
 
 [node name="TreeBig211" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3986, 1581 )
+tree_color = 1
 
 [node name="TreeBig212" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3961, 1390 )
+tree_color = 1
 
 [node name="TreeBig213" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3813, 1153 )
+tree_color = 1
 
 [node name="TreeBig214" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3847, 911 )
+tree_color = 1
 
 [node name="TreeBig215" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3783, 720 )
+tree_color = 1
 
 [node name="TreeBig216" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3974, 512 )
+tree_color = 1
 
 [node name="TreeBig217" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3864, 321 )
+tree_color = 1
 
 [node name="TreeBig218" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4055, 266 )
+tree_color = 1
 
 [node name="TreeBig219" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4157, 436 )
+tree_color = 1
 
 [node name="TreeBig220" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4106, 80 )
+tree_color = 1
 
 [node name="TreeBig221" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3975, -5 )
+tree_color = 1
 
 [node name="TreeBig222" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3869, 101 )
+tree_color = 1
 
 [node name="TreeBig223" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4047, -119 )
+tree_color = 1
 
 [node name="TreeBig224" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3852, -191 )
+tree_color = 1
 
 [node name="TreeBig225" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3704, 4 )
+tree_color = 1
 
 [node name="TreeBig226" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3734, 216 )
+tree_color = 1
 
 [node name="TreeBig227" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3759, 466 )
+tree_color = 1
 
 [node name="TreeBig228" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3776, 1352 )
+tree_color = 1
 
 [node name="TreeBig229" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3793, 1623 )
+tree_color = 1
 
 [node name="TreeBig230" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3912, 1797 )
+tree_color = 1
 
 [node name="TreeBig231" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4132, 1712 )
+tree_color = 1
 
 [node name="TreeBig232" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4136, 1886 )
+tree_color = 1
 
 [node name="TreeBig233" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4089, 2034 )
+tree_color = 1
 
 [node name="TreeBig234" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3911, 2318 )
+tree_color = 1
 
 [node name="TreeBig235" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3924, 2136 )
+tree_color = 1
 
 [node name="TreeBig236" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3822, 2022 )
+tree_color = 1
 
 [node name="TreeBig237" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3750, 1814 )
+tree_color = 1
 
 [node name="TreeBig238" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4098, 2225 )
+tree_color = 1
 
 [node name="TreeBig239" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4145, 2378 )
+tree_color = 1
 
 [node name="TreeBig240" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4018, 2475 )
+tree_color = 1
 
 [node name="TreeBig241" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3749, 2193 )
+tree_color = 1
 
 [node name="TreeBig242" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3749, 2379 )
+tree_color = 1
 
 [node name="TreeBig243" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3830, 2523 )
+tree_color = 1
 
 [node name="TreeBig244" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4194, 2616 )
+tree_color = 1
 
 [node name="TreeBig245" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4063, 2701 )
+tree_color = 1
 
 [node name="TreeBig246" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3881, 2765 )
+tree_color = 1
 
 [node name="TreeBig247" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4021, 2862 )
+tree_color = 1
 
 [node name="TreeBig248" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4199, 2803 )
+tree_color = 1
 
 [node name="TreeBig249" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4186, 2977 )
+tree_color = 1
 
 [node name="TreeBig250" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4063, 3091 )
+tree_color = 1
 
 [node name="TreeBig251" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3919, 3010 )
+tree_color = 1
 
 [node name="TreeBig252" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3809, 3141 )
+tree_color = 1
 
 [node name="TreeBig253" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3678, 3039 )
+tree_color = 1
 
 [node name="TreeBig254" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3734, 2862 )
+tree_color = 1
 
 [node name="TreeBig255" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3628, 2667 )
+tree_color = 1
 
 [node name="TreeBig256" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3632, 2447 )
+tree_color = 1
 
 [node name="TreeBig257" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3653, 2032 )
+tree_color = 1
 
 [node name="TreeBig258" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3636, 1532 )
+tree_color = 1
 
 [node name="TreeBig259" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3644, 1184 )
+tree_color = 1
 
 [node name="TreeBig260" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3674, 946 )
+tree_color = 1
 
 [node name="TreeBig261" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3649, 603 )
+tree_color = 1
 
 [node name="TreeBig262" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3598, 353 )
+tree_color = 1
 
 [node name="TreeBig263" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3640, 107 )
+tree_color = 1
 
 [node name="TreeBig264" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3640, -143 )
+tree_color = 1
 
 [node name="TreeBig265" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3746, -321 )
+tree_color = 1
 
 [node name="TreeBig266" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3606, -418 )
+tree_color = 1
 
 [node name="TreeBig267" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3924, -359 )
+tree_color = 1
 
 [node name="TreeBig268" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4064, -274 )
+tree_color = 1
 
 [node name="TreeBig269" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4098, -422 )
+tree_color = 1
 
 [node name="TreeBig180" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 154, 3172 )
+tree_color = 1
 
 [node name="TreeBig181" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 468, 3147 )
+tree_color = 1
 
 [node name="TreeBig182" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 663, 3177 )
+tree_color = 1
 
 [node name="TreeBig183" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 858, 3164 )
+tree_color = 1
 
 [node name="TreeBig184" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1108, 3130 )
+tree_color = 1
 
 [node name="TreeBig185" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1600, 2753 )
+tree_color = 1
 
 [node name="TreeBig186" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1621, 2901 )
+tree_color = 1
 
 [node name="TreeBig187" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1223, 3087 )
+tree_color = 1
 
 [node name="TreeBig188" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1393, 3180 )
+tree_color = 1
 
 [node name="TreeBig189" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1626, 3078 )
+tree_color = 1
 
 [node name="TreeBig190" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1851, 3137 )
+tree_color = 1
 
 [node name="TreeBig191" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2037, 3196 )
+tree_color = 1
 
 [node name="TreeBig192" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2262, 3149 )
+tree_color = 1
 
 [node name="TreeBig193" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2567, 3119 )
+tree_color = 1
 
 [node name="TreeBig194" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2953, 3081 )
+tree_color = 1
 
 [node name="TreeBig195" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2767, 3212 )
+tree_color = 1
 
 [node name="TreeBig196" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3080, 3198 )
+tree_color = 1
 
 [node name="TreeBig197" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3241, 3117 )
+tree_color = 1
 
 [node name="TreeBig198" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3419, 3104 )
+tree_color = 1
 
 [node name="TreeBig199" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3550, 3176 )
+tree_color = 1
 
 [node name="TreeBig200" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2541, -363 )
+tree_color = 1
 
 [node name="TreeBig201" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2355, -355 )
+tree_color = 1
 
 [node name="TreeBig81" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2442, -43 )
+tree_color = 1
 
 [node name="TreeSmall110" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2460, 69 )
+tree_color = 1
 
 [node name="TreeSmall111" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2356, 25 )
+tree_color = 1
 
 [node name="TreeBig82" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1254, 2753 )
+tree_color = 1
 
 [node name="TreeBig83" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1289, 2873 )
+tree_color = 1
 
 [node name="TreeSmall112" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1307, 2985 )
+tree_color = 1
 
 [node name="TreeSmall113" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1203, 2941 )
+tree_color = 1
 
 [node name="TreeSmall3" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 339, 1366 )
+tree_color = 1
 
 [node name="TreeSmall4" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 155, 1422 )
+tree_color = 1
 
 [node name="TreeSmall5" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 199, 1794 )
+tree_color = 1
 
 [node name="TreeSmall6" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 155, 1842 )
+tree_color = 1
 
 [node name="TreeSmall7" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 215, 1874 )
+tree_color = 1
 
 [node name="TreeSmall8" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 224, 2225 )
+tree_color = 1
 
 [node name="TreeSmall9" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 215, 2357 )
+tree_color = 1
 
 [node name="TreeSmall10" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 185, 2414 )
+tree_color = 1
 
 [node name="TreeSmall11" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 239, 2600 )
+tree_color = 1
 
 [node name="TreeSmall12" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 208, 2863 )
+tree_color = 1
 
 [node name="TreeSmall13" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 245, 2897 )
+tree_color = 1
 
 [node name="DropCrateSpawnArea1" parent="." instance=ExtResource( 2 )]
 position = Vector2( 1026, 472 )
