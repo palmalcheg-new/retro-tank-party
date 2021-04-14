@@ -1786,8 +1786,12 @@ tree_color = 1
 position = Vector2( 1901, -149 )
 tree_color = 1
 
+[node name="TreeSmall312" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1838.7, -196.194 )
+tree_color = 1
+
 [node name="TreeSmall88" parent="Objects/Border" instance=ExtResource( 6 )]
-position = Vector2( 1659, -142 )
+position = Vector2( 1666.55, -209.959 )
 tree_color = 1
 
 [node name="TreeSmall89" parent="Objects/Border" instance=ExtResource( 6 )]
@@ -1928,6 +1932,10 @@ tree_color = 1
 
 [node name="TreeBig101" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1369, -329 )
+tree_color = 1
+
+[node name="TreeBig270" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1378.44, -217.623 )
 tree_color = 1
 
 [node name="TreeBig102" parent="Objects/Border" instance=ExtResource( 4 )]
