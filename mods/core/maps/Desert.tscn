@@ -51,74 +51,71 @@ position = Vector2( 521, 1763 )
 position = Vector2( 467, 1773 )
 
 [node name="SandbagBiege4" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( 408, 1768 )
+position = Vector2( 394.546, 1776.41 )
+rotation = 0.0588176
 
 [node name="SandbagBiege5" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( 345, 1785 )
+position = Vector2( 326.5, 1785 )
 
 [node name="SandbagBiege6" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( 288, 1772 )
+position = Vector2( 262.773, 1780.41 )
 
 [node name="SandbagBiege7" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( 226, 1782 )
-
-[node name="SandbagBiege8" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( 166, 1771 )
+position = Vector2( 199.091, 1773.59 )
 
 [node name="SandbagBiege9" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( 109, 1776 )
+position = Vector2( 135.909, 1779.36 )
 
 [node name="SandbagBiege10" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( 60, 1752 )
+position = Vector2( 86.9086, 1755.36 )
 rotation = 0.256921
 
 [node name="SandbagBiege11" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( 22.0001, 1711 )
+position = Vector2( 48.9087, 1714.36 )
 rotation = -1.98205
-scale = Vector2( 1, 1 )
 
 [node name="SandbagBiege12" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( 16, 1652 )
+position = Vector2( 42.9086, 1655.36 )
 rotation = -1.61331
 
 [node name="SandbagBiege13" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( 10, 1595 )
+position = Vector2( 36.9086, 1598.36 )
 rotation = -1.5708
 
 [node name="SandbagBiege14" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( -6, 1541 )
+position = Vector2( 20.9086, 1544.36 )
 rotation = -1.5708
 
 [node name="SandbagBiege15" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( 8, 1484 )
+position = Vector2( 34.9086, 1487.36 )
 rotation = -1.5708
 
 [node name="SandbagBiege16" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( 3, 1425 )
+position = Vector2( 29.9086, 1428.36 )
 rotation = -1.5708
 
 [node name="SandbagBiege17" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( 20, 1369 )
+position = Vector2( 46.9086, 1372.36 )
 rotation = -1.5708
 
 [node name="SandbagBiege99" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( -4, 1323 )
+position = Vector2( 22.9086, 1326.36 )
 rotation = -1.5708
 
 [node name="SandbagBiege100" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( -20, 1269 )
+position = Vector2( 6.90863, 1272.36 )
 rotation = -1.5708
 
 [node name="SandbagBiege101" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( -6, 1212 )
+position = Vector2( 20.9086, 1215.36 )
 rotation = -1.5708
 
 [node name="SandbagBiege102" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( -11, 1153 )
+position = Vector2( 15.9086, 1156.36 )
 rotation = -1.5708
 
 [node name="SandbagBiege103" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( 6, 1097 )
+position = Vector2( 32.9086, 1100.36 )
 rotation = -1.5708
 
 [node name="SandbagBiege18" parent="Objects/Border" instance=ExtResource( 5 )]
@@ -140,66 +137,66 @@ position = Vector2( 304, 7 )
 position = Vector2( 247, 10 )
 
 [node name="SandbagBiege25" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( 131, 10 )
+position = Vector2( 139.409, 3.27283 )
 
 [node name="SandbagBiege26" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( 72, 12 )
+position = Vector2( 98.9086, 15.3636 )
 rotation = -0.328559
 
 [node name="SandbagBiege27" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( 72, 12 )
+position = Vector2( 98.9086, 15.3636 )
 rotation = -0.247916
 
 [node name="SandbagBiege28" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( 24, 41 )
+position = Vector2( 50.9086, 44.3636 )
 rotation = -1.02213
 
 [node name="SandbagBiege29" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( 13, 97 )
+position = Vector2( 39.9086, 100.364 )
 rotation = -1.68756
 
 [node name="SandbagBiege30" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( 10, 148 )
+position = Vector2( 36.9086, 151.364 )
 rotation = -1.5708
 
 [node name="SandbagBiege31" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( -9, 205 )
+position = Vector2( 17.9086, 208.364 )
 rotation = -1.5708
 
 [node name="SandbagBiege32" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( 2, 262 )
+position = Vector2( 28.9086, 265.364 )
 rotation = -1.5708
 
 [node name="SandbagBiege33" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( -1, 322 )
+position = Vector2( 25.9086, 325.364 )
 rotation = -1.5708
 
 [node name="SandbagBiege34" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( 1, 385 )
+position = Vector2( 27.9086, 388.364 )
 rotation = -1.5708
 
 [node name="SandbagBiege134" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( -9, 443 )
+position = Vector2( 17.9086, 446.364 )
 rotation = -1.5708
 
 [node name="SandbagBiege135" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( -12, 503 )
+position = Vector2( 14.9086, 506.364 )
 rotation = -1.5708
 
 [node name="SandbagBiege138" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( -10, 566 )
+position = Vector2( 16.9086, 569.364 )
 rotation = -1.5708
 
 [node name="SandbagBiege139" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( -7, 614 )
+position = Vector2( 19.9086, 617.364 )
 rotation = -1.44009
 
 [node name="SandbagBiege94" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( 4, 799 )
+position = Vector2( 30.9086, 802.364 )
 rotation = -1.68756
 
 [node name="SandbagBiege95" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( 4, 858 )
+position = Vector2( 30.9086, 861.364 )
 rotation = -1.5708
 
 [node name="SandbagBiege127" parent="Objects/Border" instance=ExtResource( 5 )]
@@ -219,21 +216,20 @@ position = Vector2( 2670, 667 )
 rotation = -1.5708
 
 [node name="SandbagBiege96" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( -15, 915 )
+position = Vector2( 11.9086, 918.364 )
 rotation = -1.5708
 
 [node name="SandbagBiege97" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( -4, 975 )
+position = Vector2( 22.9086, 978.364 )
 rotation = -1.5708
 
 [node name="SandbagBiege98" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( -7, 1038 )
+position = Vector2( 19.9086, 1041.36 )
 rotation = -1.5708
 
 [node name="SandbagBiege24" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 187, 4 )
 rotation = -0.139493
-scale = Vector2( 1, 1 )
 
 [node name="SandbagBiege67" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 996, 16 )
@@ -259,7 +255,6 @@ position = Vector2( 595, 10 )
 [node name="SandbagBiege74" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 651, 4 )
 rotation = -0.139493
-scale = Vector2( 1, 1 )
 
 [node name="SandbagBiege75" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1460, 10 )
@@ -285,7 +280,6 @@ position = Vector2( 1059, 4 )
 [node name="SandbagBiege82" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1115, 4 )
 rotation = 0.165954
-scale = Vector2( 1, 1 )
 
 [node name="SandbagBiege83" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1921, 10 )
@@ -320,7 +314,6 @@ position = Vector2( 1523, -2 )
 [node name="SandbagBiege90" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1579, -8 )
 rotation = -0.139493
-scale = Vector2( 1, 1 )
 
 [node name="SandbagBiege104" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1050, 1787 )
@@ -346,7 +339,6 @@ position = Vector2( 649, 1781 )
 [node name="SandbagBiege111" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 705, 1775 )
 rotation = -0.139493
-scale = Vector2( 1, 1 )
 
 [node name="SandbagBiege112" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1514, 1781 )
@@ -372,7 +364,6 @@ position = Vector2( 1113, 1775 )
 [node name="SandbagBiege119" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1169, 1775 )
 rotation = 0.165954
-scale = Vector2( 1, 1 )
 
 [node name="SandbagBiege128" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2081, 1778 )
@@ -383,7 +374,6 @@ position = Vector2( 1965, 1778 )
 [node name="SandbagBiege130" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2021, 1778 )
 rotation = 0.165954
-scale = Vector2( 1, 1 )
 
 [node name="SandbagBiege120" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1918, 1762 )
@@ -406,7 +396,6 @@ position = Vector2( 1577, 1769 )
 [node name="SandbagBiege126" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1633, 1763 )
 rotation = -0.139493
-scale = Vector2( 1, 1 )
 
 [node name="SandbagBiege35" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2129, 1771 )
@@ -452,7 +441,6 @@ rotation = -1.50173
 [node name="SandbagBiege64" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2659, 1540 )
 rotation = -1.79495
-scale = Vector2( 1, 1 )
 
 [node name="SandbagBiege46" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2646, 843 )
@@ -523,7 +511,6 @@ rotation = -1.5708
 [node name="SandbagBiege65" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2641, 74 )
 rotation = -1.95036
-scale = Vector2( 1, 1 )
 
 [node name="SandbagBiege66" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2605, 21 )
@@ -642,7 +629,7 @@ position = Vector2( 1338, 922 )
 rotation = -3.141
 
 [node name="BarricadeWood" parent="Objects" instance=ExtResource( 6 )]
-position = Vector2( -5, 705 )
+position = Vector2( 31.4223, 705.985 )
 
 [node name="BarricadeWood2" parent="Objects" instance=ExtResource( 6 )]
 position = Vector2( 2656, 1344 )
@@ -704,10 +691,13 @@ position = Vector2( 2555, 1199 )
 rotation = 1.55109
 
 [node name="DropCrateSpawnArea1" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1359, 299 )
+position = Vector2( 1274.15, 299 )
 
 [node name="DropCrateSpawnArea2" parent="." instance=ExtResource( 2 )]
 position = Vector2( 911, 1086 )
 
 [node name="DropCrateSpawnArea3" parent="." instance=ExtResource( 2 )]
-position = Vector2( 2050, 1177 )
+position = Vector2( 2016.06, 667.883 )
+
+[node name="DropCrateSpawnArea4" parent="." instance=ExtResource( 2 )]
+position = Vector2( 2016.06, 1154.37 )

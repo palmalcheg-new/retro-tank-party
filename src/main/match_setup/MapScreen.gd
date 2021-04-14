@@ -35,7 +35,9 @@ func change_map(map: GameMap) -> void:
 	map_parent.add_child(map_scene)
 	
 	# Scale map to fit in the viewport.
-	map_scene.scale = get_viewport_rect().size / map_scene.get_map_rect().size
+	var map_rect = map_scene.get_map_rect()
+	map_scene.position -= map_rect.position
+	map_scene.scale = get_viewport_rect().size / map_rect.size
 
 func disable_screen() -> void:
 	map_field.disabled = true
