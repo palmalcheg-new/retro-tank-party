@@ -118,7 +118,6 @@ position = Vector2( 67, -13 )
 [node name="SandbagBiege140" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 123, -13 )
 rotation = 0.165954
-scale = Vector2( 1, 1 )
 
 [node name="SandbagBiege141" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 601, -407 )
@@ -148,7 +147,6 @@ position = Vector2( 786, -415 )
 [node name="SandbagBiege153" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 842, -421 )
 rotation = -0.139493
-scale = Vector2( 1, 1 )
 
 [node name="SandbagBiege161" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 1236, -18 )
@@ -159,7 +157,6 @@ position = Vector2( 1179, -15 )
 [node name="SandbagBiege177" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 1129, -18 )
 rotation = -0.139493
-scale = Vector2( 1, 1 )
 
 [node name="SandbagBiege166" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 1409, -270 )
@@ -279,7 +276,6 @@ position = Vector2( 67, -13 )
 [node name="SandbagBiege140" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 123, -13 )
 rotation = 0.165954
-scale = Vector2( 1, 1 )
 
 [node name="SandbagBiege141" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 601, -407 )
@@ -309,7 +305,6 @@ position = Vector2( 786, -415 )
 [node name="SandbagBiege153" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 842, -421 )
 rotation = -0.139493
-scale = Vector2( 1, 1 )
 
 [node name="SandbagBiege161" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 1236, -18 )
@@ -320,7 +315,6 @@ position = Vector2( 1179, -15 )
 [node name="SandbagBiege177" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 1129, -18 )
 rotation = -0.139493
-scale = Vector2( 1, 1 )
 
 [node name="SandbagBiege166" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 1409, -270 )
@@ -440,7 +434,6 @@ position = Vector2( 67, -13 )
 [node name="SandbagBiege140" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 123, -13 )
 rotation = 0.165954
-scale = Vector2( 1, 1 )
 
 [node name="SandbagBiege141" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 601, -407 )
@@ -470,7 +463,6 @@ position = Vector2( 786, -415 )
 [node name="SandbagBiege153" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 842, -421 )
 rotation = -0.139493
-scale = Vector2( 1, 1 )
 
 [node name="SandbagBiege161" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 1236, -18 )
@@ -481,7 +473,6 @@ position = Vector2( 1179, -15 )
 [node name="SandbagBiege177" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 1129, -18 )
 rotation = -0.139493
-scale = Vector2( 1, 1 )
 
 [node name="SandbagBiege166" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 1409, -270 )
@@ -601,7 +592,6 @@ position = Vector2( 67, -13 )
 [node name="SandbagBiege140" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 123, -13 )
 rotation = 0.165954
-scale = Vector2( 1, 1 )
 
 [node name="SandbagBiege141" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 601, -407 )
@@ -631,7 +621,6 @@ position = Vector2( 786, -415 )
 [node name="SandbagBiege153" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 842, -421 )
 rotation = -0.139493
-scale = Vector2( 1, 1 )
 
 [node name="SandbagBiege161" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 1236, -18 )
@@ -642,7 +631,6 @@ position = Vector2( 1179, -15 )
 [node name="SandbagBiege177" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 1129, -18 )
 rotation = -0.139493
-scale = Vector2( 1, 1 )
 
 [node name="SandbagBiege166" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 1409, -270 )
