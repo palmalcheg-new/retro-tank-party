@@ -1,0 +1,2435 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/terraintiles.tres" type="TileSet" id=1]
+[ext_resource path="res://src/objects/DropCrateSpawnArea.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/maps/BaseMap.gd" type="Script" id=3]
+[ext_resource path="res://src/objects/cover/TreeBig.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/objects/obstruction/SandboxBiege.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/objects/cover/TreeSmall.tscn" type="PackedScene" id=6]
+
+[node name="Map3" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 128, 128 )
+format = 1
+tile_data = PoolIntArray( -1, 1, 0, -65536, 0, 0, -65535, 1, 0, -65534, 0, 0, -65533, 1, 0, -65532, 0, 0, -65531, 1, 0, -65530, 1, 0, -65529, 1, 0, -65528, 0, 0, -65527, 1, 0, -65526, 1, 0, -65525, 1, 0, -65524, 0, 0, -65523, 0, 0, -65522, 0, 0, -65521, 0, 0, -65520, 0, 0, -65519, 0, 0, -65518, 0, 0, -65517, 0, 0, -65516, 1, 0, -65515, 1, 0, -65514, 0, 0, -65513, 0, 0, -65512, 0, 0, -65511, 1, 0, -65510, 1, 0, -65509, 0, 0, -65508, 0, 0, -65507, 1, 0, -65506, 0, 0, -65505, 0, 0, -65504, 0, 0, -65503, 1, 0, -65502, 0, 0, -65501, 1, 0, 65535, 1, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 1, 0, 4, 0, 0, 5, 1, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 1, 0, 12, 1, 0, 13, 0, 0, 14, 1, 0, 15, 1, 0, 16, 1, 0, 17, 0, 0, 18, 1, 0, 19, 1, 0, 20, 1, 0, 21, 1, 0, 22, 1, 0, 23, 0, 0, 24, 0, 0, 25, 0, 0, 26, 1, 0, 27, 0, 0, 28, 1, 0, 29, 0, 0, 30, 0, 0, 31, 1, 0, 32, 1, 0, 33, 1, 0, 34, 0, 0, 35, 0, 0, 131071, 1, 0, 65536, 1, 0, 65537, 1, 0, 65538, 1, 0, 65539, 0, 0, 65540, 0, 0, 65541, -1610612736, 0, 65542, -1610612736, 0, 65543, -1610612736, 0, 65544, -1610612736, 0, 65545, -1610612736, 0, 65546, -1610612736, 0, 65547, 1, 0, 65548, -1610612736, 0, 65549, 0, 0, 65550, 0, 0, 65551, 1, 0, 65552, 0, 0, 65553, 1, 0, 65554, 0, 0, 65555, 1, 0, 65556, 1, 0, 65557, 1, 0, 65558, 1, 0, 65559, 1, 0, 65560, 1, 0, 65561, 1, 0, 65562, 0, 0, 65563, 1, 0, 65564, 0, 0, 65565, 1, 0, 65566, 0, 0, 65567, 1, 0, 65568, 1, 0, 65569, 1, 0, 65570, 1, 0, 65571, 1, 0, 196607, 1, 0, 131072, 1, 0, 131073, 1, 0, 131074, 0, 0, 131075, 1, 0, 131076, 0, 0, 131077, -1610612735, 0, 131078, 0, 0, 131079, 0, 0, 131080, -1610612735, 0, 131081, -1610612735, 0, 131082, -1610612736, 0, 131083, 0, 0, 131084, -1610612735, 0, 131085, 0, 0, 131086, 1, 0, 131087, 1, 0, 131088, 0, 0, 131089, 1, 0, 131090, 1, 0, 131091, 1, 0, 131092, 0, 0, 131093, 1, 0, 131094, 0, 0, 131095, 0, 0, 131096, 0, 0, 131097, 1, 0, 131098, 0, 0, 131099, 0, 0, 131100, 0, 0, 131101, 1, 0, 131102, 0, 0, 131103, 0, 0, 131104, 0, 0, 131105, 0, 0, 131106, 1, 0, 131107, 0, 0, 262143, 1, 0, 196608, 0, 0, 196609, 0, 0, 196610, 0, 0, 196611, 1, 0, 196612, 1, 0, 196613, 0, 0, 196614, 1, 0, 196615, 0, 0, 196616, 1, 0, 196617, 0, 0, 196618, 1, 0, 196619, 1, 0, 196620, 0, 0, 196621, 0, 0, 196622, 0, 0, 196623, 1, 0, 196624, 1, 0, 196625, 0, 0, 196626, 0, 0, 196627, 1, 0, 196628, 1, 0, 196629, 1, 0, 196630, 0, 0, 196631, 1, 0, 196632, 1, 0, 196633, 0, 0, 196634, 0, 0, 196635, 0, 0, 196636, 1, 0, 196637, 0, 0, 196638, 0, 0, 196639, 0, 0, 196640, 1, 0, 196641, 1, 0, 196642, 1, 0, 196643, 0, 0, 327679, 0, 0, 262144, 1, 0, 262145, 0, 0, 262146, 0, 0, 262147, 1, 0, 262148, 0, 0, 262149, 1, 0, 262150, 1, 0, 262151, 1, 0, 262152, 0, 0, 262153, 1, 0, 262154, 0, 0, 262155, 1, 0, 262156, 0, 0, 262157, 0, 0, 262158, 0, 0, 262159, 1, 0, 262160, 0, 0, 262161, 0, 0, 262162, 0, 0, 262163, 0, 0, 262164, 0, 0, 262165, 0, 0, 262166, 1, 0, 262167, 1, 0, 262168, 0, 0, 262169, 0, 0, 262170, 0, 0, 262171, 0, 0, 262172, 1, 0, 262173, 0, 0, 262174, 0, 0, 262175, 1, 0, 262176, 1, 0, 262177, 1, 0, 262178, 1, 0, 262179, 0, 0, 393215, 1, 0, 327680, 0, 0, 327681, 1, 0, 327682, 0, 0, 327683, 1, 0, 327684, 1, 0, 327685, 0, 0, 327686, 1, 0, 327687, 0, 0, 327688, 0, 0, 327689, 1, 0, 327690, 1, 0, 327691, 0, 0, 327692, 0, 0, 327693, 0, 0, 327694, 1, 0, 327695, 1, 0, 327696, 1, 0, 327697, 0, 0, 327698, 0, 0, 327699, 0, 0, 327700, 0, 0, 327701, 0, 0, 327702, 0, 0, 327703, 1, 0, 327704, 0, 0, 327705, 0, 0, 327706, 0, 0, 327707, 1, 0, 327708, 0, 0, 327709, 1, 0, 327710, 0, 0, 327711, 1, 0, 327712, 1, 0, 327713, 1, 0, 327714, 1, 0, 327715, 1, 0, 458751, 1, 0, 393216, 1, 0, 393217, 0, 0, 393218, 1, 0, 393219, 1, 0, 393220, 1, 0, 393221, 0, 0, 393222, 1, 0, 393223, 0, 0, 393224, 1, 0, 393225, 0, 0, 393226, 1, 0, 393227, 1, 0, 393228, 1, 0, 393229, 0, 0, 393230, 0, 0, 393231, 1, 0, 393232, 0, 0, 393233, 0, 0, 393234, 0, 0, 393235, 0, 0, 393236, 0, 0, 393237, 0, 0, 393238, 0, 0, 393239, 0, 0, 393240, 0, 0, 393241, 1, 0, 393242, 0, 0, 393243, 0, 0, 393244, 1, 0, 393245, 1, 0, 393246, 1, 0, 393247, 0, 0, 393248, 1, 0, 393249, 1, 0, 393250, 1, 0, 393251, 1, 0, 524287, 1, 0, 458752, 1, 0, 458753, 1, 0, 458754, 0, 0, 458755, 1, 0, 458756, 0, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 458760, 0, 0, 458761, 0, 0, 458762, 1, 0, 458763, 0, 0, 458764, 1, 0, 458765, 1, 0, 458766, 0, 0, 458767, 0, 0, 458768, 1, 0, 458769, 0, 0, 458770, 0, 0, 458771, 0, 0, 458772, 0, 0, 458773, 0, 0, 458774, 1, 0, 458775, 1, 0, 458776, 0, 0, 458777, 1, 0, 458778, 0, 0, 458779, 0, 0, 458780, 1, 0, 458781, 0, 0, 458782, 0, 0, 458783, 1, 0, 458784, 1, 0, 458785, 0, 0, 458786, 1, 0, 458787, 0, 0, 589823, 1, 0, 524288, 0, 0, 524289, 1, 0, 524290, 0, 0, 524291, 1, 0, 524292, 0, 0, 524293, 0, 0, 524294, 1, 0, 524295, 0, 0, 524296, 0, 0, 524297, 1, 0, 524298, 1, 0, 524299, 0, 0, 524300, 0, 0, 524301, 0, 0, 524302, 1, 0, 524303, 1, 0, 524304, 0, 0, 524305, 1, 0, 524306, 0, 0, 524307, 0, 0, 524308, 1, 0, 524309, 1, 0, 524310, 1, 0, 524311, 0, 0, 524312, 0, 0, 524313, 0, 0, 524314, 0, 0, 524315, 1, 0, 524316, 0, 0, 524317, 1, 0, 524318, 0, 0, 524319, 1, 0, 524320, 0, 0, 524321, 1, 0, 524322, 1, 0, 524323, 1, 0, 655359, 1, 0, 589824, 1, 0, 589825, 1, 0, 589826, 1, 0, 589827, 0, 0, 589828, 0, 0, 589829, 1, 0, 589830, 0, 0, 589831, 1, 0, 589832, 1, 0, 589833, 1, 0, 589834, 1, 0, 589835, 1, 0, 589836, 1, 0, 589837, 1, 0, 589838, 1, 0, 589839, 1, 0, 589840, 1, 0, 589841, 0, 0, 589842, 0, 0, 589843, 1, 0, 589844, 1, 0, 589845, 0, 0, 589846, 1, 0, 589847, 1, 0, 589848, 0, 0, 589849, 0, 0, 589850, 0, 0, 589851, 1, 0, 589852, 0, 0, 589853, 0, 0, 589854, 0, 0, 589855, 1, 0, 589856, 1, 0, 589857, 0, 0, 589858, 1, 0, 589859, 1, 0, 720895, 0, 0, 655360, 1, 0, 655361, 0, 0, 655362, -1610612736, 0, 655363, -1610612735, 0, 655364, 1, 0, 655365, -1610612736, 0, 655366, 1, 0, 655367, 0, 0, 655368, 1, 0, 655369, 1, 0, 655370, 1, 0, 655371, 0, 0, 655372, 0, 0, 655373, 0, 0, 655374, 1, 0, 655375, 0, 0, 655376, 0, 0, 655377, 1, 0, 655378, 1, 0, 655379, 1, 0, 655380, 0, 0, 655381, 0, 0, 655382, 1, 0, 655383, 0, 0, 655384, 0, 0, 655385, 0, 0, 655386, 0, 0, 655387, 0, 0, 655388, 0, 0, 655389, 0, 0, 655390, 1, 0, 655391, 0, 0, 655392, 0, 0, 655393, 1, 0, 655394, 1, 0, 655395, 0, 0, 786431, 1, 0, 720896, 1, 0, 720897, 0, 0, 720898, -1610612736, 0, 720899, -1610612735, 0, 720900, 0, 0, 720901, -1610612735, 0, 720902, 0, 0, 720903, 0, 0, 720904, 1, 0, 720905, 0, 0, 720906, 1, 0, 720907, 1, 0, 720908, 1, 0, 720909, 1, 0, 720910, 0, 0, 720911, 1, 0, 720912, 1, 0, 720913, 1, 0, 720914, 0, 0, 720915, 1, 0, 720916, 0, 0, 720917, 1, 0, 720918, 1, 0, 720919, 1, 0, 720920, 0, 0, 720921, 0, 0, 720922, 0, 0, 720923, 1, 0, 720924, 1, 0, 720925, 1, 0, 720926, 1, 0, 720927, 1, 0, 720928, 1, 0, 720929, 1, 0, 720930, 0, 0, 720931, 0, 0, 851967, 0, 0, 786432, 0, 0, 786433, 0, 0, 786434, -1610612736, 0, 786435, -1610612736, 0, 786436, 1, 0, 786437, 0, 0, 786438, 1, 0, 786439, 0, 0, 786440, 0, 0, 786441, 0, 0, 786442, 1, 0, 786443, 1, 0, 786444, 0, 0, 786445, 0, 0, 786446, 0, 0, 786447, 0, 0, 786448, 1, 0, 786449, 1, 0, 786450, 0, 0, 786451, 1, 0, 786452, 0, 0, 786453, 1, 0, 786454, 0, 0, 786455, 1, 0, 786456, 1, 0, 786457, 0, 0, 786458, 0, 0, 786459, 1, 0, 786460, 1, 0, 786461, 0, 0, 786462, 0, 0, 786463, 0, 0, 786464, 1, 0, 786465, 1, 0, 786466, 1, 0, 786467, 1, 0, 917503, 0, 0, 851968, 0, 0, 851969, 1, 0, 851970, -1610612736, 0, 851971, -1610612735, 0, 851972, 1, 0, 851973, 1, 0, 851974, 1, 0, 851975, 1, 0, 851976, 1, 0, 851977, 1, 0, 851978, 1, 0, 851979, 1, 0, 851980, 1, 0, 851981, 0, 0, 851982, 1, 0, 851983, 1, 0, 851984, 0, 0, 851985, 1, 0, 851986, 1, 0, 851987, 0, 0, 851988, 1, 0, 851989, 1, 0, 851990, 0, 0, 851991, 1, 0, 851992, 1, 0, 851993, 0, 0, 851994, 0, 0, 851995, 1, 0, 851996, 0, 0, 851997, 0, 0, 851998, 0, 0, 851999, 0, 0, 852000, 0, 0, 852001, 0, 0, 852002, 0, 0, 852003, 1, 0, 983039, 0, 0, 917504, 0, 0, 917505, 0, 0, 917506, -1610612736, 0, 917507, -1610612735, 0, 917508, 1, 0, 917509, 0, 0, 917510, -1610612736, 0, 917511, -1610612736, 0, 917512, -1610612735, 0, 917513, -1610612735, 0, 917514, -1610612736, 0, 917515, -1610612736, 0, 917516, -1610612735, 0, 917517, 1, 0, 917518, 0, 0, 917519, 0, 0, 917520, 1, 0, 917521, 0, 0, 917522, 1, 0, 917523, 1, 0, 917524, 0, 0, 917525, 1, 0, 917526, 1, 0, 917527, 0, 0, 917528, 1, 0, 917529, 0, 0, 917530, 0, 0, 917531, 1, 0, 917532, 1, 0, 917533, 1, 0, 917534, 0, 0, 917535, 0, 0, 917536, 1, 0, 917537, 1, 0, 917538, 1, 0, 917539, 1, 0, 1048575, 1, 0, 983040, 1, 0, 983041, 0, 0, 983042, -1610612736, 0, 983043, -1610612736, 0, 983044, 0, 0, 983045, 0, 0, 983046, -1610612736, 0, 983047, -1610612736, 0, 983048, -1610612736, 0, 983049, -1610612736, 0, 983050, -1610612736, 0, 983051, -1610612736, 0, 983052, -1610612736, 0, 983053, 1, 0, 983054, 0, 0, 983055, 1, 0, 983056, 1, 0, 983057, 1, 0, 983058, 0, 0, 983059, 1, 0, 983060, 1, 0, 983061, 1, 0, 983062, 0, 0, 983063, 0, 0, 983064, 1, 0, 983065, 0, 0, 983066, 0, 0, 983067, 1, 0, 983068, 0, 0, 983069, 1, 0, 983070, 1, 0, 983071, 1, 0, 983072, 1, 0, 983073, 1, 0, 983074, 1, 0, 983075, 0, 0, 1114111, 1, 0, 1048576, 1, 0, 1048577, 1, 0, 1048578, 0, 0, 1048579, 0, 0, 1048580, 1, 0, 1048581, 0, 0, 1048582, 1, 0, 1048583, 1, 0, 1048584, 1, 0, 1048585, 1, 0, 1048586, 0, 0, 1048587, 0, 0, 1048588, 1, 0, 1048589, 1, 0, 1048590, 1, 0, 1048591, 0, 0, 1048592, 0, 0, 1048593, 0, 0, 1048594, 1, 0, 1048595, 0, 0, 1048596, 1, 0, 1048597, 0, 0, 1048598, 0, 0, 1048599, 0, 0, 1048600, 1, 0, 1048601, 0, 0, 1048602, 0, 0, 1048603, 1, 0, 1048604, 0, 0, 1048605, 0, 0, 1048606, 0, 0, 1048607, 1, 0, 1048608, 1, 0, 1048609, 1, 0, 1048610, 1, 0, 1048611, 1, 0, 1179647, 1, 0, 1114112, 0, 0, 1114113, 0, 0, 1114114, 0, 0, 1114115, 0, 0, 1114116, 1, 0, 1114117, 0, 0, 1114118, 0, 0, 1114119, 0, 0, 1114120, 0, 0, 1114121, 0, 0, 1114122, 0, 0, 1114123, 0, 0, 1114124, 0, 0, 1114125, 0, 0, 1114126, 0, 0, 1114127, 0, 0, 1114128, 0, 0, 1114129, 0, 0, 1114130, 0, 0, 1114131, 0, 0, 1114132, 1, 0, 1114133, 0, 0, 1114134, 0, 0, 1114135, 1, 0, 1114136, 0, 0, 1114137, 1, 0, 1114138, 0, 0, 1114139, 1, 0, 1114140, 0, 0, 1114141, 1, 0, 1114142, 1, 0, 1114143, 0, 0, 1114144, 1, 0, 1114145, 0, 0, 1114146, 1, 0, 1114147, 1, 0, 1245183, 1, 0, 1179648, 0, 0, 1179649, 0, 0, 1179650, 0, 0, 1179651, 0, 0, 1179652, 1, 0, 1179653, 0, 0, 1179654, 0, 0, 1179655, 0, 0, 1179656, 0, 0, 1179657, 0, 0, 1179658, 0, 0, 1179659, 0, 0, 1179660, 0, 0, 1179661, 0, 0, 1179662, 0, 0, 1179663, 0, 0, 1179664, 0, 0, 1179665, 0, 0, 1179666, 0, 0, 1179667, 0, 0, 1179668, 0, 0, 1179669, 0, 0, 1179670, 0, 0, 1179671, 0, 0, 1179672, 0, 0, 1179673, 0, 0, 1179674, 0, 0, 1179675, 0, 0, 1179676, 0, 0, 1179677, 0, 0, 1179678, 1, 0, 1179679, 1, 0, 1179680, 0, 0, 1179681, 1, 0, 1179682, 1, 0, 1179683, 1, 0, 1310719, 0, 0, 1245184, 1, 0, 1245185, 1, 0, 1245186, 0, 0, 1245187, 0, 0, 1245188, 0, 0, 1245189, 1, 0, 1245190, 0, 0, 1245191, 0, 0, 1245192, 0, 0, 1245193, 0, 0, 1245194, 0, 0, 1245195, 0, 0, 1245196, 0, 0, 1245197, 0, 0, 1245198, 0, 0, 1245199, 0, 0, 1245200, 0, 0, 1245201, 0, 0, 1245202, 0, 0, 1245203, 0, 0, 1245204, 0, 0, 1245205, 0, 0, 1245206, 0, 0, 1245207, 0, 0, 1245208, 0, 0, 1245209, 0, 0, 1245210, 0, 0, 1245211, 0, 0, 1245212, 0, 0, 1245213, 0, 0, 1245214, 1, 0, 1245215, 1, 0, 1245216, 0, 0, 1245217, 0, 0, 1245218, 1, 0, 1245219, 0, 0, 1376255, 1, 0, 1310720, 1, 0, 1310721, 0, 0, 1310722, 0, 0, 1310723, 1, 0, 1310724, 0, 0, 1310725, 0, 0, 1310726, 0, 0, 1310727, 0, 0, 1310728, 0, 0, 1310729, 0, 0, 1310730, 0, 0, 1310731, 0, 0, 1310732, 0, 0, 1310733, 0, 0, 1310734, 0, 0, 1310735, 0, 0, 1310736, 0, 0, 1310737, 0, 0, 1310738, 0, 0, 1310739, 0, 0, 1310740, 0, 0, 1310741, 0, 0, 1310742, 0, 0, 1310743, 0, 0, 1310744, 0, 0, 1310745, 0, 0, 1310746, 0, 0, 1310747, 1, 0, 1310748, 1, 0, 1310749, 0, 0, 1310750, 0, 0, 1310751, 1, 0, 1310752, 0, 0, 1310753, 1, 0, 1310754, 0, 0, 1310755, 0, 0, 1441791, 0, 0, 1376256, 1, 0, 1376257, 1, 0, 1376258, 0, 0, 1376259, 0, 0, 1376260, 1, 0, 1376261, 0, 0, 1376262, 0, 0, 1376263, 0, 0, 1376264, 0, 0, 1376265, 0, 0, 1376266, 0, 0, 1376267, 0, 0, 1376268, 0, 0, 1376269, 0, 0, 1376270, 0, 0, 1376271, 0, 0, 1376272, 0, 0, 1376273, 0, 0, 1376274, 0, 0, 1376275, 0, 0, 1376276, 0, 0, 1376277, 0, 0, 1376278, 0, 0, 1376279, 0, 0, 1376280, 0, 0, 1376281, 0, 0, 1376282, 0, 0, 1376283, 1, 0, 1376284, 0, 0, 1376285, 0, 0, 1376286, 0, 0, 1376287, 0, 0, 1376288, 0, 0, 1376289, 1, 0, 1376290, 0, 0, 1376291, 1, 0, 1507327, 0, 0, 1441792, 1, 0, 1441793, 1, 0, 1441794, 0, 0, 1441795, 0, 0, 1441796, 0, 0, 1441797, 0, 0, 1441798, 0, 0, 1441799, 0, 0, 1441800, 0, 0, 1441801, 0, 0, 1441802, 0, 0, 1441803, 1, 0, 1441804, 1, 0, 1441805, 1, 0, 1441806, 1, 0, 1441807, 1, 0, 1441808, 1, 0, 1441809, 0, 0, 1441810, 0, 0, 1441811, 0, 0, 1441812, 0, 0, 1441813, 0, 0, 1441814, 0, 0, 1441815, 0, 0, 1441816, 0, 0, 1441817, 0, 0, 1441818, 0, 0, 1441819, 1, 0, 1441820, 0, 0, 1441821, 0, 0, 1441822, 0, 0, 1441823, 0, 0, 1441824, 0, 0, 1441825, 1, 0, 1441826, 1, 0, 1441827, 0, 0, 1572863, 0, 0, 1507328, 1, 0, 1507329, 1, 0, 1507330, 0, 0, 1507331, 0, 0, 1507332, 0, 0, 1507333, 0, 0, 1507334, 0, 0, 1507335, 0, 0, 1507336, 0, 0, 1507337, 0, 0, 1507338, 0, 0, 1507339, 0, 0, 1507340, 0, 0, 1507341, 0, 0, 1507342, 0, 0, 1507343, 0, 0, 1507344, 0, 0, 1507345, 0, 0, 1507346, 0, 0, 1507347, 0, 0, 1507348, 0, 0, 1507349, 0, 0, 1507350, 0, 0, 1507351, 0, 0, 1507352, 0, 0, 1507353, 0, 0, 1507354, 0, 0, 1507355, 0, 0, 1507356, 0, 0, 1507357, 0, 0, 1507358, 0, 0, 1507359, 1, 0, 1507360, 1, 0, 1507361, 1, 0, 1507362, 1, 0, 1507363, 1, 0, 1638399, 1, 0, 1572864, 0, 0, 1572865, 0, 0, 1572866, 0, 0, 1572867, 0, 0, 1572868, 0, 0, 1572869, 0, 0, 1572870, 0, 0, 1572871, 0, 0, 1572872, 0, 0, 1572873, 0, 0, 1572874, 0, 0, 1572875, 1, 0, 1572876, 0, 0, 1572877, 0, 0, 1572878, 0, 0, 1572879, 0, 0, 1572880, 0, 0, 1572881, 0, 0, 1572882, 0, 0, 1572883, 0, 0, 1572884, 0, 0, 1572885, 0, 0, 1572886, 0, 0, 1572887, 0, 0, 1572888, 0, 0, 1572889, 0, 0, 1572890, 0, 0, 1572891, 0, 0, 1572892, 1, 0, 1572893, 0, 0, 1572894, 0, 0, 1572895, 1, 0, 1572896, 0, 0, 1572897, 1, 0, 1572898, 1, 0, 1572899, 1, 0, 1703935, 1, 0, 1638400, 0, 0, 1638401, 1, 0, 1638402, 0, 0, 1638403, 0, 0, 1638404, 0, 0, 1638405, 0, 0, 1638406, 1, 0, 1638407, 0, 0, 1638408, 0, 0, 1638409, 1, 0, 1638410, 1, 0, 1638411, 0, 0, 1638412, 0, 0, 1638413, 0, 0, 1638414, 0, 0, 1638415, 0, 0, 1638416, 1, 0, 1638417, 0, 0, 1638418, 1, 0, 1638419, 1, 0, 1638420, 1, 0, 1638421, 1, 0, 1638422, 0, 0, 1638423, 1, 0, 1638424, 0, 0, 1638425, 0, 0, 1638426, 1, 0, 1638427, 0, 0, 1638428, 1, 0, 1638429, 1, 0, 1638430, 0, 0, 1638431, 0, 0, 1638432, 0, 0, 1638433, 1, 0, 1638434, 0, 0, 1638435, 1, 0, 1769471, 0, 0, 1703936, 1, 0, 1703937, 0, 0, 1703938, 0, 0, 1703939, 0, 0, 1703940, 0, 0, 1703941, 0, 0, 1703942, 0, 0, 1703943, 0, 0, 1703944, 0, 0, 1703945, 0, 0, 1703946, 0, 0, 1703947, 0, 0, 1703948, 0, 0, 1703949, 0, 0, 1703950, 0, 0, 1703951, 0, 0, 1703952, 0, 0, 1703953, 0, 0, 1703954, 0, 0, 1703955, 0, 0, 1703956, 0, 0, 1703957, 0, 0, 1703958, 0, 0, 1703959, 0, 0, 1703960, 0, 0, 1703961, 0, 0, 1703962, 0, 0, 1703963, 0, 0, 1703964, 0, 0, 1703965, 0, 0, 1703966, 0, 0, 1703967, 0, 0, 1703968, 0, 0, 1703969, 1, 0, 1703970, 1, 0, 1703971, 1, 0 )
+
+[node name="PlayerStartPositions" type="Node2D" parent="."]
+
+[node name="Player1" type="Position2D" parent="PlayerStartPositions"]
+position = Vector2( 1881, 1503.01 )
+rotation = 0.643801
+
+[node name="Player2" type="Position2D" parent="PlayerStartPositions"]
+position = Vector2( 2519, 1891.01 )
+rotation = -2.28443
+
+[node name="Player3" type="Position2D" parent="PlayerStartPositions"]
+position = Vector2( 2431, 1317.01 )
+rotation = 2.21715
+
+[node name="Player4" type="Position2D" parent="PlayerStartPositions"]
+position = Vector2( 2007, 2055.01 )
+rotation = -0.922228
+
+[node name="Objects" type="Node2D" parent="."]
+
+[node name="NorthWall" type="Node2D" parent="Objects"]
+position = Vector2( 1882, 1329.01 )
+
+[node name="SandbagBiege154" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 1027, -213 )
+rotation = -1.5708
+
+[node name="SandbagBiege155" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 1038, -156 )
+rotation = -1.5708
+
+[node name="SandbagBiege156" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 1035, -95.9999 )
+rotation = -1.5708
+
+[node name="SandbagBiege157" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 1037, -32.9999 )
+rotation = -1.5708
+
+[node name="SandbagBiege159" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 379, -306 )
+rotation = -1.5708
+
+[node name="SandbagBiege160" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 381, -243 )
+rotation = -1.5708
+
+[node name="SandbagBiege142" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 387, -370 )
+rotation = -1.42291
+
+[node name="SandbagBiege143" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 382, -179 )
+rotation = -1.5708
+
+[node name="SandbagBiege172" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 1424, -144 )
+rotation = -1.75319
+
+[node name="SandbagBiege173" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 1426, -82 )
+rotation = -1.6509
+
+[node name="SandbagBiege144" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 387, -119 )
+rotation = -1.5708
+
+[node name="SandbagBiege145" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 384, -55.9999 )
+rotation = -1.5708
+
+[node name="SandbagBiege170" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 1028, -343 )
+rotation = -1.5708
+
+[node name="SandbagBiege171" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 1029, -278 )
+rotation = -1.68119
+
+[node name="SandbagBiege134" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 4, -1.00003 )
+
+[node name="SandbagBiege135" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 240, -16 )
+
+[node name="SandbagBiege138" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 183, -13 )
+
+[node name="SandbagBiege136" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 358, -18 )
+rotation = -0.315443
+
+[node name="SandbagBiege158" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 297, -13 )
+rotation = -0.03896
+
+[node name="SandbagBiege139" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 67, -13 )
+
+[node name="SandbagBiege140" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 123, -13 )
+rotation = 0.165954
+scale = Vector2( 1, 1 )
+
+[node name="SandbagBiege141" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 601, -407 )
+
+[node name="SandbagBiege146" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 541, -420 )
+
+[node name="SandbagBiege147" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 484, -407 )
+
+[node name="SandbagBiege148" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 427, -402 )
+
+[node name="SandbagBiege149" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 1012, -400 )
+rotation = 0.402367
+
+[node name="SandbagBiege150" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 959, -418 )
+
+[node name="SandbagBiege151" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 902, -415 )
+
+[node name="SandbagBiege152" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 786, -415 )
+
+[node name="SandbagBiege153" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 842, -421 )
+rotation = -0.139493
+scale = Vector2( 1, 1 )
+
+[node name="SandbagBiege161" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 1236, -18 )
+
+[node name="SandbagBiege176" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 1179, -15 )
+
+[node name="SandbagBiege177" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 1129, -18 )
+rotation = -0.139493
+scale = Vector2( 1, 1 )
+
+[node name="SandbagBiege166" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 1409, -270 )
+rotation = -1.5708
+
+[node name="SandbagBiege167" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 1415, -207 )
+rotation = -1.5708
+
+[node name="SandbagBiege168" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 1421, -330 )
+rotation = -1.46672
+
+[node name="SandbagBiege169" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 1435, -387 )
+rotation = -1.56409
+
+[node name="SandbagBiege162" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 1081, -13.9999 )
+
+[node name="SandbagBiege163" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 1284, -21 )
+
+[node name="SandbagBiege164" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 1349, -21 )
+
+[node name="SandbagBiege174" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 665, -411 )
+
+[node name="SandbagBiege175" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 730, -408 )
+
+[node name="SandbagBiege165" parent="Objects/NorthWall" instance=ExtResource( 5 )]
+position = Vector2( 1409, -27.0001 )
+rotation = -0.440652
+
+[node name="EastWall" type="Node2D" parent="Objects"]
+position = Vector2( 2574, 1322.01 )
+rotation = 1.59953
+
+[node name="SandbagBiege154" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 1027, -213 )
+rotation = -1.5708
+
+[node name="SandbagBiege155" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 1038, -156 )
+rotation = -1.5708
+
+[node name="SandbagBiege156" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 1035, -95.9999 )
+rotation = -1.5708
+
+[node name="SandbagBiege157" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 1037, -32.9999 )
+rotation = -1.5708
+
+[node name="SandbagBiege159" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 379, -306 )
+rotation = -1.5708
+
+[node name="SandbagBiege160" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 381, -243 )
+rotation = -1.5708
+
+[node name="SandbagBiege142" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 387, -370 )
+rotation = -1.42291
+
+[node name="SandbagBiege143" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 382, -179 )
+rotation = -1.5708
+
+[node name="SandbagBiege172" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 1424, -144 )
+rotation = -1.75319
+
+[node name="SandbagBiege173" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 1426, -82 )
+rotation = -1.6509
+
+[node name="SandbagBiege144" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 387, -119 )
+rotation = -1.5708
+
+[node name="SandbagBiege145" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 384, -55.9999 )
+rotation = -1.5708
+
+[node name="SandbagBiege170" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 1028, -343 )
+rotation = -1.5708
+
+[node name="SandbagBiege171" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 1029, -278 )
+rotation = -1.68119
+
+[node name="SandbagBiege134" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 4, -1.00003 )
+
+[node name="SandbagBiege135" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 240, -16 )
+
+[node name="SandbagBiege138" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 183, -13 )
+
+[node name="SandbagBiege136" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 358, -18 )
+rotation = -0.315443
+
+[node name="SandbagBiege158" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 297, -13 )
+rotation = -0.03896
+
+[node name="SandbagBiege139" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 67, -13 )
+
+[node name="SandbagBiege140" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 123, -13 )
+rotation = 0.165954
+scale = Vector2( 1, 1 )
+
+[node name="SandbagBiege141" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 601, -407 )
+
+[node name="SandbagBiege146" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 541, -420 )
+
+[node name="SandbagBiege147" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 484, -407 )
+
+[node name="SandbagBiege148" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 427, -402 )
+
+[node name="SandbagBiege149" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 1012, -400 )
+rotation = 0.402367
+
+[node name="SandbagBiege150" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 959, -418 )
+
+[node name="SandbagBiege151" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 902, -415 )
+
+[node name="SandbagBiege152" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 786, -415 )
+
+[node name="SandbagBiege153" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 842, -421 )
+rotation = -0.139493
+scale = Vector2( 1, 1 )
+
+[node name="SandbagBiege161" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 1236, -18 )
+
+[node name="SandbagBiege176" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 1179, -15 )
+
+[node name="SandbagBiege177" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 1129, -18 )
+rotation = -0.139493
+scale = Vector2( 1, 1 )
+
+[node name="SandbagBiege166" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 1409, -270 )
+rotation = -1.5708
+
+[node name="SandbagBiege167" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 1415, -207 )
+rotation = -1.5708
+
+[node name="SandbagBiege168" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 1421, -330 )
+rotation = -1.46672
+
+[node name="SandbagBiege169" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 1435, -387 )
+rotation = -1.56409
+
+[node name="SandbagBiege162" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 1081, -13.9999 )
+
+[node name="SandbagBiege163" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 1284, -21 )
+
+[node name="SandbagBiege164" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 1349, -21 )
+
+[node name="SandbagBiege174" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 665, -411 )
+
+[node name="SandbagBiege175" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 730, -408 )
+
+[node name="SandbagBiege165" parent="Objects/EastWall" instance=ExtResource( 5 )]
+position = Vector2( 1409, -27.0001 )
+rotation = -0.440652
+
+[node name="SouthWall" type="Node2D" parent="Objects"]
+position = Vector2( 2558, 2057 )
+rotation = 3.1604
+
+[node name="SandbagBiege154" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 1027, -213 )
+rotation = -1.5708
+
+[node name="SandbagBiege155" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 1038, -156 )
+rotation = -1.5708
+
+[node name="SandbagBiege156" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 1035, -95.9999 )
+rotation = -1.5708
+
+[node name="SandbagBiege157" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 1037, -32.9999 )
+rotation = -1.5708
+
+[node name="SandbagBiege159" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 379, -306 )
+rotation = -1.5708
+
+[node name="SandbagBiege160" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 381, -243 )
+rotation = -1.5708
+
+[node name="SandbagBiege142" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 387, -370 )
+rotation = -1.42291
+
+[node name="SandbagBiege143" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 382, -179 )
+rotation = -1.5708
+
+[node name="SandbagBiege172" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 1424, -144 )
+rotation = -1.75319
+
+[node name="SandbagBiege173" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 1426, -82 )
+rotation = -1.6509
+
+[node name="SandbagBiege144" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 387, -119 )
+rotation = -1.5708
+
+[node name="SandbagBiege145" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 384, -55.9999 )
+rotation = -1.5708
+
+[node name="SandbagBiege170" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 1028, -343 )
+rotation = -1.5708
+
+[node name="SandbagBiege171" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 1029, -278 )
+rotation = -1.68119
+
+[node name="SandbagBiege134" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 4, -1.00003 )
+
+[node name="SandbagBiege135" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 240, -16 )
+
+[node name="SandbagBiege138" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 183, -13 )
+
+[node name="SandbagBiege136" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 358, -18 )
+rotation = -0.315443
+
+[node name="SandbagBiege158" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 297, -13 )
+rotation = -0.03896
+
+[node name="SandbagBiege139" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 67, -13 )
+
+[node name="SandbagBiege140" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 123, -13 )
+rotation = 0.165954
+scale = Vector2( 1, 1 )
+
+[node name="SandbagBiege141" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 601, -407 )
+
+[node name="SandbagBiege146" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 541, -420 )
+
+[node name="SandbagBiege147" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 484, -407 )
+
+[node name="SandbagBiege148" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 427, -402 )
+
+[node name="SandbagBiege149" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 1012, -400 )
+rotation = 0.402367
+
+[node name="SandbagBiege150" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 959, -418 )
+
+[node name="SandbagBiege151" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 902, -415 )
+
+[node name="SandbagBiege152" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 786, -415 )
+
+[node name="SandbagBiege153" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 842, -421 )
+rotation = -0.139493
+scale = Vector2( 1, 1 )
+
+[node name="SandbagBiege161" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 1236, -18 )
+
+[node name="SandbagBiege176" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 1179, -15 )
+
+[node name="SandbagBiege177" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 1129, -18 )
+rotation = -0.139493
+scale = Vector2( 1, 1 )
+
+[node name="SandbagBiege166" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 1409, -270 )
+rotation = -1.5708
+
+[node name="SandbagBiege167" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 1415, -207 )
+rotation = -1.5708
+
+[node name="SandbagBiege168" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 1421, -330 )
+rotation = -1.46672
+
+[node name="SandbagBiege169" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 1435, -387 )
+rotation = -1.56409
+
+[node name="SandbagBiege162" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 1081, -13.9999 )
+
+[node name="SandbagBiege163" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 1284, -21 )
+
+[node name="SandbagBiege164" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 1349, -21 )
+
+[node name="SandbagBiege174" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 665, -411 )
+
+[node name="SandbagBiege175" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 730, -408 )
+
+[node name="SandbagBiege165" parent="Objects/SouthWall" instance=ExtResource( 5 )]
+position = Vector2( 1409, -27.0001 )
+rotation = -0.440652
+
+[node name="WestWall" type="Node2D" parent="Objects"]
+position = Vector2( 1838, 2056.01 )
+rotation = 4.73535
+
+[node name="SandbagBiege154" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 1027, -213 )
+rotation = -1.5708
+
+[node name="SandbagBiege155" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 1038, -156 )
+rotation = -1.5708
+
+[node name="SandbagBiege156" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 1035, -95.9999 )
+rotation = -1.5708
+
+[node name="SandbagBiege157" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 1037, -32.9999 )
+rotation = -1.5708
+
+[node name="SandbagBiege159" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 379, -306 )
+rotation = -1.5708
+
+[node name="SandbagBiege160" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 381, -243 )
+rotation = -1.5708
+
+[node name="SandbagBiege142" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 387, -370 )
+rotation = -1.42291
+
+[node name="SandbagBiege143" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 382, -179 )
+rotation = -1.5708
+
+[node name="SandbagBiege172" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 1424, -144 )
+rotation = -1.75319
+
+[node name="SandbagBiege173" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 1426, -82 )
+rotation = -1.6509
+
+[node name="SandbagBiege144" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 387, -119 )
+rotation = -1.5708
+
+[node name="SandbagBiege145" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 384, -55.9999 )
+rotation = -1.5708
+
+[node name="SandbagBiege170" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 1028, -343 )
+rotation = -1.5708
+
+[node name="SandbagBiege171" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 1029, -278 )
+rotation = -1.68119
+
+[node name="SandbagBiege134" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 4, -1.00003 )
+
+[node name="SandbagBiege135" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 240, -16 )
+
+[node name="SandbagBiege138" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 183, -13 )
+
+[node name="SandbagBiege136" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 358, -18 )
+rotation = -0.315443
+
+[node name="SandbagBiege158" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 297, -13 )
+rotation = -0.03896
+
+[node name="SandbagBiege139" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 67, -13 )
+
+[node name="SandbagBiege140" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 123, -13 )
+rotation = 0.165954
+scale = Vector2( 1, 1 )
+
+[node name="SandbagBiege141" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 601, -407 )
+
+[node name="SandbagBiege146" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 541, -420 )
+
+[node name="SandbagBiege147" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 484, -407 )
+
+[node name="SandbagBiege148" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 427, -402 )
+
+[node name="SandbagBiege149" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 1012, -400 )
+rotation = 0.402367
+
+[node name="SandbagBiege150" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 959, -418 )
+
+[node name="SandbagBiege151" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 902, -415 )
+
+[node name="SandbagBiege152" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 786, -415 )
+
+[node name="SandbagBiege153" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 842, -421 )
+rotation = -0.139493
+scale = Vector2( 1, 1 )
+
+[node name="SandbagBiege161" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 1236, -18 )
+
+[node name="SandbagBiege176" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 1179, -15 )
+
+[node name="SandbagBiege177" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 1129, -18 )
+rotation = -0.139493
+scale = Vector2( 1, 1 )
+
+[node name="SandbagBiege166" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 1409, -270 )
+rotation = -1.5708
+
+[node name="SandbagBiege167" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 1415, -207 )
+rotation = -1.5708
+
+[node name="SandbagBiege168" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 1421, -330 )
+rotation = -1.46672
+
+[node name="SandbagBiege169" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 1435, -387 )
+rotation = -1.56409
+
+[node name="SandbagBiege162" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 1081, -13.9999 )
+
+[node name="SandbagBiege163" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 1284, -21 )
+
+[node name="SandbagBiege164" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 1349, -21 )
+
+[node name="SandbagBiege174" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 665, -411 )
+
+[node name="SandbagBiege175" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 730, -408 )
+
+[node name="SandbagBiege165" parent="Objects/WestWall" instance=ExtResource( 5 )]
+position = Vector2( 1409, -27.0001 )
+rotation = -0.440652
+
+[node name="Border" type="Node2D" parent="Objects"]
+position = Vector2( 376, 248 )
+
+[node name="TreeBig" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 575, 712 )
+
+[node name="TreeBig2" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 546, 862 )
+
+[node name="TreeBig3" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 581, 982 )
+
+[node name="TreeBig4" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 528, 1180 )
+
+[node name="TreeBig5" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 573, 1319 )
+
+[node name="TreeBig6" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 418, 1300 )
+
+[node name="TreeBig7" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 236, 1345 )
+
+[node name="TreeBig8" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 172, 1523 )
+
+[node name="TreeBig9" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 183, 1676 )
+
+[node name="TreeBig10" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 212, 2984 )
+
+[node name="TreeBig16" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 370, 3021 )
+
+[node name="TreeBig17" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 576, 3000 )
+
+[node name="TreeBig18" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 867, 3032 )
+
+[node name="TreeBig19" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1078, 2971 )
+
+[node name="TreeBig20" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1081, 2613 )
+
+[node name="TreeBig21" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1724, 2632 )
+
+[node name="TreeBig22" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1278, 2627 )
+
+[node name="TreeBig23" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1604, 2611 )
+
+[node name="TreeBig24" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1743, 2990 )
+
+[node name="TreeBig25" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1714, 2835 )
+
+[node name="TreeBig26" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1968, 2990 )
+
+[node name="TreeBig27" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 2147, 3030 )
+
+[node name="TreeBig28" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 2358, 2998 )
+
+[node name="TreeBig29" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 2662, 3027 )
+
+[node name="TreeBig30" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 2779, 2987 )
+
+[node name="TreeBig31" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3054, 3024 )
+
+[node name="TreeBig32" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3286, 3000 )
+
+[node name="TreeBig33" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3494, 2989 )
+
+[node name="TreeBig34" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3526, 2741 )
+
+[node name="TreeBig35" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3507, 2557 )
+
+[node name="TreeBig36" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3520, 2359 )
+
+[node name="TreeBig37" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3512, 2124 )
+
+[node name="TreeBig38" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3309, 2113 )
+
+[node name="TreeBig39" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3125, 2129 )
+
+[node name="TreeBig40" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3136, 1470 )
+
+[node name="TreeBig41" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3136, 1676 )
+
+[node name="TreeBig42" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3197, 1791 )
+
+[node name="TreeBig43" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3205, 1946 )
+
+[node name="TreeBig44" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3507, 1455 )
+
+[node name="TreeBig45" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3349, 1455 )
+
+[node name="TreeBig46" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3560, 1340 )
+
+[node name="TreeBig47" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3525, 1164 )
+
+[node name="TreeBig48" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3538, 956 )
+
+[node name="TreeBig49" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3511, 742 )
+
+[node name="TreeBig50" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3551, 478 )
+
+[node name="TreeBig51" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3506, 363 )
+
+[node name="TreeBig52" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3509, -179 )
+
+[node name="TreeBig53" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 2633, -171 )
+
+[node name="TreeBig54" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 2621, 181 )
+
+[node name="TreeBig55" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1993, 185 )
+
+[node name="TreeBig56" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1977, -179 )
+
+[node name="TreeBig57" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 205, -179 )
+
+[node name="TreeBig58" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 197, 697 )
+
+[node name="TreeBig59" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 313, 689 )
+
+[node name="TreeBig60" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 161, 501 )
+
+[node name="TreeBig61" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 165, 329 )
+
+[node name="TreeBig62" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 173, 57 )
+
+[node name="TreeBig63" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 389, -210 )
+
+[node name="TreeBig64" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 656, -185 )
+
+[node name="TreeBig65" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 929, -210 )
+
+[node name="TreeBig66" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1234, -254 )
+
+[node name="TreeBig67" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1488, -203 )
+
+[node name="TreeBig68" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1761, -235 )
+
+[node name="TreeBig69" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 2009, -64 )
+
+[node name="TreeBig70" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 2238, 165 )
+
+[node name="TreeBig71" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 2562, -13 )
+
+[node name="TreeBig72" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 2848, -229 )
+
+[node name="TreeBig73" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3140, -210 )
+
+[node name="TreeBig74" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3553, -70 )
+
+[node name="TreeBig75" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3515, 120 )
+
+[node name="TreeBig76" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 2518, 145 )
+
+[node name="TreeBig77" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1127, 2805 )
+
+[node name="TreeBig11" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 162, 2011 )
+
+[node name="TreeBig12" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 180, 2136 )
+
+[node name="TreeBig13" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 144, 2282 )
+
+[node name="TreeBig14" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 162, 2507 )
+
+[node name="TreeBig15" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 223, 2721 )
+
+[node name="TreeSmall" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 599, 1094 )
+
+[node name="TreeSmall14" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 481, 2978 )
+
+[node name="TreeSmall15" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 693, 2977 )
+
+[node name="TreeSmall16" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 753, 3022 )
+
+[node name="TreeSmall17" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 793, 2944 )
+
+[node name="TreeSmall18" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 954, 2972 )
+
+[node name="TreeSmall19" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1012, 3055 )
+
+[node name="TreeSmall20" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1130, 2886 )
+
+[node name="TreeSmall21" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1090, 2710 )
+
+[node name="TreeSmall22" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1052, 2758 )
+
+[node name="TreeSmall23" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1178, 2607 )
+
+[node name="TreeSmall24" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1405, 2610 )
+
+[node name="TreeSmall25" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1405, 2610 )
+
+[node name="TreeSmall26" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1463, 2577 )
+
+[node name="TreeSmall27" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1463, 2637 )
+
+[node name="TreeSmall28" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1750, 2738 )
+
+[node name="TreeSmall29" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1876, 2960 )
+
+[node name="TreeSmall30" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1841, 3015 )
+
+[node name="TreeSmall31" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2239, 2975 )
+
+[node name="TreeSmall32" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2478, 2970 )
+
+[node name="TreeSmall33" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2538, 2947 )
+
+[node name="TreeSmall34" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2533, 3005 )
+
+[node name="TreeSmall35" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2465, 3053 )
+
+[node name="TreeSmall36" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2911, 2990 )
+
+[node name="TreeSmall37" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3143, 3030 )
+
+[node name="TreeSmall38" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3193, 2982 )
+
+[node name="TreeSmall39" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3369, 2990 )
+
+[node name="TreeSmall40" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3508, 2884 )
+
+[node name="TreeSmall41" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3563, 2864 )
+
+[node name="TreeSmall42" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3477, 2640 )
+
+[node name="TreeSmall43" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3492, 2443 )
+
+[node name="TreeSmall44" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3542, 2473 )
+
+[node name="TreeSmall45" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3502, 2224 )
+
+[node name="TreeSmall46" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3537, 2272 )
+
+[node name="TreeSmall47" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3144, 2020 )
+
+[node name="TreeSmall48" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3396, 2136 )
+
+[node name="TreeSmall49" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3414, 2050 )
+
+[node name="TreeSmall50" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3225, 2078 )
+
+[node name="TreeSmall51" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3096, 1884 )
+
+[node name="TreeSmall52" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3116, 1829 )
+
+[node name="TreeSmall53" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3156, 1587 )
+
+[node name="TreeSmall54" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3222, 1461 )
+
+[node name="TreeSmall55" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3270, 1494 )
+
+[node name="TreeSmall56" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3499, 1267 )
+
+[node name="TreeSmall57" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3428, 1421 )
+
+[node name="TreeSmall58" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3524, 1083 )
+
+[node name="TreeSmall59" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3547, 1035 )
+
+[node name="TreeSmall60" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3502, 881 )
+
+[node name="TreeSmall61" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3505, 631 )
+
+[node name="TreeSmall62" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3550, 603 )
+
+[node name="TreeSmall63" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3449, 600 )
+
+[node name="TreeSmall64" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3479, 444 )
+
+[node name="TreeSmall65" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3550, 288 )
+
+[node name="TreeBig84" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 360, 1122 )
+
+[node name="TreeBig85" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 315, 1007 )
+
+[node name="TreeSmall114" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 314, 1275 )
+
+[node name="TreeSmall115" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 359, 1247 )
+
+[node name="TreeSmall116" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 258, 1244 )
+
+[node name="TreeSmall117" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 288, 1088 )
+
+[node name="TreeSmall118" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 359, 932 )
+
+[node name="TreeBig86" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3538, 1838 )
+
+[node name="TreeBig87" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3493, 1723 )
+
+[node name="TreeSmall119" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3492, 1991 )
+
+[node name="TreeSmall120" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3537, 1963 )
+
+[node name="TreeSmall121" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3436, 1960 )
+
+[node name="TreeSmall122" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3466, 1804 )
+
+[node name="TreeSmall123" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3537, 1648 )
+
+[node name="TreeBig88" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 2237, -107 )
+
+[node name="TreeBig89" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 2192, -222 )
+
+[node name="TreeSmall124" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2191, 46 )
+
+[node name="TreeSmall125" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2236, 18 )
+
+[node name="TreeSmall126" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2135, 15 )
+
+[node name="TreeSmall127" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2165, -141 )
+
+[node name="TreeSmall128" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2236, -297 )
+
+[node name="TreeBig90" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1486, 2915 )
+
+[node name="TreeBig91" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1441, 2800 )
+
+[node name="TreeSmall129" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1440, 3068 )
+
+[node name="TreeSmall130" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1485, 3040 )
+
+[node name="TreeSmall131" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1384, 3037 )
+
+[node name="TreeSmall132" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1414, 2881 )
+
+[node name="TreeSmall133" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1485, 2725 )
+
+[node name="TreeSmall66" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3479, 235 )
+
+[node name="TreeSmall67" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3484, -7 )
+
+[node name="TreeSmall68" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3542, 13 )
+
+[node name="TreeSmall69" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3434, -181 )
+
+[node name="TreeSmall70" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3328, -151 )
+
+[node name="TreeSmall71" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3280, -189 )
+
+[node name="TreeSmall72" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3335, -212 )
+
+[node name="TreeSmall73" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3063, -184 )
+
+[node name="TreeSmall74" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2922, -280 )
+
+[node name="TreeSmall134" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2494, -255 )
+
+[node name="TreeSmall135" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2536, -221 )
+
+[node name="TreeSmall136" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1142, -361 )
+
+[node name="TreeSmall137" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 650, -369 )
+
+[node name="TreeSmall138" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 391, -335 )
+
+[node name="TreeSmall139" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 27, -115 )
+
+[node name="TreeSmall140" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 35, -56 )
+
+[node name="TreeSmall141" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -151, -204 )
+
+[node name="TreeSmall142" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -278, 8 )
+
+[node name="TreeSmall143" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -316, -39 )
+
+[node name="TreeSmall144" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -413, -132 )
+
+[node name="TreeSmall145" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -290, 228 )
+
+[node name="TreeSmall146" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -150, 169 )
+
+[node name="TreeSmall147" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -6, 360 )
+
+[node name="TreeSmall148" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2, 292 )
+
+[node name="TreeSmall149" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -151, 419 )
+
+[node name="TreeSmall150" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -426, 444 )
+
+[node name="TreeSmall151" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -303, 622 )
+
+[node name="TreeSmall152" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -239, 588 )
+
+[node name="TreeSmall153" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -243, 639 )
+
+[node name="TreeSmall154" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -48, 635 )
+
+[node name="TreeSmall155" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -290, 826 )
+
+[node name="TreeSmall156" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -53, 822 )
+
+[node name="TreeSmall157" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 146, 847 )
+
+[node name="TreeSmall158" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 125, 906 )
+
+[node name="TreeSmall159" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 405, 851 )
+
+[node name="TreeSmall160" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -2, 1050 )
+
+[node name="TreeSmall161" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 36, 1012 )
+
+[node name="TreeSmall162" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -210, 1143 )
+
+[node name="TreeSmall163" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -214, 961 )
+
+[node name="TreeSmall164" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -460, 825 )
+
+[node name="TreeSmall165" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -494, 876 )
+
+[node name="TreeSmall166" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -354, 1075 )
+
+[node name="TreeSmall167" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2083, -184 )
+
+[node name="TreeSmall168" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2125, -341 )
+
+[node name="TreeSmall169" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2231, -383 )
+
+[node name="TreeSmall170" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -494, 1359 )
+
+[node name="TreeSmall171" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -490, 1431 )
+
+[node name="TreeSmall172" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -244, 1291 )
+
+[node name="TreeSmall173" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -176, 1257 )
+
+[node name="TreeSmall174" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 78, 1346 )
+
+[node name="TreeSmall175" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 125, 1304 )
+
+[node name="TreeSmall176" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 197, 1160 )
+
+[node name="TreeSmall177" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -367, 1529 )
+
+[node name="TreeSmall178" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -308, 1495 )
+
+[node name="TreeSmall179" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -287, 1563 )
+
+[node name="TreeSmall180" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -156, 1516 )
+
+[node name="TreeSmall181" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -224, 1669 )
+
+[node name="TreeSmall182" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -67, 1661 )
+
+[node name="TreeSmall183" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -131, 1742 )
+
+[node name="TreeSmall200" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -461, 2648 )
+
+[node name="TreeSmall201" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -304, 2640 )
+
+[node name="TreeSmall202" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -368, 2721 )
+
+[node name="TreeSmall203" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -296, 3101 )
+
+[node name="TreeSmall204" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -139, 3093 )
+
+[node name="TreeSmall205" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -203, 3174 )
+
+[node name="TreeSmall206" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 149, 3067 )
+
+[node name="TreeSmall207" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 306, 3059 )
+
+[node name="TreeSmall208" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 242, 3140 )
+
+[node name="TreeSmall209" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1598, 3143 )
+
+[node name="TreeSmall210" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1755, 3135 )
+
+[node name="TreeSmall211" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1691, 3216 )
+
+[node name="TreeSmall212" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2018, 3084 )
+
+[node name="TreeSmall213" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2175, 3076 )
+
+[node name="TreeSmall214" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2111, 3157 )
+
+[node name="TreeSmall215" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2336, 3131 )
+
+[node name="TreeSmall216" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2493, 3123 )
+
+[node name="TreeSmall217" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2429, 3204 )
+
+[node name="TreeSmall218" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2726, 3072 )
+
+[node name="TreeSmall219" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2883, 3064 )
+
+[node name="TreeSmall224" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -402, 3001 )
+
+[node name="TreeSmall225" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 132, 2721 )
+
+[node name="TreeSmall226" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -29, 2916 )
+
+[node name="TreeSmall227" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 52, 2285 )
+
+[node name="TreeSmall228" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -414, 1967 )
+
+[node name="TreeSmall229" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -253, 2925 )
+
+[node name="TreeSmall230" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2832, -338 )
+
+[node name="TreeSmall231" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3141, -363 )
+
+[node name="TreeSmall232" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3476, -363 )
+
+[node name="TreeSmall220" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2819, 3145 )
+
+[node name="TreeSmall221" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3162, 3123 )
+
+[node name="TreeSmall222" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3319, 3115 )
+
+[node name="TreeSmall223" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3255, 3196 )
+
+[node name="TreeSmall184" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -84, 1789 )
+
+[node name="TreeSmall185" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -266, 1895 )
+
+[node name="TreeSmall186" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -266, 1895 )
+
+[node name="TreeSmall187" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -228, 2094 )
+
+[node name="TreeSmall195" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -335, 2149 )
+
+[node name="TreeSmall196" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -288, 2196 )
+
+[node name="TreeSmall197" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -470, 2302 )
+
+[node name="TreeSmall198" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -470, 2302 )
+
+[node name="TreeSmall199" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -432, 2501 )
+
+[node name="TreeSmall188" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -177, 1988 )
+
+[node name="TreeSmall189" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 14, 2158 )
+
+[node name="TreeSmall190" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -134, 2340 )
+
+[node name="TreeSmall191" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -248, 2493 )
+
+[node name="TreeSmall192" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -40, 2557 )
+
+[node name="TreeSmall193" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -226, 2714 )
+
+[node name="TreeSmall194" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( -175, 2756 )
+
+[node name="TreeSmall75" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2925, -222 )
+
+[node name="TreeSmall76" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2749, -179 )
+
+[node name="TreeSmall77" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2595, 96 )
+
+[node name="TreeSmall78" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2618, -80 )
+
+[node name="TreeSmall79" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2671, 31 )
+
+[node name="TreeSmall80" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2396, 157 )
+
+[node name="TreeSmall81" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2351, 195 )
+
+[node name="TreeSmall82" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2348, 145 )
+
+[node name="TreeSmall83" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2159, 142 )
+
+[node name="TreeSmall84" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2078, 213 )
+
+[node name="TreeSmall85" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1985, 72 )
+
+[node name="TreeSmall86" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2030, 32 )
+
+[node name="TreeSmall87" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1901, -149 )
+
+[node name="TreeSmall88" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1659, -142 )
+
+[node name="TreeSmall89" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1606, -180 )
+
+[node name="TreeSmall90" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1283, -175 )
+
+[node name="TreeSmall91" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1223, -178 )
+
+[node name="TreeSmall92" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1170, -201 )
+
+[node name="TreeSmall93" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1054, -168 )
+
+[node name="TreeSmall94" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 764, -160 )
+
+[node name="TreeSmall95" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 802, -241 )
+
+[node name="TreeSmall96" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 510, -163 )
+
+[node name="TreeSmall97" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 525, -221 )
+
+[node name="TreeSmall98" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 296, -153 )
+
+[node name="TreeSmall99" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 215, -22 )
+
+[node name="TreeSmall100" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 134, -88 )
+
+[node name="TreeSmall101" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 172, 194 )
+
+[node name="TreeSmall102" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 220, 219 )
+
+[node name="TreeSmall103" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 230, 567 )
+
+[node name="TreeSmall104" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 137, 622 )
+
+[node name="TreeSmall105" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 394, 715 )
+
+[node name="TreeSmall106" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 492, 665 )
+
+[node name="TreeSmall107" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 487, 796 )
+
+[node name="TreeSmall2" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 495, 1050 )
+
+[node name="TreeBig78" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3305, 1680 )
+
+[node name="TreeBig79" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3340, 1800 )
+
+[node name="TreeSmall108" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3358, 1912 )
+
+[node name="TreeSmall109" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3254, 1868 )
+
+[node name="TreeBig80" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 2407, -163 )
+
+[node name="TreeBig92" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 2301, -184 )
+
+[node name="TreeBig93" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 2712, -303 )
+
+[node name="TreeBig94" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3021, -295 )
+
+[node name="TreeBig95" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3246, -282 )
+
+[node name="TreeBig96" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3390, -333 )
+
+[node name="TreeBig97" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3496, -278 )
+
+[node name="TreeBig98" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1072, -274 )
+
+[node name="TreeBig99" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 521, -342 )
+
+[node name="TreeBig100" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 716, -329 )
+
+[node name="TreeBig101" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1369, -329 )
+
+[node name="TreeBig102" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 2009, -321 )
+
+[node name="TreeBig103" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1852, -338 )
+
+[node name="TreeBig104" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1657, -296 )
+
+[node name="TreeBig105" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1547, -330 )
+
+[node name="TreeBig106" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 894, -343 )
+
+[node name="TreeBig107" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 275, -318 )
+
+[node name="TreeBig108" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 67, -233 )
+
+[node name="TreeBig109" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 139, -335 )
+
+[node name="TreeBig110" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 283, 839 )
+
+[node name="TreeBig111" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 169, 1013 )
+
+[node name="TreeBig112" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 80, 1174 )
+
+[node name="TreeBig113" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -9, 903 )
+
+[node name="TreeBig114" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 25, 742 )
+
+[node name="TreeBig115" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -123, 1183 )
+
+[node name="TreeBig116" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -110, 1022 )
+
+[node name="TreeBig117" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -144, 789 )
+
+[node name="TreeBig118" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -34, 1272 )
+
+[node name="TreeBig119" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -17, 1463 )
+
+[node name="TreeBig120" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 34, 1573 )
+
+[node name="TreeBig121" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -148, 1624 )
+
+[node name="TreeBig122" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -173, 1433 )
+
+[node name="TreeBig123" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -321, 1196 )
+
+[node name="TreeBig124" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -287, 954 )
+
+[node name="TreeBig125" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -351, 763 )
+
+[node name="TreeBig126" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -160, 555 )
+
+[node name="TreeBig127" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -270, 364 )
+
+[node name="TreeBig128" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -79, 309 )
+
+[node name="TreeBig129" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 23, 479 )
+
+[node name="TreeBig130" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -28, 123 )
+
+[node name="TreeBig131" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -159, 38 )
+
+[node name="TreeBig132" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -265, 144 )
+
+[node name="TreeBig133" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -87, -76 )
+
+[node name="TreeBig134" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -282, -148 )
+
+[node name="TreeBig135" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -430, 47 )
+
+[node name="TreeBig136" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -400, 259 )
+
+[node name="TreeBig137" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -375, 509 )
+
+[node name="TreeBig138" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -358, 1395 )
+
+[node name="TreeBig139" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -341, 1666 )
+
+[node name="TreeBig140" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -222, 1840 )
+
+[node name="TreeBig141" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -2, 1755 )
+
+[node name="TreeBig142" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 2, 1929 )
+
+[node name="TreeBig143" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -45, 2077 )
+
+[node name="TreeBig144" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -223, 2361 )
+
+[node name="TreeBig145" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -210, 2179 )
+
+[node name="TreeBig146" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -312, 2065 )
+
+[node name="TreeBig147" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -384, 1857 )
+
+[node name="TreeBig148" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -36, 2268 )
+
+[node name="TreeBig149" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 11, 2421 )
+
+[node name="TreeBig150" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -116, 2518 )
+
+[node name="TreeBig151" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -385, 2236 )
+
+[node name="TreeBig152" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -385, 2422 )
+
+[node name="TreeBig153" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -304, 2566 )
+
+[node name="TreeBig154" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 60, 2659 )
+
+[node name="TreeBig155" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -71, 2744 )
+
+[node name="TreeBig156" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -253, 2808 )
+
+[node name="TreeBig157" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -113, 2905 )
+
+[node name="TreeBig158" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 65, 2846 )
+
+[node name="TreeBig159" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 52, 3020 )
+
+[node name="TreeBig160" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -71, 3134 )
+
+[node name="TreeBig161" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -215, 3053 )
+
+[node name="TreeBig162" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -325, 3184 )
+
+[node name="TreeBig163" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -456, 3082 )
+
+[node name="TreeBig164" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -400, 2905 )
+
+[node name="TreeBig165" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -506, 2710 )
+
+[node name="TreeBig166" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -502, 2490 )
+
+[node name="TreeBig167" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -481, 2075 )
+
+[node name="TreeBig168" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -498, 1575 )
+
+[node name="TreeBig169" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -490, 1227 )
+
+[node name="TreeBig170" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -460, 989 )
+
+[node name="TreeBig171" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -485, 646 )
+
+[node name="TreeBig172" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -536, 396 )
+
+[node name="TreeBig173" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -494, 150 )
+
+[node name="TreeBig174" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -494, -100 )
+
+[node name="TreeBig175" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -388, -278 )
+
+[node name="TreeBig176" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -528, -375 )
+
+[node name="TreeBig177" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -210, -316 )
+
+[node name="TreeBig178" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -70, -231 )
+
+[node name="TreeBig179" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( -36, -379 )
+
+[node name="TreeSmall233" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 4161, -158 )
+
+[node name="TreeSmall296" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3367, 1584 )
+
+[node name="TreeSmall297" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3421, 1544 )
+
+[node name="TreeSmall298" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3427, 1603 )
+
+[node name="TreeSmall299" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3650, 1651 )
+
+[node name="TreeSmall300" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3642, 1747 )
+
+[node name="TreeSmall301" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3707, 1671 )
+
+[node name="TreeSmall302" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3619, 1802 )
+
+[node name="TreeSmall303" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3630, 1907 )
+
+[node name="TreeSmall304" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3602, 2099 )
+
+[node name="TreeSmall305" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3667, 2376 )
+
+[node name="TreeSmall306" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3613, 2747 )
+
+[node name="TreeSmall307" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3667, 3157 )
+
+[node name="TreeSmall308" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3709, 3202 )
+
+[node name="TreeSmall309" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3678, 1058 )
+
+[node name="TreeSmall310" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3771, 1225 )
+
+[node name="TreeSmall234" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 4169, -99 )
+
+[node name="TreeSmall235" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3983, -247 )
+
+[node name="TreeSmall236" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3856, -35 )
+
+[node name="TreeSmall237" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3818, -82 )
+
+[node name="TreeSmall238" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3721, -175 )
+
+[node name="TreeSmall239" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3844, 185 )
+
+[node name="TreeSmall240" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3984, 126 )
+
+[node name="TreeSmall241" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 4128, 317 )
+
+[node name="TreeSmall242" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 4136, 249 )
+
+[node name="TreeSmall243" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3983, 376 )
+
+[node name="TreeSmall244" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3708, 401 )
+
+[node name="TreeSmall245" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3831, 579 )
+
+[node name="TreeSmall246" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3895, 545 )
+
+[node name="TreeSmall247" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3891, 596 )
+
+[node name="TreeSmall248" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 4086, 592 )
+
+[node name="TreeSmall249" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3844, 783 )
+
+[node name="TreeSmall250" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 4081, 779 )
+
+[node name="TreeSmall251" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 4132, 1007 )
+
+[node name="TreeSmall252" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 4170, 969 )
+
+[node name="TreeSmall253" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3924, 1100 )
+
+[node name="TreeSmall254" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3920, 918 )
+
+[node name="TreeSmall255" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3674, 782 )
+
+[node name="TreeSmall256" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3640, 833 )
+
+[node name="TreeSmall257" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3780, 1032 )
+
+[node name="TreeSmall258" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3640, 1316 )
+
+[node name="TreeSmall259" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3644, 1388 )
+
+[node name="TreeSmall260" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3890, 1248 )
+
+[node name="TreeSmall261" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3958, 1214 )
+
+[node name="TreeSmall262" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3767, 1486 )
+
+[node name="TreeSmall263" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3826, 1452 )
+
+[node name="TreeSmall264" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3847, 1520 )
+
+[node name="TreeSmall265" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3978, 1473 )
+
+[node name="TreeSmall266" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3910, 1626 )
+
+[node name="TreeSmall267" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 4067, 1618 )
+
+[node name="TreeSmall268" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 4003, 1699 )
+
+[node name="TreeSmall269" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3673, 2605 )
+
+[node name="TreeSmall270" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3830, 2597 )
+
+[node name="TreeSmall271" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3766, 2678 )
+
+[node name="TreeSmall272" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3838, 3058 )
+
+[node name="TreeSmall273" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3995, 3050 )
+
+[node name="TreeSmall274" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3931, 3131 )
+
+[node name="TreeSmall275" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3732, 2958 )
+
+[node name="TreeSmall311" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3627, 2923 )
+
+[node name="TreeSmall276" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 4105, 2873 )
+
+[node name="TreeSmall277" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 4186, 2242 )
+
+[node name="TreeSmall278" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3720, 1924 )
+
+[node name="TreeSmall279" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3881, 2882 )
+
+[node name="TreeSmall280" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 4050, 1746 )
+
+[node name="TreeSmall281" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3868, 1852 )
+
+[node name="TreeSmall282" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3868, 1852 )
+
+[node name="TreeSmall283" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3906, 2051 )
+
+[node name="TreeSmall284" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3799, 2106 )
+
+[node name="TreeSmall285" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3846, 2153 )
+
+[node name="TreeSmall286" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3664, 2259 )
+
+[node name="TreeSmall287" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3664, 2259 )
+
+[node name="TreeSmall288" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3702, 2458 )
+
+[node name="TreeSmall289" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3957, 1945 )
+
+[node name="TreeSmall290" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 4148, 2115 )
+
+[node name="TreeSmall291" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 4000, 2297 )
+
+[node name="TreeSmall292" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3886, 2450 )
+
+[node name="TreeSmall293" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 4094, 2514 )
+
+[node name="TreeSmall294" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3908, 2671 )
+
+[node name="TreeSmall295" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 3959, 2713 )
+
+[node name="TreeBig202" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 4201, -276 )
+
+[node name="TreeBig203" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 4125, 860 )
+
+[node name="TreeBig204" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 4159, 699 )
+
+[node name="TreeBig205" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 4011, 1140 )
+
+[node name="TreeBig206" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 4024, 979 )
+
+[node name="TreeBig207" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3990, 746 )
+
+[node name="TreeBig208" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 4100, 1229 )
+
+[node name="TreeBig209" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 4117, 1420 )
+
+[node name="TreeBig210" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 4168, 1530 )
+
+[node name="TreeBig211" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3986, 1581 )
+
+[node name="TreeBig212" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3961, 1390 )
+
+[node name="TreeBig213" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3813, 1153 )
+
+[node name="TreeBig214" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3847, 911 )
+
+[node name="TreeBig215" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3783, 720 )
+
+[node name="TreeBig216" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3974, 512 )
+
+[node name="TreeBig217" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3864, 321 )
+
+[node name="TreeBig218" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 4055, 266 )
+
+[node name="TreeBig219" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 4157, 436 )
+
+[node name="TreeBig220" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 4106, 80 )
+
+[node name="TreeBig221" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3975, -5 )
+
+[node name="TreeBig222" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3869, 101 )
+
+[node name="TreeBig223" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 4047, -119 )
+
+[node name="TreeBig224" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3852, -191 )
+
+[node name="TreeBig225" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3704, 4 )
+
+[node name="TreeBig226" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3734, 216 )
+
+[node name="TreeBig227" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3759, 466 )
+
+[node name="TreeBig228" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3776, 1352 )
+
+[node name="TreeBig229" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3793, 1623 )
+
+[node name="TreeBig230" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3912, 1797 )
+
+[node name="TreeBig231" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 4132, 1712 )
+
+[node name="TreeBig232" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 4136, 1886 )
+
+[node name="TreeBig233" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 4089, 2034 )
+
+[node name="TreeBig234" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3911, 2318 )
+
+[node name="TreeBig235" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3924, 2136 )
+
+[node name="TreeBig236" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3822, 2022 )
+
+[node name="TreeBig237" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3750, 1814 )
+
+[node name="TreeBig238" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 4098, 2225 )
+
+[node name="TreeBig239" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 4145, 2378 )
+
+[node name="TreeBig240" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 4018, 2475 )
+
+[node name="TreeBig241" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3749, 2193 )
+
+[node name="TreeBig242" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3749, 2379 )
+
+[node name="TreeBig243" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3830, 2523 )
+
+[node name="TreeBig244" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 4194, 2616 )
+
+[node name="TreeBig245" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 4063, 2701 )
+
+[node name="TreeBig246" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3881, 2765 )
+
+[node name="TreeBig247" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 4021, 2862 )
+
+[node name="TreeBig248" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 4199, 2803 )
+
+[node name="TreeBig249" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 4186, 2977 )
+
+[node name="TreeBig250" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 4063, 3091 )
+
+[node name="TreeBig251" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3919, 3010 )
+
+[node name="TreeBig252" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3809, 3141 )
+
+[node name="TreeBig253" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3678, 3039 )
+
+[node name="TreeBig254" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3734, 2862 )
+
+[node name="TreeBig255" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3628, 2667 )
+
+[node name="TreeBig256" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3632, 2447 )
+
+[node name="TreeBig257" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3653, 2032 )
+
+[node name="TreeBig258" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3636, 1532 )
+
+[node name="TreeBig259" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3644, 1184 )
+
+[node name="TreeBig260" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3674, 946 )
+
+[node name="TreeBig261" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3649, 603 )
+
+[node name="TreeBig262" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3598, 353 )
+
+[node name="TreeBig263" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3640, 107 )
+
+[node name="TreeBig264" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3640, -143 )
+
+[node name="TreeBig265" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3746, -321 )
+
+[node name="TreeBig266" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3606, -418 )
+
+[node name="TreeBig267" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3924, -359 )
+
+[node name="TreeBig268" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 4064, -274 )
+
+[node name="TreeBig269" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 4098, -422 )
+
+[node name="TreeBig180" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 154, 3172 )
+
+[node name="TreeBig181" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 468, 3147 )
+
+[node name="TreeBig182" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 663, 3177 )
+
+[node name="TreeBig183" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 858, 3164 )
+
+[node name="TreeBig184" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1108, 3130 )
+
+[node name="TreeBig185" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1600, 2753 )
+
+[node name="TreeBig186" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1621, 2901 )
+
+[node name="TreeBig187" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1223, 3087 )
+
+[node name="TreeBig188" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1393, 3180 )
+
+[node name="TreeBig189" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1626, 3078 )
+
+[node name="TreeBig190" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1851, 3137 )
+
+[node name="TreeBig191" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 2037, 3196 )
+
+[node name="TreeBig192" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 2262, 3149 )
+
+[node name="TreeBig193" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 2567, 3119 )
+
+[node name="TreeBig194" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 2953, 3081 )
+
+[node name="TreeBig195" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 2767, 3212 )
+
+[node name="TreeBig196" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3080, 3198 )
+
+[node name="TreeBig197" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3241, 3117 )
+
+[node name="TreeBig198" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3419, 3104 )
+
+[node name="TreeBig199" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 3550, 3176 )
+
+[node name="TreeBig200" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 2541, -363 )
+
+[node name="TreeBig201" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 2355, -355 )
+
+[node name="TreeBig81" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 2442, -43 )
+
+[node name="TreeSmall110" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2460, 69 )
+
+[node name="TreeSmall111" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 2356, 25 )
+
+[node name="TreeBig82" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1254, 2753 )
+
+[node name="TreeBig83" parent="Objects/Border" instance=ExtResource( 4 )]
+position = Vector2( 1289, 2873 )
+
+[node name="TreeSmall112" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1307, 2985 )
+
+[node name="TreeSmall113" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 1203, 2941 )
+
+[node name="TreeSmall3" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 339, 1366 )
+
+[node name="TreeSmall4" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 155, 1422 )
+
+[node name="TreeSmall5" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 199, 1794 )
+
+[node name="TreeSmall6" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 155, 1842 )
+
+[node name="TreeSmall7" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 215, 1874 )
+
+[node name="TreeSmall8" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 224, 2225 )
+
+[node name="TreeSmall9" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 215, 2357 )
+
+[node name="TreeSmall10" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 185, 2414 )
+
+[node name="TreeSmall11" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 239, 2600 )
+
+[node name="TreeSmall12" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 208, 2863 )
+
+[node name="TreeSmall13" parent="Objects/Border" instance=ExtResource( 6 )]
+position = Vector2( 245, 2897 )
+
+[node name="DropCrateSpawnArea1" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1026, 472 )
+
+[node name="DropCrateSpawnArea2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 3461, 444 )
+
+[node name="DropCrateSpawnArea3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 1026, 2847 )
+
+[node name="DropCrateSpawnArea4" parent="." instance=ExtResource( 2 )]
+position = Vector2( 3423, 2831 )
