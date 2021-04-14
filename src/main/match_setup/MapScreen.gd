@@ -4,7 +4,7 @@ onready var map_field = $Panel/VBoxContainer/MapSwitcher
 onready var next_button = $Panel/VBoxContainer/NextButton
 onready var map_parent = $MapParent
 
-const DEFAULT_MAP = "res://mods/core/maps/map1.tres"
+const DEFAULT_MAP = "res://mods/core/maps/battlefield.tres"
 
 var maps := {}
 

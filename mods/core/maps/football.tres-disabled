@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Desert"
-map_scene = "res://mods/core/maps/Map4.tscn"
+name = "Football"
+map_scene = "res://mods/core/maps/Football.tscn"
