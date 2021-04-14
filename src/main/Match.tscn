@@ -22,6 +22,7 @@ visible = false
 
 [node name="SettingsScreen" parent="UILayer/Screens" index="2" instance=ExtResource( 5 )]
 visible = false
+[connection signal="game_error" from="Game" to="." method="_on_Game_game_error"]
 [connection signal="game_started" from="Game" to="." method="_on_Game_game_started"]
 [connection signal="back_button" from="UILayer" to="." method="_on_UILayer_back_button"]
 [connection signal="exit_pressed" from="UILayer/Screens/MenuScreen" to="." method="_on_MenuScreen_exit_pressed"]

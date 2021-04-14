@@ -1,20 +1,18 @@
 extends Node2D
 
-var ShakeCamera = preload("res://src/game/ShakeCamera.tscn")
-
 var TankScene = preload("res://src/objects/Tank.tscn")
-
-export (PackedScene) var map_scene = preload("res://src/maps/Map1.tscn")
 
 onready var map: Node2D = $Map
 onready var players_node := $Players
 onready var player_camera := $PlayerCamera
 onready var watch_camera := $WatchCamera
 
+var map_scene: PackedScene
 var game_started := false
 var players_alive := {}
 var players_index := {}
 
+signal game_error (message)
 signal game_started ()
 signal player_dead (player_id, killer_id)
 
@@ -22,7 +20,7 @@ func _get_synchronized_rpc_methods() -> Array:
 	return ['game_setup', 'respawn_player']
 
 # Initializes the game so that it is ready to really start.
-func game_setup(players: Dictionary) -> void:
+func game_setup(players: Dictionary, map_path: String, operation: RemoteOperations.ClientOperation = null) -> void:
 	get_tree().set_pause(true)
 	
 	if game_started:
@@ -31,7 +29,11 @@ func game_setup(players: Dictionary) -> void:
 	game_started = true
 	players_alive.clear()
 	
-	reload_map()
+	if not load_map(map_path):
+		emit_signal("game_error", "Unable to load map")
+		if operation:
+			operation.mark_done(false)
+		return
 	
 	var player_index := 1
 	for peer_id in players:
@@ -41,6 +43,9 @@ func game_setup(players: Dictionary) -> void:
 	
 	var my_id: int = get_tree().get_network_unique_id()
 	make_player_controlled(my_id)
+	
+	if operation:
+		operation.mark_done(true)
 
 func respawn_player(peer_id, username) -> void:
 	if players_node.has_node(str(peer_id)):
@@ -88,7 +93,20 @@ func game_stop() -> void:
 		players_node.remove_child(child)
 		child.queue_free()
 
+func load_map(path: String) -> bool:
+	var new_map_scene = load(path)
+	if not new_map_scene or not new_map_scene is PackedScene:
+		return false
+	
+	map_scene = new_map_scene
+	reload_map()
+	
+	return true
+
 func reload_map() -> void:
+	if not map_scene:
+		return
+	
 	var map_index = map.get_index()
 	remove_child(map)
 	map.queue_free()
@@ -97,6 +115,19 @@ func reload_map() -> void:
 	map.name = 'Map'
 	add_child(map)
 	move_child(map, map_index)
+	
+	_setup_watch_camera()
+	
+
+func _setup_watch_camera() -> void:
+	var viewport_rect = get_viewport_rect()
+	var map_rect = map.get_map_rect()
+	
+	watch_camera.global_position = map_rect.position + (map_rect.size / 2)
+	# Yes, on non-square maps, this will zoom differently on the X and Y,
+	# but so far, no one has ever noticed this.
+	watch_camera.zoom.x = max(1.0, map_rect.size.x / viewport_rect.size.x)
+	watch_camera.zoom.y = max(1.0, map_rect.size.y / viewport_rect.size.y)
 
 func _setup_player_camera(my_player) -> void:
 	my_player.camera = player_camera

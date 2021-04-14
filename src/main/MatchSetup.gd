@@ -2,6 +2,7 @@ extends Node2D
 
 onready var ui_layer = $UILayer
 onready var mode_screen = $UILayer/Screens/ModeScreen
+onready var map_screen = $UILayer/Screens/MapScreen
 
 func _ready() -> void:
 	if OnlineMatch.players.size() < 2:
@@ -53,6 +54,7 @@ func _on_ReadyScreen_ready_pressed() -> void:
 	var match_info = {
 		manager_path = mode_screen.get_mode().manager_scene,
 		config = mode_screen.get_config_values(),
+		map_path = map_screen.get_map().map_scene,
 	}
 	RemoteOperations.change_scene("res://src/main/Match.tscn", match_info)
 

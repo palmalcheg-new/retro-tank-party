@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://src/modes/deathmatch/DeathmatchManager.gd" type="Script" id=1]
+[ext_resource path="res://mods/core/modes/deathmatch/DeathmatchManager.gd" type="Script" id=1]
 [ext_resource path="res://src/ui/CountdownTimer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/theme.tres" type="Theme" id=3]
-[ext_resource path="res://src/modes/deathmatch/PlayerScore.tscn" type="PackedScene" id=4]
-[ext_resource path="res://src/modes/deathmatch/ScoreHUD.gd" type="Script" id=5]
+[ext_resource path="res://mods/core/modes/deathmatch/PlayerScore.tscn" type="PackedScene" id=4]
+[ext_resource path="res://mods/core/modes/deathmatch/ScoreHUD.gd" type="Script" id=5]
 
 [node name="DeathmatchManager" type="Node"]
 script = ExtResource( 1 )

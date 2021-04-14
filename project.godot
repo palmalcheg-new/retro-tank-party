@@ -15,6 +15,11 @@ _global_script_classes=[ {
 "path": "res://src/ui/ControlFocusComponent.gd"
 }, {
 "base": "Resource",
+"class": "GameMap",
+"language": "GDScript",
+"path": "res://src/maps/GameMap.gd"
+}, {
+"base": "Resource",
 "class": "MatchMode",
 "language": "GDScript",
 "path": "res://src/modes/MatchMode.gd"
@@ -111,6 +116,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "ControlFocusComponent": "",
+"GameMap": "",
 "MatchMode": "",
 "MyAudioStreamPlayer2D": "",
 "MyButton": "",
@@ -155,6 +161,7 @@ SteamManager="*res://src/autoload/SteamManager.gd"
 RemoteOperations="*res://src/autoload/RemoteOperations.gd"
 Sounds="*res://src/autoload/Sounds.tscn"
 Music="*res://src/autoload/Music.tscn"
+Modding="*res://src/autoload/Modding.gd"
 
 [display]
 
