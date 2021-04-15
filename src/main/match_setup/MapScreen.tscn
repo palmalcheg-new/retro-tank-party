@@ -15,8 +15,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MapParent" type="Node2D" parent="."]
-
 [node name="Panel" type="PanelContainer" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5

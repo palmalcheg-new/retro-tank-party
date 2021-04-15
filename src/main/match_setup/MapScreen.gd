@@ -2,20 +2,22 @@ extends "res://src/ui/Screen.gd"
 
 onready var map_field = $Panel/VBoxContainer/MapSwitcher
 onready var next_button = $Panel/VBoxContainer/NextButton
-onready var map_parent = $MapParent
 
 const DEFAULT_MAP = "res://mods/core/maps/battlefield.tres"
 
 var maps := {}
+
+signal map_changed (map_scene_path)
 
 func _ready() -> void:
 	_load_maps()
 	
 	for map_id in maps:
 		map_field.add_item(maps[map_id].name, map_id)
-	map_field.value = DEFAULT_MAP
+	map_field.set_value(DEFAULT_MAP, false)
 
 func _show_screen(info: Dictionary = {}) -> void:
+	change_map(maps[map_field.value])
 	map_field.focus.grab_without_sound()
 
 func _load_maps() -> void:
@@ -25,19 +27,7 @@ func _load_maps() -> void:
 			maps[file_path] = resource
 
 func change_map(map: GameMap) -> void:
-	if map_parent.has_node('Map'):
-		var old_map_scene = map_parent.get_node('Map')
-		map_parent.remove_child(old_map_scene)
-		old_map_scene.queue_free()
-	
-	var map_scene = load(map.map_scene).instance()
-	map_scene.name = 'Map'
-	map_parent.add_child(map_scene)
-	
-	# Scale map to fit in the viewport.
-	var map_rect = map_scene.get_map_rect()
-	map_scene.position -= map_rect.position
-	map_scene.scale = get_viewport_rect().size / map_rect.size
+	emit_signal("map_changed", map.map_scene)
 
 func disable_screen() -> void:
 	map_field.disabled = true

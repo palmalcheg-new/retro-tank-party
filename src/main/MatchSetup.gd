@@ -3,6 +3,7 @@ extends Node2D
 onready var ui_layer = $UILayer
 onready var mode_screen = $UILayer/Screens/ModeScreen
 onready var map_screen = $UILayer/Screens/MapScreen
+onready var map_parent = $MapParent
 
 func _ready() -> void:
 	if OnlineMatch.players.size() < 2:
@@ -32,9 +33,7 @@ func _ready() -> void:
 func _on_UILayer_back_button() -> void:
 	var current_screen = ui_layer.current_screen_name
 	
-	if is_network_master() and current_screen == 'ReadyScreen':
-		ui_layer.show_screen('ModeScreen')
-	else:
+	if not is_network_master() or current_screen == "ModeScreen":
 		var alert_content: String
 	
 		if get_tree().is_network_server():
@@ -49,6 +48,28 @@ func _on_UILayer_back_button() -> void:
 			get_tree().change_scene("res://src/main/SessionSetup.tscn")
 		elif not is_network_master():
 			ui_layer.show_cover()
+	elif current_screen == 'ReadyScreen':
+		ui_layer.show_screen('MapScreen')
+	elif current_screen == 'MapScreen':
+		ui_layer.show_screen('ModeScreen')
+
+func _on_MapScreen_map_changed(map_scene_path) -> void:
+	if not map_parent:
+		return
+	
+	if map_parent.has_node('Map'):
+		var old_map_scene = map_parent.get_node('Map')
+		map_parent.remove_child(old_map_scene)
+		old_map_scene.queue_free()
+	
+	var map_scene = load(map_scene_path).instance()
+	map_scene.name = 'Map'
+	map_parent.add_child(map_scene)
+	
+	# Scale map to fit in the viewport.
+	var map_rect = map_scene.get_map_rect()
+	map_scene.position -= map_rect.position
+	map_scene.scale = get_viewport_rect().size / map_rect.size
 
 func _on_ReadyScreen_ready_pressed() -> void:
 	var match_info = {
@@ -74,3 +95,5 @@ func _on_OnlineMatch_player_left(player) -> void:
 		_on_OnlineMatch_error(player.username + " has left - not enough players!")
 	else:
 		ui_layer.show_message(player.username + " has left")
+
+
