@@ -57,3 +57,14 @@ puppet func _remote_update(map_id: String) -> void:
 
 func get_map() -> GameMap:
 	return maps[map_field.value]
+
+func get_map_scene_path() -> String:
+	return get_map().map_scene
+
+func set_map_scene_path(map_scene: String) -> void:
+	var map: GameMap
+	for resource_path in maps:
+		map = maps[resource_path]
+		if map.map_scene == map_scene:
+			map_field.value = resource_path
+			break

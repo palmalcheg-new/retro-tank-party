@@ -66,8 +66,19 @@ puppet func _remote_update(mode_path: String, config_values: Dictionary) -> void
 	mode_field.value = mode_path
 	set_config_values(config_values)
 
-func get_mode() -> String:
+func get_mode() -> MatchMode:
 	return match_modes[mode_field.value]
+
+func get_mode_manager_scene_path() -> String:
+	return get_mode().manager_scene
+
+func set_mode_manager_scene_path(manager_scene: String) -> void:
+	var mode: MatchMode
+	for resource_path in match_modes:
+		mode = match_modes[resource_path]
+		if mode.manager_scene == manager_scene: 
+			mode_field.value = resource_path
+			break
 
 func set_config_values(values: Dictionary) -> void:
 	if current_config:

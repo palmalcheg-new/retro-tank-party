@@ -73,11 +73,22 @@ func _on_MapScreen_map_changed(map_scene_path) -> void:
 
 func _on_ReadyScreen_ready_pressed() -> void:
 	var match_info = {
-		manager_path = mode_screen.get_mode().manager_scene,
+		manager_path = mode_screen.get_mode_manager_scene_path(),
 		config = mode_screen.get_config_values(),
-		map_path = map_screen.get_map().map_scene,
+		map_path = map_screen.get_map_scene_path(),
 	}
 	RemoteOperations.change_scene("res://src/main/Match.tscn", match_info)
+
+func scene_setup(operation: RemoteOperations.ClientOperation, info: Dictionary) -> void:
+	# Start with the values from the last match.
+	if info.has('manager_path'):
+		mode_screen.set_mode_manager_scene_path(info['manager_path'])
+		if info.has('config'):
+			mode_screen.set_config_values(info['config'])
+	if info.has('map_path'):
+		map_screen.set_map_scene_path(info['map_path'])
+	
+	operation.mark_done()
 
 func _on_OnlineMatch_error(message: String):
 	if message != '':

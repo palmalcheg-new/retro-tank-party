@@ -4,6 +4,7 @@ onready var game := $Game
 onready var ui_layer := $UILayer
 
 var match_manager
+var match_info: Dictionary
 
 func _ready() -> void:
 	OnlineMatch.connect("error", self, "_on_OnlineMatch_error")
@@ -16,6 +17,9 @@ func _ready() -> void:
 	Music.play(songs[randi() % songs.size()])
 
 func scene_setup(operation: RemoteOperations.ClientOperation, info: Dictionary) -> void:
+	# Store the match info for when we return to the match setup screen.
+	match_info = info
+	
 	match_manager = load(info['manager_path']).instance()
 	match_manager.name = "MatchManager"
 	add_child(match_manager)
@@ -32,7 +36,7 @@ func finish_match() -> void:
 	if get_tree().is_network_server():
 		match_manager.match_stop()
 		# @todo pass current config so we start from the same settings
-		RemoteOperations.change_scene("res://src/main/MatchSetup.tscn")
+		RemoteOperations.change_scene("res://src/main/MatchSetup.tscn", match_info)
 
 func quit_match() -> void:
 	OnlineMatch.leave()
