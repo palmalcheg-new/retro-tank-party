@@ -534,6 +534,7 @@ func _on_webrtc_peer_connected(peer_id: int) -> void:
 	for session_id in players:
 		if players[session_id]['peer_id'] == peer_id:
 			_webrtc_peers_connected[session_id] = true
+			print ("WebRTC peer connected: " + str(peer_id))
 			emit_signal("player_status_changed", players[session_id], PlayerStatus.CONNECTED)
 
 	# We have a WebRTC peer for each connection to another player, so we'll have one less than
