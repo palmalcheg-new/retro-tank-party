@@ -9,6 +9,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -1030.0
 margin_bottom = -636.0
+mouse_filter = 2
 theme = ExtResource( 1 )
 color = Color( 0, 0, 0, 0.501961 )
 script = ExtResource( 3 )
@@ -21,6 +22,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 1.52588e-05
 margin_bottom = -16.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
