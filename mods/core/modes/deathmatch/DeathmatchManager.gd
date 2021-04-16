@@ -44,6 +44,7 @@ func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 			score_hud.rpc("set_score", player_index, players_score[killer_id])
 
 		if instant_death:
+			rpc_id(player_id, "enable_watch_camera")
 			winners.erase(player_id)
 			if winners.size() == 1:
 				rpc("show_winner", winners[0], players_score)
@@ -96,6 +97,9 @@ remotesync func kill_player(peer_id: int) -> void:
 	if get_tree().get_rpc_sender_id() != 1:
 		return
 	game.kill_player(peer_id)
+
+remotesync func enable_watch_camera() -> void:
+	game.enable_watch_camera()
 
 remotesync func show_winner(peer_id: int, host_players_score: Dictionary) -> void:
 	var name = OnlineMatch.get_player_by_peer_id(peer_id).username
