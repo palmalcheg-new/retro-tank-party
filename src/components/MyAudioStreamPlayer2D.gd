@@ -22,6 +22,10 @@ func _physics_process(delta: float) -> void:
 	adjust_volume()
 
 func adjust_volume() -> void:
+	if not Globals.use_positional_audio:
+		volume_db = base_volume_db
+		return
+	
 	var parent = get_parent()
 	
 	var linear_volume: float = 0.0

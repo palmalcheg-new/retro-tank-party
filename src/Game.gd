@@ -135,6 +135,9 @@ func _setup_player_camera(my_player) -> void:
 	watch_camera.current = false
 	player_camera.current = true
 	
+	# Enable positional audio when the player_camera is enabled.
+	Globals.use_positional_audio = true
+	
 	if map.has_method('get_map_rect'):
 		var map_rect = map.get_map_rect()
 		
@@ -157,6 +160,9 @@ func kill_player(player_id) -> void:
 func enable_watch_camera(enable: bool = true) -> void:
 	player_camera.current = not enable
 	watch_camera.current = enable
+	
+	# Disable positional audio when the watch camera is enabled.
+	Globals.use_positional_audio = not enable
 
 func _on_player_dead(killer_id, player_id) -> void:
 	# Ensure this will only ever be called once per player
