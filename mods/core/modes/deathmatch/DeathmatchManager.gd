@@ -38,7 +38,7 @@ func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 		ui_layer.show_message("Wasted!")
 	
 	if get_tree().is_network_server():
-		if killer_id != -1:
+		if killer_id != -1 and not instant_death:
 			players_score[killer_id] += 1
 			var player_index = game.players_index[killer_id]
 			score_hud.rpc("set_score", player_index, players_score[killer_id])
