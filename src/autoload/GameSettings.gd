@@ -6,6 +6,8 @@ var tank_engine_sounds := true setget set_tank_engine_sounds
 var use_full_screen := false setget set_use_full_screen
 var use_screenshake := true
 var use_network_relay := 0 setget set_use_network_relay
+var joy_id := 0 setget set_joy_id
+var joy_name := "" setget set_joy_name
 
 const SETTINGS_KEYS = [
 	'music_volume',
@@ -14,9 +16,15 @@ const SETTINGS_KEYS = [
 	'use_full_screen',
 	'use_screenshake',
 	'use_network_relay',
+	'joy_name',
 ]
 
 const SETTINGS_FILENAME = 'user://settings.json'
+
+func _ready() -> void:
+	Input.connect("joy_connection_changed", self, "_on_joy_connection_changed")
+	joy_name = Input.get_joy_name(joy_id)
+	load_settings()
 
 func set_music_volume(_music_volume: float) -> void:
 	music_volume = _music_volume
@@ -51,8 +59,35 @@ func set_use_network_relay(_use_network_relay: int) -> void:
 	use_network_relay = _use_network_relay
 	OnlineMatch.use_network_relay = _use_network_relay
 
-func _ready() -> void:
-	load_settings()
+func set_joy_id(_joy_id: int) -> void:
+	if joy_id != _joy_id:
+		joy_id = _joy_id
+		
+		# Remap all the events
+		for action in InputMap.get_actions():
+			for event in InputMap.get_action_list(action):
+				if event is InputEventJoypadButton or event is InputEventJoypadMotion:
+					event.device = joy_id
+		
+		joy_name = Input.get_joy_name(joy_id)
+
+func set_joy_name(_joy_name: String) -> void:
+	if joy_name != _joy_name:
+		for joy_id in Input.get_connected_joypads():
+			if Input.get_joy_name(joy_id) == _joy_name:
+				set_joy_id(joy_id)
+				return
+		
+		# If no matching joystick is found, then set the device id to 0.
+		set_joy_id(0)
+
+func _on_joy_connection_changed(device: int, connected: bool) -> void:
+	if connected:
+		# Switch to whatever the newly connected joystick is.
+		set_joy_id(device)
+	elif joy_id == device:
+		# Our current gamepad has just been disconnected, so switch back to 0.
+		set_joy_id(0)
 
 func load_settings() -> void:
 	var file = File.new()

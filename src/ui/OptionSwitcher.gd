@@ -85,6 +85,15 @@ func add_item(label: String, value = null) -> void:
 	_options.push_back(option)
 	_update_display()
 
+func clear_items() -> void:
+	_options.clear()
+	selected = 0
+	_label.text = ''
+	_reset_button_colors()
+
+func get_item_count() -> int:
+	return _options.size()
+
 func _gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_left"):
 		if set_selected(selected - 1):

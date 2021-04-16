@@ -8,6 +8,7 @@ onready var tank_engine_sounds_field = $Panel/VBoxContainer/ScrollContainer/Grid
 onready var full_screen_field = $Panel/VBoxContainer/ScrollContainer/GridContainer/FullScreenOptions
 onready var screenshake_field := $Panel/VBoxContainer/ScrollContainer/GridContainer/ScreenshakeOptions
 onready var network_relay_field:= $Panel/VBoxContainer/ScrollContainer/GridContainer/NetworkRelayOptions
+onready var gamepad_device_field = $Panel/VBoxContainer/ScrollContainer/GridContainer/GamepadDeviceOptions
 
 var _is_ready := false
 
@@ -31,6 +32,9 @@ func _ready() -> void:
 	network_relay_field.add_item("Auto", OnlineMatch.NetworkRelay.AUTO)
 	network_relay_field.add_item("Forced", OnlineMatch.NetworkRelay.FORCED)
 	network_relay_field.set_value(GameSettings.use_network_relay, false)
+	
+	_update_gamepad_options()
+	Input.connect("joy_connection_changed", self, "_on_joy_connection_changed")
 	
 	_setup_field_neighbors()
 	
@@ -75,6 +79,20 @@ func _on_ScreenshakeOptions_item_selected(value, _index) -> void:
 
 func _on_NetworkRelayOptions_item_selected(value, _index) -> void:
 	GameSettings.use_network_relay = value
+
+func _on_GamepadDeviceOptions_item_selected(value, _index) -> void:
+	GameSettings.joy_id = value
+
+func _update_gamepad_options() -> void:
+	gamepad_device_field.clear_items()
+	for joy_id in Input.get_connected_joypads():
+		gamepad_device_field.add_item("%s: %s" % [joy_id + 1, Input.get_joy_name(joy_id)], joy_id)
+	if gamepad_device_field.get_item_count() == 0:
+		gamepad_device_field.add_item("1: Default", 0)
+	gamepad_device_field.set_value(GameSettings.joy_id, false)
+
+func _on_joy_connection_changed(device: int, connected: bool) -> void:
+	_update_gamepad_options()
 
 func _on_DoneButton_pressed() -> void:
 	Sounds.play("Select")
