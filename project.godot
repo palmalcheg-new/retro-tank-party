@@ -176,7 +176,6 @@ run/main_scene.HTML5="res://src/main/Title.tscn"
 
 Nakama="*res://addons/com.heroiclabs.nakama/Nakama.gd"
 OnlineMatch="*res://addons/nakama-webrtc/OnlineMatch.gd"
-Constants="*res://src/autoload/Constants.gd"
 Build="*res://src/autoload/Build.gd"
 Globals="*res://src/autoload/Globals.tscn"
 GameSettings="*res://src/autoload/GameSettings.gd"

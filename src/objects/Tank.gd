@@ -45,8 +45,6 @@ const DEFAULT_WEAPON_TYPE = preload("res://mods/core/weapons/base.tres")
 var weapon_type: WeaponType
 var weapon
 
-var bullet_type: int = Constants.BulletType.NORMAL
-
 const TANK_COLORS = {
 	1: {
 		body_sprite_region = Rect2( 434, 0, 84, 83 ),
@@ -192,27 +190,6 @@ func shoot():
 	
 	shoot_sound.play()
 	weapon.fire_weapon()
-	
-#	match bullet_type:
-#		Constants.BulletType.NORMAL:
-#			_create_bullet()
-#
-#		Constants.BulletType.SPREAD:
-#			var original_rotation = $TurretPivot.rotation
-#			$TurretPivot.rotate(deg2rad(-5))
-#			for i in range(3):
-#				_create_bullet()
-#				$TurretPivot.rotate(deg2rad(5))
-#			$TurretPivot.rotation = original_rotation
-#
-#		Constants.BulletType.TARGET:
-#			var target = null
-#			for raycast in $TurretPivot/BulletStartPosition.get_children():
-#				raycast.force_raycast_update()
-#				if raycast.is_colliding():
-#					target = raycast.get_collider()
-#					break
-#			_create_bullet(target)
 
 func setup_bullet(bullet) -> void:
 	bullet.setup_bullet(get_network_master(), player_index, bullet_start_position.global_position, turret_pivot.global_rotation)

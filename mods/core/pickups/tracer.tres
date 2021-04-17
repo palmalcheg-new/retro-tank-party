@@ -6,6 +6,6 @@
 [resource]
 script = ExtResource( 1 )
 letter = "T"
-rarity = 20
+rarity = 200
 pickup_scene = "res://src/objects/pickups/Pickup.tscn"
 weapon_type = ExtResource( 2 )
