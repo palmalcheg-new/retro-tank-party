@@ -11,7 +11,13 @@ signal player_dead (killer_id)
 onready var body_sprite := $BodySprite
 onready var turret_sprite := $TurretPivot/TurretSprite
 onready var turret_pivot := $TurretPivot
+onready var bullet_start_position := $TurretPivot/BulletStartPosition
 
+onready var info_node := $Info
+onready var health_node := $Info/Health
+onready var player_name_label := $Info/PlayerName
+
+onready var shoot_cooldown_timer := $ShootCooldownTimer
 onready var animation_player := $AnimationPlayer
 onready var shoot_sound := $ShootSound
 onready var engine_sound := $EngineSound
@@ -33,6 +39,11 @@ var shoot_rumble := 0.025
 var mouse_control := true
 
 var camera: Camera2D = null
+
+const DEFAULT_WEAPON_TYPE = preload("res://mods/core/weapons/base.tres")
+
+var weapon_type: WeaponType
+var weapon
 
 var bullet_type: int = Constants.BulletType.NORMAL
 
@@ -58,14 +69,16 @@ var player_index: int setget set_player_index
 
 func _ready():
 	info_offset = $Info.position
-	$Info.set_as_toplevel(true)
-	$Info.position = global_position + info_offset
+	info_node.set_as_toplevel(true)
+	info_node.position = global_position + info_offset
 	
-	health_bar_max = $Info/Health.rect_size.x
+	health_bar_max = health_node.rect_size.x
 	
 	var sprite_material = body_sprite.material.duplicate()
 	body_sprite.material = sprite_material
 	turret_sprite.material = sprite_material
+	
+	set_weapon_type(DEFAULT_WEAPON_TYPE)
 	
 	# If testing tank on its own, make player controlled
 	if get_tree().current_scene == self:
@@ -78,6 +91,17 @@ func set_player_index(_player_index: int) -> void:
 	player_index = _player_index
 	body_sprite.region_rect = TANK_COLORS[player_index]['body_sprite_region']
 	turret_sprite.region_rect = TANK_COLORS[player_index]['turret_sprite_region']
+
+func set_weapon_type(_weapon_type: WeaponType) -> void:
+	if weapon_type != _weapon_type:
+		weapon_type = _weapon_type
+		
+		if weapon:
+			weapon.detach_weapon()
+		
+		weapon = weapon_type.weapon_script.new()
+		weapon.setup_weapon(self, weapon_type)
+		weapon.attach_weapon()
 
 func _get_input_vector() -> Vector2:
 	var input: Vector2
@@ -118,29 +142,29 @@ func _physics_process(delta: float) -> void:
 			engine_sound.engine_state = engine_sound.EngineState.IDLE
 		
 		if mouse_control:
-			$TurretPivot.look_at(get_global_mouse_position())
+			turret_pivot.look_at(get_global_mouse_position())
 		else:
 			if Input.is_action_pressed(input_prefix + "aim_up") or Input.is_action_pressed(input_prefix + "aim_down") or Input.is_action_pressed(input_prefix + "aim_left") or Input.is_action_pressed(input_prefix + "aim_right"):
 				var joy_vector = Vector2()
 				joy_vector.x = Input.get_action_strength(input_prefix + "aim_right") - Input.get_action_strength(input_prefix + "aim_left")
 				joy_vector.y = Input.get_action_strength(input_prefix + "aim_down") - Input.get_action_strength(input_prefix + "aim_up")
-				$TurretPivot.global_rotation = joy_vector.angle()
+				turret_pivot.global_rotation = joy_vector.angle()
 			else:
-				$TurretPivot.rotation = 0
+				turret_pivot.rotation = 0
 		
 		# Make info follow the tank
-		$Info.position = global_position + info_offset
+		info_node.position = global_position + info_offset
 		
 		if shooting:
 			can_shoot = false
-			$ShootCooldownTimer.start()
+			shoot_cooldown_timer.start()
 			shoot()
 			Globals.rumble.add_weak_rumble(shoot_rumble)
 		
 		if camera:
 			camera.global_position = global_position
 		
-		rpc("update_remote_player", rotation, position, $TurretPivot.rotation, shooting, bullet_type)
+		rpc("update_remote_player", rotation, position, turret_pivot.rotation, shooting, weapon_type.resource_path)
 		
 		shooting = false
 
@@ -152,12 +176,13 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(input_prefix + "shoot") and can_shoot:
 		shooting = true
 
-puppet func update_remote_player(player_rotation: float, player_position: Vector2, turret_rotation: float, shooting: bool, _bullet_type: int) -> void:
+puppet func update_remote_player(player_rotation: float, player_position: Vector2, turret_rotation: float, shooting: bool, _weapon_type_path: String) -> void:
 	rotation = player_rotation
 	position = player_position
-	$TurretPivot.rotation = turret_rotation
-	$Info.position = global_position + info_offset
-	bullet_type = _bullet_type
+	turret_pivot.rotation = turret_rotation
+	info_node.position = global_position + info_offset
+	if weapon_type.resource_path != _weapon_type_path:
+		set_weapon_type(load(_weapon_type_path))
 	if shooting:
 		shoot()
 
@@ -166,35 +191,34 @@ func shoot():
 		return
 	
 	shoot_sound.play()
+	weapon.fire_weapon()
 	
-	match bullet_type:
-		Constants.BulletType.NORMAL:
-			_create_bullet()
-		
-		Constants.BulletType.SPREAD:
-			var original_rotation = $TurretPivot.rotation
-			$TurretPivot.rotate(deg2rad(-5))
-			for i in range(3):
-				_create_bullet()
-				$TurretPivot.rotate(deg2rad(5))
-			$TurretPivot.rotation = original_rotation
-		
-		Constants.BulletType.TARGET:
-			var target = null
-			for raycast in $TurretPivot/BulletStartPosition.get_children():
-				raycast.force_raycast_update()
-				if raycast.is_colliding():
-					target = raycast.get_collider()
-					break
-			_create_bullet(target)
+#	match bullet_type:
+#		Constants.BulletType.NORMAL:
+#			_create_bullet()
+#
+#		Constants.BulletType.SPREAD:
+#			var original_rotation = $TurretPivot.rotation
+#			$TurretPivot.rotate(deg2rad(-5))
+#			for i in range(3):
+#				_create_bullet()
+#				$TurretPivot.rotate(deg2rad(5))
+#			$TurretPivot.rotation = original_rotation
+#
+#		Constants.BulletType.TARGET:
+#			var target = null
+#			for raycast in $TurretPivot/BulletStartPosition.get_children():
+#				raycast.force_raycast_update()
+#				if raycast.is_colliding():
+#					target = raycast.get_collider()
+#					break
+#			_create_bullet(target)
 
-func _create_bullet(target = null):
-	var bullet = Bullet.instance()
-	get_parent().add_child(bullet)
-	bullet.setup(get_network_master(), player_index, $TurretPivot/BulletStartPosition.global_position, $TurretPivot.global_rotation, target)
+func setup_bullet(bullet) -> void:
+	bullet.setup_bullet(get_network_master(), player_index, bullet_start_position.global_position, turret_pivot.global_rotation)
 
 func set_player_name(_name: String) -> void:
-	$Info/PlayerName.text = _name
+	player_name_label.text = _name
 	
 func _on_ShootCooldownTimer_timeout() -> void:
 	can_shoot = true
@@ -226,7 +250,7 @@ func set_bullet_type(_bullet_type: int) -> void:
 	bullet_type = _bullet_type
 
 remotesync func update_health(_health) -> void:
-	$Info/Health.rect_size.x = (float(_health) / 100) * health_bar_max
+	health_node.rect_size.x = (float(_health) / 100) * health_bar_max
 
 remotesync func die(killer_id: int = -1) -> void:
 	if not dead:

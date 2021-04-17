@@ -3,10 +3,10 @@ extends Area2D
 var Explosion = preload("res://src/objects/Explosion.tscn")
 
 onready var bullet_sprite = $BulletPivot/Sprite
+onready var lifetime_timer = $LifetimeTimer
 
 var player_id: int
 var player_index: int
-var target: Node2D = null
 var vector := Vector2()
 
 var speed = 700
@@ -20,28 +20,21 @@ const BULLET_COLORS = {
 	4: Rect2(560, 348, 16, 28),
 }
 
-func _ready():
-	pass
-
-func setup(_player_id: int, _player_index: int, _position: Vector2, _rotation: float, _target: Node2D) -> void:
+func setup_bullet(_player_id: int, _player_index: int, _position: Vector2, _rotation: float) -> void:
 	player_id = _player_id
 	player_index = _player_index
 	bullet_sprite.region_rect = BULLET_COLORS[player_index]
 	position = _position
 	rotation = _rotation
-	target = _target
 	vector = Vector2(1, 0).rotated(rotation)
-	$LifetimeTimer.start()
+	lifetime_timer.start()
 
 func _process(delta: float) -> void:
-	if target and is_instance_valid(target):
-		var target_vector = (target.global_position - global_position).normalized()
-		vector = vector.linear_interpolate(target_vector, target_seek_speed * delta).normalized()
-		rotation = vector.angle()
+	
 	
 	position += vector * speed * delta
 
-func explode(type : String = "smoke"):
+func explode(type: String = "smoke"):
 	var explosion = Explosion.instance()
 	get_parent().add_child(explosion)
 	
