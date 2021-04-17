@@ -223,9 +223,6 @@ func restore_health(_health: int) -> void:
 			health = 100
 		rpc("update_health", health)
 
-func set_bullet_type(_bullet_type: int) -> void:
-	bullet_type = _bullet_type
-
 remotesync func update_health(_health) -> void:
 	health_node.rect_size.x = (float(_health) / 100) * health_bar_max
 
