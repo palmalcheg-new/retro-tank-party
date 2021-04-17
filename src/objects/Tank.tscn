@@ -7,7 +7,7 @@
 [ext_resource path="res://assets/sounds/Bass Drum__003.wav" type="AudioStream" id=5]
 [ext_resource path="res://src/objects/tank/EngineSound.gd" type="Script" id=6]
 [ext_resource path="res://assets/sounds/engine_heavy_loop.wav" type="AudioStream" id=7]
-[ext_resource path="res://src/components/MyAudioStreamPlayer2D.gd" type="Script" id=8]
+[ext_resource path="res://src/sound/MyAudioStreamPlayer2D.gd" type="Script" id=8]
 [ext_resource path="res://assets/sounds/engine_heavy_fast_loop.wav" type="AudioStream" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]

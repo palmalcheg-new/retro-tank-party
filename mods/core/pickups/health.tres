@@ -1,0 +1,10 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://src/components/pickups/HealthPickup.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+letter = "H"
+rarity = 60
+pickup_scene = "res://src/objects/pickups/Pickup.tscn"
+health = 20

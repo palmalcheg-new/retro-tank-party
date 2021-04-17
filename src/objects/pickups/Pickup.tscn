@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://src/objects/powerups/Powerup.gd" type="Script" id=1]
-[ext_resource path="res://assets/fonts/monogram.tres" type="DynamicFont" id=2]
-[ext_resource path="res://src/components/MyAudioStreamPlayer2D.gd" type="Script" id=3]
+[ext_resource path="res://assets/fonts/monogram.tres" type="DynamicFont" id=1]
+[ext_resource path="res://src/sound/MyAudioStreamPlayer2D.gd" type="Script" id=2]
+[ext_resource path="res://src/objects/pickups/Pickup.gd" type="Script" id=3]
 [ext_resource path="res://assets/sounds/Pickup__010.wav" type="AudioStream" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -52,7 +52,7 @@ tracks/2/keys = {
 [node name="Powerup" type="Area2D"]
 collision_layer = 8
 collision_mask = 2
-script = ExtResource( 1 )
+script = ExtResource( 3 )
 
 [node name="Visual" type="Node2D" parent="."]
 
@@ -61,6 +61,7 @@ margin_left = -18.0
 margin_top = -18.0
 margin_right = 19.0
 margin_bottom = 18.0
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -70,13 +71,14 @@ margin_left = 1.0
 margin_top = 1.0
 margin_right = 36.0
 margin_bottom = 35.0
+mouse_filter = 2
 color = Color( 0, 0, 0, 1 )
 
 [node name="Label" type="Label" parent="Visual/OuterRect/InnerRect"]
 margin_top = -10.0
 margin_right = 40.0
 margin_bottom = 38.0
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 0, 1, 0, 1 )
 custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
 text = "P"
@@ -92,6 +94,6 @@ anims/shine = SubResource( 2 )
 [node name="Sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
 bus = "Sound"
-script = ExtResource( 3 )
+script = ExtResource( 2 )
 [connection signal="body_entered" from="." to="." method="_on_Powerup_body_entered"]
 [connection signal="finished" from="Sound" to="." method="_on_Sound_finished"]

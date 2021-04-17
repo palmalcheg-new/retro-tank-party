@@ -1,4 +1,4 @@
-extends "res://src/modes/BaseManager.gd"
+extends "res://src/components/modes/BaseManager.gd"
 
 var players_score := {}
 

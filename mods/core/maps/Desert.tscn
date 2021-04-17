@@ -2,13 +2,14 @@
 
 [ext_resource path="res://assets/terraintiles.tres" type="TileSet" id=1]
 [ext_resource path="res://src/objects/DropCrateSpawnArea.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/maps/BaseMap.gd" type="Script" id=3]
+[ext_resource path="res://src/components/maps/BaseMap.gd" type="Script" id=3]
 [ext_resource path="res://src/objects/cover/CrateMetal.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/objects/obstruction/SandboxBiege.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/objects/obstruction/BarricadeMetal.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/objects/obstruction/FenceRed.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/objects/obstruction/FenceYellow.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/objects/obstruction/BarricadeWood.tscn" type="PackedScene" id=9]
+
 
 [node name="Map4" type="Node2D"]
 script = ExtResource( 3 )
