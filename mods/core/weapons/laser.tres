@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=4 format=2]
+
+[ext_resource path="res://src/components/weapons/BaseWeapon.gd" type="Script" id=1]
+[ext_resource path="res://src/components/weapons/WeaponType.gd" type="Script" id=2]
+[ext_resource path="res://mods/core/weapons/LaserBullet.tscn" type="PackedScene" id=3]
+
+[resource]
+script = ExtResource( 2 )
+weapon_script = ExtResource( 1 )
+bullet_scene = ExtResource( 3 )
+damage = 10

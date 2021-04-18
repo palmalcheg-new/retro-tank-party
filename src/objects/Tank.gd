@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
-const BaseWeaponType = preload("res://mods/core/weapons/base.tres")
+#const BaseWeaponType = preload("res://mods/core/weapons/base.tres")
+const BaseWeaponType = preload("res://mods/core/weapons/laser.tres")
 const Explosion = preload("res://src/objects/Explosion.tscn")
 
 export (bool) var player_controlled = false

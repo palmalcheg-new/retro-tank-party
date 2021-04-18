@@ -11,4 +11,5 @@ script = ExtResource( 1 )
 
 [node name="UILayer" parent="." instance=ExtResource( 3 )]
 [connection signal="game_error" from="Game" to="." method="_on_Game_game_error"]
+[connection signal="player_dead" from="Game" to="." method="_on_Game_player_dead"]
 [connection signal="back_button" from="UILayer" to="." method="_on_UILayer_back_button"]
