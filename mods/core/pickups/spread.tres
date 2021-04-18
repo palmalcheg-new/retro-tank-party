@@ -1,11 +1,12 @@
-[gd_resource type="Resource" load_steps=3 format=2]
+[gd_resource type="Resource" load_steps=4 format=2]
 
 [ext_resource path="res://src/components/pickups/WeaponPickup.gd" type="Script" id=1]
 [ext_resource path="res://mods/core/weapons/spread.tres" type="Resource" id=2]
+[ext_resource path="res://src/objects/pickups/Pickup.tscn" type="PackedScene" id=3]
 
 [resource]
 script = ExtResource( 1 )
 letter = "S"
 rarity = 20
-pickup_scene = "res://src/objects/pickups/Pickup.tscn"
+pickup_scene = ExtResource( 3 )
 weapon_type = ExtResource( 2 )
