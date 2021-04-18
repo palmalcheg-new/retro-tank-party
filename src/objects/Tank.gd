@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
-var Bullet = preload("res://src/objects/Bullet.tscn")
-var Explosion = preload("res://src/objects/Explosion.tscn")
+const BaseWeaponType = preload("res://mods/core/weapons/base.tres")
+const Explosion = preload("res://src/objects/Explosion.tscn")
 
 export (bool) var player_controlled = false
 export (String) var input_prefix := "player1_"
@@ -13,9 +13,8 @@ onready var turret_sprite := $TurretPivot/TurretSprite
 onready var turret_pivot := $TurretPivot
 onready var bullet_start_position := $TurretPivot/BulletStartPosition
 
-onready var info_node := $Info
-onready var health_node := $Info/Health
-onready var player_name_label := $Info/PlayerName
+onready var player_info_node := $PlayerInfo
+onready var player_info_offset: Vector2 = player_info_node.position
 
 onready var shoot_cooldown_timer := $ShootCooldownTimer
 onready var animation_player := $AnimationPlayer
@@ -25,9 +24,6 @@ onready var engine_sound := $EngineSound
 var turn_speed := 5
 var speed := 400
 var velocity: Vector2
-
-var info_offset: Vector2
-var health_bar_max: int
 
 var health := 100
 var dead := false
@@ -39,8 +35,6 @@ var shoot_rumble := 0.025
 var mouse_control := true
 
 var camera: Camera2D = null
-
-const DEFAULT_WEAPON_TYPE = preload("res://mods/core/weapons/base.tres")
 
 var weapon_type: WeaponType
 var weapon
@@ -66,17 +60,14 @@ const TANK_COLORS = {
 var player_index: int setget set_player_index
 
 func _ready():
-	info_offset = $Info.position
-	info_node.set_as_toplevel(true)
-	info_node.position = global_position + info_offset
-	
-	health_bar_max = health_node.rect_size.x
+	player_info_node.set_as_toplevel(true)
+	player_info_node.position = global_position + player_info_offset
 	
 	var sprite_material = body_sprite.material.duplicate()
 	body_sprite.material = sprite_material
 	turret_sprite.material = sprite_material
 	
-	set_weapon_type(DEFAULT_WEAPON_TYPE)
+	set_weapon_type(BaseWeaponType)
 	
 	# If testing tank on its own, make player controlled
 	if get_tree().current_scene == self:
@@ -151,7 +142,7 @@ func _physics_process(delta: float) -> void:
 				turret_pivot.rotation = 0
 		
 		# Make info follow the tank
-		info_node.position = global_position + info_offset
+		player_info_node.position = global_position + player_info_offset
 		
 		if shooting:
 			can_shoot = false
@@ -178,7 +169,7 @@ puppet func update_remote_player(player_rotation: float, player_position: Vector
 	rotation = player_rotation
 	position = player_position
 	turret_pivot.rotation = turret_rotation
-	info_node.position = global_position + info_offset
+	player_info_node.position = global_position + player_info_offset
 	if weapon_type.resource_path != _weapon_type_path:
 		set_weapon_type(load(_weapon_type_path))
 	if shooting:
@@ -195,7 +186,7 @@ func setup_bullet(bullet) -> void:
 	bullet.setup_bullet(get_network_master(), player_index, bullet_start_position.global_position, turret_pivot.global_rotation)
 
 func set_player_name(_name: String) -> void:
-	player_name_label.text = _name
+	player_info_node.set_player_name(_name)
 	
 func _on_ShootCooldownTimer_timeout() -> void:
 	can_shoot = true
@@ -224,7 +215,8 @@ func restore_health(_health: int) -> void:
 		rpc("update_health", health)
 
 remotesync func update_health(_health) -> void:
-	health_node.rect_size.x = (float(_health) / 100) * health_bar_max
+	health = _health
+	player_info_node.update_health(health)
 
 remotesync func die(killer_id: int = -1) -> void:
 	if not dead:

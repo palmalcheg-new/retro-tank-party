@@ -1,8 +1,8 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://src/objects/Tank.gd" type="Script" id=1]
 [ext_resource path="res://assets/objects.png" type="Texture" id=2]
-[ext_resource path="res://assets/fonts/monogram_extended.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://src/objects/tank/PlayerInfo.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/objects/whitening_shader.tres" type="Material" id=4]
 [ext_resource path="res://assets/sounds/Bass Drum__003.wav" type="AudioStream" id=5]
 [ext_resource path="res://src/objects/tank/EngineSound.gd" type="Script" id=6]
@@ -13,11 +13,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 42, 42 )
 
-[sub_resource type="DynamicFont" id=2]
-size = 24
-font_data = ExtResource( 3 )
-
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "Flash"
 length = 0.1
 step = 0.05
@@ -62,42 +58,15 @@ region_rect = Rect2( 722, 199, 24, 60 )
 [node name="BulletStartPosition" type="Position2D" parent="TurretPivot"]
 position = Vector2( 67, 0 )
 
-[node name="Info" type="Node2D" parent="."]
+[node name="PlayerInfo" parent="." instance=ExtResource( 3 )]
 position = Vector2( -66, -83 )
-
-[node name="Background" type="ColorRect" parent="Info"]
-margin_right = 51.0
-margin_bottom = 40.0
-rect_scale = Vector2( 2.76, 0.643416 )
-mouse_filter = 2
-color = Color( 0, 0, 0, 0.443137 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PlayerName" type="Label" parent="Info"]
-margin_left = 3.0
-margin_top = 2.0
-margin_right = 138.0
-margin_bottom = 23.0
-custom_fonts/font = SubResource( 2 )
-text = "Player name"
-align = 1
-clip_text = true
-
-[node name="Health" type="ColorRect" parent="Info"]
-margin_top = 26.0
-margin_right = 141.0
-margin_bottom = 31.0
-mouse_filter = 2
-color = Color( 0, 1, 0.0392157, 1 )
 
 [node name="ShootCooldownTimer" type="Timer" parent="."]
 wait_time = 0.25
 one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Flash = SubResource( 3 )
+anims/Flash = SubResource( 2 )
 
 [node name="ShootSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
