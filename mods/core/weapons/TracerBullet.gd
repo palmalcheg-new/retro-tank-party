@@ -1,5 +1,7 @@
 extends "res://src/objects/Bullet.gd"
 
+var target_seek_speed := 10
+
 var target: Node2D = null
 
 func _process(delta: float) -> void:

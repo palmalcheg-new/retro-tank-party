@@ -11,7 +11,6 @@ var vector := Vector2()
 
 var speed = 700
 var damage = 10
-var target_seek_speed = 10
 
 const BULLET_COLORS = {
 	1: Rect2(570, 584, 16, 28),
@@ -30,8 +29,6 @@ func setup_bullet(_player_id: int, _player_index: int, _position: Vector2, _rota
 	lifetime_timer.start()
 
 func _process(delta: float) -> void:
-	
-	
 	position += vector * speed * delta
 
 func explode(type: String = "smoke"):
