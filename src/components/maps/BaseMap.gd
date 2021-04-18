@@ -1,10 +1,10 @@
 extends Node2D
 
-func map_start() -> void:
-	get_tree().call_group("map_object", "map_object_start")
+func map_start(game) -> void:
+	get_tree().call_group("map_object", "map_object_start", self, game)
 
-func map_stop() -> void:
-	get_tree().call_group("map_object", "map_object_stop")
+func map_stop(game) -> void:
+	get_tree().call_group("map_object", "map_object_stop", self, game)
 
 func get_map_rect() -> Rect2:
 	if not has_node("TileMap"):

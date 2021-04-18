@@ -2,22 +2,14 @@ extends Area2D
 
 var DropCrate = preload("res://src/objects/DropCrate.tscn")
 
-var possible_contents = []
+var possible_contents := []
 
-func _ready():
-	# Build up a list of possible contents for drawing randomly.
-	# @todo Can we store this in some global place?
-	# @todo We only need to do this on the master
-	for pickup_path in Modding.find_resources("pickups"):
-		var pickup = load(pickup_path)
-		for i in range(pickup.rarity):
-			possible_contents.append(pickup)
-
-func map_object_start():
+func map_object_start(map, game):
 	if is_network_master():
+		possible_contents = game.possible_pickups
 		$DropTimer.start()
 
-func map_object_stop():
+func map_object_stop(map, game):
 	clear()
 
 func has_drop_crate_or_powerup() -> bool:
