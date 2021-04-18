@@ -7,8 +7,10 @@ var speed = 2800
 var growing := true
 
 #const LASER_COLORS := {
-#	1: Color(0.0, 0.0, 1.0, 1.0),
-#	2: 
+#	1: Color("419fdd"),
+#	2: Color("2ecc71"),
+#	3: Color("e74c3c"),
+#	4: Color("5f5d55"),
 #}
 
 func _ready():
@@ -17,6 +19,7 @@ func _ready():
 
 func setup_bullet(_player_id: int, _player_index: int, _position: Vector2, _rotation: float) -> void:
 	.setup_bullet(_player_id, _player_index, _position, _rotation)
+	#line.default_color = LASER_COLORS[_player_index]
 	line.add_point(global_position)
 
 func _physics_process(delta: float) -> void:
