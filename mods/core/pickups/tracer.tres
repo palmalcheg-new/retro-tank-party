@@ -6,6 +6,7 @@
 
 [resource]
 script = ExtResource( 1 )
+name = "Tracer"
 letter = "T"
 rarity = 20
 pickup_scene = ExtResource( 3 )

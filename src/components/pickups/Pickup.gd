@@ -1,6 +1,7 @@
 extends Resource
 class_name Pickup
 
+export (String) var name := ''
 export (String) var letter := 'P'
 export (int) var rarity := 20
 export (PackedScene) var pickup_scene: PackedScene = preload("res://src/objects/pickups/Pickup.tscn")

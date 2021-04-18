@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource( 1 )
+name = "Health"
 letter = "H"
 rarity = 60
 pickup_scene = ExtResource( 2 )

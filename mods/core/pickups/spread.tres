@@ -6,6 +6,7 @@
 
 [resource]
 script = ExtResource( 1 )
+name = "Spread"
 letter = "S"
 rarity = 20
 pickup_scene = ExtResource( 3 )
