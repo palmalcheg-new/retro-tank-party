@@ -5,6 +5,7 @@ onready var line := $Line2D
 
 var speed = 2800
 var growing := true
+var bounced := false
 
 #const LASER_COLORS := {
 #	1: Color("419fdd"),
@@ -17,10 +18,14 @@ func _ready():
 	line.set_as_toplevel(true)
 	line.global_position = Vector2(0, 0)
 
-func setup_bullet(_player_id: int, _player_index: int, _position: Vector2, _rotation: float) -> void:
-	.setup_bullet(_player_id, _player_index, _position, _rotation)
+func setup_bullet(tank, weapon_type) -> void:
+	.setup_bullet(tank, weapon_type)
 	#line.default_color = LASER_COLORS[_player_index]
 	line.add_point(global_position)
+
+func can_hit(body: PhysicsBody2D) -> bool:
+	# Only allow to hit ourselves after the first bounce.
+	return bounced or body != tank
 
 func _physics_process(delta: float) -> void:
 	if growing:
@@ -37,6 +42,7 @@ func _physics_process(delta: float) -> void:
 				if collision_normal != Vector2.ZERO:
 					vector = vector.bounce(collision_normal).normalized()
 					rotation = vector.angle()
+					bounced = true
 			
 			ray_cast.clear_exceptions()
 			ray_cast.add_exception(collider)

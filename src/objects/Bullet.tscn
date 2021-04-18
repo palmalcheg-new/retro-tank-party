@@ -14,12 +14,13 @@ script = ExtResource( 3 )
 [node name="BulletPivot" type="Position2D" parent="." index="1"]
 
 [node name="Sprite" type="Sprite" parent="BulletPivot" index="0"]
+position = Vector2( 2, 0 )
 rotation = 1.5708
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 570, 584, 16, 28 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
-position = Vector2( 6, 0 )
+position = Vector2( 8, 0 )
 rotation = 1.5708
 shape = SubResource( 1 )

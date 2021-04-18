@@ -11,13 +11,11 @@ collision_mask = 2
 
 [node name="RayCastTarget2" type="RayCast2D" parent="."]
 rotation = 0.174533
-scale = Vector2( 1, 1 )
 cast_to = Vector2( 350, 0 )
 collision_mask = 2
 
 [node name="RayCastTarget3" type="RayCast2D" parent="."]
 rotation = -0.174533
-scale = Vector2( 1, 1 )
 cast_to = Vector2( 350, 0 )
 collision_mask = 2
 

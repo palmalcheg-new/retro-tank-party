@@ -16,8 +16,7 @@ func detach_weapon() -> void:
 func create_bullet():
 	var bullet = weapon_type.bullet_scene.instance()
 	tank.get_parent().add_child(bullet)
-	tank.setup_bullet(bullet)
-	bullet.damage = weapon_type.damage
+	bullet.setup_bullet(tank, weapon_type)
 	return bullet
 
 func fire_weapon() -> void:

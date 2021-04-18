@@ -11,8 +11,8 @@ const BULLET_COLORS = {
 	4: Rect2(560, 348, 16, 28),
 }
 
-func setup_bullet(_player_id: int, _player_index: int, _position: Vector2, _rotation: float) -> void:
-	.setup_bullet(_player_id, _player_index, _position, _rotation)
+func setup_bullet(tank, weapon_type) -> void:
+	.setup_bullet(tank, weapon_type)
 	bullet_sprite.region_rect = BULLET_COLORS[player_index]
 
 func explode(type: String) -> void:

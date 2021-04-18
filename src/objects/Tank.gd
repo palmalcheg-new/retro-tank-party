@@ -182,9 +182,6 @@ func shoot():
 	shoot_sound.play()
 	weapon.fire_weapon()
 
-func setup_bullet(bullet) -> void:
-	bullet.setup_bullet(get_network_master(), player_index, bullet_start_position.global_position, turret_pivot.global_rotation)
-
 func set_player_name(_name: String) -> void:
 	player_info_node.set_player_name(_name)
 	
