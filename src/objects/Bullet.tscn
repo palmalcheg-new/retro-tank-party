@@ -6,7 +6,7 @@
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 8.0
-height = 9.53674e-07
+height = 0.0
 
 [node name="Bullet" instance=ExtResource( 2 )]
 script = ExtResource( 3 )
