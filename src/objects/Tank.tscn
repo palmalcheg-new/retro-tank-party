@@ -56,7 +56,7 @@ region_enabled = true
 region_rect = Rect2( 722, 199, 24, 60 )
 
 [node name="BulletStartPosition" type="Position2D" parent="TurretPivot"]
-position = Vector2( 67, 0 )
+position = Vector2( 81, 0 )
 
 [node name="PlayerInfo" parent="." instance=ExtResource( 3 )]
 position = Vector2( -66, -83 )
