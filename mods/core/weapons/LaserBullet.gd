@@ -33,9 +33,9 @@ func _physics_process(delta: float) -> void:
 			var collider = ray_cast.get_collider()
 			# bit 2 = bullets
 			if collider.get_collision_mask_bit(2):
-				var collision_normal = ray_cast.get_collision_normal().normalized()
+				var collision_normal = ray_cast.get_collision_normal()
 				if collision_normal != Vector2.ZERO:
-					vector = ray_cast.get_collision_normal()
+					vector = vector.bounce(collision_normal).normalized()
 					rotation = vector.angle()
 			
 			ray_cast.clear_exceptions()
