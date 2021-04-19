@@ -21,6 +21,8 @@ remotesync func open_crate() -> void:
 	var powerup = contents.instance()
 	powerup.set_name("Powerup")
 	powerup.position = position
-	get_parent().add_child(powerup)
+	# Adding a new area to the scene interacts with the physics engine, and
+	# so we need to defer it.
+	get_parent().call_deferred("add_child", powerup)
 	
 	queue_free()
