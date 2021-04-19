@@ -328,8 +328,13 @@ steam:
     
     # Update the build VDF with correct branch information.
     - >
-      case "$CI_COMMIT_REF_NAME" in steam-*)
-        sed -i -e "s/STEAM_BRANCH/${CI_COMMIT_REF_NAME:6}/" scripts/steam/app_build_1568570.vdf;
+      case "$CI_COMMIT_REF_NAME" in
+        steam-*)
+          sed -i -e "s/STEAM_BRANCH/${CI_COMMIT_REF_NAME:6}/" scripts/steam/app_build_1568570.vdf;
+          ;;
+        steam)
+          sed -i -e "s/STEAM_BRANCH/beta/" scripts/steam/app_build_1568570.vdf;
+          ;;
       esac;
       sed -i -e "s/STEAM_DESCRIPTION/${CI_COMMIT_REF_NAME} - ${CI_COMMIT_SHORT_SHA}/" scripts/steam/app_build_1568570.vdf;
 
