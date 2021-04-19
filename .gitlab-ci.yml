@@ -39,6 +39,7 @@ windows:
       - build/windows
   except:
     - steam
+    - /^steam-.*$/
 
 windows-signed:
   stage: sign
@@ -79,6 +80,7 @@ linux:
       - build/linux
   except:
     - steam
+    - /^steam-.*$/
 
 macosx:
   <<: *export_before_script
@@ -102,6 +104,7 @@ macosx:
       - build/macosx
   except:
     - steam
+    - /^steam-.*$/
 
 macosx-signed:
   stage: sign
@@ -138,6 +141,7 @@ web:
       - build/web
   except:
     - steam
+    - /^steam-.*$/
 
 pages:
   stage: deploy
@@ -196,6 +200,7 @@ windows-steam:
   only:
     - master
     - steam
+    - /^steam-.*$/
 
 windows-steam-signed:
   stage: sign
@@ -217,6 +222,7 @@ windows-steam-signed:
   only:
     - master
     - steam
+    - /^steam-.*$/
 
 linux-steam:
   <<: *export_before_script
@@ -245,6 +251,7 @@ linux-steam:
   only:
     - master
     - steam
+    - /^steam-.*$/
 
 macosx-steam:
   <<: *export_before_script
@@ -278,6 +285,7 @@ macosx-steam:
   only:
     - master
     - steam
+    - /^steam-.*$/
 
 macosx-steam-signed:
   stage: sign
@@ -302,6 +310,7 @@ macosx-steam-signed:
   only:
     - master
     - steam
+    - /^steam-.*$/
 
 steam:
   stage: deploy
@@ -316,6 +325,13 @@ steam:
       [ ! -d ./steam_cache ] && mkdir ./steam_cache;
       cp ./steam_cache/cache.vdf /home/steam/Steam/config/ 2>/dev/null || echo "No cached config file";
       cp ./steam_cache/ssfn* /home/steam/Steam/ 2>/dev/null || echo "No cached sentry file";
+    
+    # Update the build VDF with correct branch information.
+    - >
+      case "$CI_COMMIT_REF_NAME" in steam-*)
+        sed -i -e "s/STEAM_BRANCH/${CI_COMMIT_REF_NAME:6}/" scripts/steam/app_build_1568570.vdf;
+      esac;
+      sed -i -e "s/STEAM_DESCRIPTION/${CI_COMMIT_REF_NAME} - ${CI_COMMIT_SHORT_SHA}/" scripts/steam/app_build_1568570.vdf;
 
     # Push build to Steam
     - /home/steam/steamcmd/steamcmd.sh +set_steam_guard_code "$STEAM_GUARD_CODE" +login "$STEAM_BUILD_USERNAME" "$STEAM_BUILD_PASSWORD" +run_app_build "$PWD/scripts/steam/app_build_1568570.vdf" +quit
@@ -329,4 +345,5 @@ steam:
   only:
     - master
     - steam
+    - /^steam-.*$/
 

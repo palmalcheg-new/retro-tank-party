@@ -1,9 +1,9 @@
 "AppBuild"
 {
 	"AppID" "1568570"
-	"Desc" "No description"
+	"Desc" "STEAM_DESCRIPTION"
 	"Preview" "0"
-	"SetLive" "beta"
+	"SetLive" "STEAM_BRANCH"
 	"ContentRoot" "../../build/"
 	"BuildOutput" "../../steam_build_output/"
 	"Depots"
