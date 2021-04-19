@@ -1,4 +1,4 @@
-extends "res://src/modes/BaseConfig.gd"
+extends "res://src/components/modes/BaseConfig.gd"
 
 onready var points_to_win_field = $PointsToWin
 

@@ -2,14 +2,14 @@ extends Area2D
 
 var DropCrate = preload("res://src/objects/DropCrate.tscn")
 
-func _ready():
-	pass
+var possible_contents := []
 
-func map_object_start():
+func map_object_start(map, game):
 	if is_network_master():
+		possible_contents = game.possible_pickups
 		$DropTimer.start()
 
-func map_object_stop():
+func map_object_stop(map, game):
 	clear()
 
 func has_drop_crate_or_powerup() -> bool:
@@ -21,21 +21,14 @@ func _on_DropTimer_timeout() -> void:
 		crate_position.x = (randi() % int($CollisionShape2D.shape.extents.x * 2)) - $CollisionShape2D.shape.extents.x
 		crate_position.y = (randi() % int($CollisionShape2D.shape.extents.y * 2)) - $CollisionShape2D.shape.extents.y
 		
-		var contents
-		match randi() % 10:
-			0, 2, 4, 6, 8, 9:
-				contents = "health"
-			1, 3:
-				contents = "spread"
-			5, 7:
-				contents = "target"
-		rpc("spawn_drop_crate", crate_position, contents)
+		var contents = possible_contents[randi() % possible_contents.size()]
+		rpc("spawn_drop_crate", crate_position, contents.resource_path)
 
-remotesync func spawn_drop_crate(_position : Vector2, contents : String):
+remotesync func spawn_drop_crate(_position: Vector2, pickup_path: String):
 	var crate = DropCrate.instance()
 	crate.position = _position
 	crate.set_name('DropCrate')
-	crate.set_contents(contents)
+	crate.set_contents(load(pickup_path))
 	$Spawns.add_child(crate)
 
 func clear():

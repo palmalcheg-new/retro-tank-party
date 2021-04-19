@@ -11,6 +11,7 @@ var map_scene: PackedScene
 var game_started := false
 var players_alive := {}
 var players_index := {}
+var possible_pickups := []
 
 signal game_error (message)
 signal game_started ()
@@ -34,6 +35,13 @@ func game_setup(players: Dictionary, map_path: String, operation: RemoteOperatio
 		if operation:
 			operation.mark_done(false)
 		return
+	
+	if is_network_master():
+		# Build up a list of possible contents for drawing randomly.
+		for pickup_path in Modding.find_resources("pickups"):
+			var pickup = load(pickup_path)
+			for i in range(pickup.rarity):
+				possible_pickups.append(pickup)
 	
 	var player_index := 1
 	for peer_id in players:
@@ -77,13 +85,13 @@ func make_player_controlled(peer_id) -> void:
 # Actually start the game on this client.
 remotesync func game_start() -> void:
 	if map.has_method('map_start'):
-		map.map_start()
+		map.map_start(self)
 	emit_signal("game_started")
 	get_tree().set_pause(false)
 
 func game_stop() -> void:
 	if map.has_method('map_stop'):
-		map.map_stop()
+		map.map_stop(self)
 	
 	game_started = false
 	players_alive.clear()

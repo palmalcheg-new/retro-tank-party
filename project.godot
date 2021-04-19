@@ -17,17 +17,22 @@ _global_script_classes=[ {
 "base": "Resource",
 "class": "GameMap",
 "language": "GDScript",
-"path": "res://src/maps/GameMap.gd"
+"path": "res://src/components/maps/GameMap.gd"
+}, {
+"base": "Resource",
+"class": "HealthPickup",
+"language": "GDScript",
+"path": "res://src/components/pickups/HealthPickup.gd"
 }, {
 "base": "Resource",
 "class": "MatchMode",
 "language": "GDScript",
-"path": "res://src/modes/MatchMode.gd"
+"path": "res://src/components/modes/MatchMode.gd"
 }, {
 "base": "AudioStreamPlayer",
 "class": "MyAudioStreamPlayer2D",
 "language": "GDScript",
-"path": "res://src/components/MyAudioStreamPlayer2D.gd"
+"path": "res://src/sound/MyAudioStreamPlayer2D.gd"
 }, {
 "base": "Button",
 "class": "MyButton",
@@ -109,14 +114,30 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/com.heroiclabs.nakama/api/NakamaWriteStorageObject.gd"
 }, {
+"base": "Resource",
+"class": "Pickup",
+"language": "GDScript",
+"path": "res://src/components/pickups/Pickup.gd"
+}, {
 "base": "CanvasLayer",
 "class": "UILayer",
 "language": "GDScript",
 "path": "res://src/ui/UILayer.gd"
+}, {
+"base": "Resource",
+"class": "WeaponPickup",
+"language": "GDScript",
+"path": "res://src/components/pickups/WeaponPickup.gd"
+}, {
+"base": "Resource",
+"class": "WeaponType",
+"language": "GDScript",
+"path": "res://src/components/weapons/WeaponType.gd"
 } ]
 _global_script_class_icons={
 "ControlFocusComponent": "",
 "GameMap": "",
+"HealthPickup": "",
 "MatchMode": "",
 "MyAudioStreamPlayer2D": "",
 "MyButton": "",
@@ -135,7 +156,10 @@ _global_script_class_icons={
 "NakamaSocketAdapter": "",
 "NakamaStorageObjectId": "",
 "NakamaWriteStorageObject": "",
-"UILayer": ""
+"Pickup": "",
+"UILayer": "",
+"WeaponPickup": "",
+"WeaponType": ""
 }
 
 [application]
@@ -152,7 +176,6 @@ run/main_scene.HTML5="res://src/main/Title.tscn"
 
 Nakama="*res://addons/com.heroiclabs.nakama/Nakama.gd"
 OnlineMatch="*res://addons/nakama-webrtc/OnlineMatch.gd"
-Constants="*res://src/autoload/Constants.gd"
 Build="*res://src/autoload/Build.gd"
 Globals="*res://src/autoload/Globals.tscn"
 GameSettings="*res://src/autoload/GameSettings.gd"
