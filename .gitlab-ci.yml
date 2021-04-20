@@ -332,7 +332,7 @@ steam:
         steam-*)
           sed -i -e "s/STEAM_BRANCH/${CI_COMMIT_REF_NAME:6}/" scripts/steam/app_build_1568570.vdf;
           ;;
-        steam)
+        steam|master)
           sed -i -e "s/STEAM_BRANCH/beta/" scripts/steam/app_build_1568570.vdf;
           ;;
       esac;
