@@ -5,6 +5,7 @@ var Game = preload("res://src/Game.gd")
 var config: Dictionary
 var match_scene
 var map_path: String
+var teams := []
 var game
 var ui_layer: UILayer
 var players := {}
@@ -12,6 +13,7 @@ var players := {}
 func match_setup(_info: Dictionary, _match_scene, _game, _ui_layer) -> void:
 	config = _info['config']
 	map_path = _info['map_path']
+	teams = _info['teams']
 	match_scene = _match_scene
 	game = _game
 	ui_layer = _ui_layer
@@ -33,14 +35,19 @@ func _setup_players() -> void:
 		player_index += 1
 
 func _get_player_team(peer_id: int) -> int:
-	if not config.has('teams'):
+	if config.get('teams', false):
 		return -1
 	
-	for team in config['teams']:
+	var team_index := 0
+	for team in teams:
 		if peer_id in team:
-			return team
+			return team_index
+		team_index += 1
 	
 	return -1
+
+func remove_player(peer_id: int) -> void:
+	players.erase(peer_id)
 
 #
 # For child classes to override:
@@ -48,7 +55,7 @@ func _get_player_team(peer_id: int) -> int:
 
 func _do_match_setup() -> void:
 	# A sensible default.
-	game.game_setup(OnlineMatch.get_player_names_by_peer_id(), map_path)
+	game.game_setup(players, map_path)
 
 func match_start() -> void:
 	# A sensible default.

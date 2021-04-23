@@ -18,9 +18,9 @@ func _ready() -> void:
 	Music.play(songs[randi() % songs.size()])
 
 func restart_game() -> void:
-	var players = [
-		Game.Player.new(1, "Practice", 1),
-	]
+	var players = {
+		1: Game.Player.new(1, "Practice", 1),
+	}
 	
 	game.game_setup(players, "res://mods/core/maps/Battlefield.tscn")
 	game.game_start()

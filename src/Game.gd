@@ -9,6 +9,7 @@ onready var watch_camera := $WatchCamera
 
 var map_scene: PackedScene
 var game_started := false
+var players := {}
 var players_alive := {}
 var possible_pickups := []
 
@@ -29,17 +30,17 @@ class Player:
 		team = _team
 
 func _get_synchronized_rpc_methods() -> Array:
-	return ['game_setup', 'respawn_player']
+	return ['respawn_player']
 
 # Initializes the game so that it is ready to really start.
-func game_setup(players: Array, map_path: String, operation: RemoteOperations.ClientOperation = null) -> void:
+func game_setup(_players: Dictionary, map_path: String, operation: RemoteOperations.ClientOperation = null) -> void:
 	get_tree().set_pause(true)
 	
 	if game_started:
 		game_stop()
 	
+	players = _players
 	game_started = true
-	players_alive.clear()
 	
 	if not load_map(map_path):
 		emit_signal("game_error", "Unable to load map")
@@ -54,8 +55,8 @@ func game_setup(players: Array, map_path: String, operation: RemoteOperations.Cl
 			for i in range(pickup.rarity):
 				possible_pickups.append(pickup)
 	
-	for player in players:
-		respawn_player(player)
+	for peer_id in players:
+		respawn_player(peer_id)
 	
 	var my_id: int = get_tree().get_network_unique_id()
 	make_player_controlled(my_id)
@@ -63,11 +64,11 @@ func game_setup(players: Array, map_path: String, operation: RemoteOperations.Cl
 	if operation:
 		operation.mark_done(true)
 
-func respawn_player(player: Player) -> void:
-	var peer_id = player.peer_id
+func respawn_player(peer_id: int) -> void:
 	if players_node.has_node(str(peer_id)):
 		return
 	
+	var player = players[peer_id]
 	players_alive[peer_id] = player
 	
 	var player_index = player.index
@@ -103,6 +104,7 @@ func game_stop() -> void:
 		map.map_stop(self)
 	
 	game_started = false
+	
 	players_alive.clear()
 	watch_camera.current = true
 	
@@ -173,6 +175,10 @@ func kill_player(player_id) -> void:
 			# would have done.
 			player_node.queue_free()
 			_on_player_dead(-1, player_id)
+
+func remove_player(player_id) -> void:
+	players.erase(player_id)
+	kill_player(player_id)
 
 func enable_watch_camera(enable: bool = true) -> void:
 	player_camera.current = not enable

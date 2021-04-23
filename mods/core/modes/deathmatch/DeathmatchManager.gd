@@ -12,10 +12,10 @@ var winners := []
 func _do_match_setup() -> void:
 	._do_match_setup()
 	
-	var player_names = OnlineMatch.get_player_names_by_peer_id()
-	for player_id in player_names:
+	for player_id in players:
+		var player = players[player_id]
 		players_score[player_id] = 0
-		score_hud.set_player_name(game.players_index[player_id], player_names[player_id])
+		score_hud.set_player_name(player.index, player.name)
 	
 	score_hud.set_player_count(OnlineMatch.players.size())
 	OnlineMatch.connect("player_left", self, '_on_OnlineMatch_player_left')
@@ -40,7 +40,7 @@ func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 	if get_tree().is_network_server():
 		if killer_id != -1 and not instant_death:
 			players_score[killer_id] += 1
-			var player_index = game.players_index[killer_id]
+			var player_index = players[killer_id].index
 			score_hud.rpc("set_score", player_index, players_score[killer_id])
 
 		if instant_death:
@@ -58,7 +58,7 @@ func respawn_player(player_id: int) -> void:
 	
 	var player = OnlineMatch.get_player_by_peer_id(player_id)
 	# @todo How to respawn the player now that it takes an object?
-	var operation = RemoteOperations.synchronized_rpc(game, "respawn_player", [player_id, player.username])
+	var operation = RemoteOperations.synchronized_rpc(game, "respawn_player", [player_id])
 	if yield(operation, "completed"):
 		rpc_id(player_id, "_take_control_of_my_player")
 	else:

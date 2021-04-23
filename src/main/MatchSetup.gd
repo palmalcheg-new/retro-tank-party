@@ -3,6 +3,8 @@ extends Node2D
 onready var ui_layer = $UILayer
 onready var mode_screen = $UILayer/Screens/ModeScreen
 onready var map_screen = $UILayer/Screens/MapScreen
+onready var team_screen = $UILayer/Screens/TeamScreen
+
 onready var map_parent = $MapParent
 
 func _ready() -> void:
@@ -89,6 +91,7 @@ func _on_ReadyScreen_ready_pressed() -> void:
 		manager_path = mode_screen.get_mode_manager_scene_path(),
 		config = mode_screen.get_config_values(),
 		map_path = map_screen.get_map_scene_path(),
+		teams = team_screen.get_teams(),
 	}
 	RemoteOperations.change_scene("res://src/main/Match.tscn", match_info)
 
@@ -100,6 +103,8 @@ func scene_setup(operation: RemoteOperations.ClientOperation, info: Dictionary) 
 			mode_screen.set_config_values(info['config'])
 	if info.has('map_path'):
 		map_screen.set_map_scene_path(info['map_path'])
+	if info.has('teams'):
+		team_screen.set_teams(info['teams'])
 	
 	operation.mark_done()
 

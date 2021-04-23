@@ -2,17 +2,23 @@ extends "res://src/components/modes/BaseManager.gd"
 
 var players_score := {}
 
+func _get_synchronized_rpc_methods() -> Array:
+	return ['_do_start_new_round']
+
 func _do_match_setup() -> void:
 	._do_match_setup()
 	
 	game.connect("player_dead", self, "_on_game_player_dead")
 
 func start_new_round() -> void:
-	var operation = RemoteOperations.synchronized_rpc(game, "game_setup", [OnlineMatch.get_player_names_by_peer_id(), map_path])
+	var operation = RemoteOperations.synchronized_rpc(self, "_do_start_new_round")
 	if yield(operation, "completed"):
 		game.rpc("game_start")
 	else:
 		match_scene.quit_match()
+
+func _do_start_new_round() -> void:
+	game.game_setup(players, map_path)
 
 func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 	var my_id = get_tree().get_network_unique_id()

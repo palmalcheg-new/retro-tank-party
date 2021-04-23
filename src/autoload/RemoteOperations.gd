@@ -181,7 +181,10 @@ func _change_scene_host_operation_total_failure(path: String) -> void:
 	var scene = get_tree().current_scene
 	scene.ui_layer.show_message("Unable to change scene: %s" % path)
 
-func synchronized_rpc(node: Node, method: String, args: Array, pass_operation: bool = false):
+func synchronized_rpc(node: Node, method: String, args: Array = [], pass_operation: bool = false):
+	if node.has_method('_before_send_synchronized_rpc_method'):
+		node._before_send_synchronized_rpc_method(method, args)
+	
 	var info := {
 		node_path = str(node.get_path()),
 		method = method,
@@ -204,6 +207,9 @@ func _op_synchronized_rpc(operation: ClientOperation, info: Dictionary) -> void:
 	if not node.has_method('_get_synchronized_rpc_methods') or not node._get_synchronized_rpc_methods().has(method):
 		push_error("Synchronized RPC: Method %s is not returned by %s._get_synchronized_rpc_methods()" % [method, node_path])
 		return
+	
+	if node.has_method('_before_receive_synchronized_rpc_method'):
+		node._before_receive_synchronized_rpc_method(method, args)
 	
 	if pass_operation:
 		args.append(operation)
