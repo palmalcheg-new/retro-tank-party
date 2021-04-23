@@ -10,18 +10,29 @@ onready var watch_camera := $WatchCamera
 var map_scene: PackedScene
 var game_started := false
 var players_alive := {}
-var players_index := {}
 var possible_pickups := []
 
 signal game_error (message)
 signal game_started ()
 signal player_dead (player_id, killer_id)
 
+class Player:
+	var peer_id: int
+	var name: String
+	var index: int
+	var team: int
+	
+	func _init(_peer_id: int, _name: String, _index: int, _team: int = -1):
+		peer_id = _peer_id
+		name = _name
+		index = _index
+		team = _team
+
 func _get_synchronized_rpc_methods() -> Array:
 	return ['game_setup', 'respawn_player']
 
 # Initializes the game so that it is ready to really start.
-func game_setup(players: Dictionary, map_path: String, operation: RemoteOperations.ClientOperation = null) -> void:
+func game_setup(players: Array, map_path: String, operation: RemoteOperations.ClientOperation = null) -> void:
 	get_tree().set_pause(true)
 	
 	if game_started:
@@ -43,11 +54,8 @@ func game_setup(players: Dictionary, map_path: String, operation: RemoteOperatio
 			for i in range(pickup.rarity):
 				possible_pickups.append(pickup)
 	
-	var player_index := 1
-	for peer_id in players:
-		players_index[peer_id] = player_index
-		respawn_player(peer_id, players[peer_id])
-		player_index += 1
+	for player in players:
+		respawn_player(player)
 	
 	var my_id: int = get_tree().get_network_unique_id()
 	make_player_controlled(my_id)
@@ -55,24 +63,25 @@ func game_setup(players: Dictionary, map_path: String, operation: RemoteOperatio
 	if operation:
 		operation.mark_done(true)
 
-func respawn_player(peer_id, username) -> void:
+func respawn_player(player: Player) -> void:
+	var peer_id = player.peer_id
 	if players_node.has_node(str(peer_id)):
 		return
 	
-	players_alive[peer_id] = username
+	players_alive[peer_id] = player
 	
-	var player_index = players_index[peer_id]
+	var player_index = player.index
 	
-	var player = TankScene.instance()
-	player.name = str(peer_id)
-	players_node.add_child(player)
+	var tank = TankScene.instance()
+	tank.name = str(peer_id)
+	players_node.add_child(tank)
 	
-	player.set_network_master(peer_id)
-	player.set_player_name(username)
-	player.player_index = player_index
-	player.position = map.get_node("PlayerStartPositions/Player" + str(player_index)).position
-	player.rotation = map.get_node("PlayerStartPositions/Player" + str(player_index)).rotation
-	player.connect("player_dead", self, "_on_player_dead", [peer_id])
+	tank.set_network_master(peer_id)
+	tank.set_player_name(player.name)
+	tank.player_index = player_index
+	tank.position = map.get_node("PlayerStartPositions/Player" + str(player_index)).position
+	tank.rotation = map.get_node("PlayerStartPositions/Player" + str(player_index)).rotation
+	tank.connect("player_dead", self, "_on_player_dead", [peer_id])
 
 func make_player_controlled(peer_id) -> void:
 	var my_player := players_node.get_node(str(peer_id))

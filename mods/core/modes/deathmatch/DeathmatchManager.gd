@@ -57,6 +57,7 @@ func respawn_player(player_id: int) -> void:
 		return
 	
 	var player = OnlineMatch.get_player_by_peer_id(player_id)
+	# @todo How to respawn the player now that it takes an object?
 	var operation = RemoteOperations.synchronized_rpc(game, "respawn_player", [player_id, player.username])
 	if yield(operation, "completed"):
 		rpc_id(player_id, "_take_control_of_my_player")

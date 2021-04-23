@@ -257,8 +257,14 @@ func get_player_by_peer_id(peer_id: int):
 		return players[session_id]
 	return null
 
+func get_players_by_peer_id() -> Dictionary:
+	var result := {}
+	for player in players.values():
+		result[player.peer_id] = player
+	return result
+
 func get_player_names_by_peer_id() -> Dictionary:
-	var result = {}
+	var result := {}
 	for session_id in players:
 		result[players[session_id]['peer_id']] = players[session_id]['username']
 	return result
