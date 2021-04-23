@@ -27,4 +27,18 @@ margin_left = 642.0
 margin_right = 1280.0
 margin_bottom = 66.0
 size_flags_horizontal = 3
-[connection signal="item_selected" from="Timelimit" to="." method="_on_Timelimit_item_selected"]
+
+[node name="TeamsLabel" type="Label" parent="."]
+margin_top = 77.0
+margin_right = 638.0
+margin_bottom = 128.0
+text = "Teams"
+
+[node name="Teams" parent="." instance=ExtResource( 3 )]
+anchor_right = 0.0
+margin_left = 642.0
+margin_top = 70.0
+margin_right = 1280.0
+margin_bottom = 136.0
+[connection signal="item_selected" from="Timelimit" to="." method="_on_OptionSwitcher_item_selected"]
+[connection signal="item_selected" from="Teams" to="." method="_on_OptionSwitcher_item_selected"]
