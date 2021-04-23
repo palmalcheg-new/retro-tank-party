@@ -45,7 +45,8 @@ align = 1
 [node name="GridContainer" type="GridContainer" parent="Panel/VBoxContainer"]
 margin_top = 66.0
 margin_right = 570.0
-margin_bottom = 375.0
+margin_bottom = 384.0
+size_flags_vertical = 3
 custom_constants/vseparation = 15
 columns = 2
 
@@ -110,9 +111,9 @@ size_flags_horizontal = 3
 
 [node name="NextButton" type="Button" parent="Panel/VBoxContainer"]
 margin_left = 210.0
-margin_top = 390.0
+margin_top = 399.0
 margin_right = 360.0
-margin_bottom = 455.534
+margin_bottom = 464.534
 rect_min_size = Vector2( 150, 0 )
 size_flags_horizontal = 4
 text = "Next"
