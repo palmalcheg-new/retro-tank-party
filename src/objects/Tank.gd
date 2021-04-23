@@ -57,7 +57,7 @@ const TANK_COLORS = {
 		turret_sprite_region = Rect2( 724, 512, 24, 60 ),
 	},
 }
-var player_index: int setget set_player_index
+var player_index
 
 func _ready():
 	player_info_node.set_as_toplevel(true)
@@ -76,10 +76,16 @@ func _ready():
 	if player_controlled:
 		Globals.my_player_position = global_position
 
-func set_player_index(_player_index: int) -> void:
-	player_index = _player_index
+func setup_tank(player) -> void:
+	set_network_master(player.peer_id)
+	player_info_node.set_player_name(player.name)
+	player_index = player.index
+	
 	body_sprite.region_rect = TANK_COLORS[player_index]['body_sprite_region']
 	turret_sprite.region_rect = TANK_COLORS[player_index]['turret_sprite_region']
+	
+	if player.team != -1:
+		player_info_node.set_team_color(Globals.TEAM_COLORS[player.team])
 
 func set_weapon_type(_weapon_type: WeaponType) -> void:
 	if weapon_type != _weapon_type:
@@ -181,9 +187,6 @@ func shoot():
 	
 	shoot_sound.play()
 	weapon.fire_weapon()
-
-func set_player_name(_name: String) -> void:
-	player_info_node.set_player_name(_name)
 	
 func _on_ShootCooldownTimer_timeout() -> void:
 	can_shoot = true

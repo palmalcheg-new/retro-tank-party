@@ -1,5 +1,15 @@
 extends Node
 
+enum Teams {
+	RED = 0,
+	BLUE = 1,
+}
+
+const TEAM_COLORS := [
+	Color('#e74c3c'),
+	Color('#419fdd'),
+]
+
 onready var rumble = $Rumble
 
 var title_shown := false

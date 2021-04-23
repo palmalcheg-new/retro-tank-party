@@ -13,3 +13,6 @@ func update_health(_health: int) -> void:
 
 func set_player_name(_name: String) -> void:
 	player_name_label.text = _name
+
+func set_team_color(color: Color) -> void:
+	player_name_label.add_color_override("font_color", color)

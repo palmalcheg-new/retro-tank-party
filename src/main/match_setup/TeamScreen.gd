@@ -17,8 +17,8 @@ func _ready() -> void:
 		var label = field_container.get_node("Player%sLabel" % player_number)
 		var field = field_container.get_node("Player%sTeam" % player_number)
 
-		field.add_item("Red", 0, Color('#e74c3c'))
-		field.add_item("Blue", 1, Color('#419fdd'))
+		field.add_item("Red", Globals.Teams.RED, Globals.TEAM_COLORS[Globals.Teams.RED])
+		field.add_item("Blue", Globals.Teams.BLUE, Globals.TEAM_COLORS[Globals.Teams.BLUE])
 		field.set_value(i % 2, false)
 		field.connect("item_selected", self, "_on_team_selected", [i])
 		fields.append(field)

@@ -71,15 +71,13 @@ func respawn_player(peer_id: int) -> void:
 	var player = players[peer_id]
 	players_alive[peer_id] = player
 	
-	var player_index = player.index
-	
 	var tank = TankScene.instance()
 	tank.name = str(peer_id)
 	players_node.add_child(tank)
 	
-	tank.set_network_master(peer_id)
-	tank.set_player_name(player.name)
-	tank.player_index = player_index
+	var player_index = player.index
+	
+	tank.setup_tank(player)
 	tank.position = map.get_node("PlayerStartPositions/Player" + str(player_index)).position
 	tank.rotation = map.get_node("PlayerStartPositions/Player" + str(player_index)).rotation
 	tank.connect("player_dead", self, "_on_player_dead", [peer_id])

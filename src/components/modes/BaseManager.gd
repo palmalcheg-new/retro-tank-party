@@ -35,7 +35,7 @@ func _setup_players() -> void:
 		player_index += 1
 
 func _get_player_team(peer_id: int) -> int:
-	if config.get('teams', false):
+	if not config.get('teams', false):
 		return -1
 	
 	var team_index := 0
