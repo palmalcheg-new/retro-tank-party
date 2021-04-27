@@ -46,6 +46,11 @@ while true; do
         die "* error: no Status found in info response"
     fi
 
+    if [ "${NSTAT}" == "invalid" ]; then
+        cat /tmp/notarize-info.xml
+        die "* error: error notarizing app"
+    fi
+
     if [ "${NSTAT}" == "success" ]; then
         break
     fi
