@@ -184,7 +184,7 @@ windows-steam:
     - rm webrtc_debug/webrtc_debug.gdnlib
 
     # Get the GodotSteam export templates.
-    - wget "https://github.com/Gramps/GodotSteam/releases/download/g3-s150-gs381/windows-323-64bit.zip" -O ./build/templates/templates.zip
+    - wget "https://github.com/Gramps/GodotSteam/releases/download/g33-s151-gs39/windows-33-64bit.zip" -O ./build/templates/templates.zip
     - (cd ./build/templates && unzip templates.zip)
     - ./scripts/update-export-setting.py export_presets.cfg preset.4.options custom_template/debug "\"$PWD/build/templates/windows-323-template-64bit.exe\""
     - ./scripts/update-export-setting.py export_presets.cfg preset.4.options custom_template/release "\"$PWD/build/templates/windows-323-template-64bit.exe\""
@@ -235,7 +235,7 @@ linux-steam:
     - rm webrtc_debug/webrtc_debug.gdnlib
 
     # Get the GodotSteam export templates.
-    - wget "https://github.com/Gramps/GodotSteam/releases/download/g3-s150-gs381/linux-323-64bit.tar.gz" -O ./build/templates/templates.tgz
+    - wget "https://github.com/Gramps/GodotSteam/releases/download/g33-s151-gs39/macos-33-x86_64.zip" -O ./build/templates/templates.tgz
     - (cd ./build/templates && tar -xzvf templates.tgz)
     - ./scripts/update-export-setting.py export_presets.cfg preset.5.options custom_template/debug "\"$PWD/build/templates/linux-323-template-64bit\""
     - ./scripts/update-export-setting.py export_presets.cfg preset.5.options custom_template/release "\"$PWD/build/templates/linux-323-template-64bit\""
