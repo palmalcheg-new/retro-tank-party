@@ -25,6 +25,10 @@ echo "Signing..."
 codesign -vvv --force --deep --strict --sign "$MACOSX_SIGNATURE_IDENTITY" --options runtime $ENTITLEMENTS --timestamp "$NAME" \
 	|| die "Failed to sign app"
 
+echo "Checking signature..."
+codesign -vvv --verify "$NAME"
+spctl --assess --verbose "$NAME"
+
 echo "Uploading for notarization..."
 zip -r "$NAME.zip" "$NAME"
 xcrun altool --notarize-app -t osx -f "$NAME.zip" --primary-bundle-id "$MACOSX_BUNDLE_ID" -u "$MACOSX_APPLE_ID" -p "$MACOSX_APPLE_PASSWORD" --output-format xml > /tmp/notarize-app.xml
