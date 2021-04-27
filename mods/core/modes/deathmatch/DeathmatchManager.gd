@@ -4,8 +4,6 @@ onready var countdown_timer := $CanvasLayer/Control/CountdownTimer
 onready var instant_death_label := $CanvasLayer/Control/InstantDeathLabel
 onready var score_hud := $CanvasLayer/Control/ScoreHUD
 
-var score := ScoreCounter.new()
-
 var instant_death := false
 var winners := []
 
@@ -13,15 +11,13 @@ func _do_match_setup() -> void:
 	._do_match_setup()
 	
 	if use_teams:
-		score_hud.set_entity_count(2)
-		for team_id in range(teams.size()):
-			score.add_entity(team_id, Globals.TEAM_NAMES[team_id])
-			score_hud.set_entity_name(team_id + 1, Globals.TEAM_NAMES[team_id])
+		score_hud.set_entity_count(score.entities.size())
+		for team_id in score.entities:
+			score_hud.set_entity_name(team_id + 1, score.entities[team_id].name)
 	else:
 		score_hud.set_entity_count(OnlineMatch.players.size())
 		for player_id in players:
 			var player = players[player_id]
-			score.add_entity(player_id, player.name)
 			score_hud.set_entity_name(player.index, player.name)
 	
 	OnlineMatch.connect("player_left", self, '_on_OnlineMatch_player_left')

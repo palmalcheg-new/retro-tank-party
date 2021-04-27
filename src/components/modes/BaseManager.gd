@@ -11,6 +11,7 @@ var use_teams := false
 var game
 var ui_layer: UILayer
 var players := {}
+var score := ScoreCounter.new()
 
 func match_setup(_info: Dictionary, _match_scene, _game, _ui_layer) -> void:
 	config = _info['config']
@@ -22,6 +23,7 @@ func match_setup(_info: Dictionary, _match_scene, _game, _ui_layer) -> void:
 	ui_layer = _ui_layer
 	
 	_setup_players()
+	_setup_score()
 	
 	# Now, the child classes setup.
 	_do_match_setup()
@@ -36,6 +38,14 @@ func _setup_players() -> void:
 		var online_player = online_players[peer_id]
 		players[peer_id] = Game.Player.new(peer_id, online_player.username, player_index, get_player_team(peer_id))
 		player_index += 1
+
+func _setup_score() -> void:
+	if use_teams:
+		for team_id in range(teams.size()):
+			score.add_entity(team_id, Globals.TEAM_NAMES[team_id])
+	else:
+		for player_id in players:
+			score.add_entity(player_id, players[player_id].name)
 
 func get_player_team(peer_id: int) -> int:
 	if not use_teams:

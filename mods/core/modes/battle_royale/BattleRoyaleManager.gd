@@ -1,16 +1,10 @@
 extends "res://src/components/modes/BaseManager.gd"
 
-var score := ScoreCounter.new()
-
 func _get_synchronized_rpc_methods() -> Array:
 	return ['_do_start_new_round']
 
 func _do_match_setup() -> void:
 	._do_match_setup()
-	
-	for player_id in players:
-		var player = players[player_id]
-		score.add_entity(player_id, player.name)
 	
 	game.connect("player_dead", self, "_on_game_player_dead")
 
