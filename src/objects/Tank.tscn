@@ -56,7 +56,7 @@ region_rect = Rect2( 722, 199, 24, 60 )
 position = Vector2( 55, 0 )
 
 [node name="PlayerInfo" parent="." instance=ExtResource( 3 )]
-position = Vector2( -66, -83 )
+position = Vector2( 0, -85 )
 
 [node name="ShootCooldownTimer" type="Timer" parent="."]
 wait_time = 0.25

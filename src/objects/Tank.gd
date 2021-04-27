@@ -85,7 +85,7 @@ func setup_tank(player) -> void:
 	turret_sprite.region_rect = TANK_COLORS[player_index]['turret_sprite_region']
 	
 	if player.team != -1:
-		player_info_node.set_team_color(Globals.TEAM_COLORS[player.team])
+		player_info_node.set_team(player.team)
 
 func set_weapon_type(_weapon_type: WeaponType) -> void:
 	if weapon_type != _weapon_type:
