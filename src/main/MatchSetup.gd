@@ -3,6 +3,8 @@ extends Node2D
 onready var ui_layer = $UILayer
 onready var mode_screen = $UILayer/Screens/ModeScreen
 onready var map_screen = $UILayer/Screens/MapScreen
+onready var team_screen = $UILayer/Screens/TeamScreen
+
 onready var map_parent = $MapParent
 
 func _ready() -> void:
@@ -16,11 +18,9 @@ func _ready() -> void:
 	
 	# Make the host in charge of this scene.
 	set_network_master(1)
-	if get_tree().is_network_server():
-		ui_layer.show_message("You're the host! How you wanna do this?")
-	else:
+	show_default_message()
+	if not is_network_master():
 		ui_layer.show_cover()
-		ui_layer.show_message("The host is configuring the match...")
 		for screen in ui_layer.get_screens():
 			if screen.has_method('disable_screen'):
 				screen.disable_screen()
@@ -29,6 +29,15 @@ func _ready() -> void:
 	ui_layer.show_back_button()
 	
 	Music.play("Menu")
+
+func show_default_message() -> void:
+	if get_tree().is_network_server():
+		ui_layer.show_message("You're the host! How you wanna do this?")
+	else:
+		ui_layer.show_message("The host is configuring the match...")
+
+func _on_UILayer_change_screen(name, screen) -> void:
+	show_default_message()
 
 func _on_UILayer_back_button() -> void:
 	var current_screen = ui_layer.current_screen_name
@@ -50,8 +59,14 @@ func _on_UILayer_back_button() -> void:
 			ui_layer.show_cover()
 	elif current_screen == 'ReadyScreen':
 		ui_layer.show_screen('MapScreen')
-	elif current_screen == 'MapScreen':
+	elif current_screen == 'TeamScreen':
 		ui_layer.show_screen('ModeScreen')
+	elif current_screen == 'MapScreen':
+		var config = mode_screen.get_config_values()
+		if config.get('teams', false):
+			ui_layer.show_screen('TeamScreen')
+		else:
+			ui_layer.show_screen('ModeScreen')
 
 func _on_MapScreen_map_changed(map_scene_path) -> void:
 	if not map_parent:
@@ -76,6 +91,7 @@ func _on_ReadyScreen_ready_pressed() -> void:
 		manager_path = mode_screen.get_mode_manager_scene_path(),
 		config = mode_screen.get_config_values(),
 		map_path = map_screen.get_map_scene_path(),
+		teams = team_screen.get_teams(),
 	}
 	RemoteOperations.change_scene("res://src/main/Match.tscn", match_info)
 
@@ -87,6 +103,8 @@ func scene_setup(operation: RemoteOperations.ClientOperation, info: Dictionary) 
 			mode_screen.set_config_values(info['config'])
 	if info.has('map_path'):
 		map_screen.set_map_scene_path(info['map_path'])
+	if info.has('teams'):
+		team_screen.set_teams(info['teams'])
 	
 	operation.mark_done()
 
@@ -106,5 +124,3 @@ func _on_OnlineMatch_player_left(player) -> void:
 		_on_OnlineMatch_error(player.username + " has left - not enough players!")
 	else:
 		ui_layer.show_message(player.username + " has left")
-
-

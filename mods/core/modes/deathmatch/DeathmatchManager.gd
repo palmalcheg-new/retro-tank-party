@@ -4,20 +4,22 @@ onready var countdown_timer := $CanvasLayer/Control/CountdownTimer
 onready var instant_death_label := $CanvasLayer/Control/InstantDeathLabel
 onready var score_hud := $CanvasLayer/Control/ScoreHUD
 
-var players_score := {}
-
 var instant_death := false
 var winners := []
 
 func _do_match_setup() -> void:
 	._do_match_setup()
 	
-	var player_names = OnlineMatch.get_player_names_by_peer_id()
-	for player_id in player_names:
-		players_score[player_id] = 0
-		score_hud.set_player_name(game.players_index[player_id], player_names[player_id])
+	if use_teams:
+		score_hud.set_entity_count(score.entities.size())
+		for team_id in score.entities:
+			score_hud.set_entity_name(team_id + 1, score.entities[team_id].name)
+	else:
+		score_hud.set_entity_count(OnlineMatch.players.size())
+		for player_id in players:
+			var player = players[player_id]
+			score_hud.set_entity_name(player.index, player.name)
 	
-	score_hud.set_player_count(OnlineMatch.players.size())
 	OnlineMatch.connect("player_left", self, '_on_OnlineMatch_player_left')
 	
 	game.connect("player_dead", self, "_on_game_player_dead")
@@ -28,9 +30,10 @@ func match_start() -> void:
 	.match_start()
 	countdown_timer.start_countdown(config['timelimit'] * 60)
 
-func _on_OnlineMatch_player_left(player) -> void:
-	score_hud.set_player_count(OnlineMatch.players.size())
-	players_score.erase(player.peer_id)
+func _on_OnlineMatch_player_left(online_player) -> void:
+	if not use_teams:
+		score.remove_entity(online_player.peer_id)
+		score_hud.hide_entity_score(players[online_player.peer_id].index)
 
 func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 	var my_id = get_tree().get_network_unique_id()
@@ -39,15 +42,25 @@ func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 	
 	if get_tree().is_network_server():
 		if killer_id != -1 and not instant_death:
-			players_score[killer_id] += 1
-			var player_index = game.players_index[killer_id]
-			score_hud.rpc("set_score", player_index, players_score[killer_id])
+			if use_teams:
+				var killer_team = get_player_team(killer_id)
+				score.increment_score(killer_team)
+				score_hud.rpc("set_score", killer_team + 1, score.get_score(killer_team))
+			else:
+				score.increment_score(killer_id)
+				var player_index = players[killer_id].index
+				score_hud.rpc("set_score", player_index, score.get_score(killer_id))
 
 		if instant_death:
 			rpc_id(player_id, "enable_watch_camera")
-			winners.erase(player_id)
+			
+			if use_teams:
+				var player_team = get_player_team(player_id)
+				winners.erase(player_team)
+			else:
+				winners.erase(player_id)
 			if winners.size() == 1:
-				rpc("show_winner", winners[0], players_score)
+				rpc("show_winner", score.get_name(winners[0]), score.to_dict())
 		elif OnlineMatch.get_player_by_peer_id(player_id) != null:
 			yield(get_tree().create_timer(2.0), "timeout")
 			respawn_player(player_id)
@@ -57,7 +70,8 @@ func respawn_player(player_id: int) -> void:
 		return
 	
 	var player = OnlineMatch.get_player_by_peer_id(player_id)
-	var operation = RemoteOperations.synchronized_rpc(game, "respawn_player", [player_id, player.username])
+	# @todo How to respawn the player now that it takes an object?
+	var operation = RemoteOperations.synchronized_rpc(game, "respawn_player", [player_id])
 	if yield(operation, "completed"):
 		rpc_id(player_id, "_take_control_of_my_player")
 	else:
@@ -71,22 +85,19 @@ remotesync func _take_control_of_my_player() -> void:
 	game.make_player_controlled(player_id)
 
 func _on_countdown_finished() -> void:
-	var max_score = players_score.values().max()
-	for player_id in players_score:
-		var score = players_score[player_id]
-		if score == max_score:
-			winners.append(player_id)
+	winners = score.find_highest()
 	
 	if winners.size() == 1:
-		rpc("show_winner", winners[0], players_score)
+		rpc("show_winner", score.get_name(winners[0]), score.to_dict())
 	else:
 		instant_death = true
 		
-		# Kill all the players that aren't winners.
-		var players_alive = game.players_alive.duplicate()
-		for player_id in players_alive:
-			if not player_id in winners:
-				rpc("kill_player", player_id)
+		if not use_teams:
+			# Kill all the players that aren't winners.
+			var players_alive = game.players_alive.duplicate()
+			for player_id in players_alive:
+				if not player_id in winners:
+					rpc("kill_player", player_id)
 		
 		rpc("show_instant_death_label")
 
@@ -101,13 +112,12 @@ remotesync func kill_player(peer_id: int) -> void:
 remotesync func enable_watch_camera() -> void:
 	game.enable_watch_camera()
 
-remotesync func show_winner(peer_id: int, host_players_score: Dictionary) -> void:
-	var name = OnlineMatch.get_player_by_peer_id(peer_id).username
-	ui_layer.show_message(name + " WINS THIS DEATHMATCH!")
+remotesync func show_winner(winner_name: String, host_score: Dictionary) -> void:
+	ui_layer.show_message(winner_name + " WINS THIS DEATHMATCH!")
 	
 	yield(get_tree().create_timer(2.0), "timeout")
 	
-	ui_layer.show_screen("RoundScreen", {players_score = host_players_score})
+	ui_layer.show_screen("RoundScreen", {score = host_score})
 	
 	yield(get_tree().create_timer(2.0), "timeout")
 	

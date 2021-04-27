@@ -2,7 +2,6 @@
 
 [ext_resource path="res://src/components/modes/MatchMode.gd" type="Script" id=1]
 
-
 [resource]
 script = ExtResource( 1 )
 name = "Deathmatch"

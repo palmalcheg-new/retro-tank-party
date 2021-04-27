@@ -1,5 +1,7 @@
 extends Node2D
 
+const Game = preload("res://src/Game.gd")
+
 onready var game := $Game
 onready var ui_layer := $UILayer
 
@@ -17,7 +19,7 @@ func _ready() -> void:
 
 func restart_game() -> void:
 	var players = {
-		1: "Practice",
+		1: Game.Player.new(1, "Practice", 1),
 	}
 	
 	game.game_setup(players, "res://mods/core/maps/Battlefield.tscn")

@@ -13,10 +13,12 @@ export (Color) var modulate_pressed = Color(1.0, 1.0, 1.0, 1.0)
 class Option:
 	var label: String
 	var value
+	var color
 	
-	func _init(_label: String, _value = null):
+	func _init(_label: String, _value = null, _color = null):
 		label = _label
 		value = _value
+		color = _color
 
 var _options := []
 var selected := 0 setget set_selected
@@ -25,6 +27,7 @@ var value setget set_value, get_value
 
 var focus: ControlFocusComponent
 
+onready var _label_default_color = _label.get_color("font_color")
 onready var _label_normal_style_box = _label.get_stylebox("normal")
 var _label_selected_style_box = preload("res://assets/ui/grey_button5_stylebox.tres")
 
@@ -60,7 +63,9 @@ func set_disabled(_disabled) -> void:
 
 func _update_display() -> void:
 	if selected >= 0 and selected < _options.size():
-		_label.text = _options[selected].label
+		var option = _options[selected]
+		_label.text = option.label
+		_label.add_color_override("font_color", option.color if option.color != null else _label_default_color)
 		_reset_button_colors()
 
 func _reset_button_colors() -> void:
@@ -78,10 +83,10 @@ func get_value():
 	if _options.size() > 0:
 		return _options[selected].value
 
-func add_item(label: String, value = null) -> void:
+func add_item(label: String, value = null, color = null) -> void:
 	if value == null:
 		value = label
-	var option = Option.new(label, value)
+	var option = Option.new(label, value, color)
 	_options.push_back(option)
 	_update_display()
 

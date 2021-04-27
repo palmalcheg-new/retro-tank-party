@@ -9,26 +9,38 @@ onready var watch_camera := $WatchCamera
 
 var map_scene: PackedScene
 var game_started := false
+var players := {}
 var players_alive := {}
-var players_index := {}
 var possible_pickups := []
 
 signal game_error (message)
 signal game_started ()
 signal player_dead (player_id, killer_id)
 
+class Player:
+	var peer_id: int
+	var name: String
+	var index: int
+	var team: int
+	
+	func _init(_peer_id: int, _name: String, _index: int, _team: int = -1):
+		peer_id = _peer_id
+		name = _name
+		index = _index
+		team = _team
+
 func _get_synchronized_rpc_methods() -> Array:
-	return ['game_setup', 'respawn_player']
+	return ['respawn_player']
 
 # Initializes the game so that it is ready to really start.
-func game_setup(players: Dictionary, map_path: String, operation: RemoteOperations.ClientOperation = null) -> void:
+func game_setup(_players: Dictionary, map_path: String, operation: RemoteOperations.ClientOperation = null) -> void:
 	get_tree().set_pause(true)
 	
 	if game_started:
 		game_stop()
 	
+	players = _players
 	game_started = true
-	players_alive.clear()
 	
 	if not load_map(map_path):
 		emit_signal("game_error", "Unable to load map")
@@ -43,11 +55,8 @@ func game_setup(players: Dictionary, map_path: String, operation: RemoteOperatio
 			for i in range(pickup.rarity):
 				possible_pickups.append(pickup)
 	
-	var player_index := 1
 	for peer_id in players:
-		players_index[peer_id] = player_index
-		respawn_player(peer_id, players[peer_id])
-		player_index += 1
+		respawn_player(peer_id)
 	
 	var my_id: int = get_tree().get_network_unique_id()
 	make_player_controlled(my_id)
@@ -55,24 +64,23 @@ func game_setup(players: Dictionary, map_path: String, operation: RemoteOperatio
 	if operation:
 		operation.mark_done(true)
 
-func respawn_player(peer_id, username) -> void:
+func respawn_player(peer_id: int) -> void:
 	if players_node.has_node(str(peer_id)):
 		return
 	
-	players_alive[peer_id] = username
+	var player = players[peer_id]
+	players_alive[peer_id] = player
 	
-	var player_index = players_index[peer_id]
+	var tank = TankScene.instance()
+	tank.name = str(peer_id)
+	players_node.add_child(tank)
 	
-	var player = TankScene.instance()
-	player.name = str(peer_id)
-	players_node.add_child(player)
+	var player_index = player.index
 	
-	player.set_network_master(peer_id)
-	player.set_player_name(username)
-	player.player_index = player_index
-	player.position = map.get_node("PlayerStartPositions/Player" + str(player_index)).position
-	player.rotation = map.get_node("PlayerStartPositions/Player" + str(player_index)).rotation
-	player.connect("player_dead", self, "_on_player_dead", [peer_id])
+	tank.setup_tank(player)
+	tank.position = map.get_node("PlayerStartPositions/Player" + str(player_index)).position
+	tank.rotation = map.get_node("PlayerStartPositions/Player" + str(player_index)).rotation
+	tank.connect("player_dead", self, "_on_player_dead", [peer_id])
 
 func make_player_controlled(peer_id) -> void:
 	var my_player := players_node.get_node(str(peer_id))
@@ -94,6 +102,7 @@ func game_stop() -> void:
 		map.map_stop(self)
 	
 	game_started = false
+	
 	players_alive.clear()
 	watch_camera.current = true
 	
@@ -164,6 +173,10 @@ func kill_player(player_id) -> void:
 			# would have done.
 			player_node.queue_free()
 			_on_player_dead(-1, player_id)
+
+func remove_player(player_id) -> void:
+	players.erase(player_id)
+	kill_player(player_id)
 
 func enable_watch_camera(enable: bool = true) -> void:
 	player_camera.current = not enable
