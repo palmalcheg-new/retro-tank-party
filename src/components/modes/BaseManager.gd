@@ -46,9 +46,6 @@ func _get_player_team(peer_id: int) -> int:
 	
 	return -1
 
-func remove_player(peer_id: int) -> void:
-	players.erase(peer_id)
-
 #
 # For child classes to override:
 #

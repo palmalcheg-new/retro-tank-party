@@ -17,9 +17,9 @@ func _do_match_setup() -> void:
 	for player_id in players:
 		var player = players[player_id]
 		score.add_entity(player_id, player.name)
-		score_hud.set_player_name(player.index, player.name)
+		score_hud.set_entity_name(player.index, player.name)
 	
-	score_hud.set_player_count(OnlineMatch.players.size())
+	score_hud.set_entity_count(OnlineMatch.players.size())
 	OnlineMatch.connect("player_left", self, '_on_OnlineMatch_player_left')
 	
 	game.connect("player_dead", self, "_on_game_player_dead")
@@ -30,9 +30,9 @@ func match_start() -> void:
 	.match_start()
 	countdown_timer.start_countdown(config['timelimit'] * 60)
 
-func _on_OnlineMatch_player_left(player) -> void:
-	score.remove_entity(player.peer_id)
-	score_hud.hide_player_score(player.player_index)
+func _on_OnlineMatch_player_left(online_player) -> void:
+	score.remove_entity(online_player.peer_id)
+	score_hud.hide_entity_score(players[online_player.peer_id].index)
 
 func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 	var my_id = get_tree().get_network_unique_id()
