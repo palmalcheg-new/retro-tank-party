@@ -2,28 +2,45 @@ extends Reference
 
 class ScorableEntity extends Reference:
 	var name: String
-	var score := 0
+	var score: int
 	
-	func _init(_name: String) -> void:
+	func _init(_name: String, entities: int = 0) -> void:
 		name = _name
+		score = entities
+	
+	static func from_dict(data: Dictionary) -> ScorableEntity:
+		return ScorableEntity.new(data['name'], int(data['score']))
+	
+	func to_dict() -> Dictionary:
+		return {
+			name = name,
+			score = score,
+		}
 
-var _score := {}
+var entities := {}
 
-func _init() -> void:
-	pass
+func _init(serialized: Dictionary = {}) -> void:
+	for id in serialized:
+		entities[id] = ScorableEntity.from_dict(serialized[id])
+
+func to_dict() -> Dictionary:
+	var result := {}
+	for id in entities:
+		result[id] = entities[id].to_dict()
+	return result
 
 func add_entity(id: int, name: String) -> void:
 	var entity = ScorableEntity.new(name)
-	_score[id] = entity
+	entities[id] = entity
 
 func get_entity(id: int) -> ScorableEntity:
-	return _score.get(id)
+	return entities.get(id)
 
 func remove_entity(id: int) -> void:
-	_score.erase(id)
+	entities.erase(id)
 
 func remove_all_entities() -> void:
-	_score.clear()
+	entities.clear()
 
 func get_name(id: int) -> String:
 	var entity = get_entity(id)
@@ -33,8 +50,8 @@ func get_name(id: int) -> String:
 	return ""
 
 func clear_score() -> void:
-	for id in _score:
-		_score[id].score = 0
+	for id in entities:
+		entities[id].score = 0
 
 func get_score(id: int) -> int:
 	var entity = get_entity(id)
@@ -45,8 +62,8 @@ func get_score(id: int) -> int:
 
 func get_all_scores() -> Dictionary:
 	var scores := {}
-	for id in _score:
-		scores[id] = _score[id].score
+	for id in entities:
+		scores[id] = entities[id].score
 	return scores
 
 func increment_score(id: int) -> void:
@@ -59,8 +76,8 @@ func find_highest() -> Array:
 	var max_score: int = get_all_scores().values().max()	
 	
 	var highest := []
-	for id in _score:
-		if _score[id].score == max_score:
+	for id in entities:
+		if entities[id].score == max_score:
 			highest.append(id)
 	
 	return highest

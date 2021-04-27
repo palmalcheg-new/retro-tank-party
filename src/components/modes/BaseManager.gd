@@ -1,11 +1,13 @@
 extends Node
 
-var Game = preload("res://src/Game.gd")
+const ScoreCounter = preload("res://src/components/modes/ScoreCounter.gd")
+const Game = preload("res://src/Game.gd")
 
 var config: Dictionary
 var match_scene
 var map_path: String
 var teams := []
+var use_teams := false
 var game
 var ui_layer: UILayer
 var players := {}
@@ -14,6 +16,7 @@ func match_setup(_info: Dictionary, _match_scene, _game, _ui_layer) -> void:
 	config = _info['config']
 	map_path = _info['map_path']
 	teams = _info['teams']
+	use_teams = config.get('teams', false)
 	match_scene = _match_scene
 	game = _game
 	ui_layer = _ui_layer
@@ -31,11 +34,11 @@ func _setup_players() -> void:
 	var player_index := 1
 	for peer_id in peer_ids:
 		var online_player = online_players[peer_id]
-		players[peer_id] = Game.Player.new(peer_id, online_player.username, player_index, _get_player_team(peer_id))
+		players[peer_id] = Game.Player.new(peer_id, online_player.username, player_index, get_player_team(peer_id))
 		player_index += 1
 
-func _get_player_team(peer_id: int) -> int:
-	if not config.get('teams', false):
+func get_player_team(peer_id: int) -> int:
+	if not use_teams:
 		return -1
 	
 	var team_index := 0

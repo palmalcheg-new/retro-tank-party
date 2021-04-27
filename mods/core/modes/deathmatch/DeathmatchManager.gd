@@ -1,7 +1,5 @@
 extends "res://src/components/modes/BaseManager.gd"
 
-const ScoreCounter = preload("res://src/components/modes/ScoreCounter.gd")
-
 onready var countdown_timer := $CanvasLayer/Control/CountdownTimer
 onready var instant_death_label := $CanvasLayer/Control/InstantDeathLabel
 onready var score_hud := $CanvasLayer/Control/ScoreHUD
@@ -14,12 +12,18 @@ var winners := []
 func _do_match_setup() -> void:
 	._do_match_setup()
 	
-	for player_id in players:
-		var player = players[player_id]
-		score.add_entity(player_id, player.name)
-		score_hud.set_entity_name(player.index, player.name)
+	if use_teams:
+		score_hud.set_entity_count(2)
+		for team_id in range(teams.size()):
+			score.add_entity(team_id, Globals.TEAM_NAMES[team_id])
+			score_hud.set_entity_name(team_id + 1, Globals.TEAM_NAMES[team_id])
+	else:
+		score_hud.set_entity_count(OnlineMatch.players.size())
+		for player_id in players:
+			var player = players[player_id]
+			score.add_entity(player_id, player.name)
+			score_hud.set_entity_name(player.index, player.name)
 	
-	score_hud.set_entity_count(OnlineMatch.players.size())
 	OnlineMatch.connect("player_left", self, '_on_OnlineMatch_player_left')
 	
 	game.connect("player_dead", self, "_on_game_player_dead")
@@ -31,8 +35,9 @@ func match_start() -> void:
 	countdown_timer.start_countdown(config['timelimit'] * 60)
 
 func _on_OnlineMatch_player_left(online_player) -> void:
-	score.remove_entity(online_player.peer_id)
-	score_hud.hide_entity_score(players[online_player.peer_id].index)
+	if not use_teams:
+		score.remove_entity(online_player.peer_id)
+		score_hud.hide_entity_score(players[online_player.peer_id].index)
 
 func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 	var my_id = get_tree().get_network_unique_id()
@@ -41,15 +46,25 @@ func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 	
 	if get_tree().is_network_server():
 		if killer_id != -1 and not instant_death:
-			score.increment_score(killer_id)
-			var player_index = players[killer_id].index
-			score_hud.rpc("set_score", player_index, score.get_score(killer_id))
+			if use_teams:
+				var killer_team = get_player_team(killer_id)
+				score.increment_score(killer_team)
+				score_hud.rpc("set_score", killer_team + 1, score.get_score(killer_team))
+			else:
+				score.increment_score(killer_id)
+				var player_index = players[killer_id].index
+				score_hud.rpc("set_score", player_index, score.get_score(killer_id))
 
 		if instant_death:
 			rpc_id(player_id, "enable_watch_camera")
-			winners.erase(player_id)
+			
+			if use_teams:
+				var player_team = get_player_team(player_id)
+				winners.erase(player_team)
+			else:
+				winners.erase(player_id)
 			if winners.size() == 1:
-				rpc("show_winner", score.get_name(winners[0]), score.get_all_scores())
+				rpc("show_winner", score.get_name(winners[0]), score.to_dict())
 		elif OnlineMatch.get_player_by_peer_id(player_id) != null:
 			yield(get_tree().create_timer(2.0), "timeout")
 			respawn_player(player_id)
@@ -77,15 +92,16 @@ func _on_countdown_finished() -> void:
 	winners = score.find_highest()
 	
 	if winners.size() == 1:
-		rpc("show_winner", winners[0], score.get_all_scores())
+		rpc("show_winner", score.get_name(winners[0]), score.to_dict())
 	else:
 		instant_death = true
 		
-		# Kill all the players that aren't winners.
-		var players_alive = game.players_alive.duplicate()
-		for player_id in players_alive:
-			if not player_id in winners:
-				rpc("kill_player", player_id)
+		if not use_teams:
+			# Kill all the players that aren't winners.
+			var players_alive = game.players_alive.duplicate()
+			for player_id in players_alive:
+				if not player_id in winners:
+					rpc("kill_player", player_id)
 		
 		rpc("show_instant_death_label")
 
@@ -100,12 +116,12 @@ remotesync func kill_player(peer_id: int) -> void:
 remotesync func enable_watch_camera() -> void:
 	game.enable_watch_camera()
 
-remotesync func show_winner(winner_name: String, host_players_score: Dictionary) -> void:
+remotesync func show_winner(winner_name: String, host_score: Dictionary) -> void:
 	ui_layer.show_message(winner_name + " WINS THIS DEATHMATCH!")
 	
 	yield(get_tree().create_timer(2.0), "timeout")
 	
-	ui_layer.show_screen("RoundScreen", {players_score = host_players_score})
+	ui_layer.show_screen("RoundScreen", {score = host_score})
 	
 	yield(get_tree().create_timer(2.0), "timeout")
 	

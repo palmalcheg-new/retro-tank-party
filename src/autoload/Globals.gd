@@ -3,11 +3,17 @@ extends Node
 enum Teams {
 	RED = 0,
 	BLUE = 1,
+	MAX,
 }
 
 const TEAM_COLORS := [
 	Color('#e74c3c'),
 	Color('#419fdd'),
+]
+
+const TEAM_NAMES := [
+	"Red Team",
+	"Blue Team",
 ]
 
 onready var rumble = $Rumble

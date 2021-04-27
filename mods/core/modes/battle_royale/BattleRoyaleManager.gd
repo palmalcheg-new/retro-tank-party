@@ -1,12 +1,16 @@
 extends "res://src/components/modes/BaseManager.gd"
 
-var players_score := {}
+var score := ScoreCounter.new()
 
 func _get_synchronized_rpc_methods() -> Array:
 	return ['_do_start_new_round']
 
 func _do_match_setup() -> void:
 	._do_match_setup()
+	
+	for player_id in players:
+		var player = players[player_id]
+		score.add_entity(player_id, player.name)
 	
 	game.connect("player_dead", self, "_on_game_player_dead")
 
@@ -30,25 +34,20 @@ func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 		var player_keys = game.players_alive.keys()
 		var winner_id = player_keys[0]
 
-		if not players_score.has(winner_id):
-			players_score[winner_id] = 1
-		else:
-			players_score[winner_id] += 1
+		score.increment_score(winner_id)
 		
-		var is_match: bool = players_score[winner_id] >= config['points_to_win']
-		rpc("show_winner", winner_id, players_score, is_match)
+		var is_match: bool = score.get_score(winner_id) >= config['points_to_win']
+		rpc("show_winner", score.get_name(winner_id), score.to_dict(), is_match)
 
-remotesync func show_winner(peer_id: int, host_players_score: Dictionary, is_match: bool = false) -> void:
-	var name = OnlineMatch.get_player_by_peer_id(peer_id).username
-	
+remotesync func show_winner(winner_name: String, host_score: Dictionary, is_match: bool = false) -> void:
 	if is_match:
-		ui_layer.show_message(name + " WINS THE WHOLE MATCH!")
+		ui_layer.show_message(winner_name + " WINS THE WHOLE MATCH!")
 	else:
-		ui_layer.show_message(name + " wins this round!")
+		ui_layer.show_message(winner_name + " wins this round!")
 	
 	yield(get_tree().create_timer(2.0), "timeout")
 	
-	ui_layer.show_screen("RoundScreen", {players_score = host_players_score})
+	ui_layer.show_screen("RoundScreen", {score = host_score})
 	
 	yield(get_tree().create_timer(2.0), "timeout")
 	
