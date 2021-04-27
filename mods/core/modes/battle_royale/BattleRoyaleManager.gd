@@ -24,14 +24,26 @@ func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 		ui_layer.show_message("You lose!")
 		game.enable_watch_camera()
 	
-	if get_tree().is_network_server() and game.players_alive.size() == 1:
-		var player_keys = game.players_alive.keys()
-		var winner_id = player_keys[0]
+	if get_tree().is_network_server() and (game.players_alive.size() == 1 or not _check_team_alive(player_id)):
+		var winner_id := -1
+		if use_teams:
+			# The other team wins
+			winner_id = 1 if get_player_team(player_id) == 0 else 0
+		else:
+			var player_keys = game.players_alive.keys()
+			winner_id = player_keys[0]
 
 		score.increment_score(winner_id)
 		
 		var is_match: bool = score.get_score(winner_id) >= config['points_to_win']
 		rpc("show_winner", score.get_name(winner_id), score.to_dict(), is_match)
+
+func _check_team_alive(player_id: int) -> bool:
+	var team_id = get_player_team(player_id)
+	for team_player_id in teams[team_id]:
+		if game.players_alive.has(team_player_id):
+			return true
+	return false
 
 remotesync func show_winner(winner_name: String, host_score: Dictionary, is_match: bool = false) -> void:
 	if is_match:
