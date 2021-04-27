@@ -53,6 +53,7 @@ visible = false
 
 [node name="CreditsScreen" parent="UILayer/Screens" index="3" instance=ExtResource( 8 )]
 visible = false
+
 [connection signal="back_button" from="UILayer" to="." method="_on_UILayer_back_button"]
 [connection signal="change_screen" from="UILayer" to="." method="_on_UILayer_change_screen"]
 
