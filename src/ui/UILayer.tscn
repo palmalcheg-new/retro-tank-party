@@ -74,5 +74,6 @@ button_type = 1
 
 [node name="Alert" parent="Overlay" instance=ExtResource( 6 )]
 visible = false
+
 [connection signal="pressed" from="Overlay/BackButton" to="." method="_on_BackButton_pressed"]
 [connection signal="completed" from="Overlay/Alert" to="." method="_on_Alert_completed"]

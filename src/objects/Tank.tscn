@@ -85,5 +85,6 @@ bus = "Tank Engine"
 script = ExtResource( 8 )
 
 [node name="Tween" type="Tween" parent="EngineSound"]
+
 [connection signal="timeout" from="ShootCooldownTimer" to="." method="_on_ShootCooldownTimer_timeout"]
 [connection signal="tween_all_completed" from="EngineSound/Tween" to="EngineSound" method="_on_Tween_tween_all_completed"]

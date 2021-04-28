@@ -34,6 +34,7 @@ var shoot_rumble := 0.025
 
 var mouse_control := true
 
+var game
 var camera: Camera2D = null
 
 var weapon_type: WeaponType
@@ -76,7 +77,9 @@ func _ready():
 	if player_controlled:
 		Globals.my_player_position = global_position
 
-func setup_tank(player) -> void:
+func setup_tank(_game, player) -> void:
+	game = _game
+	
 	set_network_master(player.peer_id)
 	player_info_node.set_player_name(player.name)
 	player_index = player.index
@@ -97,6 +100,12 @@ func set_weapon_type(_weapon_type: WeaponType) -> void:
 		weapon = weapon_type.weapon_script.new()
 		weapon.setup_weapon(self, weapon_type)
 		weapon.attach_weapon()
+		
+		if game and player_controlled:
+			if weapon_type.resource_path == "res://mods/core/weapons/base.tres":
+				game.hud.clear_weapon_label()
+			else:
+				game.hud.set_weapon_label(weapon_type.name)
 
 func _get_input_vector() -> Vector2:
 	var input: Vector2

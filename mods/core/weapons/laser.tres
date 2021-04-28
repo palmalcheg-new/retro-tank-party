@@ -6,6 +6,7 @@
 
 [resource]
 script = ExtResource( 2 )
+name = "Laser"
 weapon_script = ExtResource( 1 )
 bullet_scene = ExtResource( 3 )
 damage = 10
