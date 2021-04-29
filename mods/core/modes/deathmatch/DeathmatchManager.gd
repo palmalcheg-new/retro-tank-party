@@ -56,7 +56,13 @@ func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 			
 			if use_teams:
 				var player_team = get_player_team(player_id)
-				winners.erase(player_team)
+				var atleast_one_teammate_alive := false
+				for other_player in teams[player_team]:
+					if game.players_alive.has(other_player):
+						atleast_one_teammate_alive = true
+						break
+				if not atleast_one_teammate_alive:
+					winners.erase(player_team)
 			else:
 				winners.erase(player_id)
 			if winners.size() == 1:
