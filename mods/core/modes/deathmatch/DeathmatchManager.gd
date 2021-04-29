@@ -44,10 +44,17 @@ func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 		if killer_id != -1 and not instant_death:
 			if use_teams:
 				var killer_team = get_player_team(killer_id)
-				score.increment_score(killer_team)
+				var player_team = get_player_team(player_id)
+				if killer_team != player_team:
+					score.increment_score(killer_team)
+				else:
+					score.decrement_score(killer_team)
 				score_hud.rpc("set_score", killer_team + 1, score.get_score(killer_team))
 			else:
-				score.increment_score(killer_id)
+				if killer_id != player_id:
+					score.increment_score(killer_id)
+				else:
+					score.decrement_score(killer_id)
 				var player_index = players[killer_id].index
 				score_hud.rpc("set_score", player_index, score.get_score(killer_id))
 
