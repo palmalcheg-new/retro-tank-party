@@ -120,9 +120,8 @@ func _get_input_vector() -> Vector2:
 			return input
 		if desired_vector.length() > 0.85:
 			desired_vector = desired_vector.normalized()
-
 		
-		# If going backwards is a short rotation, move backwards.
+		# If going backwards is a shorter rotation, move backwards.
 		if abs(current_vector.angle_to(desired_vector)) > PI / 2.0:
 			# Flip the vector for the angle calculations.
 			current_vector = current_vector.rotated(PI)
@@ -139,7 +138,7 @@ func _get_input_vector() -> Vector2:
 			angle_to = TAU - angle_to
 		
 		# Rotate in the direction closest to the desired angle. Give a little
-		# leeway so that we aren't bouncing between forward and backward.
+		# leeway so that we aren't bouncing between left and right.
 		var angle_to_degrees = rad2deg(angle_to)
 		if angle_to_degrees < -2.0:
 			input.y = -1.0
