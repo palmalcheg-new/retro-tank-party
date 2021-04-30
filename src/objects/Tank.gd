@@ -110,6 +110,40 @@ func _get_input_vector() -> Vector2:
 	if Input.is_action_pressed(input_prefix + "forward"):
 		input.x += min(Input.get_action_strength(input_prefix + "forward") + 0.5, 1.0)
 	
+	if input == Vector2.ZERO:
+		return input
+	
+	if GameSettings.control_scheme == GameSettings.ControlScheme.MODERN:
+		# Convert our normal inputs into a directional vector
+		var desired_vector = Vector2(input.y, -input.x).clamped(1.0)
+		var current_vector = Vector2.RIGHT.rotated(rotation)
+		
+		# If going backwards is a short rotation, move backwards.
+		if abs(current_vector.angle_to(desired_vector)) > PI / 2.0:
+			# Flip the vector for the angle calculations.
+			current_vector = current_vector.rotated(PI)
+			
+			# Set us moving backwards ...
+			input.x = -desired_vector.length()
+		else:
+			# ... or forwards
+			input.x = desired_vector.length()
+		
+		# Normalize the angle to the desired vector
+		var angle_to = current_vector.angle_to(desired_vector)
+		if abs(angle_to) > PI / 2.0:
+			angle_to = TAU - angle_to
+		
+		# Rotate in the direction closest to the desired angle. Give a little
+		# leeway so that we aren't bouncing between forward and backward.
+		var angle_to_degrees = rad2deg(angle_to)
+		if angle_to_degrees < -2.5:
+			input.y = -1.0
+		elif angle_to_degrees > 2.5:
+			input.y = 1.0
+		else:
+			input.y = 0
+	
 	return input
 
 func _physics_process(delta: float) -> void:
