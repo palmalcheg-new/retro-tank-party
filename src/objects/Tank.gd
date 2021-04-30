@@ -24,6 +24,7 @@ onready var engine_sound := $EngineSound
 var turn_speed := 5
 var speed := 400
 var velocity: Vector2
+var desired_rotation: float
 
 var health := 100
 var dead := false
@@ -137,12 +138,15 @@ func _get_input_vector() -> Vector2:
 		# Rotate in the direction closest to the desired angle. Give a little
 		# leeway so that we aren't bouncing between forward and backward.
 		var angle_to_degrees = rad2deg(angle_to)
-		if angle_to_degrees < -2.5:
+		if angle_to_degrees < -2.0:
 			input.y = -1.0
-		elif angle_to_degrees > 2.5:
+		elif angle_to_degrees > 2.0:
 			input.y = 1.0
 		else:
 			input.y = 0
+		
+		# Store the desired rotation, so we can snap to it.
+		desired_rotation = desired_vector.angle()
 	
 	return input
 
@@ -157,6 +161,12 @@ func _physics_process(delta: float) -> void:
 			engine_sound.turning = true
 		
 		rotation += input_vector.y * turn_speed * delta
+		
+		if GameSettings.control_scheme == GameSettings.ControlScheme.MODERN:
+			# If our rotation is really close to the desired rotation, just
+			# snap to it.
+			if rad2deg(abs(desired_rotation - rotation)) < 2.25:
+				rotation = desired_rotation
 		
 		velocity = Vector2()
 		velocity.x = input_vector.x
