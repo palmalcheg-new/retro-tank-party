@@ -102,22 +102,25 @@ func set_weapon_type(_weapon_type: WeaponType) -> void:
 func _get_input_vector() -> Vector2:
 	var input: Vector2
 	
-	if Input.is_action_pressed(input_prefix + "turn_left"):
-		input.y -= min(Input.get_action_strength(input_prefix + "turn_left") + 0.5, 1.0)
-	if Input.is_action_pressed(input_prefix + "turn_right"):
-		input.y = min(Input.get_action_strength(input_prefix + "turn_right") + 0.5, 1.0)
-	if Input.is_action_pressed(input_prefix + "backward"):
-		input.x -= min(Input.get_action_strength(input_prefix + "backward") + 0.5, 1.0)
-	if Input.is_action_pressed(input_prefix + "forward"):
-		input.x += min(Input.get_action_strength(input_prefix + "forward") + 0.5, 1.0)
-	
-	if input == Vector2.ZERO:
-		return input
-	
-	if GameSettings.control_scheme == GameSettings.ControlScheme.MODERN:
-		# Convert our normal inputs into a directional vector
-		var desired_vector = Vector2(input.y, -input.x).clamped(1.0)
+	if GameSettings.control_scheme == GameSettings.ControlScheme.RETRO:
+		if Input.is_action_pressed(input_prefix + "turn_left"):
+			input.y -= min(Input.get_action_strength(input_prefix + "turn_left") + 0.5, 1.0)
+		if Input.is_action_pressed(input_prefix + "turn_right"):
+			input.y = min(Input.get_action_strength(input_prefix + "turn_right") + 0.5, 1.0)
+		if Input.is_action_pressed(input_prefix + "backward"):
+			input.x -= min(Input.get_action_strength(input_prefix + "backward") + 0.5, 1.0)
+		if Input.is_action_pressed(input_prefix + "forward"):
+			input.x += min(Input.get_action_strength(input_prefix + "forward") + 0.5, 1.0)
+	else:
 		var current_vector = Vector2.RIGHT.rotated(rotation)
+		var desired_vector = Vector2(
+			Input.get_action_strength(input_prefix + "turn_right") - Input.get_action_strength(input_prefix + "turn_left"),
+			Input.get_action_strength(input_prefix + "backward") - Input.get_action_strength(input_prefix + "forward")).clamped(1.0)
+		if desired_vector == Vector2.ZERO:
+			return input
+		if desired_vector.length() > 0.85:
+			desired_vector = desired_vector.normalized()
+
 		
 		# If going backwards is a short rotation, move backwards.
 		if abs(current_vector.angle_to(desired_vector)) > PI / 2.0:
@@ -165,7 +168,7 @@ func _physics_process(delta: float) -> void:
 		if GameSettings.control_scheme == GameSettings.ControlScheme.MODERN:
 			# If our rotation is really close to the desired rotation, just
 			# snap to it.
-			if rad2deg(abs(desired_rotation - rotation)) < 2.25:
+			if rad2deg(abs(desired_rotation - rotation)) < 3:
 				rotation = desired_rotation
 		
 		velocity = Vector2()
