@@ -1,6 +1,5 @@
-[gd_resource type="Resource" load_steps=4 format=2]
+[gd_resource type="Resource" load_steps=3 format=2]
 
-[ext_resource path="res://src/objects/pickups/Pickup.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/components/pickups/WeaponPickup.gd" type="Script" id=2]
 [ext_resource path="res://mods/core/weapons/laser.tres" type="Resource" id=3]
 
@@ -9,5 +8,4 @@ script = ExtResource( 2 )
 name = "Laser"
 letter = "L"
 rarity = 20
-pickup_scene = ExtResource( 1 )
 weapon_type = ExtResource( 3 )
