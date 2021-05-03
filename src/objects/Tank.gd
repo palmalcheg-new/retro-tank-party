@@ -39,6 +39,8 @@ var camera: Camera2D = null
 
 var weapon_type: WeaponType
 var weapon
+var ability_type: AbilityType
+var ability
 
 const TANK_COLORS = {
 	1: {
@@ -106,6 +108,29 @@ func set_weapon_type(_weapon_type: WeaponType) -> void:
 				game.hud.clear_weapon_label()
 			else:
 				game.hud.set_weapon_label(weapon_type.name)
+
+func set_ability_type(_ability_type: AbilityType) -> void:
+	if ability_type == _ability_type:
+		if ability:
+			ability.recharge_ability()
+	else:
+		ability_type = _ability_type
+		
+		if ability:
+			ability.detach_ability()
+		
+		if ability_type != null:
+			ability = ability_type.ability_script.new()
+			ability.setup_ability(self, ability_type)
+			ability.attach_ability()
+		else:
+			ability = null
+		
+		if game and player_controlled:
+			if ability_type == null:
+				game.hud.clear_ability_label()
+			else:
+				game.hud.set_ability_label(ability_type.name)
 
 func _get_input_vector() -> Vector2:
 	var input: Vector2

@@ -37,7 +37,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, -16 ), Vector2( 0, 0 ), Vector2( 0, -16 ) ]
 }
 
-[node name="Powerup" type="Area2D"]
+[node name="Pickup" type="Area2D"]
 collision_layer = 8
 collision_mask = 2
 script = ExtResource( 3 )

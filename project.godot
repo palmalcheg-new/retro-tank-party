@@ -9,6 +9,16 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Resource",
+"class": "AbilityPickup",
+"language": "GDScript",
+"path": "res://src/components/pickups/AbilityPickup.gd"
+}, {
+"base": "Resource",
+"class": "AbilityType",
+"language": "GDScript",
+"path": "res://src/components/abilities/AbilityType.gd"
+}, {
 "base": "Node",
 "class": "ControlFocusComponent",
 "language": "GDScript",
@@ -135,6 +145,8 @@ _global_script_classes=[ {
 "path": "res://src/components/weapons/WeaponType.gd"
 } ]
 _global_script_class_icons={
+"AbilityPickup": "",
+"AbilityType": "",
 "ControlFocusComponent": "",
 "GameMap": "",
 "HealthPickup": "",

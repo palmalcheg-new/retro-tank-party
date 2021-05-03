@@ -17,4 +17,5 @@ shape = SubResource( 1 )
 wait_time = 20.0
 
 [node name="Spawns" type="Node2D" parent="."]
+
 [connection signal="timeout" from="DropTimer" to="." method="_on_DropTimer_timeout"]
