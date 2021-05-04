@@ -27,6 +27,7 @@ const DEFAULT_SPEED := 400
 var turn_speed := DEFAULT_TURN_SPEED
 var speed := DEFAULT_SPEED
 var velocity: Vector2
+var desired_rotation: float
 
 var health := 100
 var dead := false
@@ -139,14 +140,53 @@ func set_ability_type(_ability_type: AbilityType) -> void:
 func _get_input_vector() -> Vector2:
 	var input: Vector2
 	
-	if Input.is_action_pressed(input_prefix + "turn_left"):
-		input.y -= min(Input.get_action_strength(input_prefix + "turn_left") + 0.5, 1.0)
-	if Input.is_action_pressed(input_prefix + "turn_right"):
-		input.y = min(Input.get_action_strength(input_prefix + "turn_right") + 0.5, 1.0)
-	if Input.is_action_pressed(input_prefix + "backward"):
-		input.x -= min(Input.get_action_strength(input_prefix + "backward") + 0.5, 1.0)
-	if Input.is_action_pressed(input_prefix + "forward"):
-		input.x += min(Input.get_action_strength(input_prefix + "forward") + 0.5, 1.0)
+	if GameSettings.control_scheme == GameSettings.ControlScheme.RETRO:
+		if Input.is_action_pressed(input_prefix + "turn_left"):
+			input.y -= min(Input.get_action_strength(input_prefix + "turn_left") + 0.5, 1.0)
+		if Input.is_action_pressed(input_prefix + "turn_right"):
+			input.y = min(Input.get_action_strength(input_prefix + "turn_right") + 0.5, 1.0)
+		if Input.is_action_pressed(input_prefix + "backward"):
+			input.x -= min(Input.get_action_strength(input_prefix + "backward") + 0.5, 1.0)
+		if Input.is_action_pressed(input_prefix + "forward"):
+			input.x += min(Input.get_action_strength(input_prefix + "forward") + 0.5, 1.0)
+	else:
+		var current_vector = Vector2.RIGHT.rotated(rotation)
+		var desired_vector = Vector2(
+			Input.get_action_strength(input_prefix + "turn_right") - Input.get_action_strength(input_prefix + "turn_left"),
+			Input.get_action_strength(input_prefix + "backward") - Input.get_action_strength(input_prefix + "forward")).clamped(1.0)
+		if desired_vector == Vector2.ZERO:
+			return input
+		if desired_vector.length() > 0.85:
+			desired_vector = desired_vector.normalized()
+		
+		# If going backwards is a shorter rotation, move backwards.
+		if abs(current_vector.angle_to(desired_vector)) > PI / 2.0:
+			# Flip the vector for the angle calculations.
+			current_vector = current_vector.rotated(PI)
+			
+			# Set us moving backwards ...
+			input.x = -desired_vector.length()
+		else:
+			# ... or forwards
+			input.x = desired_vector.length()
+		
+		# Normalize the angle to the desired vector
+		var angle_to = current_vector.angle_to(desired_vector)
+		if abs(angle_to) > PI / 2.0:
+			angle_to = TAU - angle_to
+		
+		# Rotate in the direction closest to the desired angle. Give a little
+		# leeway so that we aren't bouncing between left and right.
+		var angle_to_degrees = rad2deg(angle_to)
+		if angle_to_degrees < -2.0:
+			input.y = -1.0
+		elif angle_to_degrees > 2.0:
+			input.y = 1.0
+		else:
+			input.y = 0
+		
+		# Store the desired rotation, so we can snap to it.
+		desired_rotation = desired_vector.angle()
 	
 	return input
 
@@ -161,6 +201,12 @@ func _physics_process(delta: float) -> void:
 			engine_sound.turning = true
 		
 		rotation += input_vector.y * turn_speed * delta
+		
+		if GameSettings.control_scheme == GameSettings.ControlScheme.MODERN:
+			# If our rotation is really close to the desired rotation, just
+			# snap to it.
+			if rad2deg(abs(desired_rotation - rotation)) < 3:
+				rotation = desired_rotation
 		
 		velocity = Vector2()
 		velocity.x = input_vector.x

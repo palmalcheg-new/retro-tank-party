@@ -66,11 +66,19 @@ func get_all_scores() -> Dictionary:
 		scores[id] = entities[id].score
 	return scores
 
-func increment_score(id: int) -> void:
+func increment_score(id: int, amount: int = 1) -> void:
 	var entity = get_entity(id)
 	assert (entity != null, "Cannot increment for scorable entity %s" % id)
 	if entity:
-		entity.score += 1
+		entity.score += amount
+
+func decrement_score(id: int, amount: int = 1) -> void:
+	var entity = get_entity(id)
+	assert (entity != null, "Cannot increment for scorable entity %s" % id)
+	if entity:
+		entity.score -= amount
+		if entity.score < 0:
+			entity.score = 0
 
 func find_highest() -> Array:
 	var max_score: int = get_all_scores().values().max()	
