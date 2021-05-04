@@ -21,8 +21,11 @@ onready var animation_player := $AnimationPlayer
 onready var shoot_sound := $ShootSound
 onready var engine_sound := $EngineSound
 
-var turn_speed := 5
-var speed := 400
+const DEFAULT_TURN_SPEED := 5
+const DEFAULT_SPEED := 400
+
+var turn_speed := DEFAULT_TURN_SPEED
+var speed := DEFAULT_SPEED
 var velocity: Vector2
 
 var health := 100
@@ -31,6 +34,7 @@ var dead := false
 var shooting := false
 var can_shoot := true
 var shoot_rumble := 0.025
+var using_ability := false
 
 var mouse_control := true
 
@@ -190,12 +194,16 @@ func _physics_process(delta: float) -> void:
 			shoot()
 			Globals.rumble.add_weak_rumble(shoot_rumble)
 		
+		if using_ability:
+			use_ability()
+		
 		if camera:
 			camera.global_position = global_position
 		
-		rpc("update_remote_player", rotation, position, turret_pivot.rotation, shooting, weapon_type.resource_path)
+		rpc("update_remote_player", rotation, position, turret_pivot.rotation, shooting, weapon_type.resource_path, using_ability, ability_type.resource_path if ability_type else null)
 		
 		shooting = false
+		using_ability = false
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -204,16 +212,22 @@ func _unhandled_input(event: InputEvent) -> void:
 		mouse_control = false
 	if event.is_action_pressed(input_prefix + "shoot") and can_shoot:
 		shooting = true
+	if event.is_action_pressed(input_prefix + "use_ability"):
+		using_ability = true
 
-puppet func update_remote_player(player_rotation: float, player_position: Vector2, turret_rotation: float, shooting: bool, _weapon_type_path: String) -> void:
+puppet func update_remote_player(player_rotation: float, player_position: Vector2, turret_rotation: float, _shooting: bool, _weapon_type_path: String, _using_ability: bool, _ability_type_path: String) -> void:
 	rotation = player_rotation
 	position = player_position
 	turret_pivot.rotation = turret_rotation
 	player_info_node.position = global_position + player_info_offset
 	if weapon_type.resource_path != _weapon_type_path:
 		set_weapon_type(load(_weapon_type_path))
-	if shooting:
+	if _shooting:
 		shoot()
+	if ability_type.resource_path != _ability_type_path:
+		set_ability_type(load(_ability_type_path))
+	if _using_ability:
+		use_ability()
 
 func shoot():
 	if not get_parent():
@@ -221,6 +235,13 @@ func shoot():
 	
 	shoot_sound.play()
 	weapon.fire_weapon()
+
+func use_ability():
+	if not get_parent():
+		return
+	
+	if ability:
+		ability.use_ability()
 	
 func _on_ShootCooldownTimer_timeout() -> void:
 	can_shoot = true
