@@ -4,7 +4,6 @@ const BaseWeaponType = preload("res://mods/core/weapons/base.tres")
 const Explosion = preload("res://src/objects/Explosion.tscn")
 
 export (bool) var player_controlled = false
-export (String) var input_prefix := "player1_"
 
 signal player_dead (killer_id)
 
@@ -38,6 +37,8 @@ var shoot_rumble := 0.025
 var using_ability := false
 
 var mouse_control := true
+var forced_input_vector: Vector2
+var use_forced_input_vector := false
 
 var game
 var camera: Camera2D = null
@@ -137,23 +138,34 @@ func set_ability_type(_ability_type: AbilityType) -> void:
 			else:
 				game.hud.set_ability_label(ability_type.name)
 
+func set_forced_input_vector(input: Vector2) -> void:
+	forced_input_vector = input
+	use_forced_input_vector = true
+
+func clear_forced_input_vector() -> void:
+	forced_input_vector = Vector2.ZERO
+	use_forced_input_vector = false
+
 func _get_input_vector() -> Vector2:
+	if use_forced_input_vector:
+		return forced_input_vector
+	
 	var input: Vector2
 	
 	if GameSettings.control_scheme == GameSettings.ControlScheme.RETRO:
-		if Input.is_action_pressed(input_prefix + "turn_left"):
-			input.y -= min(Input.get_action_strength(input_prefix + "turn_left") + 0.5, 1.0)
-		if Input.is_action_pressed(input_prefix + "turn_right"):
-			input.y = min(Input.get_action_strength(input_prefix + "turn_right") + 0.5, 1.0)
-		if Input.is_action_pressed(input_prefix + "backward"):
-			input.x -= min(Input.get_action_strength(input_prefix + "backward") + 0.5, 1.0)
-		if Input.is_action_pressed(input_prefix + "forward"):
-			input.x += min(Input.get_action_strength(input_prefix + "forward") + 0.5, 1.0)
+		if Input.is_action_pressed("player1_turn_left"):
+			input.y -= min(Input.get_action_strength("player1_turn_left") + 0.5, 1.0)
+		if Input.is_action_pressed("player1_turn_right"):
+			input.y = min(Input.get_action_strength("player1_turn_right") + 0.5, 1.0)
+		if Input.is_action_pressed("player1_backward"):
+			input.x -= min(Input.get_action_strength("player1_backward") + 0.5, 1.0)
+		if Input.is_action_pressed("player1_forward"):
+			input.x += min(Input.get_action_strength("player1_forward") + 0.5, 1.0)
 	else:
 		var current_vector = Vector2.RIGHT.rotated(rotation)
 		var desired_vector = Vector2(
-			Input.get_action_strength(input_prefix + "turn_right") - Input.get_action_strength(input_prefix + "turn_left"),
-			Input.get_action_strength(input_prefix + "backward") - Input.get_action_strength(input_prefix + "forward")).clamped(1.0)
+			Input.get_action_strength("player1_turn_right") - Input.get_action_strength("player1_turn_left"),
+			Input.get_action_strength("player1_backward") - Input.get_action_strength("player1_forward")).clamped(1.0)
 		if desired_vector == Vector2.ZERO:
 			return input
 		if desired_vector.length() > 0.85:
@@ -223,10 +235,10 @@ func _physics_process(delta: float) -> void:
 		if mouse_control:
 			turret_pivot.look_at(get_global_mouse_position())
 		else:
-			if Input.is_action_pressed(input_prefix + "aim_up") or Input.is_action_pressed(input_prefix + "aim_down") or Input.is_action_pressed(input_prefix + "aim_left") or Input.is_action_pressed(input_prefix + "aim_right"):
+			if Input.is_action_pressed("player1_aim_up") or Input.is_action_pressed("player1_aim_down") or Input.is_action_pressed("player1_aim_left") or Input.is_action_pressed("player1_aim_right"):
 				var joy_vector = Vector2()
-				joy_vector.x = Input.get_action_strength(input_prefix + "aim_right") - Input.get_action_strength(input_prefix + "aim_left")
-				joy_vector.y = Input.get_action_strength(input_prefix + "aim_down") - Input.get_action_strength(input_prefix + "aim_up")
+				joy_vector.x = Input.get_action_strength("player1_aim_right") - Input.get_action_strength("player1_aim_left")
+				joy_vector.y = Input.get_action_strength("player1_aim_down") - Input.get_action_strength("player1_aim_up")
 				turret_pivot.global_rotation = joy_vector.angle()
 			else:
 				turret_pivot.rotation = 0
@@ -256,9 +268,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		mouse_control = true
 	if event is InputEventJoypadButton or event is InputEventJoypadMotion:
 		mouse_control = false
-	if event.is_action_pressed(input_prefix + "shoot") and can_shoot:
+	if event.is_action_pressed("player1_shoot") and can_shoot:
 		shooting = true
-	if event.is_action_pressed(input_prefix + "use_ability"):
+	if event.is_action_pressed("player1_use_ability"):
 		using_ability = true
 
 puppet func update_remote_player(player_rotation: float, player_position: Vector2, turret_rotation: float, _shooting: bool, _weapon_type_path: String, _using_ability: bool, _ability_type_path: String) -> void:

@@ -17,9 +17,14 @@ func use_ability() -> void:
 	if charges > 0:
 		charges -= 1
 		tank.speed = 1600
+		if Input.is_action_pressed("player1_backward"):
+			tank.set_forced_input_vector(Vector2(-1.0, 0.0))
+		else:
+			tank.set_forced_input_vector(Vector2(1.0, 0.0))
 		timer.start()
 
 func _on_timer_timeout() -> void:
 	tank.speed = tank.DEFAULT_SPEED
+	tank.clear_forced_input_vector()
 	if charges == 0:
 		tank.set_ability_type(null)
