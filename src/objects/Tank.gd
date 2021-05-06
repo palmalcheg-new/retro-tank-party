@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends "res://src/objects/tank/BaseTank.gd"
 
 const BaseWeaponType = preload("res://mods/core/weapons/base.tres")
 const Explosion = preload("res://src/objects/Explosion.tscn")
@@ -6,11 +6,6 @@ const Explosion = preload("res://src/objects/Explosion.tscn")
 export (bool) var player_controlled = false
 
 signal player_dead (killer_id)
-
-onready var body_sprite := $BodySprite
-onready var turret_sprite := $TurretPivot/TurretSprite
-onready var turret_pivot := $TurretPivot
-onready var bullet_start_position := $TurretPivot/BulletStartPosition
 
 onready var player_info_node := $PlayerInfo
 onready var player_info_offset: Vector2 = player_info_node.position
@@ -48,24 +43,7 @@ var weapon
 var ability_type: AbilityType
 var ability
 
-const TANK_COLORS = {
-	1: {
-		body_sprite_region = Rect2( 434, 0, 84, 83 ),
-		turret_sprite_region = Rect2( 722, 199, 24, 60 ),
-	},
-	2: {
-		body_sprite_region = Rect2( 436, 308, 84, 80 ),
-		turret_sprite_region = Rect2( 744, 684, 24, 60 ),
-	},
-	3: {
-		body_sprite_region = Rect2( 520, 268, 76, 80 ),
-		turret_sprite_region = Rect2( 724, 452, 24, 60 ),
-	},
-	4: {
-		body_sprite_region = Rect2( 436, 692, 84, 80 ),
-		turret_sprite_region = Rect2( 724, 512, 24, 60 ),
-	},
-}
+
 var player_index
 
 func _ready():
