@@ -4,6 +4,8 @@ const ShadowTank = preload("res://mods/core/abilities/ShadowTank.tscn")
 
 var tank
 var spawning := false
+var spawn_rate := 2
+var spawn_counter := 0
 
 func setup_shadow_tank_spawner(_tank) -> void:
 	tank = _tank
@@ -23,4 +25,9 @@ func spawn() -> void:
 
 func _physics_process(delta: float) -> void:
 	if spawning:
-		spawn()
+		if spawn_counter <= 0:
+			spawn_counter = spawn_rate
+			spawn()
+		
+		spawn_counter -= 1
+
