@@ -7,6 +7,11 @@ var charges := 1
 func setup_ability(_tank, _ability_type) -> void:
 	tank = _tank
 	ability_type = _ability_type
+	charges = ability_type.charges
+
+func recharge_ability() -> void:
+	if ability_type.rechargeable:
+		charges += ability_type.charges
 
 func attach_ability() -> void:
 	pass
@@ -16,9 +21,6 @@ func detach_ability() -> void:
 
 func get_ability_charges() -> int:
 	return charges
-
-func recharge_ability() -> void:
-	pass
 
 func use_ability() -> void:
 	pass

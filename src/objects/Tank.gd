@@ -95,8 +95,10 @@ func set_weapon_type(_weapon_type: WeaponType) -> void:
 
 func set_ability_type(_ability_type: AbilityType) -> void:
 	if ability_type == _ability_type:
-		if ability:
+		if ability and player_controlled:
 			ability.recharge_ability()
+			if game:
+				game.hud.set_ability_label(ability_type.name, ability.charges)
 	else:
 		ability_type = _ability_type
 		
@@ -114,7 +116,7 @@ func set_ability_type(_ability_type: AbilityType) -> void:
 			if ability_type == null:
 				game.hud.clear_ability_label()
 			else:
-				game.hud.set_ability_label(ability_type.name)
+				game.hud.set_ability_label(ability_type.name, ability.charges)
 
 func set_forced_input_vector(input: Vector2) -> void:
 	forced_input_vector = input
@@ -278,6 +280,8 @@ func use_ability():
 	
 	if ability:
 		ability.use_ability()
+		if game:
+			game.hud.set_ability_label(ability_type.name, ability.charges)
 	
 func _on_ShootCooldownTimer_timeout() -> void:
 	can_shoot = true

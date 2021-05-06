@@ -71,6 +71,9 @@ func _on_WeaponOptions_item_selected(value, index) -> void:
 
 func _on_AbilityOptions_item_selected(value, index) -> void:
 	if tank:
+		# For 'None', since we can't have a value null in OptionSwitcher.
+		if index == 0:
+			value = null
 		if tank.ability_type != value:
 			tank.set_ability_type(value)
 
