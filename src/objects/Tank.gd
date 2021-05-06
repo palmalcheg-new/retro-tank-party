@@ -25,6 +25,7 @@ var desired_rotation: float
 
 var health := 100
 var dead := false
+var invincible := false
 
 var shooting := false
 var can_shoot := true
@@ -42,7 +43,6 @@ var weapon_type: WeaponType
 var weapon
 var ability_type: AbilityType
 var ability
-
 
 var player_index
 
@@ -291,7 +291,7 @@ func take_damage(damage: int, attacker_id: int = -1) -> void:
 		Globals.rumble.add_rumble(0.25)
 	
 	animation_player.play("Flash")
-	if is_network_master():
+	if is_network_master() and not invincible:
 		health -= damage
 		if health <= 0:
 			rpc("die", attacker_id)
@@ -306,7 +306,7 @@ func restore_health(_health: int) -> void:
 		rpc("update_health", health)
 
 remotesync func update_health(_health) -> void:
-	health = _health
+	health = clamp(_health, 0, 100)
 	player_info_node.update_health(health)
 
 remotesync func die(killer_id: int = -1) -> void:

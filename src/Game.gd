@@ -91,6 +91,13 @@ func make_player_controlled(peer_id) -> void:
 	else:
 		print ("Unable to make player controlled: node not found")
 
+func get_my_tank():
+	for peer_id in players_alive:
+		var tank := players_node.get_node(str(peer_id))
+		if tank.player_controlled:
+			return tank
+	return null
+
 # Actually start the game on this client.
 remotesync func game_start() -> void:
 	if map.has_method('map_start'):
