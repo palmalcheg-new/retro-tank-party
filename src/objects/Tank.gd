@@ -251,7 +251,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("player1_use_ability"):
 		using_ability = true
 
-puppet func update_remote_player(player_rotation: float, player_position: Vector2, turret_rotation: float, _shooting: bool, _weapon_type_path: String, _using_ability: bool, _ability_type_path: String) -> void:
+puppet func update_remote_player(player_rotation: float, player_position: Vector2, turret_rotation: float, _shooting: bool, _weapon_type_path: String, _using_ability: bool, _ability_type_path) -> void:
 	rotation = player_rotation
 	position = player_position
 	turret_pivot.rotation = turret_rotation
@@ -260,7 +260,7 @@ puppet func update_remote_player(player_rotation: float, player_position: Vector
 		set_weapon_type(load(_weapon_type_path))
 	if _shooting:
 		shoot()
-	if ability_type.resource_path != _ability_type_path:
+	if (ability_type && ability_type.resource_path != _ability_type_path) or (ability_type == null and _ability_type_path != null):
 		set_ability_type(load(_ability_type_path))
 	if _using_ability:
 		use_ability()
