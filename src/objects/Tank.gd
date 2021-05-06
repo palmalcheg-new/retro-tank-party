@@ -1,17 +1,11 @@
-extends KinematicBody2D
+extends "res://src/objects/tank/BaseTank.gd"
 
 const BaseWeaponType = preload("res://mods/core/weapons/base.tres")
 const Explosion = preload("res://src/objects/Explosion.tscn")
 
 export (bool) var player_controlled = false
-export (String) var input_prefix := "player1_"
 
 signal player_dead (killer_id)
-
-onready var body_sprite := $BodySprite
-onready var turret_sprite := $TurretPivot/TurretSprite
-onready var turret_pivot := $TurretPivot
-onready var bullet_start_position := $TurretPivot/BulletStartPosition
 
 onready var player_info_node := $PlayerInfo
 onready var player_info_offset: Vector2 = player_info_node.position
@@ -21,43 +15,35 @@ onready var animation_player := $AnimationPlayer
 onready var shoot_sound := $ShootSound
 onready var engine_sound := $EngineSound
 
-var turn_speed := 5
-var speed := 400
+const DEFAULT_TURN_SPEED := 5
+const DEFAULT_SPEED := 400
+
+var turn_speed := DEFAULT_TURN_SPEED
+var speed := DEFAULT_SPEED
 var velocity: Vector2
 var desired_rotation: float
 
 var health := 100
 var dead := false
+var invincible := false
 
 var shooting := false
 var can_shoot := true
 var shoot_rumble := 0.025
+var using_ability := false
 
 var mouse_control := true
+var forced_input_vector: Vector2
+var use_forced_input_vector := false
 
+var game
 var camera: Camera2D = null
 
 var weapon_type: WeaponType
 var weapon
+var ability_type: AbilityType
+var ability
 
-const TANK_COLORS = {
-	1: {
-		body_sprite_region = Rect2( 434, 0, 84, 83 ),
-		turret_sprite_region = Rect2( 722, 199, 24, 60 ),
-	},
-	2: {
-		body_sprite_region = Rect2( 436, 308, 84, 80 ),
-		turret_sprite_region = Rect2( 744, 684, 24, 60 ),
-	},
-	3: {
-		body_sprite_region = Rect2( 520, 268, 76, 80 ),
-		turret_sprite_region = Rect2( 724, 452, 24, 60 ),
-	},
-	4: {
-		body_sprite_region = Rect2( 436, 692, 84, 80 ),
-		turret_sprite_region = Rect2( 724, 512, 24, 60 ),
-	},
-}
 var player_index
 
 func _ready():
@@ -77,7 +63,9 @@ func _ready():
 	if player_controlled:
 		Globals.my_player_position = global_position
 
-func setup_tank(player) -> void:
+func setup_tank(_game, player) -> void:
+	game = _game
+	
 	set_network_master(player.peer_id)
 	player_info_node.set_player_name(player.name)
 	player_index = player.index
@@ -98,31 +86,72 @@ func set_weapon_type(_weapon_type: WeaponType) -> void:
 		weapon = weapon_type.weapon_script.new()
 		weapon.setup_weapon(self, weapon_type)
 		weapon.attach_weapon()
+		
+		if game and player_controlled:
+			if weapon_type.resource_path == "res://mods/core/weapons/base.tres":
+				game.hud.clear_weapon_label()
+			else:
+				game.hud.set_weapon_label(weapon_type.name)
+
+func set_ability_type(_ability_type: AbilityType) -> void:
+	if ability_type == _ability_type:
+		if ability and player_controlled:
+			ability.recharge_ability()
+			if game:
+				game.hud.set_ability_label(ability_type.name, ability.charges)
+	else:
+		ability_type = _ability_type
+		
+		if ability:
+			ability.detach_ability()
+		
+		if ability_type != null:
+			ability = ability_type.ability_script.new()
+			ability.setup_ability(self, ability_type)
+			ability.attach_ability()
+		else:
+			ability = null
+		
+		if game and player_controlled:
+			if ability_type == null:
+				game.hud.clear_ability_label()
+			else:
+				game.hud.set_ability_label(ability_type.name, ability.charges)
+
+func set_forced_input_vector(input: Vector2) -> void:
+	forced_input_vector = input
+	use_forced_input_vector = true
+
+func clear_forced_input_vector() -> void:
+	forced_input_vector = Vector2.ZERO
+	use_forced_input_vector = false
 
 func _get_input_vector() -> Vector2:
+	if use_forced_input_vector:
+		return forced_input_vector
+	
 	var input: Vector2
 	
 	if GameSettings.control_scheme == GameSettings.ControlScheme.RETRO:
-		if Input.is_action_pressed(input_prefix + "turn_left"):
-			input.y -= min(Input.get_action_strength(input_prefix + "turn_left") + 0.5, 1.0)
-		if Input.is_action_pressed(input_prefix + "turn_right"):
-			input.y = min(Input.get_action_strength(input_prefix + "turn_right") + 0.5, 1.0)
-		if Input.is_action_pressed(input_prefix + "backward"):
-			input.x -= min(Input.get_action_strength(input_prefix + "backward") + 0.5, 1.0)
-		if Input.is_action_pressed(input_prefix + "forward"):
-			input.x += min(Input.get_action_strength(input_prefix + "forward") + 0.5, 1.0)
+		if Input.is_action_pressed("player1_turn_left"):
+			input.y -= min(Input.get_action_strength("player1_turn_left") + 0.5, 1.0)
+		if Input.is_action_pressed("player1_turn_right"):
+			input.y = min(Input.get_action_strength("player1_turn_right") + 0.5, 1.0)
+		if Input.is_action_pressed("player1_backward"):
+			input.x -= min(Input.get_action_strength("player1_backward") + 0.5, 1.0)
+		if Input.is_action_pressed("player1_forward"):
+			input.x += min(Input.get_action_strength("player1_forward") + 0.5, 1.0)
 	else:
 		var current_vector = Vector2.RIGHT.rotated(rotation)
 		var desired_vector = Vector2(
-			Input.get_action_strength(input_prefix + "turn_right") - Input.get_action_strength(input_prefix + "turn_left"),
-			Input.get_action_strength(input_prefix + "backward") - Input.get_action_strength(input_prefix + "forward")).clamped(1.0)
+			Input.get_action_strength("player1_turn_right") - Input.get_action_strength("player1_turn_left"),
+			Input.get_action_strength("player1_backward") - Input.get_action_strength("player1_forward")).clamped(1.0)
 		if desired_vector == Vector2.ZERO:
 			return input
 		if desired_vector.length() > 0.85:
 			desired_vector = desired_vector.normalized()
-
 		
-		# If going backwards is a short rotation, move backwards.
+		# If going backwards is a shorter rotation, move backwards.
 		if abs(current_vector.angle_to(desired_vector)) > PI / 2.0:
 			# Flip the vector for the angle calculations.
 			current_vector = current_vector.rotated(PI)
@@ -139,7 +168,7 @@ func _get_input_vector() -> Vector2:
 			angle_to = TAU - angle_to
 		
 		# Rotate in the direction closest to the desired angle. Give a little
-		# leeway so that we aren't bouncing between forward and backward.
+		# leeway so that we aren't bouncing between left and right.
 		var angle_to_degrees = rad2deg(angle_to)
 		if angle_to_degrees < -2.0:
 			input.y = -1.0
@@ -186,10 +215,10 @@ func _physics_process(delta: float) -> void:
 		if mouse_control:
 			turret_pivot.look_at(get_global_mouse_position())
 		else:
-			if Input.is_action_pressed(input_prefix + "aim_up") or Input.is_action_pressed(input_prefix + "aim_down") or Input.is_action_pressed(input_prefix + "aim_left") or Input.is_action_pressed(input_prefix + "aim_right"):
+			if Input.is_action_pressed("player1_aim_up") or Input.is_action_pressed("player1_aim_down") or Input.is_action_pressed("player1_aim_left") or Input.is_action_pressed("player1_aim_right"):
 				var joy_vector = Vector2()
-				joy_vector.x = Input.get_action_strength(input_prefix + "aim_right") - Input.get_action_strength(input_prefix + "aim_left")
-				joy_vector.y = Input.get_action_strength(input_prefix + "aim_down") - Input.get_action_strength(input_prefix + "aim_up")
+				joy_vector.x = Input.get_action_strength("player1_aim_right") - Input.get_action_strength("player1_aim_left")
+				joy_vector.y = Input.get_action_strength("player1_aim_down") - Input.get_action_strength("player1_aim_up")
 				turret_pivot.global_rotation = joy_vector.angle()
 			else:
 				turret_pivot.rotation = 0
@@ -203,30 +232,40 @@ func _physics_process(delta: float) -> void:
 			shoot()
 			Globals.rumble.add_weak_rumble(shoot_rumble)
 		
+		if using_ability:
+			use_ability()
+		
 		if camera:
 			camera.global_position = global_position
 		
-		rpc("update_remote_player", rotation, position, turret_pivot.rotation, shooting, weapon_type.resource_path)
+		rpc("update_remote_player", rotation, position, turret_pivot.rotation, shooting, weapon_type.resource_path, using_ability, ability_type.resource_path if ability_type else null)
 		
 		shooting = false
+		using_ability = false
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		mouse_control = true
 	if event is InputEventJoypadButton or event is InputEventJoypadMotion:
 		mouse_control = false
-	if event.is_action_pressed(input_prefix + "shoot") and can_shoot:
+	if event.is_action_pressed("player1_shoot") and can_shoot:
 		shooting = true
+	if event.is_action_pressed("player1_use_ability"):
+		using_ability = true
 
-puppet func update_remote_player(player_rotation: float, player_position: Vector2, turret_rotation: float, shooting: bool, _weapon_type_path: String) -> void:
+puppet func update_remote_player(player_rotation: float, player_position: Vector2, turret_rotation: float, _shooting: bool, _weapon_type_path: String, _using_ability: bool, _ability_type_path) -> void:
 	rotation = player_rotation
 	position = player_position
 	turret_pivot.rotation = turret_rotation
 	player_info_node.position = global_position + player_info_offset
 	if weapon_type.resource_path != _weapon_type_path:
 		set_weapon_type(load(_weapon_type_path))
-	if shooting:
+	if _shooting:
 		shoot()
+	if (ability_type && ability_type.resource_path != _ability_type_path) or (ability_type == null and _ability_type_path != null):
+		set_ability_type(load(_ability_type_path))
+	if _using_ability:
+		use_ability()
 
 func shoot():
 	if not get_parent():
@@ -234,6 +273,15 @@ func shoot():
 	
 	shoot_sound.play()
 	weapon.fire_weapon()
+
+func use_ability():
+	if not get_parent():
+		return
+	
+	if ability:
+		ability.use_ability()
+		if game:
+			game.hud.set_ability_label(ability_type.name, ability.charges)
 	
 func _on_ShootCooldownTimer_timeout() -> void:
 	can_shoot = true
@@ -247,7 +295,7 @@ func take_damage(damage: int, attacker_id: int = -1) -> void:
 		Globals.rumble.add_rumble(0.25)
 	
 	animation_player.play("Flash")
-	if is_network_master():
+	if is_network_master() and not invincible:
 		health -= damage
 		if health <= 0:
 			rpc("die", attacker_id)
@@ -262,7 +310,7 @@ func restore_health(_health: int) -> void:
 		rpc("update_health", health)
 
 remotesync func update_health(_health) -> void:
-	health = _health
+	health = clamp(_health, 0, 100)
 	player_info_node.update_health(health)
 
 remotesync func die(killer_id: int = -1) -> void:

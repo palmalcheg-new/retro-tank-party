@@ -13,7 +13,7 @@ resource_name = "shine"
 length = 2.0
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("Visual/OuterRect:color")
+tracks/0/path = NodePath("Visual:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -22,10 +22,10 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5, 1, 1.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 0.0196078, 0.14902, 0.988235, 1 ), Color( 1, 0, 0, 1 ), Color( 0.968627, 1, 0, 1 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( 0, -16 ), Vector2( 0, 0 ), Vector2( 0, -16 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Visual:position")
+tracks/1/path = NodePath("CollisionShape2D:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -36,20 +36,8 @@ tracks/1/keys = {
 "update": 0,
 "values": [ Vector2( 0, 0 ), Vector2( 0, -16 ), Vector2( 0, 0 ), Vector2( 0, -16 ) ]
 }
-tracks/2/type = "value"
-tracks/2/path = NodePath("CollisionShape2D:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, -16 ), Vector2( 0, 0 ), Vector2( 0, -16 ) ]
-}
 
-[node name="Powerup" type="Area2D"]
+[node name="Pickup" type="Area2D"]
 collision_layer = 8
 collision_mask = 2
 script = ExtResource( 3 )
@@ -62,6 +50,7 @@ margin_top = -18.0
 margin_right = 19.0
 margin_bottom = 18.0
 mouse_filter = 2
+color = Color( 0, 1, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -98,5 +87,6 @@ anims/shine = SubResource( 2 )
 stream = ExtResource( 4 )
 bus = "Sound"
 script = ExtResource( 2 )
+
 [connection signal="body_entered" from="." to="." method="_on_Powerup_body_entered"]
 [connection signal="finished" from="Sound" to="." method="_on_Sound_finished"]

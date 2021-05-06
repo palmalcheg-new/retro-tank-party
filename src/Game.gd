@@ -6,6 +6,7 @@ onready var map: Node2D = $Map
 onready var players_node := $Players
 onready var player_camera := $PlayerCamera
 onready var watch_camera := $WatchCamera
+onready var hud := $CanvasLayer/HUD
 
 var map_scene: PackedScene
 var game_started := false
@@ -77,7 +78,7 @@ func respawn_player(peer_id: int) -> void:
 	
 	var player_index = player.index
 	
-	tank.setup_tank(player)
+	tank.setup_tank(self, player)
 	tank.position = map.get_node("PlayerStartPositions/Player" + str(player_index)).position
 	tank.rotation = map.get_node("PlayerStartPositions/Player" + str(player_index)).rotation
 	tank.connect("player_dead", self, "_on_player_dead", [peer_id])
@@ -89,6 +90,13 @@ func make_player_controlled(peer_id) -> void:
 		_setup_player_camera(my_player)
 	else:
 		print ("Unable to make player controlled: node not found")
+
+func get_my_tank():
+	for peer_id in players_alive:
+		var tank := players_node.get_node(str(peer_id))
+		if tank.player_controlled:
+			return tank
+	return null
 
 # Actually start the game on this client.
 remotesync func game_start() -> void:
@@ -134,7 +142,6 @@ func reload_map() -> void:
 	move_child(map, map_index)
 	
 	_setup_watch_camera()
-	
 
 func _setup_watch_camera() -> void:
 	var viewport_rect = get_viewport_rect()

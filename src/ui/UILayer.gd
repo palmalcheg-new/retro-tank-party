@@ -21,10 +21,18 @@ func _set_readonly_variable(_value) -> void:
 
 func _ready() -> void:
 	for screen in screens.get_children():
-		if screen.has_method('_setup_screen'):
-			screen._setup_screen(self)
+		_setup_screen(screen)
 	
 	_is_ready = true
+
+func add_screen(screen) -> void:
+	screens.add_child(screen)
+	_setup_screen(screen)
+
+func _setup_screen(screen) -> void:
+	screen.visible = false
+	if screen.has_method('_setup_screen'):
+		screen._setup_screen(self)
 
 func get_screens():
 	return screens.get_children()
