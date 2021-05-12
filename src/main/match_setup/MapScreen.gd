@@ -37,7 +37,7 @@ func _on_MapSwitcher_item_selected(value, index) -> void:
 	send_remote_update()
 
 func _on_NextButton_pressed() -> void:
-	ui_layer.rpc("show_screen", "ReadyScreen")
+	ui_layer.show_screen("ReadyScreen")
 
 func _unhandled_input(event: InputEvent) -> void:
 	if visible and event.is_action_pressed('ui_accept'):

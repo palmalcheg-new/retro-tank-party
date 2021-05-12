@@ -53,7 +53,7 @@ func _on_NextButton_pressed() -> void:
 			ui_layer.show_message('Each team must have at least 1 player!')
 			return
 	
-	ui_layer.rpc("show_screen", "MapScreen")
+	ui_layer.show_screen("MapScreen")
 
 func _unhandled_input(event: InputEvent) -> void:
 	if visible and event.is_action_pressed('ui_accept'):

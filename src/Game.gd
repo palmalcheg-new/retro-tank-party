@@ -196,6 +196,11 @@ func _on_player_dead(killer_id, player_id) -> void:
 	# Ensure this will only ever be called once per player
 	if players_alive.has(player_id):
 		players_alive.erase(player_id)
+		
+		var player_node = players_node.get_node(str(player_id))
+		if player_node and player_node.player_controlled:
+			hud.clear_all_labels()
+		
 		emit_signal("player_dead", player_id, killer_id)
 
 

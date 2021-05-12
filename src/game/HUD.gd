@@ -16,5 +16,9 @@ func set_ability_label(text: String, charges: int = 1) -> void:
 	if charges > 1:
 		ability_label.text += ' (' + str(charges) + ')'
 
-func clear_ability_label():
+func clear_ability_label() -> void:
 	ability_label.visible = false
+
+func clear_all_labels() -> void:
+	clear_weapon_label()
+	clear_ability_label()

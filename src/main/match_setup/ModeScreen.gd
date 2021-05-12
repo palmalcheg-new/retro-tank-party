@@ -50,9 +50,9 @@ func _on_ModeSwitcher_item_selected(value, index) -> void:
 func _on_NextButton_pressed() -> void:
 	var config = get_config_values()
 	if config.get('teams', false):
-		ui_layer.rpc("show_screen", "TeamScreen")
+		ui_layer.show_screen("TeamScreen")
 	else:
-		ui_layer.rpc("show_screen", "MapScreen")
+		ui_layer.show_screen("MapScreen")
 
 func _unhandled_input(event: InputEvent) -> void:
 	if visible and event.is_action_pressed('ui_accept'):

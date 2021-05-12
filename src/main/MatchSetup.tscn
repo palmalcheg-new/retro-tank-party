@@ -20,12 +20,14 @@ script = ExtResource( 3 )
 [node name="ModeScreen" parent="UILayer/Screens" index="0" instance=ExtResource( 2 )]
 
 [node name="TeamScreen" parent="UILayer/Screens" index="1" instance=ExtResource( 7 )]
+visible = false
 
 [node name="MapScreen" parent="UILayer/Screens" index="2" instance=ExtResource( 6 )]
 visible = false
 
 [node name="ReadyScreen" parent="UILayer/Screens" index="3" instance=ExtResource( 4 )]
 visible = false
+
 [connection signal="back_button" from="UILayer" to="." method="_on_UILayer_back_button"]
 [connection signal="change_screen" from="UILayer" to="." method="_on_UILayer_change_screen"]
 [connection signal="map_changed" from="UILayer/Screens/MapScreen" to="." method="_on_MapScreen_map_changed"]

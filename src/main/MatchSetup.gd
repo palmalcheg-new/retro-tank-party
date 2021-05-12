@@ -36,8 +36,10 @@ func show_default_message() -> void:
 	else:
 		ui_layer.show_message("The host is configuring the match...")
 
-func _on_UILayer_change_screen(name, screen) -> void:
+func _on_UILayer_change_screen(name, screen, info) -> void:
 	show_default_message()
+	if is_network_master():
+		ui_layer.rpc("show_screen", name, info)
 
 func _on_UILayer_back_button() -> void:
 	var current_screen = ui_layer.current_screen_name

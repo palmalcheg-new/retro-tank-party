@@ -7,7 +7,7 @@ onready var message_label = $Overlay/Message
 onready var back_button = $Overlay/BackButton
 onready var alert = $Overlay/Alert
 
-signal change_screen (name, screen)
+signal change_screen (name, screen, info)
 signal back_button ()
 signal alert_completed (result)
 
@@ -42,7 +42,7 @@ func get_current_screen_name() -> String:
 		return current_screen.name
 	return ''
 
-remotesync func show_screen(name: String, info: Dictionary = {}) -> void:
+remote func show_screen(name: String, info: Dictionary = {}) -> void:
 	var screen = screens.get_node(name)
 	if not screen:
 		return
@@ -54,7 +54,7 @@ remotesync func show_screen(name: String, info: Dictionary = {}) -> void:
 	current_screen = screen
 	
 	if _is_ready:
-		emit_signal("change_screen", name, screen)
+		emit_signal("change_screen", name, screen, info)
 
 func hide_screen() -> void:
 	if current_screen and current_screen.has_method('_hide_screen'):
