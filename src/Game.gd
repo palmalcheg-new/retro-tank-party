@@ -1,6 +1,7 @@
 extends Node2D
 
 var TankScene = preload("res://src/objects/Tank.tscn")
+var FreeSpaceDetector = preload("res://src/game/FreeSpaceDetector.tscn")
 
 onready var map: Node2D = $Map
 onready var players_node := $Players
@@ -65,7 +66,7 @@ func game_setup(_players: Dictionary, map_path: String, operation: RemoteOperati
 	if operation:
 		operation.mark_done(true)
 
-func respawn_player(peer_id: int) -> void:
+func respawn_player(peer_id: int, start_pos = null, start_rotation = null) -> void:
 	if players_node.has_node(str(peer_id)):
 		return
 	
@@ -78,9 +79,17 @@ func respawn_player(peer_id: int) -> void:
 	
 	var player_index = player.index
 	
+	if not start_pos:
+		tank.position = map.get_node("PlayerStartPositions/Player" + str(player_index)).position
+	else:
+		tank.position = start_pos
+	
+	if not start_rotation:
+		tank.rotation = map.get_node("PlayerStartPositions/Player" + str(player_index)).rotation
+	else:
+		tank.rotation_degrees = start_rotation
+	
 	tank.setup_tank(self, player)
-	tank.position = map.get_node("PlayerStartPositions/Player" + str(player_index)).position
-	tank.rotation = map.get_node("PlayerStartPositions/Player" + str(player_index)).rotation
 	tank.connect("player_dead", self, "_on_player_dead", [peer_id])
 
 func make_player_controlled(peer_id) -> void:
@@ -203,4 +212,7 @@ func _on_player_dead(killer_id, player_id) -> void:
 		
 		emit_signal("player_dead", player_id, killer_id)
 
-
+func create_free_space_detector():
+	var detector = FreeSpaceDetector.instance()
+	add_child(detector)
+	return detector

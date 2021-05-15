@@ -1,11 +1,15 @@
 extends "res://src/components/modes/BaseManager.gd"
 
+const TANK_SIZE := Vector2(128, 128)
+
 onready var countdown_timer := $CanvasLayer/Control/CountdownTimer
 onready var instant_death_label := $CanvasLayer/Control/InstantDeathLabel
 onready var score_hud := $CanvasLayer/Control/ScoreHUD
 
 var instant_death := false
 var winners := []
+
+var map_rect: Rect2
 
 func _do_match_setup() -> void:
 	._do_match_setup()
@@ -29,6 +33,11 @@ func _do_match_setup() -> void:
 func match_start() -> void:
 	.match_start()
 	countdown_timer.start_countdown(config['timelimit'] * 60)
+
+	map_rect = game.map.get_map_rect()
+
+func match_stop() -> void:
+	.match_stop()
 
 func _on_OnlineMatch_player_left(online_player) -> void:
 	if not use_teams:
@@ -82,9 +91,16 @@ func respawn_player(player_id: int) -> void:
 	if instant_death and not player_id in winners:
 		return
 	
+	var detector = game.create_free_space_detector()
+	detector.connect("free_space_found", self, "_on_respawn_position_found", [player_id, detector])
+	detector.start_detecting(map_rect, TANK_SIZE)
+
+func _on_respawn_position_found(spawn_position, player_id, detector) -> void:
+	detector.queue_free()
+	
 	var player = OnlineMatch.get_player_by_peer_id(player_id)
-	# @todo How to respawn the player now that it takes an object?
-	var operation = RemoteOperations.synchronized_rpc(game, "respawn_player", [player_id])
+	var spawn_rotation = randi() % 360
+	var operation = RemoteOperations.synchronized_rpc(game, "respawn_player", [player_id, spawn_position, spawn_rotation])
 	if yield(operation, "completed"):
 		rpc_id(player_id, "_take_control_of_my_player")
 	else:

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://src/components/pickups/AbilityPickup.gd" type="Script" id=1]
+[ext_resource path="res://mods/core/abilities/zap.tres" type="Resource" id=2]
+
+[resource]
+script = ExtResource( 1 )
+name = "Zap!"
+letter = "Z"
+rarity = 20
+ability_type = ExtResource( 2 )
