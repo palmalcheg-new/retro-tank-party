@@ -28,5 +28,5 @@ func use_ability() -> void:
 	attachment.rpc("set_tank_visibility", false)
 
 func _on_free_space_found(new_position) -> void:
-	tank.position = new_position
+	tank.global_position = new_position
 	attachment.rpc("set_tank_visibility", true)

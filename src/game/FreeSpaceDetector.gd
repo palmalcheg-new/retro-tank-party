@@ -21,8 +21,11 @@ func start_detecting(_detection_area: Rect2, dimensions: Vector2) -> void:
 	
 	detecting = true
 
+func stop_detecting() -> void:
+	detecting = false
+
 func try_next_position() -> void:
-	position = Vector2(
+	global_position = Vector2(
 		detection_area.position.x + (randi() % int(detection_area.size.x)),
 		detection_area.position.y + (randi() % int(detection_area.size.y)))
 	wait_frames = 1
@@ -36,5 +39,5 @@ func _physics_process(delta: float) -> void:
 			try_next_position()
 			return
 		
-		emit_signal("free_space_found", position)
+		emit_signal("free_space_found", global_position)
 		detecting = false
