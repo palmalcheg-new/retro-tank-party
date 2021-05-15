@@ -14,6 +14,8 @@ enum ZapStage {
 var zap_stage = ZapStage.NONE
 var destination: Vector2
 
+signal zap_finished ()
+
 func setup_attachment(_tank) -> void:
 	tank = _tank
 
@@ -30,7 +32,7 @@ func zap(_destination: Vector2) -> bool:
 	tween.interpolate_property(tank, "scale", Vector2(1.0, 1.0), Vector2.ZERO, 0.1)
 	tween.start()
 	
-	if not is_network_master():
+	if not tank.is_network_master():
 		tank.player_info_node.visible = false
 	
 	return true
@@ -39,7 +41,7 @@ func _on_Tween_tween_all_completed() -> void:
 	if zap_stage == ZapStage.HIDING:
 		zap_stage = ZapStage.HIDDEN
 		tank.visible = false
-		if is_network_master():
+		if tank.is_network_master():
 			tween.interpolate_property(tank, "global_position", tank.global_position, destination, 1.0)
 			tween.start()
 		else:
@@ -47,12 +49,13 @@ func _on_Tween_tween_all_completed() -> void:
 	elif zap_stage == ZapStage.HIDDEN:
 		# Make sure this runs on all clients, because we aren't tweening on 
 		# non-hosts.
-		if is_network_master():
+		if tank.is_network_master():
 			rpc("show_tank")
 	elif zap_stage == ZapStage.SHOWING:
 		zap_stage = ZapStage.NONE
 		tank.collision_shape.set_deferred("disabled", false)
 		tank.clear_forced_input_vector()
+		emit_signal("zap_finished")
 
 remotesync func show_tank() -> void:
 	zap_stage = ZapStage.SHOWING

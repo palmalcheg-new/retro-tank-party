@@ -264,8 +264,11 @@ puppet func update_remote_player(player_rotation: float, player_position: Vector
 		set_weapon_type(load(_weapon_type_path))
 	if _shooting:
 		shoot()
-	if (ability_type && ability_type.resource_path != _ability_type_path) or (ability_type == null and _ability_type_path != null):
-		set_ability_type(load(_ability_type_path))
+	if _ability_type_path:
+		if ability_type == null or ability_type.resource_path != _ability_type_path:
+			set_ability_type(load(_ability_type_path))
+	else:
+		set_ability_type(null)
 	if _using_ability:
 		use_ability()
 
@@ -282,7 +285,7 @@ func use_ability():
 	
 	if ability:
 		ability.use_ability()
-		if game:
+		if game and player_controlled:
 			game.hud.set_ability_label(ability_type.name, ability.charges)
 	
 func _on_ShootCooldownTimer_timeout() -> void:

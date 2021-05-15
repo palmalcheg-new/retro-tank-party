@@ -19,13 +19,20 @@ func attach_ability() -> void:
 	attachment = ZapAttachment.instance()
 	tank.add_child(attachment)
 	attachment.setup_attachment(tank)
+	attachment.connect("zap_finished", self, "_on_zap_finished")
 
 func detach_ability() -> void:
 	detector.queue_free()
 	attachment.queue_free()
 
 func use_ability() -> void:
-	detector.start_detecting(map_rect, TANK_SIZE)
+	if attachment.zap_stage == attachment.ZapStage.NONE and not detector.detecting:
+		detector.start_detecting(map_rect, TANK_SIZE)
+		charges -= 1
 
 func _on_free_space_found(new_position) -> void:
 	attachment.zap(new_position)
+
+func _on_zap_finished() -> void:
+	if charges <= 0:
+		tank.set_ability_type(null)
