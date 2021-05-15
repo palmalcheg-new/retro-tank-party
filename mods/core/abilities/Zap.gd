@@ -25,9 +25,7 @@ func detach_ability() -> void:
 	attachment.queue_free()
 
 func use_ability() -> void:
-	var next_position = detector.start_detecting(map_rect, TANK_SIZE)
-	attachment.rpc("set_tank_visibility", false)
+	detector.start_detecting(map_rect, TANK_SIZE)
 
 func _on_free_space_found(new_position) -> void:
-	tank.global_position = new_position
-	attachment.rpc("set_tank_visibility", true)
+	attachment.zap(new_position)

@@ -238,7 +238,7 @@ func _physics_process(delta: float) -> void:
 		if camera:
 			camera.global_position = global_position
 		
-		rpc("update_remote_player", rotation, position, turret_pivot.rotation, shooting, weapon_type.resource_path, using_ability, ability_type.resource_path if ability_type else null)
+		rpc("update_remote_player", rotation, position, turret_pivot.rotation, visible, shooting, weapon_type.resource_path, using_ability, ability_type.resource_path if ability_type else null)
 		
 		shooting = false
 		using_ability = false
@@ -253,10 +253,12 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("player1_use_ability"):
 		using_ability = true
 
-puppet func update_remote_player(player_rotation: float, player_position: Vector2, turret_rotation: float, _shooting: bool, _weapon_type_path: String, _using_ability: bool, _ability_type_path) -> void:
+puppet func update_remote_player(player_rotation: float, player_position: Vector2, turret_rotation: float, _visible: bool, _shooting: bool, _weapon_type_path: String, _using_ability: bool, _ability_type_path) -> void:
 	rotation = player_rotation
 	position = player_position
 	turret_pivot.rotation = turret_rotation
+	visible = _visible
+	player_info_node.visible = _visible
 	player_info_node.position = global_position + player_info_offset
 	if weapon_type.resource_path != _weapon_type_path:
 		set_weapon_type(load(_weapon_type_path))
