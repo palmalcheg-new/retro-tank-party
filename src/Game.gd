@@ -1,6 +1,7 @@
 extends Node2D
 
 var TankScene = preload("res://src/objects/Tank.tscn")
+var FreeSpaceDetector = preload("res://src/game/FreeSpaceDetector.tscn")
 
 onready var map: Node2D = $Map
 onready var players_node := $Players
@@ -203,4 +204,7 @@ func _on_player_dead(killer_id, player_id) -> void:
 		
 		emit_signal("player_dead", player_id, killer_id)
 
-
+func create_free_space_detector():
+	var detector = FreeSpaceDetector.instance()
+	add_child(detector)
+	return detector
