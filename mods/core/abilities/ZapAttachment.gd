@@ -1,6 +1,8 @@
 extends Node2D
 
 onready var tween := $Tween
+onready var hiding_sound := $HidingSound
+onready var showing_sound := $ShowingSound
 
 var tank
 
@@ -29,11 +31,13 @@ func zap(_destination: Vector2) -> bool:
 	tank.set_forced_input_vector(Vector2.ZERO)
 	
 	zap_stage = ZapStage.HIDING
-	tween.interpolate_property(tank, "scale", Vector2(1.0, 1.0), Vector2.ZERO, 0.1)
+	tween.interpolate_property(tank, "scale", Vector2(1.0, 1.0), Vector2.ZERO, 0.15)
 	tween.start()
 	
 	if not tank.is_network_master():
 		tank.player_info_node.visible = false
+	
+	hiding_sound.play()
 	
 	return true
 
@@ -61,5 +65,6 @@ remotesync func show_tank() -> void:
 	zap_stage = ZapStage.SHOWING
 	tank.visible = true
 	tank.player_info_node.visible = true
-	tween.interpolate_property(tank, "scale", Vector2.ZERO, Vector2(1.0, 1.0), 0.1)
+	tween.interpolate_property(tank, "scale", Vector2.ZERO, Vector2(1.0, 1.0), 0.15)
 	tween.start()
+	showing_sound.play()
