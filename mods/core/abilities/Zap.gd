@@ -2,12 +2,13 @@ extends "res://src/components/abilities/BaseAbility.gd"
 
 const ZapAttachment = preload("res://mods/core/abilities/ZapAttachment.tscn")
 
+const TANK_SIZE := Vector2(128, 128)
+
 var game
 var detector
 var attachment
 
 var map_rect: Rect2
-var tank_size := Vector2(128, 128)
 
 func attach_ability() -> void:
 	game = tank.game
@@ -24,7 +25,7 @@ func detach_ability() -> void:
 	attachment.queue_free()
 
 func use_ability() -> void:
-	var next_position = detector.start_detecting(map_rect, tank_size)
+	var next_position = detector.start_detecting(map_rect, TANK_SIZE)
 	attachment.rpc("set_tank_visibility", false)
 
 func _on_free_space_found(new_position) -> void:
