@@ -24,3 +24,7 @@ onready var turret_sprite := $TurretPivot/TurretSprite
 onready var turret_pivot := $TurretPivot
 onready var bullet_start_position := $TurretPivot/BulletStartPosition
 onready var collision_shape := $CollisionPolygon2D
+
+func set_tank_color(index: int) -> void:
+	body_sprite.region_rect = TANK_COLORS[index]['body_sprite_region']
+	turret_sprite.region_rect = TANK_COLORS[index]['turret_sprite_region']

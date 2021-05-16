@@ -17,13 +17,13 @@ func _ready() -> void:
 	var weapons = Modding.find_resources("weapons")
 	for weapon_path in weapons:
 		var weapon = load(weapon_path)
-		weapon_field.add_item(weapon.name, weapon)
+		weapon_field.add_item(weapon.name, weapon_path)
 	
 	ability_field.add_item("None", null)
 	var abilities = Modding.find_resources("abilities")
 	for ability_path in abilities:
 		var ability = load(ability_path)
-		ability_field.add_item(ability.name, ability)
+		ability_field.add_item(ability.name, ability_path)
 	
 	_setup_field_neighbors()
 	
@@ -51,8 +51,8 @@ func _show_screen(info: Dictionary = {}) -> void:
 	
 	health_slider.value = tank.health
 	invincible_field.set_value(tank.invincible, false)
-	weapon_field.set_value(tank.weapon_type, false)
-	ability_field.set_value(tank.ability_type, false)
+	weapon_field.set_value(tank.weapon_type.resource_path, false)
+	ability_field.set_value(tank.ability_type.resource_path if tank.ability_type != null else "None", false)
 
 func _on_HealthSlider_value_changed(value: float) -> void:
 	if _is_ready:
@@ -67,15 +67,15 @@ func _on_InvincibleOptions_item_selected(value, index) -> void:
 
 func _on_WeaponOptions_item_selected(value, index) -> void:
 	if tank:
-		tank.set_weapon_type(value)
+		tank.set_weapon_type(load(value))
 
 func _on_AbilityOptions_item_selected(value, index) -> void:
 	if tank:
 		# For 'None', since we can't have a value null in OptionSwitcher.
 		if index == 0:
-			value = null
-		if tank.ability_type != value:
-			tank.set_ability_type(value)
+			tank.set_ability_type(null)
+		if tank.ability_type == null or tank.ability_type.resource_path != value:
+			tank.set_ability_type(load(value))
 
 func _on_DoneButton_pressed() -> void:
 	Sounds.play("Select")

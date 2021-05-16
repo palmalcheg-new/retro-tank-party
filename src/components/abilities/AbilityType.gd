@@ -2,6 +2,6 @@ extends Resource
 class_name AbilityType
 
 export (String) var name := ""
-export (Script) var ability_script: Script = preload("res://src/components/abilities/BaseAbility.gd")
+export (PackedScene) var ability_scene: PackedScene
 export (int) var charges := 1
 export (bool) var rechargeable := true
