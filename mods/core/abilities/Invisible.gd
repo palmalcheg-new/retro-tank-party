@@ -72,6 +72,9 @@ func _on_LifetimeTimer_timeout() -> void:
 	if invisible_tank:
 		invisible_tank.queue_free()
 		invisible_tank = null
+	
+	# Make sure we don't get stuck invisible
+	tank.visible = true
 
 	if charges > 0:
 		used = false
