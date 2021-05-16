@@ -6,6 +6,11 @@ const Explosion = preload("res://src/objects/Explosion.tscn")
 export (bool) var player_controlled = false
 
 signal player_dead (killer_id)
+signal shoot ()
+signal hurt ()
+signal weapon_type_changed (weapon_type)
+signal ability_type_changed (ability_type)
+signal ability_recharged (ability)
 
 onready var player_info_node := $PlayerInfo
 onready var player_info_offset: Vector2 = player_info_node.position
@@ -70,8 +75,7 @@ func setup_tank(_game, player) -> void:
 	player_info_node.set_player_name(player.name)
 	player_index = player.index
 	
-	body_sprite.region_rect = TANK_COLORS[player_index]['body_sprite_region']
-	turret_sprite.region_rect = TANK_COLORS[player_index]['turret_sprite_region']
+	set_tank_color(player_index)
 	
 	if player.team != -1:
 		player_info_node.set_team(player.team)
@@ -92,12 +96,15 @@ func set_weapon_type(_weapon_type: WeaponType) -> void:
 				game.hud.clear_weapon_label()
 			else:
 				game.hud.set_weapon_label(weapon_type.name)
+		
+		emit_signal("weapon_type_changed", weapon_type)
 
 func set_ability_type(_ability_type: AbilityType) -> void:
 	if ability_type == _ability_type and _ability_type != null:
 		if ability and player_controlled:
 			ability.recharge_ability()
 			_update_ability_label()
+			emit_signal("ability_recharged", ability)
 	else:
 		if ability:
 			ability.mark_finished()
@@ -111,6 +118,7 @@ func set_ability_type(_ability_type: AbilityType) -> void:
 			ability.attach_ability()
 		
 		_update_ability_label()
+		emit_signal("ability_type_changed", ability_type)
 
 func _update_ability_label() -> void:
 	if game and player_controlled:
@@ -288,6 +296,7 @@ func shoot():
 	if not get_parent():
 		return
 	
+	emit_signal("shoot")
 	shoot_sound.play()
 	weapon.fire_weapon()
 
@@ -297,8 +306,7 @@ func use_ability():
 	
 	if ability:
 		ability.use_ability()
-		if game and player_controlled:
-			game.hud.set_ability_label(ability_type.name, ability.charges)
+		_update_ability_label()
 	
 func _on_ShootCooldownTimer_timeout() -> void:
 	can_shoot = true
@@ -318,6 +326,7 @@ func take_damage(damage: int, attacker_id: int = -1) -> void:
 			rpc("die", attacker_id)
 		else:
 			rpc("update_health", health)
+			emit_signal("hurt")
 
 func restore_health(_health: int) -> void:
 	if is_network_master():

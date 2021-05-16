@@ -7,5 +7,5 @@
 script = ExtResource( 1 )
 name = "Zap!"
 letter = "Z"
-rarity = 1000
+rarity = 20
 ability_type = ExtResource( 2 )
