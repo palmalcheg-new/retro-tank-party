@@ -1,25 +1,27 @@
 extends "res://src/components/abilities/BaseAbility.gd"
 
-const ShadowTankSpawner = preload("res://mods/core/abilities/ShadowTankSpawner.tscn")
+const ShadowTank = preload("res://mods/core/abilities/ShadowTank.tscn")
 
-var timer: Timer
-var shadow_tank_spawner: Node2D
+onready var timer = $Timer
 
-func attach_ability() -> void:
-	timer = Timer.new()
-	timer.name = 'BoostTimer'
-	timer.wait_time = 0.25
-	timer.one_shot = true
-	timer.connect("timeout", self, "_on_timer_timeout")
-	tank.add_child(timer)
-	
-	shadow_tank_spawner = ShadowTankSpawner.instance()
-	shadow_tank_spawner.setup_shadow_tank_spawner(tank)
-	tank.add_child(shadow_tank_spawner)
+var spawning := false
+var spawn_rate := 2
+var spawn_counter := 0
 
-func detach_ability() -> void:
-	tank.remove_child(timer)
-	tank.remove_child(shadow_tank_spawner)
+func spawn() -> void:
+	var tank_parent: Node2D = tank.get_parent()
+	var shadow_tank = ShadowTank.instance()
+	tank_parent.add_child(shadow_tank)
+	tank_parent.move_child(shadow_tank, 0)
+	shadow_tank.setup_shadow_tank(tank)
+
+func _physics_process(delta: float) -> void:
+	if spawning:
+		if spawn_counter <= 0:
+			spawn_counter = spawn_rate
+			spawn()
+		
+		spawn_counter -= 1
 
 func use_ability() -> void:
 	if charges > 0:
@@ -30,11 +32,17 @@ func use_ability() -> void:
 		else:
 			tank.set_forced_input_vector(Vector2(1.0, 0.0))
 		timer.start()
-		shadow_tank_spawner.start()
+		spawning = true
 
-func _on_timer_timeout() -> void:
+func mark_finished() -> void:
+	if spawning:
+		charges = 0
+	else:
+		.mark_finished()
+
+func _on_Timer_timeout() -> void:
 	tank.speed = tank.DEFAULT_SPEED
 	tank.clear_forced_input_vector()
-	shadow_tank_spawner.stop()
+	spawning = false
 	if charges == 0:
-		tank.set_ability_type(null)
+		emit_signal("finished")

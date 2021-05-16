@@ -94,29 +94,41 @@ func set_weapon_type(_weapon_type: WeaponType) -> void:
 				game.hud.set_weapon_label(weapon_type.name)
 
 func set_ability_type(_ability_type: AbilityType) -> void:
-	if ability_type == _ability_type:
+	if ability_type == _ability_type and _ability_type != null:
 		if ability and player_controlled:
 			ability.recharge_ability()
-			if game:
-				game.hud.set_ability_label(ability_type.name, ability.charges)
+			_update_ability_label()
 	else:
-		ability_type = _ability_type
-		
 		if ability:
-			ability.detach_ability()
+			ability.mark_finished()
 		
+		ability_type = _ability_type
 		if ability_type != null:
-			ability = ability_type.ability_script.new()
+			ability = ability_type.ability_scene.instance()
+			ability.connect("finished", self, "_on_ability_finished", [ability])
+			add_child(ability)
 			ability.setup_ability(self, ability_type)
 			ability.attach_ability()
-		else:
-			ability = null
 		
-		if game and player_controlled:
-			if ability_type == null:
-				game.hud.clear_ability_label()
-			else:
-				game.hud.set_ability_label(ability_type.name, ability.charges)
+		_update_ability_label()
+
+func _update_ability_label() -> void:
+	if game and player_controlled:
+		if ability_type:
+			game.hud.set_ability_label(ability_type.name, ability.charges)
+		else:
+			game.hud.clear_ability_label()
+
+func _on_ability_finished(old_ability) -> void:
+	old_ability.detach_ability()
+	remove_child(old_ability)
+	old_ability.queue_free()
+	
+	# If this is the current ability, then clear it out.
+	if old_ability == ability:
+		ability = null
+		ability_type = null
+		_update_ability_label()
 
 func set_forced_input_vector(input: Vector2) -> void:
 	forced_input_vector = input
