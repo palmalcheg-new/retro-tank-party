@@ -2,6 +2,7 @@ extends Resource
 class_name GameMap
 
 export (String) var name: String
+export (bool) var has_goals := false
 export (String, FILE, "*.tscn") var map_scene: String
 
 func instance_map_scene():

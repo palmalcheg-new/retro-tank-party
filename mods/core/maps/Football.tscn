@@ -9,7 +9,6 @@
 [ext_resource path="res://src/objects/obstruction/FenceRed.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/objects/obstruction/FenceYellow.tscn" type="PackedScene" id=8]
 
-
 [node name="Map2" type="Node2D"]
 script = ExtResource( 3 )
 

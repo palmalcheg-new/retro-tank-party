@@ -7,6 +7,7 @@
 [resource]
 script = ExtResource( 1 )
 name = "Tossball"
-description = "Get the ball to the end zone to score points."
+description = "Carry the ball to the goal to score points."
+requires_goals = true
 manager_scene = ExtResource( 3 )
 config_scene = ExtResource( 2 )

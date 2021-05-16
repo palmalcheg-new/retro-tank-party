@@ -72,12 +72,13 @@ func _reset_button_colors() -> void:
 	_back_button.modulate = modulate_disabled if disabled or selected == 0 else modulate_normal
 	_forward_button.modulate = modulate_disabled if disabled or selected == _options.size() - 1 else modulate_normal
 
-func set_value(_value, emit_signal: bool = true) -> void:
+func set_value(_value, emit_signal: bool = true) -> bool:
 	for index in range(_options.size()):
 		var option = _options[index]
 		if option.value == _value:
 			set_selected(index, emit_signal)
-			return
+			return true
+	return false
 
 func get_value():
 	if _options.size() > 0:
