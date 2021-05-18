@@ -13,6 +13,7 @@ var map_rect: Rect2
 
 enum ZapStage {
 	NONE,
+	DETECTING,
 	HIDING,
 	HIDDEN,
 	SHOWING,
@@ -32,8 +33,9 @@ func detach_ability() -> void:
 
 func use_ability() -> void:
 	if charges > 0 and zap_stage == ZapStage.NONE and not detector.detecting:
-		detector.start_detecting(map_rect, TANK_SIZE)
 		charges -= 1
+		zap_stage = ZapStage.DETECTING
+		detector.start_detecting(map_rect, TANK_SIZE)
 
 func mark_finished() -> void:
 	if zap_stage != ZapStage.NONE:
@@ -42,6 +44,9 @@ func mark_finished() -> void:
 		.mark_finished()
 
 func _on_free_space_found(_destination) -> void:
+	if zap_stage != ZapStage.DETECTING:
+		return
+	
 	destination = _destination
 	
 	tank.collision_shape.set_deferred("disabled", true)

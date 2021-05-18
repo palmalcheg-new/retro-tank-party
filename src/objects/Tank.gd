@@ -48,6 +48,7 @@ var weapon_type: WeaponType
 var weapon
 var ability_type: AbilityType
 var ability
+var last_ability
 
 var player_index
 
@@ -100,6 +101,14 @@ func set_weapon_type(_weapon_type: WeaponType) -> void:
 		emit_signal("weapon_type_changed", weapon_type)
 
 func set_ability_type(_ability_type: AbilityType) -> void:
+	# If the last ability is still in effect, and we just picked up the same
+	# ability, then we reinstate that ability.
+	if last_ability and is_instance_valid(last_ability) and is_a_parent_of(last_ability) and last_ability.ability_type == _ability_type:
+		var tmp = ability
+		ability_type = last_ability.ability_type
+		ability = last_ability
+		last_ability = tmp
+	
 	if ability_type == _ability_type and _ability_type != null:
 		if ability and player_controlled:
 			ability.recharge_ability()
@@ -116,6 +125,8 @@ func set_ability_type(_ability_type: AbilityType) -> void:
 			add_child(ability)
 			ability.setup_ability(self, ability_type)
 			ability.attach_ability()
+		else:
+			ability = null
 		
 		_update_ability_label()
 		emit_signal("ability_type_changed", ability_type)
@@ -128,6 +139,8 @@ func _update_ability_label() -> void:
 			game.hud.clear_ability_label()
 
 func _on_ability_finished(old_ability) -> void:
+	old_ability.disconnect("finished", self, "_on_ability_finished")
+	
 	old_ability.detach_ability()
 	remove_child(old_ability)
 	old_ability.queue_free()
@@ -137,6 +150,9 @@ func _on_ability_finished(old_ability) -> void:
 		ability = null
 		ability_type = null
 		_update_ability_label()
+	# If this is the last ability, then clear it out.
+	elif old_ability == last_ability:
+		last_ability = null
 
 func set_forced_input_vector(input: Vector2) -> void:
 	forced_input_vector = input
@@ -305,8 +321,16 @@ func use_ability():
 		return
 	
 	if ability:
+		# If the last ability is still in effect, then we immediately stop it.
+		if last_ability and is_instance_valid(last_ability) and is_a_parent_of(last_ability):
+			_on_ability_finished(last_ability)
+			
 		ability.use_ability()
-		_update_ability_label()
+		if ability.charges <= 0:
+			last_ability = ability
+			set_ability_type(null)
+		else:
+			_update_ability_label()
 	
 func _on_ShootCooldownTimer_timeout() -> void:
 	can_shoot = true

@@ -23,7 +23,7 @@ func detach_ability() -> void:
 	tank.disconnect("ability_type_changed", self, "_on_tank_ability_changed")
 
 func use_ability() -> void:
-	if charges > 0:
+	if charges > 0 and not used:
 		charges -= 1
 		used = true
 		
@@ -71,6 +71,7 @@ func _on_WarningTimer_timeout() -> void:
 func _on_LifetimeTimer_timeout() -> void:
 	if invisible_tank:
 		invisible_tank.queue_free()
+		remove_child(invisible_tank)
 		invisible_tank = null
 	
 	# Make sure we don't get stuck invisible

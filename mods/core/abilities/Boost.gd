@@ -4,7 +4,7 @@ const ShadowTank = preload("res://mods/core/abilities/ShadowTank.tscn")
 
 onready var timer = $Timer
 
-var spawning := false
+var boosting := false
 var spawn_rate := 2
 var spawn_counter := 0
 
@@ -16,7 +16,7 @@ func spawn() -> void:
 	shadow_tank.setup_shadow_tank(tank)
 
 func _physics_process(delta: float) -> void:
-	if spawning:
+	if boosting:
 		if spawn_counter <= 0:
 			spawn_counter = spawn_rate
 			spawn()
@@ -24,7 +24,7 @@ func _physics_process(delta: float) -> void:
 		spawn_counter -= 1
 
 func use_ability() -> void:
-	if charges > 0:
+	if charges > 0 and not boosting:
 		charges -= 1
 		tank.speed = 1600
 		if Input.is_action_pressed("player1_backward"):
@@ -32,10 +32,10 @@ func use_ability() -> void:
 		else:
 			tank.set_forced_input_vector(Vector2(1.0, 0.0))
 		timer.start()
-		spawning = true
+		boosting = true
 
 func mark_finished() -> void:
-	if spawning:
+	if boosting:
 		charges = 0
 	else:
 		.mark_finished()
@@ -43,6 +43,6 @@ func mark_finished() -> void:
 func _on_Timer_timeout() -> void:
 	tank.speed = tank.DEFAULT_SPEED
 	tank.clear_forced_input_vector()
-	spawning = false
+	boosting = false
 	if charges == 0:
 		emit_signal("finished")
