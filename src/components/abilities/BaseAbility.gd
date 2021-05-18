@@ -13,8 +13,7 @@ func setup_ability(_tank, _ability_type) -> void:
 	charges = ability_type.charges
 
 func recharge_ability() -> void:
-	if ability_type.rechargeable:
-		charges += ability_type.charges
+	charges = ability_type.charges
 
 func attach_ability() -> void:
 	pass

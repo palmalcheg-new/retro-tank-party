@@ -8,4 +8,3 @@ script = ExtResource( 2 )
 name = "Boost"
 ability_scene = ExtResource( 1 )
 charges = 3
-rechargeable = true
