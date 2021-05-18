@@ -8,4 +8,3 @@ script = ExtResource( 1 )
 name = "Invisible"
 ability_scene = ExtResource( 2 )
 charges = 1
-rechargeable = true
