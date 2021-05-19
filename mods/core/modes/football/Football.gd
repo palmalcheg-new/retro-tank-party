@@ -7,6 +7,7 @@ func _physics_process(delta: float) -> void:
 	position += vector * speed * delta
 	if frames_countdown > 0:
 		frames_countdown -= 1
+	# @todo check that football is in bounds
 
 func _on_Bullet_body_entered(body: PhysicsBody2D) -> void:
 	# If it collided with the environment.
