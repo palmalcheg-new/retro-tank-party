@@ -25,5 +25,3 @@ func fire_weapon() -> void:
 			match_manager.rpc("pass_football", tank.bullet_start_position.global_position, tank.turret_pivot.global_rotation)
 	
 	tank.call_deferred("set_weapon_type", previous_weapon_type)
-	#set_weapon_type(previous_weapon_type)
-
