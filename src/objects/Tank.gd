@@ -82,6 +82,9 @@ func setup_tank(_game, player) -> void:
 		player_info_node.set_team(player.team)
 
 func set_weapon_type(_weapon_type: WeaponType) -> void:
+	if _weapon_type == null:
+		_weapon_type = BaseWeaponType
+	
 	if weapon_type != _weapon_type:
 		weapon_type = _weapon_type
 		
