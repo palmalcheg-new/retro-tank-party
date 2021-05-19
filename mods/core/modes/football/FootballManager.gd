@@ -1,14 +1,33 @@
 extends "res://src/components/modes/BaseManager.gd"
 
+const FootballWeaponType = preload("res://mods/core/weapons/football.tres")
+const FootballScene = preload("res://mods/core/modes/football/Football.tscn")
+
 const TANK_SIZE := Vector2(128, 128)
 
 onready var hud := $CanvasLayer/TimedMatchHUD
 
+var football
+
 var instant_death := false
 var winners := []
 
+var ball_start_position: Vector2
+
 func _do_match_setup() -> void:
 	._do_match_setup()
+	
+	if game.map.has_node('BallStartPosition'):
+		ball_start_position = game.map.get_node('BallStartPosition').global_position
+	else:
+		var map_rect = game.map.get_map_rect()
+		ball_start_position = map_rect.position + (map_rect.size / 2.0)
+	
+	football = FootballScene.instance()
+	football.name = 'Football'
+	game.add_child(football)
+	football.setup_football(self)
+	football.global_position = ball_start_position
 	
 	hud.score.set_entity_count(score.entities.size())
 	for team_id in score.entities:
@@ -26,6 +45,20 @@ func match_start() -> void:
 
 func match_stop() -> void:
 	.match_stop()
+
+remotesync func grab_football(tank_path: NodePath) -> void:
+	var tank = get_node(tank_path)
+	if tank:
+		var previous_weapon_type = tank.weapon_type
+		tank.set_weapon_type(FootballWeaponType)
+		tank.weapon.previous_weapon_type = previous_weapon_type
+		football.mark_as_held(tank)
+	else:
+		# @todo Can we do something smart here?
+		pass
+
+remotesync func pass_football(_position: Vector2, _rotation: float) -> void:
+	football.pass_football(_position, _rotation)
 
 func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 	var my_id = get_tree().get_network_unique_id()

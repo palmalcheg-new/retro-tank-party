@@ -578,3 +578,6 @@ position = Vector2( 858, 891 )
 
 [node name="DropCrateSpawnArea2" parent="." instance=ExtResource( 2 )]
 position = Vector2( 1809, 895 )
+
+[node name="BallStartPosition" type="Position2D" parent="."]
+position = Vector2( 1340, 898 )

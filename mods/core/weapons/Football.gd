@@ -17,6 +17,13 @@ func detach_weapon() -> void:
 
 func fire_weapon() -> void:
 	detach_weapon()
-	.fire_weapon()
-	tank.set_weapon_type(previous_weapon_type)
+	
+	var scene = tank.get_tree().get_current_scene()
+	if scene.has_node('MatchManager'):
+		var match_manager = scene.get_node('MatchManager')
+		if match_manager.has_method('pass_football'):
+			match_manager.rpc("pass_football", tank.bullet_start_position.global_position, tank.turret_pivot.global_rotation)
+	
+	tank.call_deferred("set_weapon_type", previous_weapon_type)
+	#set_weapon_type(previous_weapon_type)
 
