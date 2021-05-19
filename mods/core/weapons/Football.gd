@@ -12,8 +12,10 @@ func attach_weapon() -> void:
 	tank.bullet_start_position.add_child(sprite)
 
 func detach_weapon() -> void:
-	tank.bullet_start_position.remove_child(sprite)
-	sprite.queue_free()
+	if sprite:
+		tank.bullet_start_position.remove_child(sprite)
+		sprite.queue_free()
+		sprite = null
 
 func fire_weapon() -> void:
 	detach_weapon()

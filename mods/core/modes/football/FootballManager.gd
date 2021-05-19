@@ -12,21 +12,27 @@ var football
 var instant_death := false
 var winners := []
 
+var map_rect: Rect2
 var ball_start_position: Vector2
+
+func _get_synchronized_rpc_methods() -> Array:
+	return ['_setup_new_round']
 
 func _do_match_setup() -> void:
 	._do_match_setup()
 	
+	map_rect = game.map.get_map_rect()
+	
 	if game.map.has_node('BallStartPosition'):
 		ball_start_position = game.map.get_node('BallStartPosition').global_position
 	else:
-		var map_rect = game.map.get_map_rect()
+		
 		ball_start_position = map_rect.position + (map_rect.size / 2.0)
 	
 	football = FootballScene.instance()
 	football.name = 'Football'
 	game.add_child(football)
-	football.setup_football(self)
+	football.setup_football(self, map_rect)
 	football.global_position = ball_start_position
 	
 	hud.score.set_entity_count(score.entities.size())
@@ -49,6 +55,8 @@ func match_stop() -> void:
 remotesync func grab_football(tank_path: NodePath) -> void:
 	var tank = get_node(tank_path)
 	if tank:
+		# @todo Ensure that whoever was holding the ball before has it removed.
+		
 		var previous_weapon_type = tank.weapon_type
 		tank.set_weapon_type(FootballWeaponType)
 		tank.weapon.previous_weapon_type = previous_weapon_type
@@ -59,6 +67,33 @@ remotesync func grab_football(tank_path: NodePath) -> void:
 
 remotesync func pass_football(_position: Vector2, _rotation: float) -> void:
 	football.pass_football(_position, _rotation)
+
+remotesync func start_new_round(message: String, team_with_ball: int) -> void:
+	ui_layer.show_message(message)
+	
+	if get_tree().is_network_server():
+		yield(get_tree().create_timer(2.0), "timeout")
+		
+		# @todo Get the specific player with the ball.
+		var player_with_ball = -1
+		var operation = RemoteOperations.synchronized_rpc(self, "_setup_new_round", [player_with_ball])
+		if yield(operation, "completed"):
+			rpc("_start_new_round")
+		else:
+			# @todo what can we do if this fails?
+			print ("client failed to setup new round!!!!")
+
+func _setup_new_round(player_with_ball: int) -> void:
+	get_tree().paused = true
+	
+	# @todo Give the ball to the right player
+	football.global_position = ball_start_position
+	
+	# @todo Restore the players to their starting positions
+
+remotesync func _start_new_round() -> void:
+	ui_layer.hide_message()
+	get_tree().paused = false
 
 func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 	var my_id = get_tree().get_network_unique_id()
