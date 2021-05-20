@@ -40,12 +40,14 @@ func subscribe(event_name: String, object: Object, method: String, priority: int
 
 func unsubscribe(event_name: String, object: Object, method: String) -> void:
 	if not listeners.has(event_name):
+		assert ("Cannot unsubscribe - no listeners on event %s" % event_name)
 		return
 	for i in range(listeners[event_name].size()):
 		var listener = listeners[event_name][i]
 		if listener.object.get_ref() == object and listener.method == method:
 			listeners[event_name].remove(i)
 			return
+	assert ("Cannot unsubscribe - no matching listeners on event %s" % event_name)
 
 func _sort_listener(a: EventListener, b: EventListener) -> bool:
 	return a.priority < b.priority
@@ -61,6 +63,7 @@ func dispatch_event(event_name: String, event: Event) -> void:
 		if not event.propagating:
 			return
 		if not listener.dispatch_event(event):
+			push_warning("Invalid event listener for event %s" % event_name)
 			invalid.append(index)
 		index += 1
 	
