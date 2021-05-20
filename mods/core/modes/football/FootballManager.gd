@@ -40,8 +40,6 @@ func _do_match_setup() -> void:
 	for team_id in score.entities:
 		hud.score.set_entity_name(team_id + 1, score.entities[team_id].name)
 	
-	OnlineMatch.connect("player_left", self, '_on_OnlineMatch_player_left')
-	
 	game.connect("player_dead", self, "_on_game_player_dead")
 	
 	hud.countdown_timer.connect("countdown_finished", self, "_on_countdown_finished")
