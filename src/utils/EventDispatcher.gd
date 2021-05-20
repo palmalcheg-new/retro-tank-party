@@ -45,11 +45,10 @@ func unsubscribe(event_name: String, object: Object, method: String) -> void:
 		var listener = listeners[event_name][i]
 		if listener.object.get_ref() == object and listener.method == method:
 			listeners[event_name].remove(i)
+			return
 
 func _sort_listener(a: EventListener, b: EventListener) -> bool:
-	if a.priority < b.priority:
-		return true
-	return false
+	return a.priority < b.priority
 
 func dispatch_event(event_name: String, event: Event) -> void:
 	if not listeners.has(event_name):
@@ -67,7 +66,7 @@ func dispatch_event(event_name: String, event: Event) -> void:
 	
 	# Remove any invalid event listeners that we discovered
 	if invalid.size() > 0:
-		var old = listeners[event_name].duplicate()
+		var old = listeners[event_name]
 		listeners[event_name] = []
 		for i in range(old.size()):
 			if not i in invalid:
