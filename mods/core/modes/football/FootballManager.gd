@@ -27,7 +27,6 @@ func _do_match_setup() -> void:
 	if game.map.has_node('BallStartPosition'):
 		ball_start_position = game.map.get_node('BallStartPosition').global_position
 	else:
-		
 		ball_start_position = map_rect.position + (map_rect.size / 2.0)
 	
 	football = FootballScene.instance()
