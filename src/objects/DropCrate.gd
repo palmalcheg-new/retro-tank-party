@@ -10,7 +10,7 @@ func _ready():
 func set_contents(_contents: Pickup):
 	contents = _contents
 
-func take_damage(damage: int, attacker_id: int) -> void:
+func take_damage(damage: int, attacker_id: int, attack_vector: Vector2) -> void:
 	rpc("open_crate")
 	
 remotesync func open_crate() -> void:

@@ -17,6 +17,7 @@ var possible_pickups := []
 
 signal game_error (message)
 signal game_started ()
+signal player_spawned (tank)
 signal player_dead (player_id, killer_id)
 
 class Player:
@@ -91,6 +92,8 @@ func respawn_player(peer_id: int, start_pos = null, start_rotation = null) -> vo
 	
 	tank.setup_tank(self, player)
 	tank.connect("player_dead", self, "_on_player_dead", [peer_id])
+	
+	emit_signal("player_spawned", tank)
 
 func make_player_controlled(peer_id) -> void:
 	var my_player := players_node.get_node(str(peer_id))

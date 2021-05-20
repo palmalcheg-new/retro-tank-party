@@ -28,6 +28,7 @@ func pass_football(_position: Vector2, _rotation: float) -> void:
 func mark_as_held(_held) -> void:
 	held = _held
 	if held:
+		vector = Vector2.ZERO
 		visible = false
 		set_deferred("monitoring", false)
 		pass_timer.stop()
