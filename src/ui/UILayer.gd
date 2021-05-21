@@ -37,6 +37,11 @@ func _setup_screen(screen) -> void:
 func get_screens():
 	return screens.get_children()
 
+func get_screen(name: String):
+	if screens.has_node(name):
+		return screens.get_node(name)
+	return null
+
 func get_current_screen_name() -> String:
 	if current_screen:
 		return current_screen.name

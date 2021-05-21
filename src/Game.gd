@@ -17,6 +17,7 @@ var possible_pickups := []
 
 signal game_error (message)
 signal game_started ()
+signal player_spawned (tank)
 signal player_dead (player_id, killer_id)
 
 class Player:
@@ -40,6 +41,8 @@ func game_setup(_players: Dictionary, map_path: String, operation: RemoteOperati
 	
 	if game_started:
 		game_stop()
+	
+	hud.clear_all_labels()
 	
 	players = _players
 	game_started = true
@@ -91,6 +94,8 @@ func respawn_player(peer_id: int, start_pos = null, start_rotation = null) -> vo
 	
 	tank.setup_tank(self, player)
 	tank.connect("player_dead", self, "_on_player_dead", [peer_id])
+	
+	emit_signal("player_spawned", tank)
 
 func make_player_controlled(peer_id) -> void:
 	var my_player := players_node.get_node(str(peer_id))
@@ -99,6 +104,9 @@ func make_player_controlled(peer_id) -> void:
 		_setup_player_camera(my_player)
 	else:
 		print ("Unable to make player controlled: node not found")
+
+func get_tank(player_id: int):
+	return players_node.get_node(str(player_id))
 
 func get_my_tank():
 	for peer_id in players_alive:

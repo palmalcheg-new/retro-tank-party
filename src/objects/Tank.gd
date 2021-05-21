@@ -2,12 +2,13 @@ extends "res://src/objects/tank/BaseTank.gd"
 
 const BaseWeaponType = preload("res://mods/core/weapons/base.tres")
 const Explosion = preload("res://src/objects/Explosion.tscn")
+const EventDispatcher = preload("res://src/utils/EventDispatcher.gd")
 
 export (bool) var player_controlled = false
 
 signal player_dead (killer_id)
 signal shoot ()
-signal hurt ()
+signal hurt (damage, attacker_id, attack_vector)
 signal weapon_type_changed (weapon_type)
 signal ability_type_changed (ability_type)
 signal ability_recharged (ability)
@@ -41,6 +42,8 @@ var mouse_control := true
 var forced_input_vector: Vector2
 var use_forced_input_vector := false
 
+var hooks := EventDispatcher.new()
+
 var game
 var camera: Camera2D = null
 
@@ -52,7 +55,55 @@ var last_ability
 
 var player_index
 
+class TankEvent extends EventDispatcher.Event:
+	var tank
+	
+	func _init(_tank) -> void:
+		tank = _tank
+
+class PickupWeaponEvent extends TankEvent:
+	var weapon_type: WeaponType
+	
+	func _init(_tank, _weapon_type: WeaponType).(_tank) -> void:
+		weapon_type = _weapon_type
+
+class PickupAbilityEvent extends TankEvent:
+	var ability_type: AbilityType
+	
+	func _init(_tank, _ability_type: AbilityType).(_tank) -> void:
+		ability_type = _ability_type
+
+class TakeDamageEvent extends TankEvent:
+	var damage: int
+	var attacker_id: int
+	var attack_vector: Vector2
+	
+	func _init(_tank, _damage: int, _attacker_id: int, _attack_vector: Vector2).(_tank) -> void:
+		damage = _damage
+		attacker_id = _attacker_id
+		attack_vector = _attack_vector
+
+class RestoreHealthEvent extends TankEvent:
+	var health: int
+	
+	func _init(_tank, _health: int).(_tank) -> void:
+		health = _health
+
+class DieEvent extends TankEvent:
+	var killer_id: int
+	
+	func _init(_tank, _killer_id: int).(_tank) -> void:
+		killer_id = _killer_id
+
 func _ready():
+	hooks.subscribe("pickup_ability", self, "_hook_default_pickup_ability", 0)
+	hooks.subscribe("pickup_weapon", self, "_hook_default_pickup_weapon", 0)
+	hooks.subscribe("shoot", self, "_hook_default_shoot", 0)
+	hooks.subscribe("use_ability", self, "_hook_default_use_ability", 0)
+	hooks.subscribe("take_damage", self, "_hook_default_take_damage", 0)
+	hooks.subscribe("restore_health", self, "_hook_default_restore_health", 0)
+	hooks.subscribe("die", self, "_hook_default_die", 0)
+	
 	player_info_node.set_as_toplevel(true)
 	player_info_node.position = global_position + player_info_offset
 	
@@ -81,7 +132,16 @@ func setup_tank(_game, player) -> void:
 	if player.team != -1:
 		player_info_node.set_team(player.team)
 
+func pickup_weapon(_weapon_type: WeaponType) -> void:
+	hooks.dispatch_event("pickup_weapon", PickupWeaponEvent.new(self, _weapon_type))
+
+func _hook_default_pickup_weapon(event: PickupWeaponEvent) -> void:
+	set_weapon_type(event.weapon_type)
+
 func set_weapon_type(_weapon_type: WeaponType) -> void:
+	if _weapon_type == null:
+		_weapon_type = BaseWeaponType
+	
 	if weapon_type != _weapon_type:
 		weapon_type = _weapon_type
 		
@@ -99,6 +159,12 @@ func set_weapon_type(_weapon_type: WeaponType) -> void:
 				game.hud.set_weapon_label(weapon_type.name)
 		
 		emit_signal("weapon_type_changed", weapon_type)
+
+func pickup_ability(_ability_type: AbilityType) -> void:
+	hooks.dispatch_event("pickup_ability", PickupAbilityEvent.new(self, _ability_type))
+
+func _hook_default_pickup_ability(event: PickupAbilityEvent) -> void:
+	set_ability_type(event.ability_type)
 
 func set_ability_type(_ability_type: AbilityType) -> void:
 	# If the last ability is still in effect, and we just picked up the same
@@ -308,7 +374,10 @@ puppet func update_remote_player(player_rotation: float, player_position: Vector
 	if _using_ability:
 		use_ability()
 
-func shoot():
+func shoot() -> void:
+	hooks.dispatch_event("shoot", TankEvent.new(self))
+
+func _hook_default_shoot(event: TankEvent) -> void:
 	if not get_parent():
 		return
 	
@@ -316,7 +385,10 @@ func shoot():
 	shoot_sound.play()
 	weapon.fire_weapon()
 
-func use_ability():
+func use_ability() -> void:
+	hooks.dispatch_event("use_ability", TankEvent.new(self))
+
+func _hook_default_use_ability(event: TankEvent):
 	if not get_parent():
 		return
 	
@@ -335,7 +407,10 @@ func use_ability():
 func _on_ShootCooldownTimer_timeout() -> void:
 	can_shoot = true
 
-func take_damage(damage: int, attacker_id: int = -1) -> void:
+func take_damage(damage: int, attacker_id: int = -1, attack_vector: Vector2 = Vector2.ZERO) -> void:
+	hooks.dispatch_event("take_damage", TakeDamageEvent.new(self, damage, attacker_id, attack_vector))
+
+func _hook_default_take_damage(event: TakeDamageEvent) -> void:
 	if player_controlled:
 		if GameSettings.use_screenshake and camera:
 			# Between 0.25 and 0.5 seems good
@@ -344,17 +419,22 @@ func take_damage(damage: int, attacker_id: int = -1) -> void:
 		Globals.rumble.add_rumble(0.25)
 	
 	animation_player.play("Flash")
+	
+	emit_signal("hurt", event.damage, event.attacker_id, event.attack_vector)
+	
 	if is_network_master() and not invincible:
-		health -= damage
+		health -= event.damage
 		if health <= 0:
-			rpc("die", attacker_id)
+			rpc("die", event.attacker_id)
 		else:
 			rpc("update_health", health)
-			emit_signal("hurt")
 
 func restore_health(_health: int) -> void:
+	hooks.dispatch_event("restore_health", RestoreHealthEvent.new(self, _health))
+
+func _hook_default_restore_health(event: RestoreHealthEvent) -> void:
 	if is_network_master():
-		health += _health
+		health += event.health
 		if health > 100:
 			health = 100
 		rpc("update_health", health)
@@ -364,6 +444,9 @@ remotesync func update_health(_health) -> void:
 	player_info_node.update_health(health)
 
 remotesync func die(killer_id: int = -1) -> void:
+	hooks.dispatch_event("die", DieEvent.new(self, killer_id))
+
+func _hook_default_die(event: DieEvent) -> void:
 	if not dead:
 		dead = true
 		
@@ -373,4 +456,4 @@ remotesync func die(killer_id: int = -1) -> void:
 		
 		queue_free()
 		
-		emit_signal("player_dead", killer_id)
+		emit_signal("player_dead", event.killer_id)

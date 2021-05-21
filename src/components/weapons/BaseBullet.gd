@@ -34,7 +34,7 @@ func _on_Bullet_body_entered(body: PhysicsBody2D) -> void:
 		return
 	
 	if body.has_method("take_damage"):
-		body.take_damage(damage, player_id)
+		body.take_damage(damage, player_id, vector.normalized())
 		explode("fire")
 	else:
 		explode("smoke")

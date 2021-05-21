@@ -28,17 +28,22 @@ func map_object_stop(map, game):
 func has_drop_crate_or_powerup() -> bool:
 	return spawns.has_node("DropCrate") or spawns.has_node("Powerup")
 
-func _on_DropTimer_timeout() -> void:
+func spawn_drop_crate() -> void:
+	if not is_network_master():
+		return
 	if not has_drop_crate_or_powerup():
 		var extents = collision_shape.shape.extents
 		var area = Rect2(global_position - extents, extents * 2.0)
 		detector.start_detecting(area, CRATE_SIZE)
 
+func _on_DropTimer_timeout() -> void:
+	spawn_drop_crate()
+
 func _on_free_space_found(crate_position) -> void:
 	var contents = possible_contents[randi() % possible_contents.size()]
-	rpc("spawn_drop_crate", crate_position, contents.resource_path)
+	rpc("_do_spawn_drop_crate", crate_position, contents.resource_path)
 
-remotesync func spawn_drop_crate(_position: Vector2, pickup_path: String):
+remotesync func _do_spawn_drop_crate(_position: Vector2, pickup_path: String):
 	var crate = DropCrate.instance()
 	crate.name = 'DropCrate'
 	spawns.add_child(crate)

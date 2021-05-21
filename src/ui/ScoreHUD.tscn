@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://mods/core/modes/deathmatch/ScoreHUD.gd" type="Script" id=2]
-[ext_resource path="res://mods/core/modes/deathmatch/EntityScore.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/ui/ScoreHUD.gd" type="Script" id=2]
+[ext_resource path="res://src/ui/EntityScore.tscn" type="PackedScene" id=4]
 
 [node name="ScoreHUD" type="HBoxContainer"]
 anchor_top = 1.0

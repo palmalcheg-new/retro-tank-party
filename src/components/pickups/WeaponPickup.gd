@@ -7,5 +7,5 @@ func get_default_pickup_scene() -> PackedScene:
 	return preload("res://src/objects/pickups/WeaponPickup.tscn")
 
 func pickup(tank) -> void:
-	if tank.has_method('set_weapon_type'):
-		tank.set_weapon_type(weapon_type)
+	if tank.has_method('pickup_weapon'):
+		tank.pickup_weapon(weapon_type)

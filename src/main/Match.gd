@@ -101,10 +101,10 @@ func _on_OnlineMatch_disconnected():
 func _remove_from_team(peer_id) -> bool:
 	if match_info['config'].get('teams', false):
 		var teams = match_info['teams']
-		for team_id in teams:
-			if peer_id in teams[team_id]:
-				teams[team_id].erase(peer_id)
-				if teams[team_id].size() == 0:
+		for team in teams:
+			if peer_id in team:
+				team.erase(peer_id)
+				if team.size() == 0:
 					return false
 	return true
 

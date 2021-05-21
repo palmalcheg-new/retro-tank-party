@@ -2,9 +2,7 @@ extends "res://src/components/modes/BaseManager.gd"
 
 const TANK_SIZE := Vector2(128, 128)
 
-onready var countdown_timer := $CanvasLayer/Control/CountdownTimer
-onready var instant_death_label := $CanvasLayer/Control/InstantDeathLabel
-onready var score_hud := $CanvasLayer/Control/ScoreHUD
+onready var hud := $CanvasLayer/TimedMatchHUD
 
 var instant_death := false
 var winners := []
@@ -15,24 +13,24 @@ func _do_match_setup() -> void:
 	._do_match_setup()
 	
 	if use_teams:
-		score_hud.set_entity_count(score.entities.size())
+		hud.score_hud.set_entity_count(score.entities.size())
 		for team_id in score.entities:
-			score_hud.set_entity_name(team_id + 1, score.entities[team_id].name)
+			score.set_entity_name(team_id + 1, score.entities[team_id].name)
 	else:
-		score_hud.set_entity_count(OnlineMatch.players.size())
+		hud.score.set_entity_count(OnlineMatch.players.size())
 		for player_id in players:
 			var player = players[player_id]
-			score_hud.set_entity_name(player.index, player.name)
+			hud.score.set_entity_name(player.index, player.name)
 	
 	OnlineMatch.connect("player_left", self, '_on_OnlineMatch_player_left')
 	
 	game.connect("player_dead", self, "_on_game_player_dead")
 	
-	countdown_timer.connect("countdown_finished", self, "_on_countdown_finished")
+	hud.countdown_timer.connect("countdown_finished", self, "_on_countdown_finished")
 
 func match_start() -> void:
 	.match_start()
-	countdown_timer.start_countdown(config['timelimit'] * 60)
+	hud.countdown_timer.start_countdown(config['timelimit'] * 60)
 
 	map_rect = game.map.get_map_rect()
 
@@ -42,7 +40,7 @@ func match_stop() -> void:
 func _on_OnlineMatch_player_left(online_player) -> void:
 	if not use_teams:
 		score.remove_entity(online_player.peer_id)
-		score_hud.hide_entity_score(players[online_player.peer_id].index)
+		hud.score.hide_entity_score(players[online_player.peer_id].index)
 
 func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 	var my_id = get_tree().get_network_unique_id()
@@ -58,14 +56,14 @@ func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 					score.increment_score(killer_team)
 				else:
 					score.decrement_score(killer_team)
-				score_hud.rpc("set_score", killer_team + 1, score.get_score(killer_team))
+				hud.score.rpc("set_score", killer_team + 1, score.get_score(killer_team))
 			else:
 				if killer_id != player_id:
 					score.increment_score(killer_id)
 				else:
 					score.decrement_score(killer_id)
 				var player_index = players[killer_id].index
-				score_hud.rpc("set_score", player_index, score.get_score(killer_id))
+				hud.score.rpc("set_score", player_index, score.get_score(killer_id))
 
 		if instant_death:
 			rpc_id(player_id, "enable_watch_camera")
@@ -128,10 +126,7 @@ func _on_countdown_finished() -> void:
 				if not player_id in winners:
 					rpc("kill_player", player_id)
 		
-		rpc("show_instant_death_label")
-
-remotesync func show_instant_death_label() -> void:
-	instant_death_label.visible = true
+		hud.rpc("show_instant_death_label")
 
 remotesync func kill_player(peer_id: int) -> void:
 	if get_tree().get_rpc_sender_id() != 1:

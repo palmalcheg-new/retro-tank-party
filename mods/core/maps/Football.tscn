@@ -9,8 +9,7 @@
 [ext_resource path="res://src/objects/obstruction/FenceRed.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/objects/obstruction/FenceYellow.tscn" type="PackedScene" id=8]
 
-
-[node name="Map2" type="Node2D"]
+[node name="FootballMap" type="Node2D"]
 script = ExtResource( 3 )
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -22,20 +21,29 @@ tile_data = PoolIntArray( -1, -1610612736, 0, -65536, -1610612736, 0, -65535, -1
 [node name="PlayerStartPositions" type="Node2D" parent="."]
 
 [node name="Player1" type="Position2D" parent="PlayerStartPositions"]
-position = Vector2( 190, 289 )
+position = Vector2( 1024, 704 )
 rotation = 0.643801
 
 [node name="Player2" type="Position2D" parent="PlayerStartPositions"]
-position = Vector2( 2508, 1489 )
+position = Vector2( 1664, 1088 )
 rotation = -2.28443
 
 [node name="Player3" type="Position2D" parent="PlayerStartPositions"]
-position = Vector2( 2490, 296 )
+position = Vector2( 1664, 704 )
 rotation = 2.21715
 
 [node name="Player4" type="Position2D" parent="PlayerStartPositions"]
-position = Vector2( 188, 1481 )
+position = Vector2( 1024, 1088 )
 rotation = -0.922228
+
+[node name="GoalPositions" type="Node2D" parent="."]
+
+[node name="Team1" type="Position2D" parent="GoalPositions"]
+position = Vector2( 192, 896 )
+
+[node name="Team2" type="Position2D" parent="GoalPositions"]
+position = Vector2( 2496, 896 )
+rotation = 3.14159
 
 [node name="Objects" type="Node2D" parent="."]
 
@@ -513,59 +521,59 @@ position = Vector2( 0, 959 )
 rotation = -1.56861
 
 [node name="FenceRed2" parent="Objects" instance=ExtResource( 7 )]
-position = Vector2( 2666, 834 )
+position = Vector2( 2683, 830 )
 rotation = -1.55004
 
 [node name="FenceYellow2" parent="Objects" instance=ExtResource( 8 )]
-position = Vector2( 2662, 963 )
+position = Vector2( 2682, 963 )
 rotation = -1.56861
 
 [node name="CrateMetal" parent="Objects" instance=ExtResource( 4 )]
-position = Vector2( 1294, 463 )
+position = Vector2( 1307, 464 )
 rotation = 0.0680258
 
 [node name="CrateMetal2" parent="Objects" instance=ExtResource( 4 )]
-position = Vector2( 1390, 463 )
+position = Vector2( 1371, 462 )
 rotation = -0.317008
 
 [node name="CrateMetal3" parent="Objects" instance=ExtResource( 4 )]
-position = Vector2( 1394, 545 )
+position = Vector2( 1373, 524 )
 rotation = -0.0036928
 
 [node name="CrateMetal4" parent="Objects" instance=ExtResource( 4 )]
-position = Vector2( 1301, 541 )
+position = Vector2( 1310, 529 )
 rotation = -0.177659
 
 [node name="CrateMetal5" parent="Objects" instance=ExtResource( 4 )]
-position = Vector2( 1294, 627 )
+position = Vector2( 1315, 588 )
 rotation = 0.088398
 
 [node name="CrateMetal6" parent="Objects" instance=ExtResource( 4 )]
-position = Vector2( 1380, 627 )
+position = Vector2( 1375, 583 )
 rotation = -0.0442052
 
 [node name="CrateMetal7" parent="Objects" instance=ExtResource( 4 )]
-position = Vector2( 1394, 1147 )
+position = Vector2( 1384, 1190 )
 rotation = -0.0836851
 
 [node name="CrateMetal8" parent="Objects" instance=ExtResource( 4 )]
-position = Vector2( 1398, 1229 )
+position = Vector2( 1375, 1254 )
 rotation = 0.160092
 
 [node name="CrateMetal9" parent="Objects" instance=ExtResource( 4 )]
-position = Vector2( 1305, 1225 )
+position = Vector2( 1310, 1255 )
 rotation = 0.106834
 
 [node name="CrateMetal10" parent="Objects" instance=ExtResource( 4 )]
-position = Vector2( 1298, 1311 )
+position = Vector2( 1308, 1314 )
 rotation = -0.0810613
 
 [node name="CrateMetal11" parent="Objects" instance=ExtResource( 4 )]
-position = Vector2( 1384, 1325 )
+position = Vector2( 1369, 1320 )
 rotation = 0.0107145
 
 [node name="CrateMetal12" parent="Objects" instance=ExtResource( 4 )]
-position = Vector2( 1302, 1140 )
+position = Vector2( 1320, 1185 )
 rotation = -0.0896566
 
 [node name="BarricadeWood" parent="Objects" instance=ExtResource( 6 )]
@@ -575,7 +583,10 @@ position = Vector2( 1347, 88 )
 position = Vector2( 1342, 1701 )
 
 [node name="DropCrateSpawnArea1" parent="." instance=ExtResource( 2 )]
-position = Vector2( 858, 891 )
+position = Vector2( 640, 896 )
 
 [node name="DropCrateSpawnArea2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 1809, 895 )
+position = Vector2( 2048, 896 )
+
+[node name="BallStartPosition" type="Position2D" parent="."]
+position = Vector2( 1340, 898 )
