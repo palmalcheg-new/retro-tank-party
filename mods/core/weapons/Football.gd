@@ -25,6 +25,8 @@ func detach_weapon() -> void:
 		sprite = null
 
 func _match_manager_pass_football(position: Vector2, vector: Vector2):
+	if not tank.is_network_master():
+		return
 	var scene = tank.get_tree().get_current_scene()
 	if scene.has_node('MatchManager'):
 		var match_manager = scene.get_node('MatchManager')
