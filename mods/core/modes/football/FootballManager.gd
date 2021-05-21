@@ -12,7 +12,7 @@ var football
 
 var round_over := false
 var instant_death := false
-var winners := []
+var team_starters := [0, 0]
 var goals := []
 
 var map_rect: Rect2
@@ -62,6 +62,8 @@ func _do_match_setup() -> void:
 		hud.score.set_entity_name(team_id + 1, score.entities[team_id].name)
 	
 	game.connect("player_dead", self, "_on_game_player_dead")
+	if get_tree().is_network_server():
+		game.connect("game_started", self, "_on_game_started")
 	
 	hud.countdown_timer.connect("countdown_finished", self, "_on_countdown_finished")
 
@@ -69,8 +71,8 @@ func match_start() -> void:
 	.match_start()
 	hud.countdown_timer.start_countdown(config['timelimit'] * 60)
 
-func match_stop() -> void:
-	.match_stop()
+func _on_game_started() -> void:
+	get_tree().call_group("drop_crate_spawn_area", "spawn_drop_crate")
 
 remotesync func grab_football(tank_path: NodePath) -> void:
 	var tank = get_node(tank_path)
@@ -94,6 +96,7 @@ func _on_goal_tank_present(tank, goal) -> void:
 		if player_team != goal.goal_color:
 			round_over = true
 			score.increment_score(player_team)
+			hud.score.rpc("set_score", player_team + 1, score.get_score(player_team))
 			rpc("start_new_round", "%s SCORES!" % score.get_name(player_team), 1 if player_team == 0 else 0)
 
 func check_goals() -> void:
@@ -107,8 +110,16 @@ remotesync func start_new_round(message: String, team_with_ball: int) -> void:
 	if get_tree().is_network_server():
 		yield(get_tree().create_timer(2.0), "timeout")
 		
-		# @todo Get the specific player with the ball.
+		# Get the specific player with the ball.
 		var player_with_ball = -1
+		if team_with_ball != -1:
+			if teams[team_with_ball].size() > 1:
+				player_with_ball = team_starters[team_with_ball]
+				team_starters[team_with_ball] = 1 if player_with_ball == 0 else 0
+				player_with_ball = teams[team_with_ball][player_with_ball]
+			else:
+				player_with_ball = teams[team_with_ball][0]
+		
 		var operation = RemoteOperations.synchronized_rpc(self, "_setup_new_round", [player_with_ball])
 		if yield(operation, "completed"):
 			rpc("_start_new_round")
@@ -117,26 +128,18 @@ remotesync func start_new_round(message: String, team_with_ball: int) -> void:
 			print ("client failed to setup new round!!!!")
 
 func _setup_new_round(player_with_ball: int) -> void:
-	get_tree().paused = true
+	game.game_setup(players, map_path)
 	
-	# Remove all weapon and ability powerups, and store tanks to their starting
-	# positions/rotations.
-	for player_id in game.players_alive:
-		var player_index = game.players_alive[player_id].index
-		var tank = game.get_tank(player_id)
-		tank.set_weapon_type(null)
-		tank.set_ability_type(null)
-		
-		tank.position = game.map.get_node("PlayerStartPositions/Player" + str(player_index)).position
-		tank.rotation = game.map.get_node("PlayerStartPositions/Player" + str(player_index)).rotation
-	
-	# Restore the football to its starting position.
-	football.pass_football(ball_start_position, Vector2.ZERO)
+	if player_with_ball == -1:
+		# Restore the football to its starting position.
+		football.pass_football(ball_start_position, Vector2.ZERO)
+	else:
+		grab_football(game.get_tank(player_with_ball).get_path())
 
 remotesync func _start_new_round() -> void:
 	round_over = false
 	ui_layer.hide_message()
-	get_tree().paused = false
+	game.game_start()
 
 func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 	var my_id = get_tree().get_network_unique_id()

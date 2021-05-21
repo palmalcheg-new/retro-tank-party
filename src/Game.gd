@@ -42,6 +42,8 @@ func game_setup(_players: Dictionary, map_path: String, operation: RemoteOperati
 	if game_started:
 		game_stop()
 	
+	hud.clear_all_labels()
+	
 	players = _players
 	game_started = true
 	

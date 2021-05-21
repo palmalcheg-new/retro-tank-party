@@ -6,6 +6,7 @@
 extents = Vector2( 245, 226 )
 
 [node name="DropCrateSpawnArea" type="Area2D" groups=[
+"drop_crate_spawn_area",
 "map_object",
 ]]
 monitoring = false

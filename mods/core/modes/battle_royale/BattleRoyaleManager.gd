@@ -9,13 +9,13 @@ func _do_match_setup() -> void:
 	game.connect("player_dead", self, "_on_game_player_dead")
 
 func start_new_round() -> void:
-	var operation = RemoteOperations.synchronized_rpc(self, "_do_start_new_round")
+	var operation = RemoteOperations.synchronized_rpc(self, "_setup_new_round")
 	if yield(operation, "completed"):
 		game.rpc("game_start")
 	else:
 		match_scene.quit_match()
 
-func _do_start_new_round() -> void:
+func _setup_new_round() -> void:
 	game.game_setup(players, map_path)
 
 func _on_game_player_dead(player_id: int, killer_id: int) -> void:
