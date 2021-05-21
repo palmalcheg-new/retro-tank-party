@@ -16,6 +16,7 @@ var team_starters := [0, 0]
 var goals := []
 
 var map_rect: Rect2
+var bounds_rect: Rect2
 var ball_start_position: Vector2
 
 func _get_synchronized_rpc_methods() -> Array:
@@ -25,6 +26,7 @@ func _do_match_setup() -> void:
 	._do_match_setup()
 	
 	map_rect = game.map.get_map_rect()
+	bounds_rect = Rect2(map_rect.position + Vector2(32, 32), map_rect.size - Vector2(64, 64))
 	
 	if game.map.has_node('BallStartPosition'):
 		ball_start_position = game.map.get_node('BallStartPosition').global_position
@@ -34,7 +36,7 @@ func _do_match_setup() -> void:
 	football = FootballScene.instance()
 	football.name = 'Football'
 	game.add_child(football)
-	football.setup_football(self, map_rect)
+	football.setup_football(self, bounds_rect)
 	football.global_position = ball_start_position
 	
 	for i in range(2):
