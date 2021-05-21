@@ -186,8 +186,8 @@ windows-steam:
     # Get the GodotSteam export templates.
     - wget "https://github.com/Gramps/GodotSteam/releases/download/g331-s151-gs391/windows-331-64bit.zip" -O ./build/templates/templates.zip
     - (cd ./build/templates && unzip templates.zip)
-    - ./scripts/update-export-setting.py export_presets.cfg preset.4.options custom_template/debug "\"$PWD/build/templates/windows-33-template-64bit.exe\""
-    - ./scripts/update-export-setting.py export_presets.cfg preset.4.options custom_template/release "\"$PWD/build/templates/windows-33-template-64bit.exe\""
+    - ./scripts/update-export-setting.py export_presets.cfg preset.4.options custom_template/debug "\"$PWD/build/templates/windows-331-template-64bit.exe\""
+    - ./scripts/update-export-setting.py export_presets.cfg preset.4.options custom_template/release "\"$PWD/build/templates/windows-331-template-64bit.exe\""
 
     # Export!
     - mkdir -v -p build/windows-steam
@@ -237,8 +237,8 @@ linux-steam:
     # Get the GodotSteam export templates.
     - wget "https://github.com/Gramps/GodotSteam/releases/download/g331-s151-gs391/linux-331-64bit.tar.gz" -O ./build/templates/templates.tgz
     - (cd ./build/templates && tar -xzvf templates.tgz)
-    - ./scripts/update-export-setting.py export_presets.cfg preset.5.options custom_template/debug "\"$PWD/build/templates/linux-33-template-64bit\""
-    - ./scripts/update-export-setting.py export_presets.cfg preset.5.options custom_template/release "\"$PWD/build/templates/linux-33-template-64bit\""
+    - ./scripts/update-export-setting.py export_presets.cfg preset.5.options custom_template/debug "\"$PWD/build/templates/linux-331-template-64bit\""
+    - ./scripts/update-export-setting.py export_presets.cfg preset.5.options custom_template/release "\"$PWD/build/templates/linux-331-template-64bit\""
 
     # Export!
     - mkdir -v -p build/linux-steam
