@@ -529,51 +529,51 @@ position = Vector2( 2682, 963 )
 rotation = -1.56861
 
 [node name="CrateMetal" parent="Objects" instance=ExtResource( 4 )]
-position = Vector2( 1294, 463 )
+position = Vector2( 1307, 464 )
 rotation = 0.0680258
 
 [node name="CrateMetal2" parent="Objects" instance=ExtResource( 4 )]
-position = Vector2( 1390, 463 )
+position = Vector2( 1371, 462 )
 rotation = -0.317008
 
 [node name="CrateMetal3" parent="Objects" instance=ExtResource( 4 )]
-position = Vector2( 1394, 545 )
+position = Vector2( 1373, 524 )
 rotation = -0.0036928
 
 [node name="CrateMetal4" parent="Objects" instance=ExtResource( 4 )]
-position = Vector2( 1301, 541 )
+position = Vector2( 1310, 529 )
 rotation = -0.177659
 
 [node name="CrateMetal5" parent="Objects" instance=ExtResource( 4 )]
-position = Vector2( 1294, 627 )
+position = Vector2( 1315, 588 )
 rotation = 0.088398
 
 [node name="CrateMetal6" parent="Objects" instance=ExtResource( 4 )]
-position = Vector2( 1380, 627 )
+position = Vector2( 1375, 583 )
 rotation = -0.0442052
 
 [node name="CrateMetal7" parent="Objects" instance=ExtResource( 4 )]
-position = Vector2( 1394, 1147 )
+position = Vector2( 1384, 1190 )
 rotation = -0.0836851
 
 [node name="CrateMetal8" parent="Objects" instance=ExtResource( 4 )]
-position = Vector2( 1398, 1229 )
+position = Vector2( 1375, 1254 )
 rotation = 0.160092
 
 [node name="CrateMetal9" parent="Objects" instance=ExtResource( 4 )]
-position = Vector2( 1305, 1225 )
+position = Vector2( 1310, 1255 )
 rotation = 0.106834
 
 [node name="CrateMetal10" parent="Objects" instance=ExtResource( 4 )]
-position = Vector2( 1298, 1311 )
+position = Vector2( 1308, 1314 )
 rotation = -0.0810613
 
 [node name="CrateMetal11" parent="Objects" instance=ExtResource( 4 )]
-position = Vector2( 1384, 1325 )
+position = Vector2( 1369, 1320 )
 rotation = 0.0107145
 
 [node name="CrateMetal12" parent="Objects" instance=ExtResource( 4 )]
-position = Vector2( 1302, 1140 )
+position = Vector2( 1320, 1185 )
 rotation = -0.0896566
 
 [node name="BarricadeWood" parent="Objects" instance=ExtResource( 6 )]
