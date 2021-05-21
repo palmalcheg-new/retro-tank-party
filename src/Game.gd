@@ -103,6 +103,9 @@ func make_player_controlled(peer_id) -> void:
 	else:
 		print ("Unable to make player controlled: node not found")
 
+func get_tank(player_id: int):
+	return players_node.get_node(str(player_id))
+
 func get_my_tank():
 	for peer_id in players_alive:
 		var tank := players_node.get_node(str(peer_id))

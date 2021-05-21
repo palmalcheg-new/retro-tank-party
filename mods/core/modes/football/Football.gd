@@ -17,12 +17,12 @@ func setup_football(_match_manager, _map_rect) -> void:
 	match_manager = _match_manager
 	map_rect = _map_rect
 
-func pass_football(_position: Vector2, _rotation: float) -> void:
+func pass_football(_position: Vector2, _vector: Vector2) -> void:
 	in_bounds = true
 	frames_countdown = 5
 	global_position = _position
-	global_rotation = _rotation
-	vector = Vector2.RIGHT.rotated(rotation)
+	global_rotation = _vector.angle()
+	vector = _vector
 	mark_as_held(null)
 
 func mark_as_held(_held) -> void:

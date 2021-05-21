@@ -19,7 +19,6 @@ func _get_synchronized_rpc_methods() -> Array:
 	return ['_setup_new_round']
 
 func _do_match_setup() -> void:
-	game.connect("player_spawned", self, "_on_game_player_spawned")
 	._do_match_setup()
 	
 	map_rect = game.map.get_map_rect()
@@ -63,8 +62,8 @@ remotesync func grab_football(tank_path: NodePath) -> void:
 		# @todo Can we do something smart here?
 		pass
 
-remotesync func pass_football(_position: Vector2, _rotation: float) -> void:
-	football.pass_football(_position, _rotation)
+remotesync func pass_football(_position: Vector2, _vector: Vector2) -> void:
+	football.pass_football(_position, _vector)
 
 remotesync func start_new_round(message: String, team_with_ball: int) -> void:
 	ui_layer.show_message(message)
@@ -92,15 +91,6 @@ func _setup_new_round(player_with_ball: int) -> void:
 remotesync func _start_new_round() -> void:
 	ui_layer.hide_message()
 	get_tree().paused = false
-
-func _on_game_player_spawned(tank) -> void:
-	tank.connect("hurt", self, "_on_tank_hurt", [tank])
-
-func _on_tank_hurt(damage: int, attacker_id: int, attack_vector: Vector2, tank) -> void:
-	if tank == football.held:
-		if tank.weapon_type == FootballWeaponType:
-			tank.set_weapon_type(null)
-		rpc("pass_football", tank.global_position, attack_vector.angle())
 
 func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 	var my_id = get_tree().get_network_unique_id()
