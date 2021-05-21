@@ -45,6 +45,10 @@ func _physics_process(delta: float) -> void:
 	if frames_countdown > 0:
 		frames_countdown -= 1
 	
+	if held:
+		global_position = held.global_position
+		return
+	
 	if vector == Vector2.ZERO:
 		return
 	
