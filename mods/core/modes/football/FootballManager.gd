@@ -97,7 +97,11 @@ func _on_goal_tank_present(tank, goal) -> void:
 			round_over = true
 			score.increment_score(player_team)
 			hud.score.rpc("set_score", player_team + 1, score.get_score(player_team))
-			rpc("start_new_round", "%s SCORES!" % score.get_name(player_team), 1 if player_team == 0 else 0)
+			
+			if not instant_death:
+				rpc("start_new_round", "%s SCORES!" % score.get_name(player_team), 1 if player_team == 0 else 0)
+			else:
+				rpc("show_winner", score.get_name(player_team), score.to_dict())
 
 func check_goals() -> void:
 	if get_tree().is_network_server():
