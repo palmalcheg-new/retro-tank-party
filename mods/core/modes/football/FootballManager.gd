@@ -2,6 +2,7 @@ extends "res://src/components/modes/BaseManager.gd"
 
 const FootballWeaponType = preload("res://mods/core/weapons/football.tres")
 const FootballScene = preload("res://mods/core/modes/football/Football.tscn")
+const GoalScene = preload("res://mods/core/modes/football/Goal.tscn")
 
 const TANK_SIZE := Vector2(128, 128)
 
@@ -11,6 +12,7 @@ var football
 
 var instant_death := false
 var winners := []
+var goals := []
 
 var map_rect: Rect2
 var ball_start_position: Vector2
@@ -33,6 +35,24 @@ func _do_match_setup() -> void:
 	game.add_child(football)
 	football.setup_football(self, map_rect)
 	football.global_position = ball_start_position
+	
+	for i in range(2):
+		var goal = GoalScene.instance()
+		goal.name = 'Goal%s' % (i + 1)
+		goal.goal_color = i
+		game.add_child_below_node(game.map, goal)
+		var goal_position_path = 'GoalPositions/Team%s' % (i + 1)
+		if game.map.has_node(goal_position_path):
+			var goal_position = game.map.get_node(goal_position_path)
+			goal.global_position = goal_position.global_position
+			goal.global_rotation = goal_position.global_rotation
+		else:
+			if i == 0:
+				goal.global_position = map_rect.position + Vector2(196, map_rect.size.y / 2.0)
+			else:
+				goal.global_position = map_rect.position + Vector2(map_rect.size.x - 196, map_rect.size.y / 2.0)
+				goal.global_rotation = PI
+		goals.append(goal)
 	
 	hud.score.set_entity_count(score.entities.size())
 	for team_id in score.entities:
