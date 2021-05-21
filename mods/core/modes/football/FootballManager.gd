@@ -10,6 +10,7 @@ onready var hud := $CanvasLayer/TimedMatchHUD
 
 var football
 
+var round_over := false
 var instant_death := false
 var winners := []
 var goals := []
@@ -52,6 +53,8 @@ func _do_match_setup() -> void:
 			else:
 				goal.global_position = map_rect.position + Vector2(map_rect.size.x - 196, map_rect.size.y / 2.0)
 				goal.global_rotation = PI
+		if get_tree().is_network_server():
+			goal.connect("tank_present", self, "_on_goal_tank_present")
 		goals.append(goal)
 	
 	hud.score.set_entity_count(score.entities.size())
@@ -72,18 +75,31 @@ func match_stop() -> void:
 remotesync func grab_football(tank_path: NodePath) -> void:
 	var tank = get_node(tank_path)
 	if tank:
-		# @todo Ensure that whoever was holding the ball before has it removed.
-		
 		var previous_weapon_type = tank.weapon_type
 		tank.set_weapon_type(FootballWeaponType)
 		tank.weapon.previous_weapon_type = previous_weapon_type
 		football.mark_as_held(tank)
-	else:
-		# @todo Can we do something smart here?
-		pass
+		
+		# Just in case the ball was passed to a tank already in the goal.
+		check_goals()
 
 remotesync func pass_football(_position: Vector2, _vector: Vector2) -> void:
 	football.pass_football(_position, _vector)
+
+func _on_goal_tank_present(tank, goal) -> void:
+	if round_over:
+		return
+	if football.held == tank:
+		var player_team = get_player_team(tank.get_network_master())
+		if player_team != goal.goal_color:
+			round_over = true
+			score.increment_score(player_team)
+			rpc("start_new_round", "%s SCORES!" % score.get_name(player_team), 1 if player_team == 0 else 0)
+
+func check_goals() -> void:
+	if get_tree().is_network_server():
+		for goal in goals:
+			goal.check_for_tanks()
 
 remotesync func start_new_round(message: String, team_with_ball: int) -> void:
 	ui_layer.show_message(message)
@@ -103,12 +119,22 @@ remotesync func start_new_round(message: String, team_with_ball: int) -> void:
 func _setup_new_round(player_with_ball: int) -> void:
 	get_tree().paused = true
 	
-	# @todo Give the ball to the right player
-	football.global_position = ball_start_position
+	# Remove all weapon and ability powerups, and store tanks to their starting
+	# positions/rotations.
+	for player_id in game.players_alive:
+		var player_index = game.players_alive[player_id].index
+		var tank = game.get_tank(player_id)
+		tank.set_weapon_type(null)
+		tank.set_ability_type(null)
+		
+		tank.position = game.map.get_node("PlayerStartPositions/Player" + str(player_index)).position
+		tank.rotation = game.map.get_node("PlayerStartPositions/Player" + str(player_index)).rotation
 	
-	# @todo Restore the players to their starting positions
+	# Restore the football to its starting position.
+	football.pass_football(ball_start_position, Vector2.ZERO)
 
 remotesync func _start_new_round() -> void:
+	round_over = false
 	ui_layer.hide_message()
 	get_tree().paused = false
 

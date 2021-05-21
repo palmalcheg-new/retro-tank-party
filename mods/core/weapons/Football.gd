@@ -39,7 +39,7 @@ func _hook_tank_pickup_weapon(event: Tank.PickupWeaponEvent) -> void:
 	event.stop_propagation()
 
 func _on_tank_hurt(damage: int, attacker_id: int, attack_vector: Vector2) -> void:
-	tank.set_weapon_type(null)
+	tank.set_weapon_type(previous_weapon_type)
 	_match_manager_pass_football(tank.global_position, attack_vector)
 
 func _on_tank_dead(killed_id: int) -> void:
@@ -48,7 +48,5 @@ func _on_tank_dead(killed_id: int) -> void:
 
 func fire_weapon() -> void:
 	detach_weapon()
-	
 	_match_manager_pass_football(tank.bullet_start_position.global_position, Vector2.RIGHT.rotated(tank.turret_pivot.global_rotation))
-	
 	tank.call_deferred("set_weapon_type", previous_weapon_type)
