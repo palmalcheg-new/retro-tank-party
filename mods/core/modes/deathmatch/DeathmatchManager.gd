@@ -1,8 +1,12 @@
 extends "res://src/components/modes/BaseManager.gd"
 
+const Tank = preload("res://src/objects/Tank.gd")
+
 const TANK_SIZE := Vector2(128, 128)
 
 onready var hud := $CanvasLayer/TimedMatchHUD
+onready var weapon_warning_timer := $WeaponWarningTimer
+onready var weapon_timeout_timer := $WeaponTimeoutTimer
 
 var instant_death := false
 var winners := []
@@ -10,6 +14,8 @@ var winners := []
 var map_rect: Rect2
 
 func _do_match_setup() -> void:
+	# Needs to happen before players are created.
+	game.connect("make_player_controlled", self, "_on_game_make_player_controlled")
 	._do_match_setup()
 	
 	if use_teams:
@@ -21,6 +27,10 @@ func _do_match_setup() -> void:
 		for player_id in players:
 			var player = players[player_id]
 			hud.score.set_entity_name(player.index, player.name)
+	
+	if config.get('weapon_timeout', 0) != 0:
+		weapon_timeout_timer.wait_time = config['weapon_timeout']
+		weapon_warning_timer.wait_time = config['weapon_timeout'] - 2.0
 	
 	OnlineMatch.connect("player_left", self, '_on_OnlineMatch_player_left')
 	
@@ -41,6 +51,9 @@ func _on_OnlineMatch_player_left(online_player) -> void:
 	if not use_teams:
 		score.remove_entity(online_player.peer_id)
 		hud.score.hide_entity_score(players[online_player.peer_id].index)
+
+func _on_game_make_player_controlled(tank, player_id) -> void:
+	tank.connect("weapon_type_changed", self, "_on_tank_weapon_type_changed")
 
 func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 	var my_id = get_tree().get_network_unique_id()
@@ -146,3 +159,14 @@ remotesync func show_winner(winner_name: String, host_score: Dictionary) -> void
 	yield(get_tree().create_timer(2.0), "timeout")
 	
 	match_scene.finish_match()
+
+func _on_tank_weapon_type_changed(weapon_type: WeaponType) -> void:
+	if weapon_type != Tank.BaseWeaponType:
+		weapon_warning_timer.start()
+		weapon_timeout_timer.start()
+
+func _on_WeaponWarningTimer_timeout() -> void:
+	game.hud.weapon_label.blinking = true
+
+func _on_WeaponTimeoutTimer_timeout() -> void:
+	game.get_my_tank().set_weapon_type(Tank.BaseWeaponType)

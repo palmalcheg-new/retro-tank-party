@@ -9,3 +9,12 @@ script = ExtResource( 1 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="TimedMatchHUD" parent="CanvasLayer" instance=ExtResource( 2 )]
+
+[node name="WeaponWarningTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="WeaponTimeoutTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="WeaponWarningTimer" to="." method="_on_WeaponWarningTimer_timeout"]
+[connection signal="timeout" from="WeaponTimeoutTimer" to="." method="_on_WeaponTimeoutTimer_timeout"]

@@ -19,6 +19,7 @@ signal game_error (message)
 signal game_started ()
 signal player_spawned (tank)
 signal player_dead (player_id, killer_id)
+signal make_player_controlled (my_tank, player_id)
 
 class Player:
 	var peer_id: int
@@ -99,9 +100,10 @@ func respawn_player(peer_id: int, start_pos = null, start_rotation = null) -> vo
 
 func make_player_controlled(peer_id) -> void:
 	var my_player := players_node.get_node(str(peer_id))
-	if my_player:
+	if my_player and not my_player.player_controlled:
 		my_player.player_controlled = true
 		_setup_player_camera(my_player)
+		emit_signal("make_player_controlled", my_player, peer_id)
 	else:
 		print ("Unable to make player controlled: node not found")
 
