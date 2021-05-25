@@ -127,15 +127,24 @@ remotesync func start_new_round(message: String, team_with_ball: int) -> void:
 			else:
 				player_with_ball = teams[team_with_ball][0]
 		
-		var operation = RemoteOperations.synchronized_rpc(self, "_setup_new_round", [player_with_ball])
+		var player_health := {}
+		for player_id in game.players_alive:
+			var tank = game.get_tank(player_id)
+			player_health[player_id] = tank.health
+		
+		var operation = RemoteOperations.synchronized_rpc(self, "_setup_new_round", [player_with_ball, player_health])
 		if yield(operation, "completed"):
 			rpc("_start_new_round")
 		else:
 			# @todo what can we do if this fails?
 			print ("client failed to setup new round!!!!")
 
-func _setup_new_round(player_with_ball: int) -> void:
+func _setup_new_round(player_with_ball: int, player_health: Dictionary) -> void:
 	game.game_setup(players, map_path)
+	
+	for player_id in game.players_alive:
+		var tank = game.get_tank(player_id)
+		tank.update_health(player_health[player_id])
 	
 	if player_with_ball == -1:
 		# Restore the football to its starting position.
