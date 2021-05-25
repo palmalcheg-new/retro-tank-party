@@ -8,6 +8,7 @@ local nk = require("nakama")
       env:
         - "twilio_account_sid=your_account_sid"
         - "twilio_auth_token=your_auth_token"
+        - "twilio_turn_credentials_ttl=number seconds that TURN credentials are valid"
 --]]
 
 local function get_ice_servers(context, payload)
@@ -19,9 +20,11 @@ local function get_ice_servers(context, payload)
 	local credentials = nk.base64_encode(string.format("%s:%s", twilio_account_sid, twilio_auth_token))
 	local headers = {
 		["Authorization"] = string.format("Basic %s", credentials),
+		["Content-Type"] = "application/x-www-form-urlencoded",
 	}
+	local content = string.format("Ttl=%s", context.env['twilio_turn_credentials_ttl'])
 
-	local success, code, headers, body = pcall(nk.http_request, url, "POST", headers, '')
+	local success, code, headers, body = pcall(nk.http_request, url, "POST", headers, content)
 	if (not success) then
 		nk.logger_error(string.format("Failed %q", code))
 		return nk.json_encode({
