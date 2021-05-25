@@ -8,6 +8,12 @@ var boosting := false
 var spawn_rate := 2
 var spawn_counter := 0
 
+func attach_ability() -> void:
+	tank.hooks.subscribe("shoot", self, "_hook_tank_shoot", -100)
+
+func detach_ability() -> void:
+	tank.hooks.unsubscribe("shoot", self, "_hook_tank_shoot")
+
 func spawn() -> void:
 	var tank_parent: Node2D = tank.get_parent()
 	var shadow_tank = ShadowTank.instance()
@@ -33,6 +39,10 @@ func use_ability() -> void:
 			tank.set_forced_input_vector(Vector2(1.0, 0.0))
 		timer.start()
 		boosting = true
+
+func _hook_tank_shoot(event) -> void:
+	if boosting:
+		event.stop_propagation()
 
 func mark_finished() -> void:
 	if boosting:

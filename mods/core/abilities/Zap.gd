@@ -27,15 +27,21 @@ func attach_ability() -> void:
 	map_rect = game.map.get_map_rect()
 	detector = game.create_free_space_detector()
 	detector.connect("free_space_found", self, "_on_free_space_found")
+	tank.hooks.subscribe("shoot", self, "_hook_tank_shoot", -100)
 
 func detach_ability() -> void:
 	detector.queue_free()
+	tank.hooks.unsubscribe("shoot", self, "_hook_tank_shoot")
 
 func use_ability() -> void:
 	if charges > 0 and zap_stage == ZapStage.NONE and not detector.detecting:
 		charges -= 1
 		zap_stage = ZapStage.DETECTING
 		detector.start_detecting(map_rect, TANK_SIZE)
+
+func _hook_tank_shoot(event) -> void:
+	if zap_stage >= ZapStage.DETECTING:
+		event.stop_propagation()
 
 func mark_finished() -> void:
 	if zap_stage != ZapStage.NONE:
