@@ -95,6 +95,12 @@ class DieEvent extends TankEvent:
 	func _init(_tank, _killer_id: int).(_tank) -> void:
 		killer_id = _killer_id
 
+class NetworkSyncEvent extends TankEvent:
+	var data: Dictionary
+	
+	func _init(_tank, _data: Dictionary).(_tank) -> void:
+		data = _data
+
 func _ready():
 	hooks.subscribe("pickup_ability", self, "_hook_default_pickup_ability", 0)
 	hooks.subscribe("pickup_weapon", self, "_hook_default_pickup_weapon", 0)
@@ -103,6 +109,8 @@ func _ready():
 	hooks.subscribe("take_damage", self, "_hook_default_take_damage", 0)
 	hooks.subscribe("restore_health", self, "_hook_default_restore_health", 0)
 	hooks.subscribe("die", self, "_hook_default_die", 0)
+	hooks.subscribe("send_remote_update", self, "_hook_default_send_remote_update", 0)
+	hooks.subscribe("receive_remote_update", self, "_hook_default_receive_remote_update", 0)
 	
 	player_info_node.set_as_toplevel(true)
 	player_info_node.position = global_position + player_info_offset
@@ -340,7 +348,9 @@ func _physics_process(delta: float) -> void:
 		if camera:
 			camera.global_position = global_position
 		
-		rpc("update_remote_player", rotation, position, turret_pivot.rotation, visible, shooting, weapon_type.resource_path, using_ability, ability_type.resource_path if ability_type else null)
+		var sync_event = NetworkSyncEvent.new(self, {})
+		hooks.dispatch_event('send_remote_update', sync_event)
+		rpc("_receive_remote_update", sync_event.data)
 		
 		shooting = false
 		using_ability = false
@@ -355,23 +365,45 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("player1_use_ability"):
 		using_ability = true
 
-puppet func update_remote_player(player_rotation: float, player_position: Vector2, turret_rotation: float, _visible: bool, _shooting: bool, _weapon_type_path: String, _using_ability: bool, _ability_type_path) -> void:
-	rotation = player_rotation
-	position = player_position
-	turret_pivot.rotation = turret_rotation
-	visible = _visible
-	player_info_node.visible = _visible
-	player_info_node.position = global_position + player_info_offset
-	if weapon_type.resource_path != _weapon_type_path:
-		set_weapon_type(load(_weapon_type_path))
-	if _shooting:
+puppet func _receive_remote_update(data: Dictionary) -> void:
+	var sync_event = NetworkSyncEvent.new(self, data)
+	hooks.dispatch_event("receive_remote_update", sync_event)
+
+func _hook_default_send_remote_update(event: NetworkSyncEvent) -> void:
+	var data = event.data
+	data['rotation'] = rotation
+	data['position'] = position
+	data['turret_rotation'] = turret_pivot.rotation
+	data['visible'] = visible
+	data['shooting'] = shooting
+	data['weapon_type_path'] = weapon_type.resource_path
+	data['using_ability'] = using_ability
+	data['ability_type_path'] = ability_type.resource_path if ability_type else null
+
+func _hook_default_receive_remote_update(event: NetworkSyncEvent) -> void:
+	var data = event.data
+	if data.has('rotation'):
+		rotation = data['rotation']
+	if data.has('position'):
+		position = data['position']
+		player_info_node.position = global_position + player_info_offset
+	if data.has('turret_rotation'):
+		turret_pivot.rotation = data['turret_rotation']
+	if data.has('visible'):
+		visible = data['visible']
+		player_info_node.visible = visible
+	if data.has('weapon_type_path'):
+		if weapon_type.resource_path != data['weapon_type_path']:
+			set_weapon_type(load(data['weapon_type_path']))
+	if data.get('shooting', false):
 		shoot()
-	if _ability_type_path:
-		if ability_type == null or ability_type.resource_path != _ability_type_path:
-			set_ability_type(load(_ability_type_path))
-	else:
-		set_ability_type(null)
-	if _using_ability:
+	if data.has('ability_type_path'):
+		if data['ability_type_path']:
+			if ability_type == null or ability_type.resource_path != data['ability_type_path']:
+				set_ability_type(load(data['ability_type_path']))
+		else:
+			set_ability_type(null)
+	if data.get('using_ability', false):
 		use_ability()
 
 func shoot() -> void:
