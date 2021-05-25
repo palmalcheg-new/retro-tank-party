@@ -59,6 +59,7 @@ func _do_match_setup() -> void:
 			goal.connect("tank_present", self, "_on_goal_tank_present")
 		goals.append(goal)
 	
+	hud.set_instant_death_text("OVERTIME!")
 	hud.score.set_entity_count(score.entities.size())
 	for team_id in score.entities:
 		hud.score.set_entity_name(team_id + 1, score.entities[team_id].name)
