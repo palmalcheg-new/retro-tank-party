@@ -45,7 +45,7 @@ func _physics_process(delta: float) -> void:
 	if frames_countdown > 0:
 		frames_countdown -= 1
 	
-	if held:
+	if held and is_instance_valid(held):
 		global_position = held.global_position
 		return
 	
