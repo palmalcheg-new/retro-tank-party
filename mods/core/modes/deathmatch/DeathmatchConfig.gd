@@ -14,9 +14,9 @@ func _ready() -> void:
 	teams_field.add_item("Yes", true)
 	teams_field.set_value(false, false)
 	
-	#if OnlineMatch.players.size() < 3:
-	#	teams_label.visible = false
-	#	teams_field.visible = false
+	if OnlineMatch.players.size() < 3:
+		teams_label.visible = false
+		teams_field.visible = false
 	
 	weapon_timeout_field.add_item("Forever", 0)
 	for i in range(10, 70, 10):

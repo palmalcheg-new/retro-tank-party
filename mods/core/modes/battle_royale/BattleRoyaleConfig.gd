@@ -13,9 +13,9 @@ func _ready() -> void:
 	teams_field.add_item("Yes", true)
 	teams_field.set_value(false, false)
 	
-	#if OnlineMatch.players.size() < 3:
-	#	teams_label.visible = false
-	#	teams_field.visible = false
+	if OnlineMatch.players.size() < 3:
+		teams_label.visible = false
+		teams_field.visible = false
 
 func _set_disabled(_disabled: bool) -> void:
 	disabled = _disabled
