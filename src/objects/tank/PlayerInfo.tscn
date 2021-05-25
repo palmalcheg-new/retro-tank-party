@@ -37,7 +37,7 @@ __meta__ = {
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Background/VBoxContainer"]
 margin_right = 150.0
-margin_bottom = 26.0
+margin_bottom = 25.0
 mouse_filter = 2
 size_flags_vertical = 3
 custom_constants/separation = 0
@@ -47,7 +47,7 @@ __meta__ = {
 
 [node name="PlayerName" type="Label" parent="Background/VBoxContainer/HBoxContainer"]
 margin_right = 150.0
-margin_bottom = 26.0
+margin_bottom = 25.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_fonts/font = SubResource( 1 )
@@ -82,9 +82,9 @@ __meta__ = {
 }
 
 [node name="Health" type="ColorRect" parent="Background/VBoxContainer"]
-margin_top = 26.0
+margin_top = 25.0
 margin_right = 150.0
-margin_bottom = 31.0
+margin_bottom = 30.0
 rect_min_size = Vector2( 0, 5 )
 mouse_filter = 2
 color = Color( 0, 1, 0.0392157, 1 )
