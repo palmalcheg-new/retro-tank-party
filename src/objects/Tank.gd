@@ -37,10 +37,7 @@ var shooting := false
 var can_shoot := true
 var shoot_rumble := 0.025
 var using_ability := false
-
 var mouse_control := true
-var forced_input_vector: Vector2
-var use_forced_input_vector := false
 
 var hooks := EventDispatcher.new()
 
@@ -95,6 +92,12 @@ class DieEvent extends TankEvent:
 	func _init(_tank, _killer_id: int).(_tank) -> void:
 		killer_id = _killer_id
 
+class InputVectorEvent extends TankEvent:
+	var input_vector: Vector2
+	
+	func _init(_tank, _input_vector: Vector2).(_tank) -> void:
+		input_vector = _input_vector
+
 class NetworkSyncEvent extends TankEvent:
 	var data: Dictionary
 	
@@ -109,6 +112,7 @@ func _ready():
 	hooks.subscribe("take_damage", self, "_hook_default_take_damage", 0)
 	hooks.subscribe("restore_health", self, "_hook_default_restore_health", 0)
 	hooks.subscribe("die", self, "_hook_default_die", 0)
+	hooks.subscribe("get_input_vector", self, "_hook_default_get_input_vector", 0)
 	hooks.subscribe("send_remote_update", self, "_hook_default_send_remote_update", 0)
 	hooks.subscribe("receive_remote_update", self, "_hook_default_receive_remote_update", 0)
 	
@@ -228,36 +232,31 @@ func _on_ability_finished(old_ability) -> void:
 	elif old_ability == last_ability:
 		last_ability = null
 
-func set_forced_input_vector(input: Vector2) -> void:
-	forced_input_vector = input
-	use_forced_input_vector = true
-
-func clear_forced_input_vector() -> void:
-	forced_input_vector = Vector2.ZERO
-	use_forced_input_vector = false
-
 func _get_input_vector() -> Vector2:
-	if use_forced_input_vector:
-		return forced_input_vector
-	
-	var input: Vector2
+	var event = InputVectorEvent.new(self, Vector2.ZERO)
+	hooks.dispatch_event("get_input_vector", event)
+	return event.input_vector
+
+func _hook_default_get_input_vector(event: InputVectorEvent) -> void:
+	var input_vector: Vector2
 	
 	if GameSettings.control_scheme == GameSettings.ControlScheme.RETRO:
 		if Input.is_action_pressed("player1_turn_left"):
-			input.y -= min(Input.get_action_strength("player1_turn_left") + 0.5, 1.0)
+			input_vector.y -= min(Input.get_action_strength("player1_turn_left") + 0.5, 1.0)
 		if Input.is_action_pressed("player1_turn_right"):
-			input.y = min(Input.get_action_strength("player1_turn_right") + 0.5, 1.0)
+			input_vector.y = min(Input.get_action_strength("player1_turn_right") + 0.5, 1.0)
 		if Input.is_action_pressed("player1_backward"):
-			input.x -= min(Input.get_action_strength("player1_backward") + 0.5, 1.0)
+			input_vector.x -= min(Input.get_action_strength("player1_backward") + 0.5, 1.0)
 		if Input.is_action_pressed("player1_forward"):
-			input.x += min(Input.get_action_strength("player1_forward") + 0.5, 1.0)
+			input_vector.x += min(Input.get_action_strength("player1_forward") + 0.5, 1.0)
 	else:
 		var current_vector = Vector2.RIGHT.rotated(rotation)
 		var desired_vector = Vector2(
 			Input.get_action_strength("player1_turn_right") - Input.get_action_strength("player1_turn_left"),
 			Input.get_action_strength("player1_backward") - Input.get_action_strength("player1_forward")).clamped(1.0)
 		if desired_vector == Vector2.ZERO:
-			return input
+			event.input_vector = Vector2.ZERO
+			return
 		if desired_vector.length() > 0.85:
 			desired_vector = desired_vector.normalized()
 		
@@ -267,10 +266,10 @@ func _get_input_vector() -> Vector2:
 			current_vector = current_vector.rotated(PI)
 			
 			# Set us moving backwards ...
-			input.x = -desired_vector.length()
+			input_vector.x = -desired_vector.length()
 		else:
 			# ... or forwards
-			input.x = desired_vector.length()
+			input_vector.x = desired_vector.length()
 		
 		# Normalize the angle to the desired vector
 		var angle_to = current_vector.angle_to(desired_vector)
@@ -281,16 +280,16 @@ func _get_input_vector() -> Vector2:
 		# leeway so that we aren't bouncing between left and right.
 		var angle_to_degrees = rad2deg(angle_to)
 		if angle_to_degrees < -2.0:
-			input.y = -1.0
+			input_vector.y = -1.0
 		elif angle_to_degrees > 2.0:
-			input.y = 1.0
+			input_vector.y = 1.0
 		else:
-			input.y = 0
+			input_vector.y = 0
 		
 		# Store the desired rotation, so we can snap to it.
 		desired_rotation = desired_vector.angle()
 	
-	return input
+	event.input_vector = input_vector
 
 func _physics_process(delta: float) -> void:
 	if player_controlled:

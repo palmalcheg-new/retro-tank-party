@@ -1,18 +1,22 @@
 extends "res://src/components/abilities/BaseAbility.gd"
 
+const Tank = preload("res://src/objects/Tank.gd")
 const ShadowTank = preload("res://mods/core/abilities/ShadowTank.tscn")
 
 onready var timer = $Timer
 
+var last_movement_direction := 1.0
 var boosting := false
 var spawn_rate := 2
 var spawn_counter := 0
 
 func attach_ability() -> void:
 	tank.hooks.subscribe("shoot", self, "_hook_tank_shoot", -100)
+	tank.hooks.subscribe("get_input_vector", self, "_hook_tank_get_input_vector", 10)
 
 func detach_ability() -> void:
 	tank.hooks.unsubscribe("shoot", self, "_hook_tank_shoot")
+	tank.hooks.unsubscribe("get_input_vector", self, "_hook_tank_get_input_vector")
 
 func spawn() -> void:
 	var tank_parent: Node2D = tank.get_parent()
@@ -33,16 +37,18 @@ func use_ability() -> void:
 	if charges > 0 and not boosting:
 		charges -= 1
 		tank.speed = 1600
-		if Input.is_action_pressed("player1_backward"):
-			tank.set_forced_input_vector(Vector2(-1.0, 0.0))
-		else:
-			tank.set_forced_input_vector(Vector2(1.0, 0.0))
 		timer.start()
 		boosting = true
 
-func _hook_tank_shoot(event) -> void:
+func _hook_tank_shoot(event: Tank.TankEvent) -> void:
 	if boosting:
 		event.stop_propagation()
+
+func _hook_tank_get_input_vector(event: Tank.InputVectorEvent) -> void:
+	if boosting:
+		event.input_vector.x = last_movement_direction
+	elif event.input_vector.x != 0:
+		last_movement_direction = -1.0 if event.input_vector.x < 0 else 1.0
 
 func mark_finished() -> void:
 	if boosting:
@@ -52,7 +58,6 @@ func mark_finished() -> void:
 
 func _on_Timer_timeout() -> void:
 	tank.speed = tank.DEFAULT_SPEED
-	tank.clear_forced_input_vector()
 	boosting = false
 	if charges == 0:
 		emit_signal("finished")
