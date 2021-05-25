@@ -81,10 +81,19 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Health" type="ColorRect" parent="Background/VBoxContainer"]
+[node name="Control" type="Control" parent="Background/VBoxContainer"]
 margin_top = 25.0
 margin_right = 150.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 0, 5 )
 mouse_filter = 2
+
+[node name="Health" type="ColorRect" parent="Background/VBoxContainer/Control"]
+margin_right = 150.0
+margin_bottom = 5.0
+rect_min_size = Vector2( 0, 5 )
+mouse_filter = 2
 color = Color( 0, 1, 0.0392157, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
