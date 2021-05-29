@@ -1,7 +1,7 @@
 extends "res://src/components/modes/BaseManager.gd"
 
 func _get_synchronized_rpc_methods() -> Array:
-	return ['_do_start_new_round']
+	return ['_setup_new_round']
 
 func _do_match_setup() -> void:
 	._do_match_setup()
