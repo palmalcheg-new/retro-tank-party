@@ -13,6 +13,8 @@ var football
 var round_over := false
 var instant_death := false
 var team_starters := [0, 0]
+var team_start_transforms := []
+var player_start_transforms := []
 var goals := []
 
 var map_rect: Rect2
@@ -23,15 +25,15 @@ func _get_synchronized_rpc_methods() -> Array:
 	return ['_setup_new_round']
 
 func _do_match_setup() -> void:
-	._do_match_setup()
+	var map_temp = load(map_path).instance()
+	team_start_transforms.resize(2)
+	for i in range(2):
+		team_start_transforms[i] = map_temp.get_team_start_transforms(i)
+	_game_setup_with_start_positions()
 	
 	map_rect = game.map.get_map_rect()
 	bounds_rect = Rect2(map_rect.position + Vector2(32, 32), map_rect.size - Vector2(64, 64))
-	
-	if game.map.has_node('BallStartPosition'):
-		ball_start_position = game.map.get_node('BallStartPosition').global_position
-	else:
-		ball_start_position = map_rect.position + (map_rect.size / 2.0)
+	ball_start_position = game.map.get_ball_start_position()
 	
 	football = FootballScene.instance()
 	football.name = 'Football'
@@ -42,25 +44,18 @@ func _do_match_setup() -> void:
 		football.connect("out_of_bounds", self, "_on_football_out_of_bounds")
 		football.connect("grabbed", self, "_on_football_grabbed")
 	
+	var goal_transforms = game.map.get_goal_transforms()
 	for i in range(2):
 		var goal = GoalScene.instance()
 		goal.name = 'Goal%s' % (i + 1)
 		goal.goal_color = i
 		game.add_child_below_node(game.map, goal)
-		var goal_position_path = 'GoalPositions/Team%s' % (i + 1)
-		if game.map.has_node(goal_position_path):
-			var goal_position = game.map.get_node(goal_position_path)
-			goal.global_position = goal_position.global_position
-			goal.global_rotation = goal_position.global_rotation
-		else:
-			if i == 0:
-				goal.global_position = map_rect.position + Vector2(196, map_rect.size.y / 2.0)
-			else:
-				goal.global_position = map_rect.position + Vector2(map_rect.size.x - 196, map_rect.size.y / 2.0)
-				goal.global_rotation = PI
+		goal.global_transform = goal_transforms[i]
 		if get_tree().is_network_server():
 			goal.connect("tank_present", self, "_on_goal_tank_present")
 		goals.append(goal)
+		
+		
 	
 	hud.set_instant_death_text("OVERTIME!")
 	hud.score.set_entity_count(score.entities.size())
@@ -150,8 +145,21 @@ remotesync func start_new_round(message: String, team_with_ball: int) -> void:
 			# @todo what can we do if this fails?
 			print ("client failed to setup new round!!!!")
 
+func _get_player_start_transforms() -> Array:
+	var player_start_transforms := []
+	player_start_transforms.resize(players.size())
+	for team_id in range(teams.size()):
+		for team_player_index in range(teams[team_id].size()):
+			var player_id = teams[team_id][team_player_index]
+			var player = players[player_id]
+			player_start_transforms[player.index - 1] = team_start_transforms[team_id][team_player_index]
+	return player_start_transforms
+
+func _game_setup_with_start_positions() -> void:
+	game.game_setup(players, map_path, _get_player_start_transforms())
+
 func _setup_new_round(player_with_ball: int, player_health: Dictionary) -> void:
-	game.game_setup(players, map_path)
+	_game_setup_with_start_positions()
 	
 	for player_id in game.players_alive:
 		var tank = game.get_tank(player_id)
@@ -179,8 +187,9 @@ func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 			respawn_player(player_id)
 
 func respawn_player(player_id: int) -> void:
-	var player = OnlineMatch.get_player_by_peer_id(player_id)
-	var operation = RemoteOperations.synchronized_rpc(game, "respawn_player", [player_id])
+	var player = players[player_id]
+	var player_start_transforms = _get_player_start_transforms()
+	var operation = RemoteOperations.synchronized_rpc(game, "respawn_player", [player_id, player_start_transforms[player.index - 1]])
 	if yield(operation, "completed"):
 		rpc_id(player_id, "_take_control_of_my_player")
 	else:

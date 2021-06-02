@@ -37,7 +37,7 @@ func _get_synchronized_rpc_methods() -> Array:
 	return ['respawn_player']
 
 # Initializes the game so that it is ready to really start.
-func game_setup(_players: Dictionary, map_path: String, operation: RemoteOperations.ClientOperation = null) -> void:
+func game_setup(_players: Dictionary, map_path: String, player_start_transforms = null, operation: RemoteOperations.ClientOperation = null) -> void:
 	get_tree().set_pause(true)
 	
 	if game_started:
@@ -62,7 +62,9 @@ func game_setup(_players: Dictionary, map_path: String, operation: RemoteOperati
 				possible_pickups.append(pickup)
 	
 	for peer_id in players:
-		respawn_player(peer_id)
+		var player = players[peer_id]
+		var start_transform = player_start_transforms[player.index - 1] if player_start_transforms and player.index <= player_start_transforms.size() else null
+		respawn_player(peer_id, start_transform)
 	
 	var my_id: int = get_tree().get_network_unique_id()
 	make_player_controlled(my_id)
@@ -70,7 +72,7 @@ func game_setup(_players: Dictionary, map_path: String, operation: RemoteOperati
 	if operation:
 		operation.mark_done(true)
 
-func respawn_player(peer_id: int, start_pos = null, start_rotation = null) -> void:
+func respawn_player(peer_id: int, start_transform = null) -> void:
 	if players_node.has_node(str(peer_id)):
 		return
 	
@@ -83,15 +85,11 @@ func respawn_player(peer_id: int, start_pos = null, start_rotation = null) -> vo
 	
 	var player_index = player.index
 	
-	if not start_pos:
-		tank.position = map.get_node("PlayerStartPositions/Player" + str(player_index)).position
+	if start_transform:
+		tank.global_transform = start_transform
 	else:
-		tank.position = start_pos
-	
-	if not start_rotation:
-		tank.rotation = map.get_node("PlayerStartPositions/Player" + str(player_index)).rotation
-	else:
-		tank.rotation_degrees = start_rotation
+		var player_start_transforms = map.get_player_start_transforms()
+		tank.global_transform = player_start_transforms[player.index - 1]
 	
 	tank.setup_tank(self, player)
 	tank.connect("player_dead", self, "_on_player_dead", [peer_id])

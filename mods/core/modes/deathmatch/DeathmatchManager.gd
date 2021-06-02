@@ -110,8 +110,8 @@ func _on_respawn_position_found(spawn_position, player_id, detector) -> void:
 	detector.queue_free()
 	
 	var player = OnlineMatch.get_player_by_peer_id(player_id)
-	var spawn_rotation = randi() % 360
-	var operation = RemoteOperations.synchronized_rpc(game, "respawn_player", [player_id, spawn_position, spawn_rotation])
+	var spawn_transform = Transform2D(deg2rad(randi() % 360), spawn_position)
+	var operation = RemoteOperations.synchronized_rpc(game, "respawn_player", [player_id, spawn_transform])
 	if yield(operation, "completed"):
 		rpc_id(player_id, "_take_control_of_my_player")
 	else:
