@@ -54,8 +54,6 @@ func _do_match_setup() -> void:
 		if get_tree().is_network_server():
 			goal.connect("tank_present", self, "_on_goal_tank_present")
 		goals.append(goal)
-		
-		
 	
 	hud.set_instant_death_text("OVERTIME!")
 	hud.score.set_entity_count(score.entities.size())
@@ -106,6 +104,7 @@ func _on_goal_tank_present(tank, goal) -> void:
 			round_over = true
 			score.increment_score(player_team)
 			hud.score.rpc("set_score", player_team + 1, score.get_score(player_team))
+			goal.rpc("celebrate")
 			
 			if not instant_death:
 				rpc("start_new_round", "%s SCORES!" % score.get_name(player_team), 1 if player_team == 0 else 0)
@@ -121,7 +120,7 @@ remotesync func start_new_round(message: String, team_with_ball: int) -> void:
 	ui_layer.show_message(message)
 	
 	if get_tree().is_network_server():
-		yield(get_tree().create_timer(2.0), "timeout")
+		yield(get_tree().create_timer(4.0), "timeout")
 		
 		# Get the specific player with the ball.
 		var player_with_ball = -1
