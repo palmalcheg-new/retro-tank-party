@@ -11,12 +11,13 @@ var frames_countdown := 0
 # The tank holding the football or null.
 var held
 
-var match_manager
 var bounds_rect: Rect2
 var in_bounds := true
 
-func setup_football(_match_manager, _bounds_rect) -> void:
-	match_manager = _match_manager
+signal out_of_bounds ()
+signal grabbed (tank)
+
+func setup_football(_bounds_rect) -> void:
 	bounds_rect = _bounds_rect
 
 func pass_football(_position: Vector2, _vector: Vector2) -> void:
@@ -81,7 +82,7 @@ func _physics_process(delta: float) -> void:
 		if in_bounds:
 			in_bounds = bounds_rect.has_point(global_position)
 			if not in_bounds:
-				match_manager.rpc("start_new_round", "OUT OF BOUNDS!", -1)
+				emit_signal("out_of_bounds")
 
 func check_on_obstruction() -> bool:
 	for body in get_overlapping_bodies():
@@ -102,7 +103,7 @@ func _on_Football_body_entered(body: PhysicsBody2D) -> void:
 	if frames_countdown > 0:
 		return
 	
-	match_manager.rpc("grab_football", body.get_path())
+	emit_signal("grabbed", body)
 
 func _on_PassTimer_timeout() -> void:
 	if not check_on_obstruction():

@@ -36,8 +36,11 @@ func _do_match_setup() -> void:
 	football = FootballScene.instance()
 	football.name = 'Football'
 	game.add_child(football)
-	football.setup_football(self, bounds_rect)
+	football.setup_football(bounds_rect)
 	football.global_position = ball_start_position
+	if get_tree().is_network_server():
+		football.connect("out_of_bounds", self, "_on_football_out_of_bounds")
+		football.connect("grabbed", self, "_on_football_grabbed")
 	
 	for i in range(2):
 		var goal = GoalScene.instance()
@@ -76,6 +79,14 @@ func match_start() -> void:
 
 func _on_game_started() -> void:
 	get_tree().call_group("drop_crate_spawn_area", "spawn_drop_crate")
+
+func _on_football_out_of_bounds() -> void:
+	if not round_over:
+		round_over = true
+		rpc("start_new_round", "OUT OF BOUNDS!", -1)
+
+func _on_football_grabbed(tank) -> void:
+	rpc("grab_football", tank.get_path())
 
 remotesync func grab_football(tank_path: NodePath) -> void:
 	var tank = get_node(tank_path)
