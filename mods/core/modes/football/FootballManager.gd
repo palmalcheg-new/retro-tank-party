@@ -139,6 +139,7 @@ remotesync func start_new_round(message: String, team_with_ball: int) -> void:
 		
 		var operation = RemoteOperations.synchronized_rpc(self, "_setup_new_round", [player_with_ball, player_health])
 		if yield(operation, "completed"):
+			yield(get_tree().create_timer(0.5), "timeout")
 			rpc("_start_new_round")
 		else:
 			# @todo what can we do if this fails?
