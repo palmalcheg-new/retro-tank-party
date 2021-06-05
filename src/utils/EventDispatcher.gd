@@ -49,6 +49,9 @@ func unsubscribe(event_name: String, object: Object, method: String) -> void:
 			return
 	assert ("Cannot unsubscribe - no matching listeners on event %s" % event_name)
 
+func clear() -> void:
+	listeners.clear()
+
 func _sort_listener(a: EventListener, b: EventListener) -> bool:
 	return a.priority < b.priority
 

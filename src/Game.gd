@@ -83,8 +83,6 @@ func respawn_player(peer_id: int, start_transform = null) -> void:
 	tank.name = str(peer_id)
 	players_node.add_child(tank)
 	
-	var player_index = player.index
-	
 	if start_transform:
 		tank.global_transform = start_transform
 	else:

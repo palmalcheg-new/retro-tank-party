@@ -132,14 +132,16 @@ func _ready():
 	if player_controlled:
 		Globals.my_player_position = global_position
 
+func _notification(what) -> void:
+	if what == NOTIFICATION_PREDELETE:
+		hooks.clear()
+
 func setup_tank(_game, player) -> void:
 	game = _game
 	
 	set_network_master(player.peer_id)
 	player_info_node.set_player_name(player.name)
-	player_index = player.index
-	
-	set_tank_color(player_index)
+	set_tank_color(player.index)
 	
 	if player.team != -1:
 		player_info_node.set_team(player.team)
