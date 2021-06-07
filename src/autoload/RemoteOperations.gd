@@ -6,7 +6,7 @@ extends Node
 #
 
 const TIMEOUT_SECONDS := 30
-const FALLBACK_SCENE = "res://src/SessionSetup.tscn"
+const FALLBACK_SCENE = "res://src/main/SessionSetup.tscn"
 
 class HostOperation:
 	var id: int

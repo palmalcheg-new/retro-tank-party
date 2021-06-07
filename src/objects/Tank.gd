@@ -444,6 +444,8 @@ func take_damage(damage: int, attacker_id: int = -1, attack_vector: Vector2 = Ve
 	hooks.dispatch_event("take_damage", TakeDamageEvent.new(self, damage, attacker_id, attack_vector))
 
 func _hook_default_take_damage(event: TakeDamageEvent) -> void:
+	if dead:
+		return
 	if player_controlled:
 		if GameSettings.use_screenshake and camera:
 			# Between 0.25 and 0.5 seems good
