@@ -109,7 +109,6 @@ func respawn_player(player_id: int) -> void:
 func _on_respawn_position_found(spawn_position, player_id, detector) -> void:
 	detector.queue_free()
 	
-	var player = OnlineMatch.get_player_by_peer_id(player_id)
 	var spawn_transform = Transform2D(deg2rad(randi() % 360), spawn_position)
 	var operation = RemoteOperations.synchronized_rpc(game, "respawn_player", [player_id, spawn_transform])
 	if yield(operation, "completed"):
@@ -161,6 +160,8 @@ remotesync func show_winner(winner_name: String, host_score: Dictionary) -> void
 	match_scene.finish_match()
 
 func _on_tank_weapon_type_changed(weapon_type: WeaponType) -> void:
+	if config.get('weapon_timeout', 0) == 0:
+		return
 	if weapon_type != Tank.BaseWeaponType:
 		weapon_warning_timer.start()
 		weapon_timeout_timer.start()

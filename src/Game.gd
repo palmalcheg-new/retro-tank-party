@@ -76,6 +76,8 @@ func respawn_player(peer_id: int, start_transform = null) -> void:
 	if players_node.has_node(str(peer_id)):
 		return
 	
+	if not players.has(peer_id):
+		return
 	var player = players[peer_id]
 	players_alive[peer_id] = player
 	
