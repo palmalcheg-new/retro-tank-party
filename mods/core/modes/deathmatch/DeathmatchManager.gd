@@ -10,6 +10,7 @@ onready var weapon_timeout_timer := $WeaponTimeoutTimer
 
 var instant_death := false
 var winners := []
+var game_over := false
 
 var map_rect: Rect2
 
@@ -60,16 +61,17 @@ func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 	if player_id == my_id:
 		ui_layer.show_message("Wasted!")
 	
-	if get_tree().is_network_server():
-		if killer_id != -1 and not instant_death:
+	if get_tree().is_network_server() and not game_over:
+		if killer_id != -1 and not game_over:
 			if use_teams:
 				var killer_team = get_player_team(killer_id)
 				var player_team = get_player_team(player_id)
-				if killer_team != player_team:
-					score.increment_score(killer_team)
-				else:
-					score.decrement_score(killer_team)
-				hud.score.rpc("set_score", killer_team + 1, score.get_score(killer_team))
+				if killer_team != -1:
+					if killer_team != player_team:
+						score.increment_score(killer_team)
+					else:
+						score.decrement_score(killer_team)
+					hud.score.rpc("set_score", killer_team + 1, score.get_score(killer_team))
 			else:
 				if killer_id != player_id:
 					score.increment_score(killer_id)
@@ -81,18 +83,9 @@ func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 		if instant_death:
 			rpc_id(player_id, "enable_watch_camera")
 			
-			if use_teams:
-				var player_team = get_player_team(player_id)
-				var atleast_one_teammate_alive := false
-				for other_player in teams[player_team]:
-					if game.players_alive.has(other_player):
-						atleast_one_teammate_alive = true
-						break
-				if not atleast_one_teammate_alive:
-					winners.erase(player_team)
-			else:
-				winners.erase(player_id)
+			winners = score.find_highest()
 			if winners.size() == 1:
+				game_over = true
 				rpc("show_winner", score.get_name(winners[0]), score.to_dict())
 		elif OnlineMatch.get_player_by_peer_id(player_id) != null:
 			yield(get_tree().create_timer(2.0), "timeout")
@@ -127,6 +120,7 @@ func _on_countdown_finished() -> void:
 	winners = score.find_highest()
 	
 	if winners.size() == 1:
+		game_over = true
 		rpc("show_winner", score.get_name(winners[0]), score.to_dict())
 	else:
 		instant_death = true
