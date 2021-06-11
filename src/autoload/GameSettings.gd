@@ -1,11 +1,17 @@
 extends Node
 
+enum ControlScheme {
+	MODERN,
+	RETRO,
+}
+
 var sound_volume := 1.0 setget set_sound_volume
 var music_volume := 1.0 setget set_music_volume
 var tank_engine_sounds := true setget set_tank_engine_sounds
 var use_full_screen := false setget set_use_full_screen
 var use_screenshake := true
 var use_network_relay := 0 setget set_use_network_relay
+var control_scheme: int = ControlScheme.MODERN
 var joy_id := 0 setget set_joy_id
 var joy_name := "" setget set_joy_name
 
@@ -16,6 +22,7 @@ const SETTINGS_KEYS = [
 	'use_full_screen',
 	'use_screenshake',
 	'use_network_relay',
+	'control_scheme',
 	'joy_name',
 ]
 
@@ -95,6 +102,11 @@ func load_settings() -> void:
 		file.open(SETTINGS_FILENAME, File.READ)
 		var result := JSON.parse(file.get_as_text())
 		if result.result is Dictionary:
+			# For existing players, we want to default the control scheme to
+			# retro, and only default to modern for new players.
+			if not result.result.has("control_scheme"):
+				result.result['control_scheme'] = ControlScheme.RETRO
+			
 			for k in result.result:
 				if k in SETTINGS_KEYS:
 					set(k, result.result[k])

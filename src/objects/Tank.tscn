@@ -1,23 +1,15 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://src/objects/Tank.gd" type="Script" id=1]
-[ext_resource path="res://assets/objects.png" type="Texture" id=2]
-[ext_resource path="res://assets/fonts/monogram_extended.ttf" type="DynamicFontData" id=3]
-[ext_resource path="res://src/objects/whitening_shader.tres" type="Material" id=4]
+[ext_resource path="res://src/objects/tank/BaseTank.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/objects/tank/PlayerInfo.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/objects/Tank.gd" type="Script" id=4]
 [ext_resource path="res://assets/sounds/Bass Drum__003.wav" type="AudioStream" id=5]
 [ext_resource path="res://src/objects/tank/EngineSound.gd" type="Script" id=6]
 [ext_resource path="res://assets/sounds/engine_heavy_loop.wav" type="AudioStream" id=7]
-[ext_resource path="res://src/components/MyAudioStreamPlayer2D.gd" type="Script" id=8]
+[ext_resource path="res://src/sound/MyAudioStreamPlayer2D.gd" type="Script" id=8]
 [ext_resource path="res://assets/sounds/engine_heavy_fast_loop.wav" type="AudioStream" id=9]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 42, 42 )
-
-[sub_resource type="DynamicFont" id=2]
-size = 24
-font_data = ExtResource( 3 )
-
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=1]
 resource_name = "Flash"
 length = 0.1
 step = 0.05
@@ -34,134 +26,39 @@ tracks/0/keys = {
 "values": [ 0.0, 1.0, 0.0 ]
 }
 
-[node name="Tank" type="KinematicBody2D"]
-collision_layer = 2
-collision_mask = 3
-script = ExtResource( 1 )
+[node name="Tank" instance=ExtResource( 1 )]
+script = ExtResource( 4 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+[node name="PlayerInfo" parent="." index="3" instance=ExtResource( 3 )]
+position = Vector2( 0, -85 )
 
-[node name="BodySprite" type="Sprite" parent="."]
-material = ExtResource( 4 )
-rotation = 4.71239
-texture = ExtResource( 2 )
-region_enabled = true
-region_rect = Rect2( 434, 0, 84, 83 )
-
-[node name="TurretPivot" type="Position2D" parent="."]
-
-[node name="TurretSprite" type="Sprite" parent="TurretPivot"]
-rotation = 4.71239
-texture = ExtResource( 2 )
-centered = false
-offset = Vector2( -12, -10 )
-region_enabled = true
-region_rect = Rect2( 722, 199, 24, 60 )
-
-[node name="BulletStartPosition" type="Position2D" parent="TurretPivot"]
-position = Vector2( 67, 0 )
-
-[node name="RayCastTarget1" type="RayCast2D" parent="TurretPivot/BulletStartPosition"]
-cast_to = Vector2( 350, 0 )
-collision_mask = 2
-
-[node name="RayCastTarget2" type="RayCast2D" parent="TurretPivot/BulletStartPosition"]
-rotation = 0.174533
-cast_to = Vector2( 350, 0 )
-collision_mask = 2
-
-[node name="RayCastTarget3" type="RayCast2D" parent="TurretPivot/BulletStartPosition"]
-rotation = -0.174533
-cast_to = Vector2( 350, 0 )
-collision_mask = 2
-
-[node name="RayCastTarget4" type="RayCast2D" parent="TurretPivot/BulletStartPosition"]
-rotation = 0.349066
-cast_to = Vector2( 350, 0 )
-collision_mask = 2
-
-[node name="RayCastTarget5" type="RayCast2D" parent="TurretPivot/BulletStartPosition"]
-rotation = -0.349066
-cast_to = Vector2( 350, 0 )
-collision_mask = 2
-
-[node name="RayCastTarget6" type="RayCast2D" parent="TurretPivot/BulletStartPosition"]
-rotation = 0.523599
-cast_to = Vector2( 350, 0 )
-collision_mask = 2
-
-[node name="RayCastTarget7" type="RayCast2D" parent="TurretPivot/BulletStartPosition"]
-rotation = -0.523599
-cast_to = Vector2( 350, 0 )
-collision_mask = 2
-
-[node name="RayCastTarget8" type="RayCast2D" parent="TurretPivot/BulletStartPosition"]
-rotation = 0.698132
-cast_to = Vector2( 350, 0 )
-collision_mask = 2
-
-[node name="RayCastTarget9" type="RayCast2D" parent="TurretPivot/BulletStartPosition"]
-rotation = -0.698132
-cast_to = Vector2( 350, 0 )
-collision_mask = 2
-
-[node name="Info" type="Node2D" parent="."]
-position = Vector2( -66, -83 )
-
-[node name="Background" type="ColorRect" parent="Info"]
-margin_right = 51.0
-margin_bottom = 40.0
-rect_scale = Vector2( 2.76, 0.643416 )
-mouse_filter = 2
-color = Color( 0, 0, 0, 0.443137 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PlayerName" type="Label" parent="Info"]
-margin_left = 3.0
-margin_top = 2.0
-margin_right = 138.0
-margin_bottom = 23.0
-custom_fonts/font = SubResource( 2 )
-text = "Player name"
-align = 1
-clip_text = true
-
-[node name="Health" type="ColorRect" parent="Info"]
-margin_top = 26.0
-margin_right = 141.0
-margin_bottom = 31.0
-mouse_filter = 2
-color = Color( 0, 1, 0.0392157, 1 )
-
-[node name="ShootCooldownTimer" type="Timer" parent="."]
+[node name="ShootCooldownTimer" type="Timer" parent="." index="4"]
 wait_time = 0.25
 one_shot = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/Flash = SubResource( 3 )
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
+anims/Flash = SubResource( 1 )
 
-[node name="ShootSound" type="AudioStreamPlayer" parent="."]
+[node name="ShootSound" type="AudioStreamPlayer" parent="." index="6"]
 stream = ExtResource( 5 )
 volume_db = 10.0
 bus = "Sound"
 script = ExtResource( 8 )
 
-[node name="EngineSound" type="Node2D" parent="."]
+[node name="EngineSound" type="Node2D" parent="." index="7"]
 script = ExtResource( 6 )
 
-[node name="Idle" type="AudioStreamPlayer" parent="EngineSound"]
+[node name="Idle" type="AudioStreamPlayer" parent="EngineSound" index="0"]
 stream = ExtResource( 7 )
 bus = "Tank Engine"
 script = ExtResource( 8 )
 
-[node name="Fast" type="AudioStreamPlayer" parent="EngineSound"]
+[node name="Fast" type="AudioStreamPlayer" parent="EngineSound" index="1"]
 stream = ExtResource( 9 )
 bus = "Tank Engine"
 script = ExtResource( 8 )
 
-[node name="Tween" type="Tween" parent="EngineSound"]
+[node name="Tween" type="Tween" parent="EngineSound" index="2"]
+
 [connection signal="timeout" from="ShootCooldownTimer" to="." method="_on_ShootCooldownTimer_timeout"]
 [connection signal="tween_all_completed" from="EngineSound/Tween" to="EngineSound" method="_on_Tween_tween_all_completed"]

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=2]
+
+[ext_resource path="res://src/components/pickups/WeaponPickup.gd" type="Script" id=2]
+[ext_resource path="res://mods/core/weapons/railgun.tres" type="Resource" id=3]
+
+[resource]
+script = ExtResource( 2 )
+name = "Railgun"
+letter = "R"
+rarity = 20
+weapon_type = ExtResource( 3 )

@@ -1,45 +1,56 @@
 extends Area2D
 
-var DropCrate = preload("res://src/objects/DropCrate.tscn")
+const DropCrate = preload("res://src/objects/DropCrate.tscn")
 
-func _ready():
-	pass
+const CRATE_SIZE = Vector2(60, 60)
 
-func map_object_start():
+onready var collision_shape = $CollisionShape2D
+onready var drop_timer = $DropTimer
+onready var spawns = $Spawns
+
+var possible_contents := []
+var detector
+
+func map_object_start(map, game):
 	if is_network_master():
-		$DropTimer.start()
+		possible_contents = game.possible_pickups
+		detector = game.create_free_space_detector()
+		detector.connect("free_space_found", self, "_on_free_space_found")
+		drop_timer.start()
 
-func map_object_stop():
+func map_object_stop(map, game):
+	drop_timer.stop()
+	if detector:
+		detector.stop_detecting()
+		detector.queue_free()
 	clear()
 
 func has_drop_crate_or_powerup() -> bool:
-	return $Spawns.has_node("DropCrate") or $Spawns.has_node("Powerup")
+	return spawns.has_node("DropCrate") or spawns.has_node("Powerup")
+
+func spawn_drop_crate() -> void:
+	if not is_network_master():
+		return
+	if not has_drop_crate_or_powerup():
+		var extents = collision_shape.shape.extents
+		var area = Rect2(global_position - extents, extents * 2.0)
+		detector.start_detecting(area, CRATE_SIZE)
 
 func _on_DropTimer_timeout() -> void:
-	if not has_drop_crate_or_powerup():
-		var crate_position = Vector2()
-		crate_position.x = (randi() % int($CollisionShape2D.shape.extents.x * 2)) - $CollisionShape2D.shape.extents.x
-		crate_position.y = (randi() % int($CollisionShape2D.shape.extents.y * 2)) - $CollisionShape2D.shape.extents.y
-		
-		var contents
-		match randi() % 10:
-			0, 2, 4, 6, 8, 9:
-				contents = "health"
-			1, 3:
-				contents = "spread"
-			5, 7:
-				contents = "target"
-		rpc("spawn_drop_crate", crate_position, contents)
+	spawn_drop_crate()
 
-remotesync func spawn_drop_crate(_position : Vector2, contents : String):
+func _on_free_space_found(crate_position) -> void:
+	var contents = possible_contents[randi() % possible_contents.size()]
+	rpc("_do_spawn_drop_crate", crate_position, contents.resource_path)
+
+remotesync func _do_spawn_drop_crate(_position: Vector2, pickup_path: String):
 	var crate = DropCrate.instance()
-	crate.position = _position
-	crate.set_name('DropCrate')
-	crate.set_contents(contents)
-	$Spawns.add_child(crate)
+	crate.name = 'DropCrate'
+	spawns.add_child(crate)
+	crate.global_position = _position
+	crate.set_contents(load(pickup_path))
 
 func clear():
-	$DropTimer.stop()
-	for child in $Spawns.get_children():
+	for child in spawns.get_children():
 		remove_child(child)
 		child.queue_free()

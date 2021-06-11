@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://src/components/weapons/BaseBullet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/white_pixel.png" type="Texture" id=2]
+[ext_resource path="res://mods/core/weapons/RailgunBullet.gd" type="Script" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+
+[sub_resource type="Shader" id=2]
+code = "shader_type canvas_item;
+
+void fragment() {
+	if (UV.y < 0.21 || UV.y > 0.79) {
+		COLOR = vec4(0.0, 0.0, 0.0, 1.0);
+	}
+}
+"
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
+
+[sub_resource type="Curve" id=4]
+_data = [ Vector2( 0, 0.0727272 ), 0.0, 0.0, 0, 0, Vector2( 0.991837, 0.990909 ), 0.0, 0.0, 0, 0 ]
+
+[node name="RailgunBullet" instance=ExtResource( 1 )]
+script = ExtResource( 3 )
+
+[node name="LifetimeTimer" parent="." index="0"]
+wait_time = 0.25
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+position = Vector2( 10, 0 )
+shape = SubResource( 1 )
+
+[node name="RayCast2D" type="RayCast2D" parent="." index="2"]
+cast_to = Vector2( 128, 0 )
+collision_mask = 3
+
+[node name="Line2D" type="Line2D" parent="." index="3"]
+material = SubResource( 3 )
+width_curve = SubResource( 4 )
+texture = ExtResource( 2 )
+texture_mode = 2
+end_cap_mode = 2

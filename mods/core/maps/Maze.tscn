@@ -2,12 +2,12 @@
 
 [ext_resource path="res://assets/terraintiles.tres" type="TileSet" id=1]
 [ext_resource path="res://src/objects/DropCrateSpawnArea.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/maps/BaseMap.gd" type="Script" id=3]
+[ext_resource path="res://src/components/maps/BaseMap.gd" type="Script" id=3]
 [ext_resource path="res://src/objects/cover/TreeBig.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/objects/obstruction/SandboxBiege.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/objects/cover/TreeSmall.tscn" type="PackedScene" id=6]
 
-[node name="Map3" type="Node2D"]
+[node name="MazeMap" type="Node2D"]
 script = ExtResource( 3 )
 
 [node name="TileMap" type="TileMap" parent="."]

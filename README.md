@@ -1,5 +1,5 @@
-Battle Tanks
-============
+Retro Tank Party
+================
 
 Multiplayer battle tank game for MDW Gamejam 2019-09.
 
@@ -21,4 +21,6 @@ Credits
  - [5 Action Chiptunes](https://opengameart.org/content/5-chiptunes-action) by Juhani Junkala
 
  - [Godot Splash Boot Video](https://sworndevelopment.itch.io/godot-splash-boot-video) by SwornDevelopment
+
+ - [Goal Horn Sound Effect](https://orangefreesounds.com/goal-horn-sound-effect/) by Alexander
 

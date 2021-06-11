@@ -21,16 +21,16 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -329.655
-margin_top = -237.055
-margin_right = 340.345
-margin_bottom = 286.945
+margin_left = -370.0
+margin_top = -237.0
+margin_right = 380.0
+margin_bottom = 287.0
 custom_styles/panel = ExtResource( 6 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 margin_left = 50.0
 margin_top = 30.0
-margin_right = 620.0
+margin_right = 700.0
 margin_bottom = 494.0
 custom_constants/separation = 25
 __meta__ = {
@@ -39,12 +39,12 @@ __meta__ = {
 
 [node name="ModeSwitcher" parent="Panel/VBoxContainer" instance=ExtResource( 1 )]
 anchor_right = 0.0
-margin_right = 570.0
+margin_right = 650.0
 margin_bottom = 66.0
 
 [node name="DescriptionLabel" type="Label" parent="Panel/VBoxContainer"]
 margin_top = 91.0
-margin_right = 570.0
+margin_right = 650.0
 margin_bottom = 120.0
 custom_fonts/font = ExtResource( 4 )
 text = "Description of the mode."
@@ -53,7 +53,7 @@ autowrap = true
 
 [node name="ConfigParent" type="MarginContainer" parent="Panel/VBoxContainer"]
 margin_top = 145.0
-margin_right = 570.0
+margin_right = 650.0
 margin_bottom = 374.0
 size_flags_vertical = 3
 custom_constants/margin_right = 25
@@ -62,13 +62,14 @@ custom_constants/margin_left = 25
 custom_constants/margin_bottom = 25
 
 [node name="NextButton" type="Button" parent="Panel/VBoxContainer"]
-margin_left = 210.0
+margin_left = 250.0
 margin_top = 399.0
-margin_right = 360.0
+margin_right = 400.0
 margin_bottom = 464.534
 rect_min_size = Vector2( 150, 0 )
 size_flags_horizontal = 4
 text = "Next"
 script = ExtResource( 5 )
+
 [connection signal="item_selected" from="Panel/VBoxContainer/ModeSwitcher" to="." method="_on_ModeSwitcher_item_selected"]
 [connection signal="pressed" from="Panel/VBoxContainer/NextButton" to="." method="_on_NextButton_pressed"]
