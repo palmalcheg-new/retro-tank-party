@@ -205,6 +205,7 @@ remotesync func _take_control_of_my_player() -> void:
 func _on_countdown_finished() -> void:
 	var winners = score.find_highest()
 	if winners.size() == 1:
+		round_over = true
 		rpc("show_winner", score.get_name(winners[0]), score.to_dict())
 	else:
 		instant_death = true
