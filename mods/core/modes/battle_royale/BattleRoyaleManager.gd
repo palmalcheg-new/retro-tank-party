@@ -1,5 +1,7 @@
 extends "res://src/components/modes/BaseManager.gd"
 
+var round_over := false
+
 func _get_synchronized_rpc_methods() -> Array:
 	return ['_setup_new_round']
 
@@ -16,6 +18,7 @@ func start_new_round() -> void:
 		match_scene.quit_match()
 
 func _setup_new_round() -> void:
+	round_over = false
 	game.game_setup(players, map_path)
 
 func _on_game_player_dead(player_id: int, killer_id: int) -> void:
@@ -24,7 +27,8 @@ func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 		ui_layer.show_message("You lose!")
 		game.enable_watch_camera()
 	
-	if get_tree().is_network_server() and (game.players_alive.size() == 1 or not _check_team_alive(player_id)):
+	if get_tree().is_network_server() and not round_over and  (game.players_alive.size() == 1 or not _check_team_alive(player_id)):
+		round_over = true
 		var winner_id := -1
 		if use_teams:
 			# The other team wins
