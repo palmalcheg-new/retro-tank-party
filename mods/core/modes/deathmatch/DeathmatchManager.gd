@@ -60,6 +60,8 @@ func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 	var my_id = get_tree().get_network_unique_id()
 	if player_id == my_id:
 		ui_layer.show_message("Wasted!")
+		weapon_warning_timer.stop()
+		weapon_timeout_timer.stop()
 	
 	if get_tree().is_network_server() and not game_over:
 		if killer_id != -1 and not game_over:
@@ -164,4 +166,6 @@ func _on_WeaponWarningTimer_timeout() -> void:
 	game.hud.weapon_label.blinking = true
 
 func _on_WeaponTimeoutTimer_timeout() -> void:
-	game.get_my_tank().set_weapon_type(Tank.BaseWeaponType)
+	var my_tank = game.get_my_tank()
+	if my_tank:
+		my_tank.set_weapon_type(Tank.BaseWeaponType)
