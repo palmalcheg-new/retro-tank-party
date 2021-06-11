@@ -50,7 +50,7 @@ var ability_type: AbilityType
 var ability
 var last_ability
 
-var player_index
+var player_index: int
 
 class TankEvent extends EventDispatcher.Event:
 	var tank
@@ -139,9 +139,10 @@ func _notification(what) -> void:
 func setup_tank(_game, player) -> void:
 	game = _game
 	
+	player_index = player.index
 	set_network_master(player.peer_id)
 	player_info_node.set_player_name(player.name)
-	set_tank_color(player.index)
+	set_tank_color(player_index)
 	
 	if player.team != -1:
 		player_info_node.set_team(player.team)
