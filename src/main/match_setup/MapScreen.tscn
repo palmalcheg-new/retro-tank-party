@@ -60,5 +60,6 @@ rect_min_size = Vector2( 150, 0 )
 size_flags_horizontal = 4
 text = "Next"
 script = ExtResource( 5 )
+
 [connection signal="item_selected" from="Panel/VBoxContainer/MapSwitcher" to="." method="_on_MapSwitcher_item_selected"]
 [connection signal="pressed" from="Panel/VBoxContainer/NextButton" to="." method="_on_NextButton_pressed"]

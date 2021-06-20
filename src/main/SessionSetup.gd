@@ -54,11 +54,20 @@ remotesync func player_ready(session_id: String) -> void:
 	
 	if get_tree().is_network_server() and not players_ready.has(session_id):
 		players_ready[session_id] = true
-		if players_ready.size() == OnlineMatch.players.size():
-			if OnlineMatch.match_state != OnlineMatch.MatchState.PLAYING:
-				OnlineMatch.start_playing()
-			
-			RemoteOperations.change_scene("res://src/main/MatchSetup.tscn")
+		_start_match_if_all_ready()
+
+func _check_players_ready() -> bool:
+	for session_id in OnlineMatch.players:
+		if not players_ready.has(session_id):
+			return false
+	return true
+
+func _start_match_if_all_ready() -> void:
+	if _check_players_ready():
+		if OnlineMatch.match_state != OnlineMatch.MatchState.PLAYING:
+			OnlineMatch.start_playing()
+		
+		RemoteOperations.change_scene("res://src/main/MatchSetup.tscn")
 
 #####
 # OnlineMatch callbacks
@@ -75,7 +84,11 @@ func _on_OnlineMatch_disconnected():
 
 func _on_OnlineMatch_player_left(player) -> void:
 	ui_layer.show_message(player.username + " has left")
-	players_ready.erase(player.peer_id)
+	players_ready.erase(player.session_id)
+	
+	# It's possible that all players marked ready except for the one who left,
+	# so check if all are ready, and if so, start the match.
+	call_deferred("_start_match_if_all_ready")
 
 func _on_OnlineMatch_player_status_changed(player, status) -> void:
 	if status == OnlineMatch.PlayerStatus.CONNECTED:

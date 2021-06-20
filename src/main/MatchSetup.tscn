@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/ui/UILayer.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/main/match_setup/ModeScreen.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://src/main/match_setup/ReadyScreen.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/main/common/BackgroundMap1.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/main/match_setup/MapScreen.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/main/match_setup/TeamScreen.tscn" type="PackedScene" id=7]
 
 [node name="MatchSetup" type="Node2D"]
 script = ExtResource( 3 )
@@ -18,12 +19,17 @@ script = ExtResource( 3 )
 
 [node name="ModeScreen" parent="UILayer/Screens" index="0" instance=ExtResource( 2 )]
 
-[node name="MapScreen" parent="UILayer/Screens" index="1" instance=ExtResource( 6 )]
+[node name="TeamScreen" parent="UILayer/Screens" index="1" instance=ExtResource( 7 )]
 visible = false
 
-[node name="ReadyScreen" parent="UILayer/Screens" index="2" instance=ExtResource( 4 )]
+[node name="MapScreen" parent="UILayer/Screens" index="2" instance=ExtResource( 6 )]
 visible = false
+
+[node name="ReadyScreen" parent="UILayer/Screens" index="3" instance=ExtResource( 4 )]
+visible = false
+
 [connection signal="back_button" from="UILayer" to="." method="_on_UILayer_back_button"]
+[connection signal="change_screen" from="UILayer" to="." method="_on_UILayer_change_screen"]
 [connection signal="map_changed" from="UILayer/Screens/MapScreen" to="." method="_on_MapScreen_map_changed"]
 [connection signal="ready_pressed" from="UILayer/Screens/ReadyScreen" to="." method="_on_ReadyScreen_ready_pressed"]
 

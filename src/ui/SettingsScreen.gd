@@ -7,7 +7,8 @@ onready var sound_slider := $Panel/VBoxContainer/ScrollContainer/GridContainer/S
 onready var tank_engine_sounds_field = $Panel/VBoxContainer/ScrollContainer/GridContainer/TankEngineSoundsOptions
 onready var full_screen_field = $Panel/VBoxContainer/ScrollContainer/GridContainer/FullScreenOptions
 onready var screenshake_field := $Panel/VBoxContainer/ScrollContainer/GridContainer/ScreenshakeOptions
-onready var network_relay_field:= $Panel/VBoxContainer/ScrollContainer/GridContainer/NetworkRelayOptions
+onready var network_relay_field := $Panel/VBoxContainer/ScrollContainer/GridContainer/NetworkRelayOptions
+onready var control_scheme_field := $Panel/VBoxContainer/ScrollContainer/GridContainer/ControlScheme
 onready var gamepad_device_field = $Panel/VBoxContainer/ScrollContainer/GridContainer/GamepadDeviceOptions
 
 var _is_ready := false
@@ -27,6 +28,10 @@ func _ready() -> void:
 	screenshake_field.add_item("Disabled", false)
 	screenshake_field.add_item("Enabled", true)
 	screenshake_field.set_value(GameSettings.use_screenshake, false)
+	
+	control_scheme_field.add_item("Modern", GameSettings.ControlScheme.MODERN)
+	control_scheme_field.add_item("Retro", GameSettings.ControlScheme.RETRO)
+	control_scheme_field.set_value(GameSettings.control_scheme, false)
 	
 	network_relay_field.add_item("Disabled", OnlineMatch.NetworkRelay.DISABLED)
 	network_relay_field.add_item("Auto", OnlineMatch.NetworkRelay.AUTO)
@@ -80,6 +85,9 @@ func _on_ScreenshakeOptions_item_selected(value, _index) -> void:
 func _on_NetworkRelayOptions_item_selected(value, _index) -> void:
 	GameSettings.use_network_relay = value
 
+func _on_ControlScheme_item_selected(value, _index) -> void:
+	GameSettings.control_scheme = value
+
 func _on_GamepadDeviceOptions_item_selected(value, _index) -> void:
 	GameSettings.joy_id = value
 
@@ -102,3 +110,4 @@ func _unhandled_input(event: InputEvent) -> void:
 	if visible and event.is_action_pressed('ui_accept'):
 		get_tree().set_input_as_handled()
 		_on_DoneButton_pressed()
+

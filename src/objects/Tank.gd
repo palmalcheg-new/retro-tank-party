@@ -1,71 +1,129 @@
-extends KinematicBody2D
+extends "res://src/objects/tank/BaseTank.gd"
 
-var Bullet = preload("res://src/objects/Bullet.tscn")
-var Explosion = preload("res://src/objects/Explosion.tscn")
+const BaseWeaponType = preload("res://mods/core/weapons/base.tres")
+const Explosion = preload("res://src/objects/Explosion.tscn")
+const EventDispatcher = preload("res://src/utils/EventDispatcher.gd")
 
 export (bool) var player_controlled = false
-export (String) var input_prefix := "player1_"
 
 signal player_dead (killer_id)
+signal shoot ()
+signal hurt (damage, attacker_id, attack_vector)
+signal weapon_type_changed (weapon_type)
+signal ability_type_changed (ability_type)
+signal ability_recharged (ability)
 
-onready var body_sprite := $BodySprite
-onready var turret_sprite := $TurretPivot/TurretSprite
-onready var turret_pivot := $TurretPivot
+onready var player_info_node := $PlayerInfo
+onready var player_info_offset: Vector2 = player_info_node.position
 
+onready var shoot_cooldown_timer := $ShootCooldownTimer
 onready var animation_player := $AnimationPlayer
 onready var shoot_sound := $ShootSound
 onready var engine_sound := $EngineSound
 
-var turn_speed := 5
-var speed := 400
-var velocity: Vector2
+const DEFAULT_TURN_SPEED := 5
+const DEFAULT_SPEED := 400
 
-var info_offset: Vector2
-var health_bar_max: int
+var turn_speed := DEFAULT_TURN_SPEED
+var speed := DEFAULT_SPEED
+var velocity: Vector2
+var desired_rotation: float
 
 var health := 100
 var dead := false
+var invincible := false
 
 var shooting := false
 var can_shoot := true
 var shoot_rumble := 0.025
-
+var using_ability := false
 var mouse_control := true
 
+var hooks := EventDispatcher.new()
+
+var game
 var camera: Camera2D = null
 
-var bullet_type: int = Constants.BulletType.NORMAL
+var weapon_type: WeaponType
+var weapon
+var ability_type: AbilityType
+var ability
+var last_ability
 
-const TANK_COLORS = {
-	1: {
-		body_sprite_region = Rect2( 434, 0, 84, 83 ),
-		turret_sprite_region = Rect2( 722, 199, 24, 60 ),
-	},
-	2: {
-		body_sprite_region = Rect2( 436, 308, 84, 80 ),
-		turret_sprite_region = Rect2( 744, 684, 24, 60 ),
-	},
-	3: {
-		body_sprite_region = Rect2( 520, 268, 76, 80 ),
-		turret_sprite_region = Rect2( 724, 452, 24, 60 ),
-	},
-	4: {
-		body_sprite_region = Rect2( 436, 692, 84, 80 ),
-		turret_sprite_region = Rect2( 724, 512, 24, 60 ),
-	},
-}
-var player_index: int setget set_player_index
+var player_index: int
+
+class TankEvent extends EventDispatcher.Event:
+	var tank
+	
+	func _init(_tank) -> void:
+		tank = _tank
+
+class PickupWeaponEvent extends TankEvent:
+	var weapon_type: WeaponType
+	
+	func _init(_tank, _weapon_type: WeaponType).(_tank) -> void:
+		weapon_type = _weapon_type
+
+class PickupAbilityEvent extends TankEvent:
+	var ability_type: AbilityType
+	
+	func _init(_tank, _ability_type: AbilityType).(_tank) -> void:
+		ability_type = _ability_type
+
+class TakeDamageEvent extends TankEvent:
+	var damage: int
+	var attacker_id: int
+	var attack_vector: Vector2
+	
+	func _init(_tank, _damage: int, _attacker_id: int, _attack_vector: Vector2).(_tank) -> void:
+		damage = _damage
+		attacker_id = _attacker_id
+		attack_vector = _attack_vector
+
+class RestoreHealthEvent extends TankEvent:
+	var health: int
+	
+	func _init(_tank, _health: int).(_tank) -> void:
+		health = _health
+
+class DieEvent extends TankEvent:
+	var killer_id: int
+	
+	func _init(_tank, _killer_id: int).(_tank) -> void:
+		killer_id = _killer_id
+
+class InputVectorEvent extends TankEvent:
+	var input_vector: Vector2
+	
+	func _init(_tank, _input_vector: Vector2).(_tank) -> void:
+		input_vector = _input_vector
+
+class NetworkSyncEvent extends TankEvent:
+	var data: Dictionary
+	
+	func _init(_tank, _data: Dictionary).(_tank) -> void:
+		data = _data
 
 func _ready():
-	info_offset = $Info.position
-	$Info.set_as_toplevel(true)
-	$Info.position = global_position + info_offset
+	hooks.subscribe("pickup_ability", self, "_hook_default_pickup_ability", 0)
+	hooks.subscribe("pickup_weapon", self, "_hook_default_pickup_weapon", 0)
+	hooks.subscribe("shoot", self, "_hook_default_shoot", 0)
+	hooks.subscribe("use_ability", self, "_hook_default_use_ability", 0)
+	hooks.subscribe("take_damage", self, "_hook_default_take_damage", 0)
+	hooks.subscribe("restore_health", self, "_hook_default_restore_health", 0)
+	hooks.subscribe("die", self, "_hook_default_die", 0)
+	hooks.subscribe("get_input_vector", self, "_hook_default_get_input_vector", 0)
+	hooks.subscribe("send_remote_update", self, "_hook_default_send_remote_update", 0)
+	hooks.subscribe("receive_remote_update", self, "_hook_default_receive_remote_update", 0)
 	
-	health_bar_max = $Info/Health.rect_size.x
+	player_info_node.set_as_toplevel(true)
+	player_info_node.position = global_position + player_info_offset
 	
 	var sprite_material = body_sprite.material.duplicate()
 	body_sprite.material = sprite_material
 	turret_sprite.material = sprite_material
+	
+	set_weapon_type(BaseWeaponType)
 	
 	# If testing tank on its own, make player controlled
 	if get_tree().current_scene == self:
@@ -74,24 +132,167 @@ func _ready():
 	if player_controlled:
 		Globals.my_player_position = global_position
 
-func set_player_index(_player_index: int) -> void:
-	player_index = _player_index
-	body_sprite.region_rect = TANK_COLORS[player_index]['body_sprite_region']
-	turret_sprite.region_rect = TANK_COLORS[player_index]['turret_sprite_region']
+func _notification(what) -> void:
+	if what == NOTIFICATION_PREDELETE:
+		hooks.clear()
+
+func setup_tank(_game, player) -> void:
+	game = _game
+	
+	player_index = player.index
+	set_network_master(player.peer_id)
+	player_info_node.set_player_name(player.name)
+	set_tank_color(player_index)
+	
+	if player.team != -1:
+		player_info_node.set_team(player.team)
+
+func pickup_weapon(_weapon_type: WeaponType) -> void:
+	hooks.dispatch_event("pickup_weapon", PickupWeaponEvent.new(self, _weapon_type))
+
+func _hook_default_pickup_weapon(event: PickupWeaponEvent) -> void:
+	set_weapon_type(event.weapon_type)
+
+func set_weapon_type(_weapon_type: WeaponType) -> void:
+	if _weapon_type == null:
+		_weapon_type = BaseWeaponType
+	
+	if weapon_type != _weapon_type:
+		weapon_type = _weapon_type
+		
+		if weapon:
+			weapon.detach_weapon()
+		
+		weapon = weapon_type.weapon_script.new()
+		weapon.setup_weapon(self, weapon_type)
+		weapon.attach_weapon()
+		
+		if game and player_controlled:
+			if weapon_type.resource_path == "res://mods/core/weapons/base.tres":
+				game.hud.clear_weapon_label()
+			else:
+				game.hud.set_weapon_label(weapon_type.name)
+		
+		emit_signal("weapon_type_changed", weapon_type)
+
+func pickup_ability(_ability_type: AbilityType) -> void:
+	hooks.dispatch_event("pickup_ability", PickupAbilityEvent.new(self, _ability_type))
+
+func _hook_default_pickup_ability(event: PickupAbilityEvent) -> void:
+	set_ability_type(event.ability_type)
+
+func set_ability_type(_ability_type: AbilityType) -> void:
+	# If the last ability is still in effect, and we just picked up the same
+	# ability, then we reinstate that ability.
+	if last_ability and is_instance_valid(last_ability) and is_a_parent_of(last_ability) and last_ability.ability_type == _ability_type:
+		var tmp = ability
+		ability_type = last_ability.ability_type
+		ability = last_ability
+		last_ability = tmp
+	
+	if ability_type == _ability_type and _ability_type != null:
+		if ability and player_controlled:
+			ability.recharge_ability()
+			_update_ability_label()
+			emit_signal("ability_recharged", ability)
+	else:
+		if ability:
+			ability.mark_finished()
+		
+		ability_type = _ability_type
+		if ability_type != null:
+			ability = ability_type.ability_scene.instance()
+			ability.connect("finished", self, "_on_ability_finished", [ability])
+			add_child(ability)
+			ability.setup_ability(self, ability_type)
+			ability.attach_ability()
+		else:
+			ability = null
+		
+		_update_ability_label()
+		emit_signal("ability_type_changed", ability_type)
+
+func _update_ability_label() -> void:
+	if game and player_controlled:
+		if ability_type:
+			game.hud.set_ability_label(ability_type.name, ability.charges)
+		else:
+			game.hud.clear_ability_label()
+
+func _on_ability_finished(old_ability) -> void:
+	old_ability.disconnect("finished", self, "_on_ability_finished")
+	
+	old_ability.detach_ability()
+	remove_child(old_ability)
+	old_ability.queue_free()
+	
+	# If this is the current ability, then clear it out.
+	if old_ability == ability:
+		ability = null
+		ability_type = null
+		_update_ability_label()
+	# If this is the last ability, then clear it out.
+	elif old_ability == last_ability:
+		last_ability = null
 
 func _get_input_vector() -> Vector2:
-	var input: Vector2
+	var event = InputVectorEvent.new(self, Vector2.ZERO)
+	hooks.dispatch_event("get_input_vector", event)
+	return event.input_vector
+
+func _hook_default_get_input_vector(event: InputVectorEvent) -> void:
+	var input_vector: Vector2
 	
-	if Input.is_action_pressed(input_prefix + "turn_left"):
-		input.y -= min(Input.get_action_strength(input_prefix + "turn_left") + 0.5, 1.0)
-	if Input.is_action_pressed(input_prefix + "turn_right"):
-		input.y = min(Input.get_action_strength(input_prefix + "turn_right") + 0.5, 1.0)
-	if Input.is_action_pressed(input_prefix + "backward"):
-		input.x -= min(Input.get_action_strength(input_prefix + "backward") + 0.5, 1.0)
-	if Input.is_action_pressed(input_prefix + "forward"):
-		input.x += min(Input.get_action_strength(input_prefix + "forward") + 0.5, 1.0)
+	if GameSettings.control_scheme == GameSettings.ControlScheme.RETRO:
+		if Input.is_action_pressed("player1_turn_left"):
+			input_vector.y -= min(Input.get_action_strength("player1_turn_left") + 0.5, 1.0)
+		if Input.is_action_pressed("player1_turn_right"):
+			input_vector.y = min(Input.get_action_strength("player1_turn_right") + 0.5, 1.0)
+		if Input.is_action_pressed("player1_backward"):
+			input_vector.x -= min(Input.get_action_strength("player1_backward") + 0.5, 1.0)
+		if Input.is_action_pressed("player1_forward"):
+			input_vector.x += min(Input.get_action_strength("player1_forward") + 0.5, 1.0)
+	else:
+		var current_vector = Vector2.RIGHT.rotated(rotation)
+		var desired_vector = Vector2(
+			Input.get_action_strength("player1_turn_right") - Input.get_action_strength("player1_turn_left"),
+			Input.get_action_strength("player1_backward") - Input.get_action_strength("player1_forward")).clamped(1.0)
+		if desired_vector == Vector2.ZERO:
+			event.input_vector = Vector2.ZERO
+			return
+		if desired_vector.length() > 0.85:
+			desired_vector = desired_vector.normalized()
+		
+		# If going backwards is a shorter rotation, move backwards.
+		if abs(current_vector.angle_to(desired_vector)) > PI / 2.0:
+			# Flip the vector for the angle calculations.
+			current_vector = current_vector.rotated(PI)
+			
+			# Set us moving backwards ...
+			input_vector.x = -desired_vector.length()
+		else:
+			# ... or forwards
+			input_vector.x = desired_vector.length()
+		
+		# Normalize the angle to the desired vector
+		var angle_to = current_vector.angle_to(desired_vector)
+		if abs(angle_to) > PI / 2.0:
+			angle_to = TAU - angle_to
+		
+		# Rotate in the direction closest to the desired angle. Give a little
+		# leeway so that we aren't bouncing between left and right.
+		var angle_to_degrees = rad2deg(angle_to)
+		if angle_to_degrees < -2.0:
+			input_vector.y = -1.0
+		elif angle_to_degrees > 2.0:
+			input_vector.y = 1.0
+		else:
+			input_vector.y = 0
+		
+		# Store the desired rotation, so we can snap to it.
+		desired_rotation = desired_vector.angle()
 	
-	return input
+	event.input_vector = input_vector
 
 func _physics_process(delta: float) -> void:
 	if player_controlled:
@@ -104,6 +305,12 @@ func _physics_process(delta: float) -> void:
 			engine_sound.turning = true
 		
 		rotation += input_vector.y * turn_speed * delta
+		
+		if GameSettings.control_scheme == GameSettings.ControlScheme.MODERN:
+			# If our rotation is really close to the desired rotation, just
+			# snap to it.
+			if rad2deg(abs(desired_rotation - rotation)) < 3:
+				rotation = desired_rotation
 		
 		velocity = Vector2()
 		velocity.x = input_vector.x
@@ -118,88 +325,128 @@ func _physics_process(delta: float) -> void:
 			engine_sound.engine_state = engine_sound.EngineState.IDLE
 		
 		if mouse_control:
-			$TurretPivot.look_at(get_global_mouse_position())
+			turret_pivot.look_at(get_global_mouse_position())
 		else:
-			if Input.is_action_pressed(input_prefix + "aim_up") or Input.is_action_pressed(input_prefix + "aim_down") or Input.is_action_pressed(input_prefix + "aim_left") or Input.is_action_pressed(input_prefix + "aim_right"):
+			if Input.is_action_pressed("player1_aim_up") or Input.is_action_pressed("player1_aim_down") or Input.is_action_pressed("player1_aim_left") or Input.is_action_pressed("player1_aim_right"):
 				var joy_vector = Vector2()
-				joy_vector.x = Input.get_action_strength(input_prefix + "aim_right") - Input.get_action_strength(input_prefix + "aim_left")
-				joy_vector.y = Input.get_action_strength(input_prefix + "aim_down") - Input.get_action_strength(input_prefix + "aim_up")
-				$TurretPivot.global_rotation = joy_vector.angle()
+				joy_vector.x = Input.get_action_strength("player1_aim_right") - Input.get_action_strength("player1_aim_left")
+				joy_vector.y = Input.get_action_strength("player1_aim_down") - Input.get_action_strength("player1_aim_up")
+				turret_pivot.global_rotation = joy_vector.angle()
 			else:
-				$TurretPivot.rotation = 0
+				turret_pivot.rotation = 0
 		
 		# Make info follow the tank
-		$Info.position = global_position + info_offset
+		player_info_node.position = global_position + player_info_offset
 		
 		if shooting:
 			can_shoot = false
-			$ShootCooldownTimer.start()
+			shoot_cooldown_timer.start()
 			shoot()
 			Globals.rumble.add_weak_rumble(shoot_rumble)
+		
+		if using_ability:
+			use_ability()
 		
 		if camera:
 			camera.global_position = global_position
 		
-		rpc("update_remote_player", rotation, position, $TurretPivot.rotation, shooting, bullet_type)
+		var sync_event = NetworkSyncEvent.new(self, {})
+		hooks.dispatch_event('send_remote_update', sync_event)
+		rpc("_receive_remote_update", sync_event.data)
 		
 		shooting = false
+		using_ability = false
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		mouse_control = true
 	if event is InputEventJoypadButton or event is InputEventJoypadMotion:
 		mouse_control = false
-	if event.is_action_pressed(input_prefix + "shoot") and can_shoot:
+	if event.is_action_pressed("player1_shoot") and can_shoot:
 		shooting = true
+	if event.is_action_pressed("player1_use_ability"):
+		using_ability = true
 
-puppet func update_remote_player(player_rotation: float, player_position: Vector2, turret_rotation: float, shooting: bool, _bullet_type: int) -> void:
-	rotation = player_rotation
-	position = player_position
-	$TurretPivot.rotation = turret_rotation
-	$Info.position = global_position + info_offset
-	bullet_type = _bullet_type
-	if shooting:
+puppet func _receive_remote_update(data: Dictionary) -> void:
+	var sync_event = NetworkSyncEvent.new(self, data)
+	hooks.dispatch_event("receive_remote_update", sync_event)
+
+func _hook_default_send_remote_update(event: NetworkSyncEvent) -> void:
+	var data = event.data
+	data['rotation'] = rotation
+	data['position'] = position
+	data['turret_rotation'] = turret_pivot.rotation
+	data['visible'] = visible
+	data['shooting'] = shooting
+	data['weapon_type_path'] = weapon_type.resource_path
+	data['using_ability'] = using_ability
+	data['ability_type_path'] = ability_type.resource_path if ability_type else null
+
+func _hook_default_receive_remote_update(event: NetworkSyncEvent) -> void:
+	var data = event.data
+	if data.has('rotation'):
+		rotation = data['rotation']
+	if data.has('position'):
+		position = data['position']
+		player_info_node.position = global_position + player_info_offset
+	if data.has('turret_rotation'):
+		turret_pivot.rotation = data['turret_rotation']
+	if data.has('visible'):
+		visible = data['visible']
+		player_info_node.visible = visible
+	if data.has('weapon_type_path'):
+		if weapon_type.resource_path != data['weapon_type_path']:
+			set_weapon_type(load(data['weapon_type_path']))
+	if data.get('shooting', false):
 		shoot()
+	if data.has('ability_type_path'):
+		if data['ability_type_path']:
+			if ability_type == null or ability_type.resource_path != data['ability_type_path']:
+				set_ability_type(load(data['ability_type_path']))
+		else:
+			set_ability_type(null)
+	if data.get('using_ability', false):
+		use_ability()
 
-func shoot():
+func shoot() -> void:
+	hooks.dispatch_event("shoot", TankEvent.new(self))
+
+func _hook_default_shoot(event: TankEvent) -> void:
 	if not get_parent():
 		return
 	
+	emit_signal("shoot")
 	shoot_sound.play()
+	weapon.fire_weapon()
+
+func use_ability() -> void:
+	hooks.dispatch_event("use_ability", TankEvent.new(self))
+
+func _hook_default_use_ability(event: TankEvent):
+	if not get_parent():
+		return
 	
-	match bullet_type:
-		Constants.BulletType.NORMAL:
-			_create_bullet()
-		
-		Constants.BulletType.SPREAD:
-			var original_rotation = $TurretPivot.rotation
-			$TurretPivot.rotate(deg2rad(-5))
-			for i in range(3):
-				_create_bullet()
-				$TurretPivot.rotate(deg2rad(5))
-			$TurretPivot.rotation = original_rotation
-		
-		Constants.BulletType.TARGET:
-			var target = null
-			for raycast in $TurretPivot/BulletStartPosition.get_children():
-				raycast.force_raycast_update()
-				if raycast.is_colliding():
-					target = raycast.get_collider()
-					break
-			_create_bullet(target)
-
-func _create_bullet(target = null):
-	var bullet = Bullet.instance()
-	get_parent().add_child(bullet)
-	bullet.setup(get_network_master(), player_index, $TurretPivot/BulletStartPosition.global_position, $TurretPivot.global_rotation, target)
-
-func set_player_name(_name: String) -> void:
-	$Info/PlayerName.text = _name
+	if ability:
+		# If the last ability is still in effect, then we immediately stop it.
+		if last_ability and is_instance_valid(last_ability) and is_a_parent_of(last_ability):
+			_on_ability_finished(last_ability)
+			
+		ability.use_ability()
+		if ability.charges <= 0:
+			last_ability = ability
+			set_ability_type(null)
+		else:
+			_update_ability_label()
 	
 func _on_ShootCooldownTimer_timeout() -> void:
 	can_shoot = true
 
-func take_damage(damage: int, attacker_id: int = -1) -> void:
+func take_damage(damage: int, attacker_id: int = -1, attack_vector: Vector2 = Vector2.ZERO) -> void:
+	hooks.dispatch_event("take_damage", TakeDamageEvent.new(self, damage, attacker_id, attack_vector))
+
+func _hook_default_take_damage(event: TakeDamageEvent) -> void:
+	if dead:
+		return
 	if player_controlled:
 		if GameSettings.use_screenshake and camera:
 			# Between 0.25 and 0.5 seems good
@@ -208,27 +455,34 @@ func take_damage(damage: int, attacker_id: int = -1) -> void:
 		Globals.rumble.add_rumble(0.25)
 	
 	animation_player.play("Flash")
-	if is_network_master():
-		health -= damage
+	
+	emit_signal("hurt", event.damage, event.attacker_id, event.attack_vector)
+	
+	if is_network_master() and not invincible:
+		health -= event.damage
 		if health <= 0:
-			rpc("die", attacker_id)
+			rpc("die", event.attacker_id)
 		else:
 			rpc("update_health", health)
 
 func restore_health(_health: int) -> void:
+	hooks.dispatch_event("restore_health", RestoreHealthEvent.new(self, _health))
+
+func _hook_default_restore_health(event: RestoreHealthEvent) -> void:
 	if is_network_master():
-		health += _health
+		health += event.health
 		if health > 100:
 			health = 100
 		rpc("update_health", health)
 
-func set_bullet_type(_bullet_type: int) -> void:
-	bullet_type = _bullet_type
-
 remotesync func update_health(_health) -> void:
-	$Info/Health.rect_size.x = (float(_health) / 100) * health_bar_max
+	health = clamp(_health, 0, 100)
+	player_info_node.update_health(health)
 
 remotesync func die(killer_id: int = -1) -> void:
+	hooks.dispatch_event("die", DieEvent.new(self, killer_id))
+
+func _hook_default_die(event: DieEvent) -> void:
 	if not dead:
 		dead = true
 		
@@ -238,4 +492,4 @@ remotesync func die(killer_id: int = -1) -> void:
 		
 		queue_free()
 		
-		emit_signal("player_dead", killer_id)
+		emit_signal("player_dead", event.killer_id)

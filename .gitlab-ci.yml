@@ -1,4 +1,4 @@
-image: barichello/godot-ci:3.2.3
+image: barichello/godot-ci:3.3.2
 
 variables:
   EXPORT_NAME: retro-tank-party
@@ -184,10 +184,10 @@ windows-steam:
     - rm webrtc_debug/webrtc_debug.gdnlib
 
     # Get the GodotSteam export templates.
-    - wget "https://github.com/Gramps/GodotSteam/releases/download/g3-s150-gs381/windows-323-64bit.zip" -O ./build/templates/templates.zip
+    - wget "https://www.dropbox.com/s/thuz1r1wu4l1jr4/windows-332-64bit.zip?dl=1" -O ./build/templates/templates.zip
     - (cd ./build/templates && unzip templates.zip)
-    - ./scripts/update-export-setting.py export_presets.cfg preset.4.options custom_template/debug "\"$PWD/build/templates/windows-323-template-64bit.exe\""
-    - ./scripts/update-export-setting.py export_presets.cfg preset.4.options custom_template/release "\"$PWD/build/templates/windows-323-template-64bit.exe\""
+    - ./scripts/update-export-setting.py export_presets.cfg preset.4.options custom_template/debug "\"$PWD/build/templates/windows-332-template-64bit.exe\""
+    - ./scripts/update-export-setting.py export_presets.cfg preset.4.options custom_template/release "\"$PWD/build/templates/windows-332-template-64bit.exe\""
 
     # Export!
     - mkdir -v -p build/windows-steam
@@ -235,10 +235,10 @@ linux-steam:
     - rm webrtc_debug/webrtc_debug.gdnlib
 
     # Get the GodotSteam export templates.
-    - wget "https://github.com/Gramps/GodotSteam/releases/download/g3-s150-gs381/linux-323-64bit.tar.gz" -O ./build/templates/templates.tgz
+    - wget "https://www.dropbox.com/s/sl3kfbrxugmvmxd/linux-332-64bit.tar.gz?dl=1" -O ./build/templates/templates.tgz
     - (cd ./build/templates && tar -xzvf templates.tgz)
-    - ./scripts/update-export-setting.py export_presets.cfg preset.5.options custom_template/debug "\"$PWD/build/templates/linux-323-template-64bit\""
-    - ./scripts/update-export-setting.py export_presets.cfg preset.5.options custom_template/release "\"$PWD/build/templates/linux-323-template-64bit\""
+    - ./scripts/update-export-setting.py export_presets.cfg preset.5.options custom_template/debug "\"$PWD/build/templates/linux-332-template-64bit\""
+    - ./scripts/update-export-setting.py export_presets.cfg preset.5.options custom_template/release "\"$PWD/build/templates/linux-332-template-64bit\""
 
     # Export!
     - mkdir -v -p build/linux-steam
@@ -264,9 +264,10 @@ macosx-steam:
     - rm webrtc_debug/webrtc_debug.gdnlib
 
     # Get the GodotSteam export templates.
-    - wget "https://www.dropbox.com/s/aoov2jqap1iptql/osx_template-issue-168.zip?dl=1" -O ./build/templates/templates.zip
-    - ./scripts/update-export-setting.py export_presets.cfg preset.6.options custom_template/debug "\"$PWD/build/templates/templates.zip\""
-    - ./scripts/update-export-setting.py export_presets.cfg preset.6.options custom_template/release "\"$PWD/build/templates/templates.zip\""
+    - wget "https://www.dropbox.com/s/v59jzylu4dutsld/macos-332-x86_64.zip?dl=1" -O ./build/templates/templates.zip
+    - (cd ./build/templates && unzip templates.zip)
+    - ./scripts/update-export-setting.py export_presets.cfg preset.6.options custom_template/debug "\"$PWD/build/templates/osx.zip\""
+    - ./scripts/update-export-setting.py export_presets.cfg preset.6.options custom_template/release "\"$PWD/build/templates/osx.zip\""
 
     # Export!
     - mkdir -v -p build/macosx-steam
@@ -277,7 +278,8 @@ macosx-steam:
     - >
       APP_PATH=$(find ./build/macosx-steam/ -name \*.app -print -quit);
       APP_NAME=$(basename "$APP_PATH");
-      ./scripts/download-steam-redistributables.sh osx/libsteam_api.dylib "./build/macosx-steam/$APP_NAME/Contents/MacOS/"
+      ./scripts/download-steam-redistributables.sh osx/libsteam_api.dylib "./build/macosx-steam/$APP_NAME/Contents/MacOS/";
+      rm -f "./build/macosx-steam/$APP_NAME/Contents/MacOS/steam_appid.txt";
   artifacts:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
@@ -332,7 +334,7 @@ steam:
         steam-*)
           sed -i -e "s/STEAM_BRANCH/${CI_COMMIT_REF_NAME:6}/" scripts/steam/app_build_1568570.vdf;
           ;;
-        steam)
+        steam|master)
           sed -i -e "s/STEAM_BRANCH/beta/" scripts/steam/app_build_1568570.vdf;
           ;;
       esac;

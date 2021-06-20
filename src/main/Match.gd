@@ -96,9 +96,24 @@ func _on_OnlineMatch_disconnected():
 	#_on_OnlineMatch_error("Disconnected from host")
 	_on_OnlineMatch_error('')
 
+# Removes player from their team (if teams are enabled) and returns false if 
+# the team still no longer has enough players; otherwise it returns true.
+func _remove_from_team(peer_id) -> bool:
+	if match_info['config'].get('teams', false):
+		var teams = match_info['teams']
+		for team in teams:
+			if peer_id in team:
+				team.erase(peer_id)
+				if team.size() == 0:
+					return false
+	return true
+
 func _on_OnlineMatch_player_left(player) -> void:
-	game.kill_player(player.peer_id)
-	if OnlineMatch.players.size() < 2:
+	# Call deferred so we can still access the player on the players array
+	# in all the other signal handlers.
+	game.call_deferred("remove_player", player.peer_id)
+	
+	if not _remove_from_team(player.peer_id) or OnlineMatch.players.size() < 2:
 		_on_OnlineMatch_error(player.username + " has left - not enough players!")
 	else:
 		ui_layer.show_message(player.username + " has left")

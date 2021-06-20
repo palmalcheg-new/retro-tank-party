@@ -21,6 +21,7 @@ visible = false
 
 [node name="ReadyScreen" parent="UILayer/Screens" index="2" instance=ExtResource( 5 )]
 visible = false
+
 [connection signal="back_button" from="UILayer" to="." method="_on_UILayer_back_button"]
 [connection signal="ready_pressed" from="UILayer/Screens/ReadyScreen" to="." method="_on_ReadyScreen_ready_pressed"]
 

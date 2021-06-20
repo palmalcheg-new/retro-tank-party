@@ -1,0 +1,72 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/ui/ScoreHUD.gd" type="Script" id=2]
+[ext_resource path="res://src/ui/EntityScore.tscn" type="PackedScene" id=4]
+
+[node name="ScoreHUD" type="HBoxContainer"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -90.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 0, 100 )
+mouse_filter = 2
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Entity1" type="Control" parent="."]
+margin_right = 317.0
+margin_bottom = 100.0
+mouse_filter = 2
+size_flags_horizontal = 3
+
+[node name="EntityScore" parent="Entity1" instance=ExtResource( 4 )]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -100.0
+margin_right = 100.0
+margin_bottom = 90.0
+
+[node name="Entity2" type="Control" parent="."]
+margin_left = 321.0
+margin_right = 638.0
+margin_bottom = 100.0
+mouse_filter = 2
+size_flags_horizontal = 3
+
+[node name="EntityScore" parent="Entity2" instance=ExtResource( 4 )]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -100.0
+margin_right = 100.0
+margin_bottom = 90.0
+
+[node name="Entity3" type="Control" parent="."]
+margin_left = 642.0
+margin_right = 959.0
+margin_bottom = 100.0
+mouse_filter = 2
+size_flags_horizontal = 3
+
+[node name="EntityScore" parent="Entity3" instance=ExtResource( 4 )]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -100.0
+margin_right = 100.0
+margin_bottom = 90.0
+
+[node name="Entity4" type="Control" parent="."]
+margin_left = 963.0
+margin_right = 1280.0
+margin_bottom = 100.0
+mouse_filter = 2
+size_flags_horizontal = 3
+
+[node name="EntityScore" parent="Entity4" instance=ExtResource( 4 )]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -100.0
+margin_right = 100.0
+margin_bottom = 90.0

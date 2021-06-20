@@ -33,7 +33,7 @@ func change_mode(mode: MatchMode) -> void:
 	description_label.text = mode.description
 	
 	if mode.config_scene:
-		current_config = mode.instance_config_scene()
+		current_config = mode.config_scene.instance()
 		config_parent.add_child(current_config)
 		current_config.connect("changed", self, "_on_config_changed")
 	else:
@@ -48,7 +48,11 @@ func _on_ModeSwitcher_item_selected(value, index) -> void:
 	send_remote_update()
 
 func _on_NextButton_pressed() -> void:
-	ui_layer.rpc("show_screen", "MapScreen")
+	var config = get_config_values()
+	if config.get('teams', false):
+		ui_layer.show_screen("TeamScreen")
+	else:
+		ui_layer.show_screen("MapScreen")
 
 func _unhandled_input(event: InputEvent) -> void:
 	if visible and event.is_action_pressed('ui_accept'):
@@ -70,13 +74,13 @@ func get_mode() -> MatchMode:
 	return match_modes[mode_field.value]
 
 func get_mode_manager_scene_path() -> String:
-	return get_mode().manager_scene
+	return get_mode().manager_scene.resource_path
 
-func set_mode_manager_scene_path(manager_scene: String) -> void:
+func set_mode_manager_scene_path(manager_scene_path: String) -> void:
 	var mode: MatchMode
 	for resource_path in match_modes:
 		mode = match_modes[resource_path]
-		if mode.manager_scene == manager_scene: 
+		if mode.manager_scene.resource_path == manager_scene_path: 
 			mode_field.value = resource_path
 			break
 
