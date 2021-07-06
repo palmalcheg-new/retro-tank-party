@@ -27,6 +27,11 @@ func _show_screen(_info: Dictionary = {}) -> void:
 	matchmaker_player_count_control.value = 2
 	join_match_id_control.text = ''
 	option_switcher.focus.grab_without_sound()
+	
+	if Globals.arguments.has('join'):
+		# @todo Handle other values.
+		if Globals.arguments['join'] == 'matchmaker':
+			_on_match_button_pressed(OnlineMatch.MatchMode.MATCHMAKER)
 
 func _on_OptionSwitcher_item_selected(value, index) -> void:
 	var panel = panel_parent.get_node(value)

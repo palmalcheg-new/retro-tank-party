@@ -105,6 +105,11 @@ func _on_OnlineMatch_player_status_changed(player, status) -> void:
 
 func _on_OnlineMatch_match_ready(_players: Dictionary) -> void:
 	set_ready_button_enabled(true)
+	
+	# Automatically click ready button during debugging.
+	if Globals.arguments.has('join'):
+		yield(get_tree().create_timer(0.5), 'timeout')
+		_on_ReadyButton_pressed()
 
 func _on_OnlineMatch_match_not_ready() -> void:
 	set_ready_button_enabled(false)

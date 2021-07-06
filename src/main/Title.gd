@@ -3,6 +3,10 @@ extends Node2D
 onready var ui_layer = $UILayer
 
 func _ready() -> void:
+	if Globals.arguments.has('join'):
+		get_tree().change_scene("res://src/main/SessionSetup.tscn")
+		return
+	
 	if not Globals.title_shown:
 		ui_layer.show_screen("StartScreen")
 		Globals.title_shown = true
