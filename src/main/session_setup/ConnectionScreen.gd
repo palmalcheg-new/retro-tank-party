@@ -75,7 +75,7 @@ func _set_credentials(_email: String, _password: String) -> void:
 func _load_credentials(file: File) -> void:
 	var result := JSON.parse(file.get_as_text())
 	if result.result is Dictionary:
-		_set_credentials(result['email'], result['password'])
+		_set_credentials(result.result['email'], result.result['password'])
 	file.close()
 
 func _save_credentials() -> void:
