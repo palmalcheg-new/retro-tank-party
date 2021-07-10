@@ -227,8 +227,8 @@ enabled=PoolStringArray( "res://addons/multirun/plugin.cfg" )
 
 [gdnative]
 
-singletons=[ "res://webrtc/webrtc.gdnlib", "res://webrtc_debug/webrtc_debug.gdnlib" ]
-singletons_disabled=[ "res://webrtc_debug/webrtc_debug.gdnlib" ]
+singletons=[ "res://webrtc/webrtc.tres", "res://webrtc_debug/webrtc_debug.tres" ]
+singletons_disabled=[  ]
 
 [input]
 

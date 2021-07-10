@@ -1,7 +1,7 @@
 /build/
 /.import/
 *.swp
-/webrtc_debug/
-/webrtc/
+/webrtc_debug/lib/
+/webrtc/lib/
 /steam_appid.txt
 /steam_build_output/
