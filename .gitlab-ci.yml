@@ -28,7 +28,7 @@ windows:
     - ./scripts/download-webrtc-plugin.sh windows release
 
     # Delete the debug version of the plugin.
-    - rm webrtc_debug/webrtc_debug.gdnlib
+    - rm -rf webrtc_debug/
 
     # Export!
     - mkdir -v -p build/windows
@@ -69,7 +69,7 @@ linux:
     - ./scripts/download-webrtc-plugin.sh linux release
 
     # Delete the debug version of the plugin.
-    - rm webrtc_debug/webrtc_debug.gdnlib
+    - rm -rf webrtc_debug/
 
     # Export!
     - mkdir -v -p build/linux
@@ -90,7 +90,7 @@ macosx:
     - ./scripts/download-webrtc-plugin.sh macosx release
 
     # Delete the debug version of the plugin.
-    - rm webrtc_debug/webrtc_debug.gdnlib
+    - rm -rf webrtc_debug/
 
     # Export!
     - mkdir -v -p build/macosx
@@ -181,7 +181,7 @@ windows-steam:
     - ./scripts/download-webrtc-plugin.sh windows release
 
     # Delete the debug version of the plugin.
-    - rm webrtc_debug/webrtc_debug.gdnlib
+    - rm -rf webrtc_debug/
 
     # Get the GodotSteam export templates.
     - wget "https://www.dropbox.com/s/thuz1r1wu4l1jr4/windows-332-64bit.zip?dl=1" -O ./build/templates/templates.zip
@@ -232,7 +232,7 @@ linux-steam:
     - ./scripts/download-webrtc-plugin.sh linux release
 
     # Delete the debug version of the plugin.
-    - rm webrtc_debug/webrtc_debug.gdnlib
+    - rm -rf webrtc_debug/
 
     # Get the GodotSteam export templates.
     - wget "https://www.dropbox.com/s/sl3kfbrxugmvmxd/linux-332-64bit.tar.gz?dl=1" -O ./build/templates/templates.tgz
@@ -261,7 +261,7 @@ macosx-steam:
     - ./scripts/download-webrtc-plugin.sh macosx release
 
     # Delete the debug version of the plugin.
-    - rm webrtc_debug/webrtc_debug.gdnlib
+    - rm -rf webrtc_debug/
 
     # Get the GodotSteam export templates.
     - wget "https://www.dropbox.com/s/v59jzylu4dutsld/macos-332-x86_64.zip?dl=1" -O ./build/templates/templates.zip
