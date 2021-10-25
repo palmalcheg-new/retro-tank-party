@@ -325,7 +325,7 @@ steam:
     # Copy config and sentry files from the cache if they exist
     - >
       [ ! -d ./steam_cache ] && mkdir ./steam_cache;
-      cp ./steam_cache/cache.vdf /home/steam/Steam/config/ 2>/dev/null || echo "No cached config file";
+      cp ./steam_cache/config.vdf /home/steam/Steam/config/ 2>/dev/null || echo "No cached config file";
       cp ./steam_cache/ssfn* /home/steam/Steam/ 2>/dev/null || echo "No cached sentry file";
     
     # Update the build VDF with correct branch information.
