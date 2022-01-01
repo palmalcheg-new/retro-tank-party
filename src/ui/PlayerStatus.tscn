@@ -8,6 +8,7 @@ margin_right = 600.0
 margin_bottom = 48.0
 size_flags_vertical = 0
 theme = ExtResource( 2 )
+custom_constants/separation = 20
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -20,11 +21,20 @@ margin_bottom = 51.0
 rect_min_size = Vector2( 50, 50 )
 
 [node name="NameLabel" type="Label" parent="."]
-margin_left = 54.0
-margin_right = 284.0
+margin_left = 70.0
+margin_right = 176.0
 margin_bottom = 51.0
 size_flags_horizontal = 3
 text = "User"
+
+[node name="PingLabel" type="Label" parent="."]
+margin_left = 196.0
+margin_right = 268.0
+margin_bottom = 51.0
+text = "0ms"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="StatusLabel" type="Label" parent="."]
 margin_left = 288.0

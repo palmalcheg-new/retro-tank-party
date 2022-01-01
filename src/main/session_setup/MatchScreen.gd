@@ -59,30 +59,33 @@ func _on_match_button_pressed(mode) -> void:
 	
 	ui_layer.hide_message()
 	
-	# Ask Nakma for the ICE servers via RPC.
-	var ice_servers_result: NakamaAPI.ApiRpc = yield(Online.nakama_client.rpc_async(Online.nakama_session, 'get_ice_servers'), "completed")
-	if not ice_servers_result.is_exception():
-		var json_result = JSON.parse(ice_servers_result.payload)
-		if json_result.error == OK:
-			if json_result.result["success"]:
-				var ice_servers = json_result.result["response"]["ice_servers"]
-				for server in ice_servers:
-					# Set 'credentials' due to bug in WebRTC GDNative plugin.
-					if server.has('credential'):
-						server['credentials'] = server['credential']
-					# I'm not sure this is necessary, but we usually give 'urls'
-					# as an array.
-					if server.has('urls') and typeof(server['urls']) != TYPE_ARRAY:
-						server['urls'] = [ server['urls'] ]
-
-				print ("Using ICE server list from server")
-				OnlineMatch.ice_servers = ice_servers
-			else:
-				print ("Server error in RPC call get_ice_servers(): %s" % json_result.result)
-		else:
-			print ("Unable to parse JSON: %s" % ice_servers_result.payload)
+	if GameSettings.use_network_relay >= GameSettings.NetworkRelay.FALLBACK:
+		OnlineMatch.ice_servers = Build.fallback_ice_servers
 	else:
-		print ("Client error in RPC call get_ice_servers(): %s" % ice_servers_result.get_exception().message)
+		# Ask Nakma for the ICE servers via RPC.
+		var ice_servers_result: NakamaAPI.ApiRpc = yield(Online.nakama_client.rpc_async(Online.nakama_session, 'get_ice_servers'), "completed")
+		if not ice_servers_result.is_exception():
+			var json_result = JSON.parse(ice_servers_result.payload)
+			if json_result.error == OK:
+				if json_result.result["success"]:
+					var ice_servers = json_result.result["response"]["ice_servers"]
+					for server in ice_servers:
+						# Set 'credentials' due to bug in WebRTC GDNative plugin.
+						if server.has('credential'):
+							server['credentials'] = server['credential']
+						# I'm not sure this is necessary, but we usually give 'urls'
+						# as an array.
+						if server.has('urls') and typeof(server['urls']) != TYPE_ARRAY:
+							server['urls'] = [ server['urls'] ]
+
+					print ("Using ICE server list from server")
+					OnlineMatch.ice_servers = ice_servers + Build.fallback_ice_servers
+				else:
+					print ("Server error in RPC call get_ice_servers(): %s" % json_result.result)
+			else:
+				print ("Unable to parse JSON: %s" % ice_servers_result.payload)
+		else:
+			print ("Client error in RPC call get_ice_servers(): %s" % ice_servers_result.get_exception().message)
 	
 	# Call internal method to do actual work.
 	match mode:

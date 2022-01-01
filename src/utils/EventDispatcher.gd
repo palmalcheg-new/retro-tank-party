@@ -62,7 +62,7 @@ func dispatch_event(event_name: String, event: Event) -> void:
 	var invalid := []
 	var index = 0
 	
-	for listener in listeners[event_name]:
+	for listener in listeners[event_name].duplicate():
 		if not event.propagating:
 			return
 		if not listener.dispatch_event(event):

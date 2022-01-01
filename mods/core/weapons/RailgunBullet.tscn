@@ -4,7 +4,7 @@
 [ext_resource path="res://assets/white_pixel.png" type="Texture" id=2]
 [ext_resource path="res://mods/core/weapons/RailgunBullet.gd" type="Script" id=3]
 
-[sub_resource type="CircleShape2D" id=1]
+[sub_resource type="SGCircleShape2D" id=1]
 
 [sub_resource type="Shader" id=2]
 code = "shader_type canvas_item;
@@ -25,16 +25,17 @@ _data = [ Vector2( 0, 0.0727272 ), 0.0, 0.0, 0, 0, Vector2( 0.991837, 0.990909 )
 [node name="RailgunBullet" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
 
-[node name="LifetimeTimer" parent="." index="0"]
-wait_time = 0.25
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="1"]
+[node name="CollisionShape2D" type="SGCollisionShape2D" parent="." index="1"]
 position = Vector2( 10, 0 )
+fixed_position_x = 655360
 shape = SubResource( 1 )
 
-[node name="RayCast2D" type="RayCast2D" parent="." index="2"]
-cast_to = Vector2( 128, 0 )
+[node name="RayCast2D" type="SGRayCast2D" parent="." index="2"]
+position = Vector2( 1, 0 )
+fixed_position_x = 65536
 collision_mask = 3
+cast_to_x = 6116693
+cast_to_y = 0
 
 [node name="Line2D" type="Line2D" parent="." index="3"]
 material = SubResource( 3 )

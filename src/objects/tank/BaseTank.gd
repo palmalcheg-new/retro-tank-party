@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends SGKinematicBody2D
 
 const TANK_COLORS = {
 	1: {

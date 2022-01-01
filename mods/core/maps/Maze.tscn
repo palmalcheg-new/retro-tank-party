@@ -18,2994 +18,4635 @@ tile_data = PoolIntArray( -1, 1, 0, -65536, 0, 0, -65535, 1, 0, -65534, 0, 0, -6
 
 [node name="PlayerStartPositions" type="Node2D" parent="."]
 
-[node name="Player1" type="Position2D" parent="PlayerStartPositions"]
+[node name="Player1" type="SGFixedPosition2D" parent="PlayerStartPositions"]
 position = Vector2( 1881, 1503.01 )
-rotation = 0.643801
+rotation = 0.643799
+fixed_rotation = 42192
+fixed_position_x = 123273216
+fixed_position_y = 98501264
 
-[node name="Player2" type="Position2D" parent="PlayerStartPositions"]
+[node name="Player2" type="SGFixedPosition2D" parent="PlayerStartPositions"]
 position = Vector2( 2519, 1891.01 )
-rotation = -2.28443
+rotation = -2.28442
+fixed_rotation = -149712
+fixed_position_x = 165085184
+fixed_position_y = 123929232
 
-[node name="Player3" type="Position2D" parent="PlayerStartPositions"]
+[node name="Player3" type="SGFixedPosition2D" parent="PlayerStartPositions"]
 position = Vector2( 2431, 1317.01 )
 rotation = 2.21715
+fixed_rotation = 145303
+fixed_position_x = 159318016
+fixed_position_y = 86311568
 
-[node name="Player4" type="Position2D" parent="PlayerStartPositions"]
+[node name="Player4" type="SGFixedPosition2D" parent="PlayerStartPositions"]
 position = Vector2( 2007, 2055.01 )
-rotation = -0.922228
+rotation = -0.922226
+fixed_rotation = -60439
+fixed_position_x = 131530752
+fixed_position_y = 134677136
 
 [node name="Objects" type="Node2D" parent="."]
 
-[node name="NorthWall" type="Node2D" parent="Objects"]
-position = Vector2( 1882, 1329.01 )
+[node name="NorthWall" type="SGFixedNode2D" parent="Objects"]
+position = Vector2( 1882, 1329 )
+fixed_position_x = 123338752
+fixed_position_y = 87097344
 
 [node name="SandbagBiege154" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 1027, -213 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 67305472
+fixed_position_y = -13959168
 
 [node name="SandbagBiege155" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 1038, -156 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 68026368
+fixed_position_y = -10223616
 
 [node name="SandbagBiege156" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 1035, -95.9999 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 67829760
+fixed_position_y = -6291449
 
 [node name="SandbagBiege157" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 1037, -32.9999 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 67960832
+fixed_position_y = -2162681
 
 [node name="SandbagBiege159" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 379, -306 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 24838144
+fixed_position_y = -20054016
 
 [node name="SandbagBiege160" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 381, -243 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 24969216
+fixed_position_y = -15925248
 
 [node name="SandbagBiege142" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 387, -370 )
-rotation = -1.42291
+rotation = -1.4229
+fixed_rotation = -93251
+fixed_position_x = 25362432
+fixed_position_y = -24248320
 
 [node name="SandbagBiege143" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 382, -179 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 25034752
+fixed_position_y = -11730944
 
 [node name="SandbagBiege172" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 1424, -144 )
 rotation = -1.75319
+fixed_rotation = -114897
+fixed_position_x = 93323264
+fixed_position_y = -9437184
 
 [node name="SandbagBiege173" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 1426, -82 )
-rotation = -1.6509
+rotation = -1.65089
+fixed_rotation = -108193
+fixed_position_x = 93454336
+fixed_position_y = -5373952
 
 [node name="SandbagBiege144" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 387, -119 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 25362432
+fixed_position_y = -7798784
 
 [node name="SandbagBiege145" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 384, -55.9999 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 25165824
+fixed_position_y = -3670009
 
 [node name="SandbagBiege170" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 1028, -343 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 67371008
+fixed_position_y = -22478848
 
 [node name="SandbagBiege171" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 1029, -278 )
-rotation = -1.68119
+rotation = -1.68118
+fixed_rotation = -110178
+fixed_position_x = 67436544
+fixed_position_y = -18219008
 
 [node name="SandbagBiege134" parent="Objects/NorthWall" instance=ExtResource( 5 )]
-position = Vector2( 4, -1.00003 )
+position = Vector2( 4, -1.00002 )
+fixed_position_x = 262144
+fixed_position_y = -65537
 
 [node name="SandbagBiege135" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 240, -16 )
+fixed_position_x = 15728640
+fixed_position_y = -1048576
 
 [node name="SandbagBiege138" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 183, -13 )
+fixed_position_x = 11993088
+fixed_position_y = -851968
 
 [node name="SandbagBiege136" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 358, -18 )
-rotation = -0.315443
+rotation = -0.31543
+fixed_rotation = -20672
+fixed_position_x = 23461888
+fixed_position_y = -1179648
 
 [node name="SandbagBiege158" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 297, -13 )
-rotation = -0.03896
+rotation = -0.0389557
+fixed_rotation = -2553
+fixed_position_x = 19464192
+fixed_position_y = -851968
 
 [node name="SandbagBiege139" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 67, -13 )
+fixed_position_x = 4390912
+fixed_position_y = -851968
 
 [node name="SandbagBiege140" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 123, -13 )
-rotation = 0.165954
+rotation = 0.165939
+fixed_rotation = 10875
+fixed_position_x = 8060928
+fixed_position_y = -851968
 
 [node name="SandbagBiege141" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 601, -407 )
+fixed_position_x = 39387136
+fixed_position_y = -26673152
 
 [node name="SandbagBiege146" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 541, -420 )
+fixed_position_x = 35454976
+fixed_position_y = -27525120
 
 [node name="SandbagBiege147" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 484, -407 )
+fixed_position_x = 31719424
+fixed_position_y = -26673152
 
 [node name="SandbagBiege148" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 427, -402 )
+fixed_position_x = 27983872
+fixed_position_y = -26345472
 
 [node name="SandbagBiege149" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 1012, -400 )
-rotation = 0.402367
+rotation = 0.402359
+fixed_rotation = 26369
+fixed_position_x = 66322432
+fixed_position_y = -26214400
 
 [node name="SandbagBiege150" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 959, -418 )
+fixed_position_x = 62849024
+fixed_position_y = -27394048
 
 [node name="SandbagBiege151" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 902, -415 )
+fixed_position_x = 59113472
+fixed_position_y = -27197440
 
 [node name="SandbagBiege152" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 786, -415 )
+fixed_position_x = 51511296
+fixed_position_y = -27197440
 
 [node name="SandbagBiege153" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 842, -421 )
-rotation = -0.139493
+rotation = -0.139481
+fixed_rotation = -9141
+fixed_position_x = 55181312
+fixed_position_y = -27590656
 
 [node name="SandbagBiege161" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 1236, -18 )
+fixed_position_x = 81002496
+fixed_position_y = -1179648
 
 [node name="SandbagBiege176" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 1179, -15 )
+fixed_position_x = 77266944
+fixed_position_y = -983040
 
 [node name="SandbagBiege177" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 1129, -18 )
-rotation = -0.139493
+rotation = -0.139481
+fixed_rotation = -9141
+fixed_position_x = 73990144
+fixed_position_y = -1179648
 
 [node name="SandbagBiege166" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 1409, -270 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 92340224
+fixed_position_y = -17694720
 
 [node name="SandbagBiege167" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 1415, -207 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 92733440
+fixed_position_y = -13565952
 
 [node name="SandbagBiege168" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 1421, -330 )
-rotation = -1.46672
+rotation = -1.46671
+fixed_rotation = -96122
+fixed_position_x = 93126656
+fixed_position_y = -21626880
 
 [node name="SandbagBiege169" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 1435, -387 )
 rotation = -1.56409
+fixed_rotation = -102504
+fixed_position_x = 94044160
+fixed_position_y = -25362432
 
 [node name="SandbagBiege162" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 1081, -13.9999 )
+fixed_position_x = 70844416
+fixed_position_y = -917497
 
 [node name="SandbagBiege163" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 1284, -21 )
+fixed_position_x = 84148224
+fixed_position_y = -1376256
 
 [node name="SandbagBiege164" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 1349, -21 )
+fixed_position_x = 88408064
+fixed_position_y = -1376256
 
 [node name="SandbagBiege174" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 665, -411 )
+fixed_position_x = 43581440
+fixed_position_y = -26935296
 
 [node name="SandbagBiege175" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 730, -408 )
+fixed_position_x = 47841280
+fixed_position_y = -26738688
 
 [node name="SandbagBiege165" parent="Objects/NorthWall" instance=ExtResource( 5 )]
 position = Vector2( 1409, -27.0001 )
-rotation = -0.440652
+rotation = -0.440643
+fixed_rotation = -28878
+fixed_position_x = 92340224
+fixed_position_y = -1769478
 
-[node name="EastWall" type="Node2D" parent="Objects"]
-position = Vector2( 2574, 1322.01 )
-rotation = 1.59953
+[node name="EastWall" type="SGFixedNode2D" parent="Objects"]
+position = Vector2( 2574, 1322 )
+rotation = 1.59952
+fixed_rotation = 104826
+fixed_position_x = 168689664
+fixed_position_y = 86638592
 
 [node name="SandbagBiege154" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 1027, -213 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 67305472
+fixed_position_y = -13959168
 
 [node name="SandbagBiege155" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 1038, -156 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 68026368
+fixed_position_y = -10223616
 
 [node name="SandbagBiege156" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 1035, -95.9999 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 67829760
+fixed_position_y = -6291449
 
 [node name="SandbagBiege157" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 1037, -32.9999 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 67960832
+fixed_position_y = -2162681
 
 [node name="SandbagBiege159" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 379, -306 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 24838144
+fixed_position_y = -20054016
 
 [node name="SandbagBiege160" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 381, -243 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 24969216
+fixed_position_y = -15925248
 
 [node name="SandbagBiege142" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 387, -370 )
-rotation = -1.42291
+rotation = -1.4229
+fixed_rotation = -93251
+fixed_position_x = 25362432
+fixed_position_y = -24248320
 
 [node name="SandbagBiege143" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 382, -179 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 25034752
+fixed_position_y = -11730944
 
 [node name="SandbagBiege172" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 1424, -144 )
 rotation = -1.75319
+fixed_rotation = -114897
+fixed_position_x = 93323264
+fixed_position_y = -9437184
 
 [node name="SandbagBiege173" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 1426, -82 )
-rotation = -1.6509
+rotation = -1.65089
+fixed_rotation = -108193
+fixed_position_x = 93454336
+fixed_position_y = -5373952
 
 [node name="SandbagBiege144" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 387, -119 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 25362432
+fixed_position_y = -7798784
 
 [node name="SandbagBiege145" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 384, -55.9999 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 25165824
+fixed_position_y = -3670009
 
 [node name="SandbagBiege170" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 1028, -343 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 67371008
+fixed_position_y = -22478848
 
 [node name="SandbagBiege171" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 1029, -278 )
-rotation = -1.68119
+rotation = -1.68118
+fixed_rotation = -110178
+fixed_position_x = 67436544
+fixed_position_y = -18219008
 
 [node name="SandbagBiege134" parent="Objects/EastWall" instance=ExtResource( 5 )]
-position = Vector2( 4, -1.00003 )
+position = Vector2( 4, -1.00002 )
+fixed_position_x = 262144
+fixed_position_y = -65537
 
 [node name="SandbagBiege135" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 240, -16 )
+fixed_position_x = 15728640
+fixed_position_y = -1048576
 
 [node name="SandbagBiege138" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 183, -13 )
+fixed_position_x = 11993088
+fixed_position_y = -851968
 
 [node name="SandbagBiege136" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 358, -18 )
-rotation = -0.315443
+rotation = -0.31543
+fixed_rotation = -20672
+fixed_position_x = 23461888
+fixed_position_y = -1179648
 
 [node name="SandbagBiege158" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 297, -13 )
-rotation = -0.03896
+rotation = -0.0389557
+fixed_rotation = -2553
+fixed_position_x = 19464192
+fixed_position_y = -851968
 
 [node name="SandbagBiege139" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 67, -13 )
+fixed_position_x = 4390912
+fixed_position_y = -851968
 
 [node name="SandbagBiege140" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 123, -13 )
-rotation = 0.165954
+rotation = 0.165939
+fixed_rotation = 10875
+fixed_position_x = 8060928
+fixed_position_y = -851968
 
 [node name="SandbagBiege141" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 601, -407 )
+fixed_position_x = 39387136
+fixed_position_y = -26673152
 
 [node name="SandbagBiege146" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 541, -420 )
+fixed_position_x = 35454976
+fixed_position_y = -27525120
 
 [node name="SandbagBiege147" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 484, -407 )
+fixed_position_x = 31719424
+fixed_position_y = -26673152
 
 [node name="SandbagBiege148" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 427, -402 )
+fixed_position_x = 27983872
+fixed_position_y = -26345472
 
 [node name="SandbagBiege149" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 1012, -400 )
-rotation = 0.402367
+rotation = 0.402359
+fixed_rotation = 26369
+fixed_position_x = 66322432
+fixed_position_y = -26214400
 
 [node name="SandbagBiege150" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 959, -418 )
+fixed_position_x = 62849024
+fixed_position_y = -27394048
 
 [node name="SandbagBiege151" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 902, -415 )
+fixed_position_x = 59113472
+fixed_position_y = -27197440
 
 [node name="SandbagBiege152" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 786, -415 )
+fixed_position_x = 51511296
+fixed_position_y = -27197440
 
 [node name="SandbagBiege153" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 842, -421 )
-rotation = -0.139493
+rotation = -0.139481
+fixed_rotation = -9141
+fixed_position_x = 55181312
+fixed_position_y = -27590656
 
 [node name="SandbagBiege161" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 1236, -18 )
+fixed_position_x = 81002496
+fixed_position_y = -1179648
 
 [node name="SandbagBiege176" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 1179, -15 )
+fixed_position_x = 77266944
+fixed_position_y = -983040
 
 [node name="SandbagBiege177" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 1129, -18 )
-rotation = -0.139493
+rotation = -0.139481
+fixed_rotation = -9141
+fixed_position_x = 73990144
+fixed_position_y = -1179648
 
 [node name="SandbagBiege166" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 1409, -270 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 92340224
+fixed_position_y = -17694720
 
 [node name="SandbagBiege167" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 1415, -207 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 92733440
+fixed_position_y = -13565952
 
 [node name="SandbagBiege168" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 1421, -330 )
-rotation = -1.46672
+rotation = -1.46671
+fixed_rotation = -96122
+fixed_position_x = 93126656
+fixed_position_y = -21626880
 
 [node name="SandbagBiege169" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 1435, -387 )
 rotation = -1.56409
+fixed_rotation = -102504
+fixed_position_x = 94044160
+fixed_position_y = -25362432
 
 [node name="SandbagBiege162" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 1081, -13.9999 )
+fixed_position_x = 70844416
+fixed_position_y = -917497
 
 [node name="SandbagBiege163" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 1284, -21 )
+fixed_position_x = 84148224
+fixed_position_y = -1376256
 
 [node name="SandbagBiege164" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 1349, -21 )
+fixed_position_x = 88408064
+fixed_position_y = -1376256
 
 [node name="SandbagBiege174" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 665, -411 )
+fixed_position_x = 43581440
+fixed_position_y = -26935296
 
 [node name="SandbagBiege175" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 730, -408 )
+fixed_position_x = 47841280
+fixed_position_y = -26738688
 
 [node name="SandbagBiege165" parent="Objects/EastWall" instance=ExtResource( 5 )]
 position = Vector2( 1409, -27.0001 )
-rotation = -0.440652
+rotation = -0.440643
+fixed_rotation = -28878
+fixed_position_x = 92340224
+fixed_position_y = -1769478
 
-[node name="SouthWall" type="Node2D" parent="Objects"]
+[node name="SouthWall" type="SGFixedNode2D" parent="Objects"]
 position = Vector2( 2558, 2057 )
-rotation = 3.1604
+rotation = 3.16039
+fixed_rotation = 207119
+fixed_position_x = 167641088
+fixed_position_y = 134807552
 
 [node name="SandbagBiege154" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 1027, -213 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 67305472
+fixed_position_y = -13959168
 
 [node name="SandbagBiege155" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 1038, -156 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 68026368
+fixed_position_y = -10223616
 
 [node name="SandbagBiege156" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 1035, -95.9999 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 67829760
+fixed_position_y = -6291449
 
 [node name="SandbagBiege157" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 1037, -32.9999 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 67960832
+fixed_position_y = -2162681
 
 [node name="SandbagBiege159" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 379, -306 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 24838144
+fixed_position_y = -20054016
 
 [node name="SandbagBiege160" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 381, -243 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 24969216
+fixed_position_y = -15925248
 
 [node name="SandbagBiege142" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 387, -370 )
-rotation = -1.42291
+rotation = -1.4229
+fixed_rotation = -93251
+fixed_position_x = 25362432
+fixed_position_y = -24248320
 
 [node name="SandbagBiege143" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 382, -179 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 25034752
+fixed_position_y = -11730944
 
 [node name="SandbagBiege172" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 1424, -144 )
 rotation = -1.75319
+fixed_rotation = -114897
+fixed_position_x = 93323264
+fixed_position_y = -9437184
 
 [node name="SandbagBiege173" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 1426, -82 )
-rotation = -1.6509
+rotation = -1.65089
+fixed_rotation = -108193
+fixed_position_x = 93454336
+fixed_position_y = -5373952
 
 [node name="SandbagBiege144" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 387, -119 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 25362432
+fixed_position_y = -7798784
 
 [node name="SandbagBiege145" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 384, -55.9999 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 25165824
+fixed_position_y = -3670009
 
 [node name="SandbagBiege170" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 1028, -343 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 67371008
+fixed_position_y = -22478848
 
 [node name="SandbagBiege171" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 1029, -278 )
-rotation = -1.68119
+rotation = -1.68118
+fixed_rotation = -110178
+fixed_position_x = 67436544
+fixed_position_y = -18219008
 
 [node name="SandbagBiege134" parent="Objects/SouthWall" instance=ExtResource( 5 )]
-position = Vector2( 4, -1.00003 )
+position = Vector2( 4, -1.00002 )
+fixed_position_x = 262144
+fixed_position_y = -65537
 
 [node name="SandbagBiege135" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 240, -16 )
+fixed_position_x = 15728640
+fixed_position_y = -1048576
 
 [node name="SandbagBiege138" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 183, -13 )
+fixed_position_x = 11993088
+fixed_position_y = -851968
 
 [node name="SandbagBiege136" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 358, -18 )
-rotation = -0.315443
+rotation = -0.31543
+fixed_rotation = -20672
+fixed_position_x = 23461888
+fixed_position_y = -1179648
 
 [node name="SandbagBiege158" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 297, -13 )
-rotation = -0.03896
+rotation = -0.0389557
+fixed_rotation = -2553
+fixed_position_x = 19464192
+fixed_position_y = -851968
 
 [node name="SandbagBiege139" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 67, -13 )
+fixed_position_x = 4390912
+fixed_position_y = -851968
 
 [node name="SandbagBiege140" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 123, -13 )
-rotation = 0.165954
+rotation = 0.165939
+fixed_rotation = 10875
+fixed_position_x = 8060928
+fixed_position_y = -851968
 
 [node name="SandbagBiege141" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 601, -407 )
+fixed_position_x = 39387136
+fixed_position_y = -26673152
 
 [node name="SandbagBiege146" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 541, -420 )
+fixed_position_x = 35454976
+fixed_position_y = -27525120
 
 [node name="SandbagBiege147" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 484, -407 )
+fixed_position_x = 31719424
+fixed_position_y = -26673152
 
 [node name="SandbagBiege148" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 427, -402 )
+fixed_position_x = 27983872
+fixed_position_y = -26345472
 
 [node name="SandbagBiege149" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 1012, -400 )
-rotation = 0.402367
+rotation = 0.402359
+fixed_rotation = 26369
+fixed_position_x = 66322432
+fixed_position_y = -26214400
 
 [node name="SandbagBiege150" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 959, -418 )
+fixed_position_x = 62849024
+fixed_position_y = -27394048
 
 [node name="SandbagBiege151" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 902, -415 )
+fixed_position_x = 59113472
+fixed_position_y = -27197440
 
 [node name="SandbagBiege152" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 786, -415 )
+fixed_position_x = 51511296
+fixed_position_y = -27197440
 
 [node name="SandbagBiege153" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 842, -421 )
-rotation = -0.139493
+rotation = -0.139481
+fixed_rotation = -9141
+fixed_position_x = 55181312
+fixed_position_y = -27590656
 
 [node name="SandbagBiege161" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 1236, -18 )
+fixed_position_x = 81002496
+fixed_position_y = -1179648
 
 [node name="SandbagBiege176" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 1179, -15 )
+fixed_position_x = 77266944
+fixed_position_y = -983040
 
 [node name="SandbagBiege177" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 1129, -18 )
-rotation = -0.139493
+rotation = -0.139481
+fixed_rotation = -9141
+fixed_position_x = 73990144
+fixed_position_y = -1179648
 
 [node name="SandbagBiege166" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 1409, -270 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 92340224
+fixed_position_y = -17694720
 
 [node name="SandbagBiege167" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 1415, -207 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 92733440
+fixed_position_y = -13565952
 
 [node name="SandbagBiege168" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 1421, -330 )
-rotation = -1.46672
+rotation = -1.46671
+fixed_rotation = -96122
+fixed_position_x = 93126656
+fixed_position_y = -21626880
 
 [node name="SandbagBiege169" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 1435, -387 )
 rotation = -1.56409
+fixed_rotation = -102504
+fixed_position_x = 94044160
+fixed_position_y = -25362432
 
 [node name="SandbagBiege162" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 1081, -13.9999 )
+fixed_position_x = 70844416
+fixed_position_y = -917497
 
 [node name="SandbagBiege163" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 1284, -21 )
+fixed_position_x = 84148224
+fixed_position_y = -1376256
 
 [node name="SandbagBiege164" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 1349, -21 )
+fixed_position_x = 88408064
+fixed_position_y = -1376256
 
 [node name="SandbagBiege174" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 665, -411 )
+fixed_position_x = 43581440
+fixed_position_y = -26935296
 
 [node name="SandbagBiege175" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 730, -408 )
+fixed_position_x = 47841280
+fixed_position_y = -26738688
 
 [node name="SandbagBiege165" parent="Objects/SouthWall" instance=ExtResource( 5 )]
 position = Vector2( 1409, -27.0001 )
-rotation = -0.440652
+rotation = -0.440643
+fixed_rotation = -28878
+fixed_position_x = 92340224
+fixed_position_y = -1769478
 
-[node name="WestWall" type="Node2D" parent="Objects"]
-position = Vector2( 1838, 2056.01 )
-rotation = 4.73535
+[node name="WestWall" type="SGFixedNode2D" parent="Objects"]
+position = Vector2( 1838, 2056 )
+rotation = 4.73534
+fixed_rotation = 310335
+fixed_position_x = 120455168
+fixed_position_y = 134742016
 
 [node name="SandbagBiege154" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 1027, -213 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 67305472
+fixed_position_y = -13959168
 
 [node name="SandbagBiege155" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 1038, -156 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 68026368
+fixed_position_y = -10223616
 
 [node name="SandbagBiege156" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 1035, -95.9999 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 67829760
+fixed_position_y = -6291449
 
 [node name="SandbagBiege157" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 1037, -32.9999 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 67960832
+fixed_position_y = -2162681
 
 [node name="SandbagBiege159" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 379, -306 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 24838144
+fixed_position_y = -20054016
 
 [node name="SandbagBiege160" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 381, -243 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 24969216
+fixed_position_y = -15925248
 
 [node name="SandbagBiege142" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 387, -370 )
-rotation = -1.42291
+rotation = -1.4229
+fixed_rotation = -93251
+fixed_position_x = 25362432
+fixed_position_y = -24248320
 
 [node name="SandbagBiege143" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 382, -179 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 25034752
+fixed_position_y = -11730944
 
 [node name="SandbagBiege172" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 1424, -144 )
 rotation = -1.75319
+fixed_rotation = -114897
+fixed_position_x = 93323264
+fixed_position_y = -9437184
 
 [node name="SandbagBiege173" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 1426, -82 )
-rotation = -1.6509
+rotation = -1.65089
+fixed_rotation = -108193
+fixed_position_x = 93454336
+fixed_position_y = -5373952
 
 [node name="SandbagBiege144" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 387, -119 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 25362432
+fixed_position_y = -7798784
 
 [node name="SandbagBiege145" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 384, -55.9999 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 25165824
+fixed_position_y = -3670009
 
 [node name="SandbagBiege170" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 1028, -343 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 67371008
+fixed_position_y = -22478848
 
 [node name="SandbagBiege171" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 1029, -278 )
-rotation = -1.68119
+rotation = -1.68118
+fixed_rotation = -110178
+fixed_position_x = 67436544
+fixed_position_y = -18219008
 
 [node name="SandbagBiege134" parent="Objects/WestWall" instance=ExtResource( 5 )]
-position = Vector2( 4, -1.00003 )
+position = Vector2( 4, -1.00002 )
+fixed_position_x = 262144
+fixed_position_y = -65537
 
 [node name="SandbagBiege135" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 240, -16 )
+fixed_position_x = 15728640
+fixed_position_y = -1048576
 
 [node name="SandbagBiege138" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 183, -13 )
+fixed_position_x = 11993088
+fixed_position_y = -851968
 
 [node name="SandbagBiege136" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 358, -18 )
-rotation = -0.315443
+rotation = -0.31543
+fixed_rotation = -20672
+fixed_position_x = 23461888
+fixed_position_y = -1179648
 
 [node name="SandbagBiege158" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 297, -13 )
-rotation = -0.03896
+rotation = -0.0389557
+fixed_rotation = -2553
+fixed_position_x = 19464192
+fixed_position_y = -851968
 
 [node name="SandbagBiege139" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 67, -13 )
+fixed_position_x = 4390912
+fixed_position_y = -851968
 
 [node name="SandbagBiege140" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 123, -13 )
-rotation = 0.165954
+rotation = 0.165939
+fixed_rotation = 10875
+fixed_position_x = 8060928
+fixed_position_y = -851968
 
 [node name="SandbagBiege141" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 601, -407 )
+fixed_position_x = 39387136
+fixed_position_y = -26673152
 
 [node name="SandbagBiege146" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 541, -420 )
+fixed_position_x = 35454976
+fixed_position_y = -27525120
 
 [node name="SandbagBiege147" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 484, -407 )
+fixed_position_x = 31719424
+fixed_position_y = -26673152
 
 [node name="SandbagBiege148" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 427, -402 )
+fixed_position_x = 27983872
+fixed_position_y = -26345472
 
 [node name="SandbagBiege149" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 1012, -400 )
-rotation = 0.402367
+rotation = 0.402359
+fixed_rotation = 26369
+fixed_position_x = 66322432
+fixed_position_y = -26214400
 
 [node name="SandbagBiege150" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 959, -418 )
+fixed_position_x = 62849024
+fixed_position_y = -27394048
 
 [node name="SandbagBiege151" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 902, -415 )
+fixed_position_x = 59113472
+fixed_position_y = -27197440
 
 [node name="SandbagBiege152" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 786, -415 )
+fixed_position_x = 51511296
+fixed_position_y = -27197440
 
 [node name="SandbagBiege153" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 842, -421 )
-rotation = -0.139493
+rotation = -0.139481
+fixed_rotation = -9141
+fixed_position_x = 55181312
+fixed_position_y = -27590656
 
 [node name="SandbagBiege161" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 1236, -18 )
+fixed_position_x = 81002496
+fixed_position_y = -1179648
 
 [node name="SandbagBiege176" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 1179, -15 )
+fixed_position_x = 77266944
+fixed_position_y = -983040
 
 [node name="SandbagBiege177" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 1129, -18 )
-rotation = -0.139493
+rotation = -0.139481
+fixed_rotation = -9141
+fixed_position_x = 73990144
+fixed_position_y = -1179648
 
 [node name="SandbagBiege166" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 1409, -270 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 92340224
+fixed_position_y = -17694720
 
 [node name="SandbagBiege167" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 1415, -207 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 92733440
+fixed_position_y = -13565952
 
 [node name="SandbagBiege168" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 1421, -330 )
-rotation = -1.46672
+rotation = -1.46671
+fixed_rotation = -96122
+fixed_position_x = 93126656
+fixed_position_y = -21626880
 
 [node name="SandbagBiege169" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 1435, -387 )
 rotation = -1.56409
+fixed_rotation = -102504
+fixed_position_x = 94044160
+fixed_position_y = -25362432
 
 [node name="SandbagBiege162" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 1081, -13.9999 )
+fixed_position_x = 70844416
+fixed_position_y = -917497
 
 [node name="SandbagBiege163" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 1284, -21 )
+fixed_position_x = 84148224
+fixed_position_y = -1376256
 
 [node name="SandbagBiege164" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 1349, -21 )
+fixed_position_x = 88408064
+fixed_position_y = -1376256
 
 [node name="SandbagBiege174" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 665, -411 )
+fixed_position_x = 43581440
+fixed_position_y = -26935296
 
 [node name="SandbagBiege175" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 730, -408 )
+fixed_position_x = 47841280
+fixed_position_y = -26738688
 
 [node name="SandbagBiege165" parent="Objects/WestWall" instance=ExtResource( 5 )]
 position = Vector2( 1409, -27.0001 )
-rotation = -0.440652
+rotation = -0.440643
+fixed_rotation = -28878
+fixed_position_x = 92340224
+fixed_position_y = -1769478
 
-[node name="Border" type="Node2D" parent="Objects"]
+[node name="Border" type="SGFixedNode2D" parent="Objects"]
 position = Vector2( 376, 248 )
+fixed_position_x = 24641536
+fixed_position_y = 16252928
 
 [node name="TreeBig" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 575, 712 )
+fixed_position_x = 37683200
+fixed_position_y = 46661632
 tree_color = 1
 
 [node name="TreeBig2" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 546, 862 )
+fixed_position_x = 35782656
+fixed_position_y = 56492032
 tree_color = 1
 
 [node name="TreeBig3" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 581, 982 )
+fixed_position_x = 38076416
+fixed_position_y = 64356352
 tree_color = 1
 
 [node name="TreeBig4" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 528, 1180 )
+fixed_position_x = 34603008
+fixed_position_y = 77332480
 tree_color = 1
 
 [node name="TreeBig5" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 573, 1319 )
+fixed_position_x = 37552128
+fixed_position_y = 86441984
 tree_color = 1
 
 [node name="TreeBig6" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 418, 1300 )
+fixed_position_x = 27394048
+fixed_position_y = 85196800
 tree_color = 1
 
 [node name="TreeBig7" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 236, 1345 )
+fixed_position_x = 15466496
+fixed_position_y = 88145920
 tree_color = 1
 
 [node name="TreeBig8" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 172, 1523 )
+fixed_position_x = 11272192
+fixed_position_y = 99811328
 tree_color = 1
 
 [node name="TreeBig9" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 183, 1676 )
+fixed_position_x = 11993088
+fixed_position_y = 109838336
 tree_color = 1
 
 [node name="TreeBig10" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 212, 2984 )
+fixed_position_x = 13893632
+fixed_position_y = 195559424
 tree_color = 1
 
 [node name="TreeBig16" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 370, 3021 )
+fixed_position_x = 24248320
+fixed_position_y = 197984256
 tree_color = 1
 
 [node name="TreeBig17" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 576, 3000 )
+fixed_position_x = 37748736
+fixed_position_y = 196608000
 tree_color = 1
 
 [node name="TreeBig18" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 867, 3032 )
+fixed_position_x = 56819712
+fixed_position_y = 198705152
 tree_color = 1
 
 [node name="TreeBig19" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1078, 2971 )
+fixed_position_x = 70647808
+fixed_position_y = 194707456
 tree_color = 1
 
 [node name="TreeBig20" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1081, 2613 )
+fixed_position_x = 70844416
+fixed_position_y = 171245568
 tree_color = 1
 
 [node name="TreeBig21" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1724, 2632 )
+fixed_position_x = 112984064
+fixed_position_y = 172490752
 tree_color = 1
 
 [node name="TreeBig22" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1278, 2627 )
+fixed_position_x = 83755008
+fixed_position_y = 172163072
 tree_color = 1
 
 [node name="TreeBig23" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1604, 2611 )
+fixed_position_x = 105119744
+fixed_position_y = 171114496
 tree_color = 1
 
 [node name="TreeBig24" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1743, 2990 )
+fixed_position_x = 114229248
+fixed_position_y = 195952640
 tree_color = 1
 
 [node name="TreeBig25" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1714, 2835 )
+fixed_position_x = 112328704
+fixed_position_y = 185794560
 tree_color = 1
 
 [node name="TreeBig26" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1968, 2990 )
+fixed_position_x = 128974848
+fixed_position_y = 195952640
 tree_color = 1
 
 [node name="TreeBig27" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2147, 3030 )
+fixed_position_x = 140705792
+fixed_position_y = 198574080
 tree_color = 1
 
 [node name="TreeBig28" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2358, 2998 )
+fixed_position_x = 154533888
+fixed_position_y = 196476928
 tree_color = 1
 
 [node name="TreeBig29" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2662, 3027 )
+fixed_position_x = 174456832
+fixed_position_y = 198377472
 tree_color = 1
 
 [node name="TreeBig30" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2779, 2987 )
+fixed_position_x = 182124544
+fixed_position_y = 195756032
 tree_color = 1
 
 [node name="TreeBig31" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3054, 3024 )
+fixed_position_x = 200146944
+fixed_position_y = 198180864
 tree_color = 1
 
 [node name="TreeBig32" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3286, 3000 )
+fixed_position_x = 215351296
+fixed_position_y = 196608000
 tree_color = 1
 
 [node name="TreeBig33" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3494, 2989 )
+fixed_position_x = 228982784
+fixed_position_y = 195887104
 tree_color = 1
 
 [node name="TreeBig34" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3526, 2741 )
+fixed_position_x = 231079936
+fixed_position_y = 179634176
 tree_color = 1
 
 [node name="TreeBig35" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3507, 2557 )
+fixed_position_x = 229834752
+fixed_position_y = 167575552
 tree_color = 1
 
 [node name="TreeBig36" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3520, 2359 )
+fixed_position_x = 230686720
+fixed_position_y = 154599424
 tree_color = 1
 
 [node name="TreeBig37" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3512, 2124 )
+fixed_position_x = 230162432
+fixed_position_y = 139198464
 tree_color = 1
 
 [node name="TreeBig38" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3309, 2113 )
+fixed_position_x = 216858624
+fixed_position_y = 138477568
 tree_color = 1
 
 [node name="TreeBig39" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3125, 2129 )
+fixed_position_x = 204800000
+fixed_position_y = 139526144
 tree_color = 1
 
 [node name="TreeBig40" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3136, 1470 )
+fixed_position_x = 205520896
+fixed_position_y = 96337920
 tree_color = 1
 
 [node name="TreeBig41" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3136, 1676 )
+fixed_position_x = 205520896
+fixed_position_y = 109838336
 tree_color = 1
 
 [node name="TreeBig42" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3197, 1791 )
+fixed_position_x = 209518592
+fixed_position_y = 117374976
 tree_color = 1
 
 [node name="TreeBig43" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3205, 1946 )
+fixed_position_x = 210042880
+fixed_position_y = 127533056
 tree_color = 1
 
 [node name="TreeBig44" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3507, 1455 )
+fixed_position_x = 229834752
+fixed_position_y = 95354880
 tree_color = 1
 
 [node name="TreeBig45" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3349, 1455 )
+fixed_position_x = 219480064
+fixed_position_y = 95354880
 tree_color = 1
 
 [node name="TreeBig46" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3560, 1340 )
+fixed_position_x = 233308160
+fixed_position_y = 87818240
 tree_color = 1
 
 [node name="TreeBig47" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3525, 1164 )
+fixed_position_x = 231014400
+fixed_position_y = 76283904
 tree_color = 1
 
 [node name="TreeBig48" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3538, 956 )
+fixed_position_x = 231866368
+fixed_position_y = 62652416
 tree_color = 1
 
 [node name="TreeBig49" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3511, 742 )
+fixed_position_x = 230096896
+fixed_position_y = 48627712
 tree_color = 1
 
 [node name="TreeBig50" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3551, 478 )
+fixed_position_x = 232718336
+fixed_position_y = 31326208
 tree_color = 1
 
 [node name="TreeBig51" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3506, 363 )
+fixed_position_x = 229769216
+fixed_position_y = 23789568
 tree_color = 1
 
 [node name="TreeBig52" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3509, -179 )
+fixed_position_x = 229965824
+fixed_position_y = -11730944
 tree_color = 1
 
 [node name="TreeBig53" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2633, -171 )
+fixed_position_x = 172556288
+fixed_position_y = -11206656
 tree_color = 1
 
 [node name="TreeBig54" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2621, 181 )
+fixed_position_x = 171769856
+fixed_position_y = 11862016
 tree_color = 1
 
 [node name="TreeBig55" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1993, 185 )
+fixed_position_x = 130613248
+fixed_position_y = 12124160
 tree_color = 1
 
 [node name="TreeBig56" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1977, -179 )
+fixed_position_x = 129564672
+fixed_position_y = -11730944
 tree_color = 1
 
 [node name="TreeBig57" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 205, -179 )
+fixed_position_x = 13434880
+fixed_position_y = -11730944
 tree_color = 1
 
 [node name="TreeBig58" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 197, 697 )
+fixed_position_x = 12910592
+fixed_position_y = 45678592
 tree_color = 1
 
 [node name="TreeBig59" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 313, 689 )
+fixed_position_x = 20512768
+fixed_position_y = 45154304
 tree_color = 1
 
 [node name="TreeBig60" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 161, 501 )
+fixed_position_x = 10551296
+fixed_position_y = 32833536
 tree_color = 1
 
 [node name="TreeBig61" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 165, 329 )
+fixed_position_x = 10813440
+fixed_position_y = 21561344
 tree_color = 1
 
 [node name="TreeBig62" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 173, 57 )
+fixed_position_x = 11337728
+fixed_position_y = 3735552
 tree_color = 1
 
 [node name="TreeBig63" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 389, -210 )
+fixed_position_x = 25493504
+fixed_position_y = -13762560
 tree_color = 1
 
 [node name="TreeBig64" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 656, -185 )
+fixed_position_x = 42991616
+fixed_position_y = -12124160
 tree_color = 1
 
 [node name="TreeBig65" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 929, -210 )
+fixed_position_x = 60882944
+fixed_position_y = -13762560
 tree_color = 1
 
 [node name="TreeBig66" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1234, -254 )
+fixed_position_x = 80871424
+fixed_position_y = -16646144
 tree_color = 1
 
 [node name="TreeBig67" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1488, -203 )
+fixed_position_x = 97517568
+fixed_position_y = -13303808
 tree_color = 1
 
 [node name="TreeBig68" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1761, -235 )
+fixed_position_x = 115408896
+fixed_position_y = -15400960
 tree_color = 1
 
 [node name="TreeBig69" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2009, -64 )
+fixed_position_x = 131661824
+fixed_position_y = -4194304
 tree_color = 1
 
 [node name="TreeBig70" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2238, 165 )
+fixed_position_x = 146669568
+fixed_position_y = 10813440
 tree_color = 1
 
 [node name="TreeBig71" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2562, -13 )
+fixed_position_x = 167903232
+fixed_position_y = -851968
 tree_color = 1
 
 [node name="TreeBig72" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2848, -229 )
+fixed_position_x = 186646528
+fixed_position_y = -15007744
 tree_color = 1
 
 [node name="TreeBig73" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3140, -210 )
+fixed_position_x = 205783040
+fixed_position_y = -13762560
 tree_color = 1
 
 [node name="TreeBig74" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3553, -70 )
+fixed_position_x = 232849408
+fixed_position_y = -4587520
 tree_color = 1
 
 [node name="TreeBig75" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3515, 120 )
+fixed_position_x = 230359040
+fixed_position_y = 7864320
 tree_color = 1
 
 [node name="TreeBig76" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2518, 145 )
+fixed_position_x = 165019648
+fixed_position_y = 9502720
 tree_color = 1
 
 [node name="TreeBig77" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1127, 2805 )
+fixed_position_x = 73859072
+fixed_position_y = 183828480
 tree_color = 1
 
 [node name="TreeBig11" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 162, 2011 )
+fixed_position_x = 10616832
+fixed_position_y = 131792896
 tree_color = 1
 
 [node name="TreeBig12" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 180, 2136 )
+fixed_position_x = 11796480
+fixed_position_y = 139984896
 tree_color = 1
 
 [node name="TreeBig13" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 144, 2282 )
+fixed_position_x = 9437184
+fixed_position_y = 149553152
 tree_color = 1
 
 [node name="TreeBig14" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 162, 2507 )
+fixed_position_x = 10616832
+fixed_position_y = 164298752
 tree_color = 1
 
 [node name="TreeBig15" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 223, 2721 )
+fixed_position_x = 14614528
+fixed_position_y = 178323456
 tree_color = 1
 
 [node name="TreeSmall" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 599, 1094 )
+fixed_position_x = 39256064
+fixed_position_y = 71696384
 tree_color = 1
 
 [node name="TreeSmall14" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 481, 2978 )
+fixed_position_x = 31522816
+fixed_position_y = 195166208
 tree_color = 1
 
 [node name="TreeSmall15" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 693, 2977 )
+fixed_position_x = 45416448
+fixed_position_y = 195100672
 tree_color = 1
 
 [node name="TreeSmall16" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 753, 3022 )
+fixed_position_x = 49348608
+fixed_position_y = 198049792
 tree_color = 1
 
 [node name="TreeSmall17" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 793, 2944 )
+fixed_position_x = 51970048
+fixed_position_y = 192937984
 tree_color = 1
 
 [node name="TreeSmall18" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 954, 2972 )
+fixed_position_x = 62521344
+fixed_position_y = 194772992
 tree_color = 1
 
 [node name="TreeSmall19" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1012, 3055 )
+fixed_position_x = 66322432
+fixed_position_y = 200212480
 tree_color = 1
 
 [node name="TreeSmall20" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1130, 2886 )
+fixed_position_x = 74055680
+fixed_position_y = 189136896
 tree_color = 1
 
 [node name="TreeSmall21" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1090, 2710 )
+fixed_position_x = 71434240
+fixed_position_y = 177602560
 tree_color = 1
 
 [node name="TreeSmall22" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1052, 2758 )
+fixed_position_x = 68943872
+fixed_position_y = 180748288
 tree_color = 1
 
 [node name="TreeSmall23" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1178, 2607 )
+fixed_position_x = 77201408
+fixed_position_y = 170852352
 tree_color = 1
 
 [node name="TreeSmall24" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1405, 2610 )
+fixed_position_x = 92078080
+fixed_position_y = 171048960
 tree_color = 1
 
 [node name="TreeSmall25" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1405, 2610 )
+fixed_position_x = 92078080
+fixed_position_y = 171048960
 tree_color = 1
 
 [node name="TreeSmall26" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1463, 2577 )
+fixed_position_x = 95879168
+fixed_position_y = 168886272
 tree_color = 1
 
 [node name="TreeSmall27" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1463, 2637 )
+fixed_position_x = 95879168
+fixed_position_y = 172818432
 tree_color = 1
 
 [node name="TreeSmall28" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1750, 2738 )
+fixed_position_x = 114688000
+fixed_position_y = 179437568
 tree_color = 1
 
 [node name="TreeSmall29" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1876, 2960 )
+fixed_position_x = 122945536
+fixed_position_y = 193986560
 tree_color = 1
 
 [node name="TreeSmall30" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1841, 3015 )
+fixed_position_x = 120651776
+fixed_position_y = 197591040
 tree_color = 1
 
 [node name="TreeSmall31" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2239, 2975 )
+fixed_position_x = 146735104
+fixed_position_y = 194969600
 tree_color = 1
 
 [node name="TreeSmall32" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2478, 2970 )
+fixed_position_x = 162398208
+fixed_position_y = 194641920
 tree_color = 1
 
 [node name="TreeSmall33" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2538, 2947 )
+fixed_position_x = 166330368
+fixed_position_y = 193134592
 tree_color = 1
 
 [node name="TreeSmall34" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2533, 3005 )
+fixed_position_x = 166002688
+fixed_position_y = 196935680
 tree_color = 1
 
 [node name="TreeSmall35" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2465, 3053 )
+fixed_position_x = 161546240
+fixed_position_y = 200081408
 tree_color = 1
 
 [node name="TreeSmall36" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2911, 2990 )
+fixed_position_x = 190775296
+fixed_position_y = 195952640
 tree_color = 1
 
 [node name="TreeSmall37" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3143, 3030 )
+fixed_position_x = 205979648
+fixed_position_y = 198574080
 tree_color = 1
 
 [node name="TreeSmall38" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3193, 2982 )
+fixed_position_x = 209256448
+fixed_position_y = 195428352
 tree_color = 1
 
 [node name="TreeSmall39" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3369, 2990 )
+fixed_position_x = 220790784
+fixed_position_y = 195952640
 tree_color = 1
 
 [node name="TreeSmall40" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3508, 2884 )
+fixed_position_x = 229900288
+fixed_position_y = 189005824
 tree_color = 1
 
 [node name="TreeSmall41" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3563, 2864 )
+fixed_position_x = 233504768
+fixed_position_y = 187695104
 tree_color = 1
 
 [node name="TreeSmall42" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3477, 2640 )
+fixed_position_x = 227868672
+fixed_position_y = 173015040
 tree_color = 1
 
 [node name="TreeSmall43" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3492, 2443 )
+fixed_position_x = 228851712
+fixed_position_y = 160104448
 tree_color = 1
 
 [node name="TreeSmall44" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3542, 2473 )
+fixed_position_x = 232128512
+fixed_position_y = 162070528
 tree_color = 1
 
 [node name="TreeSmall45" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3502, 2224 )
+fixed_position_x = 229507072
+fixed_position_y = 145752064
 tree_color = 1
 
 [node name="TreeSmall46" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3537, 2272 )
+fixed_position_x = 231800832
+fixed_position_y = 148897792
 tree_color = 1
 
 [node name="TreeSmall47" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3144, 2020 )
+fixed_position_x = 206045184
+fixed_position_y = 132382720
 tree_color = 1
 
 [node name="TreeSmall48" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3396, 2136 )
+fixed_position_x = 222560256
+fixed_position_y = 139984896
 tree_color = 1
 
 [node name="TreeSmall49" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3414, 2050 )
+fixed_position_x = 223739904
+fixed_position_y = 134348800
 tree_color = 1
 
 [node name="TreeSmall50" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3225, 2078 )
+fixed_position_x = 211353600
+fixed_position_y = 136183808
 tree_color = 1
 
 [node name="TreeSmall51" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3096, 1884 )
+fixed_position_x = 202899456
+fixed_position_y = 123469824
 tree_color = 1
 
 [node name="TreeSmall52" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3116, 1829 )
+fixed_position_x = 204210176
+fixed_position_y = 119865344
 tree_color = 1
 
 [node name="TreeSmall53" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3156, 1587 )
+fixed_position_x = 206831616
+fixed_position_y = 104005632
 tree_color = 1
 
 [node name="TreeSmall54" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3222, 1461 )
+fixed_position_x = 211156992
+fixed_position_y = 95748096
 tree_color = 1
 
 [node name="TreeSmall55" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3270, 1494 )
+fixed_position_x = 214302720
+fixed_position_y = 97910784
 tree_color = 1
 
 [node name="TreeSmall56" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3499, 1267 )
+fixed_position_x = 229310464
+fixed_position_y = 83034112
 tree_color = 1
 
 [node name="TreeSmall57" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3428, 1421 )
+fixed_position_x = 224657408
+fixed_position_y = 93126656
 tree_color = 1
 
 [node name="TreeSmall58" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3524, 1083 )
+fixed_position_x = 230948864
+fixed_position_y = 70975488
 tree_color = 1
 
 [node name="TreeSmall59" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3547, 1035 )
+fixed_position_x = 232456192
+fixed_position_y = 67829760
 tree_color = 1
 
 [node name="TreeSmall60" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3502, 881 )
+fixed_position_x = 229507072
+fixed_position_y = 57737216
 tree_color = 1
 
 [node name="TreeSmall61" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3505, 631 )
+fixed_position_x = 229703680
+fixed_position_y = 41353216
 tree_color = 1
 
 [node name="TreeSmall62" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3550, 603 )
+fixed_position_x = 232652800
+fixed_position_y = 39518208
 tree_color = 1
 
 [node name="TreeSmall63" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3449, 600 )
+fixed_position_x = 226033664
+fixed_position_y = 39321600
 tree_color = 1
 
 [node name="TreeSmall64" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3479, 444 )
+fixed_position_x = 227999744
+fixed_position_y = 29097984
 tree_color = 1
 
 [node name="TreeSmall65" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3550, 288 )
+fixed_position_x = 232652800
+fixed_position_y = 18874368
 tree_color = 1
 
 [node name="TreeBig84" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 360, 1122 )
+fixed_position_x = 23592960
+fixed_position_y = 73531392
 tree_color = 1
 
 [node name="TreeBig85" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 315, 1007 )
+fixed_position_x = 20643840
+fixed_position_y = 65994752
 tree_color = 1
 
 [node name="TreeSmall114" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 314, 1275 )
+fixed_position_x = 20578304
+fixed_position_y = 83558400
 tree_color = 1
 
 [node name="TreeSmall115" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 359, 1247 )
+fixed_position_x = 23527424
+fixed_position_y = 81723392
 tree_color = 1
 
 [node name="TreeSmall116" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 258, 1244 )
+fixed_position_x = 16908288
+fixed_position_y = 81526784
 tree_color = 1
 
 [node name="TreeSmall117" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 288, 1088 )
+fixed_position_x = 18874368
+fixed_position_y = 71303168
 tree_color = 1
 
 [node name="TreeSmall118" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 359, 932 )
+fixed_position_x = 23527424
+fixed_position_y = 61079552
 tree_color = 1
 
 [node name="TreeBig86" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3538, 1838 )
+fixed_position_x = 231866368
+fixed_position_y = 120455168
 tree_color = 1
 
 [node name="TreeBig87" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3493, 1723 )
+fixed_position_x = 228917248
+fixed_position_y = 112918528
 tree_color = 1
 
 [node name="TreeSmall119" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3492, 1991 )
+fixed_position_x = 228851712
+fixed_position_y = 130482176
 tree_color = 1
 
 [node name="TreeSmall120" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3537, 1963 )
+fixed_position_x = 231800832
+fixed_position_y = 128647168
 tree_color = 1
 
 [node name="TreeSmall121" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3436, 1960 )
+fixed_position_x = 225181696
+fixed_position_y = 128450560
 tree_color = 1
 
 [node name="TreeSmall122" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3466, 1804 )
+fixed_position_x = 227147776
+fixed_position_y = 118226944
 tree_color = 1
 
 [node name="TreeSmall123" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3537, 1648 )
+fixed_position_x = 231800832
+fixed_position_y = 108003328
 tree_color = 1
 
 [node name="TreeBig88" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2237, -107 )
+fixed_position_x = 146604032
+fixed_position_y = -7012352
 tree_color = 1
 
 [node name="TreeBig89" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2192, -222 )
+fixed_position_x = 143654912
+fixed_position_y = -14548992
 tree_color = 1
 
 [node name="TreeSmall124" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2191, 46 )
+fixed_position_x = 143589376
+fixed_position_y = 3014656
 tree_color = 1
 
 [node name="TreeSmall125" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2236, 18 )
+fixed_position_x = 146538496
+fixed_position_y = 1179648
 tree_color = 1
 
 [node name="TreeSmall126" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2135, 15 )
+fixed_position_x = 139919360
+fixed_position_y = 983040
 tree_color = 1
 
 [node name="TreeSmall127" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2165, -141 )
+fixed_position_x = 141885440
+fixed_position_y = -9240576
 tree_color = 1
 
 [node name="TreeSmall128" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2236, -297 )
+fixed_position_x = 146538496
+fixed_position_y = -19464192
 tree_color = 1
 
 [node name="TreeBig90" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1486, 2915 )
+fixed_position_x = 97386496
+fixed_position_y = 191037440
 tree_color = 1
 
 [node name="TreeBig91" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1441, 2800 )
+fixed_position_x = 94437376
+fixed_position_y = 183500800
 tree_color = 1
 
 [node name="TreeSmall129" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1440, 3068 )
+fixed_position_x = 94371840
+fixed_position_y = 201064448
 tree_color = 1
 
 [node name="TreeSmall130" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1485, 3040 )
+fixed_position_x = 97320960
+fixed_position_y = 199229440
 tree_color = 1
 
 [node name="TreeSmall131" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1384, 3037 )
+fixed_position_x = 90701824
+fixed_position_y = 199032832
 tree_color = 1
 
 [node name="TreeSmall132" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1414, 2881 )
+fixed_position_x = 92667904
+fixed_position_y = 188809216
 tree_color = 1
 
 [node name="TreeSmall133" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1485, 2725 )
+fixed_position_x = 97320960
+fixed_position_y = 178585600
 tree_color = 1
 
 [node name="TreeSmall66" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3479, 235 )
+fixed_position_x = 227999744
+fixed_position_y = 15400960
 tree_color = 1
 
 [node name="TreeSmall67" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3484, -7 )
+fixed_position_x = 228327424
+fixed_position_y = -458752
 tree_color = 1
 
 [node name="TreeSmall68" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3542, 13 )
+fixed_position_x = 232128512
+fixed_position_y = 851968
 tree_color = 1
 
 [node name="TreeSmall69" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3434, -181 )
+fixed_position_x = 225050624
+fixed_position_y = -11862016
 tree_color = 1
 
 [node name="TreeSmall70" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3328, -151 )
+fixed_position_x = 218103808
+fixed_position_y = -9895936
 tree_color = 1
 
 [node name="TreeSmall71" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3280, -189 )
+fixed_position_x = 214958080
+fixed_position_y = -12386304
 tree_color = 1
 
 [node name="TreeSmall72" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3335, -212 )
+fixed_position_x = 218562560
+fixed_position_y = -13893632
 tree_color = 1
 
 [node name="TreeSmall73" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3063, -184 )
+fixed_position_x = 200736768
+fixed_position_y = -12058624
 tree_color = 1
 
 [node name="TreeSmall74" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2922, -280 )
+fixed_position_x = 191496192
+fixed_position_y = -18350080
 tree_color = 1
 
 [node name="TreeSmall134" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2494, -255 )
+fixed_position_x = 163446784
+fixed_position_y = -16711680
 tree_color = 1
 
 [node name="TreeSmall135" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2536, -221 )
+fixed_position_x = 166199296
+fixed_position_y = -14483456
 tree_color = 1
 
 [node name="TreeSmall136" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1142, -361 )
+fixed_position_x = 74842112
+fixed_position_y = -23658496
 tree_color = 1
 
 [node name="TreeSmall137" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 650, -369 )
+fixed_position_x = 42598400
+fixed_position_y = -24182784
 tree_color = 1
 
 [node name="TreeSmall138" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 391, -335 )
+fixed_position_x = 25624576
+fixed_position_y = -21954560
 tree_color = 1
 
 [node name="TreeSmall139" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 27, -115 )
+fixed_position_x = 1769472
+fixed_position_y = -7536640
 tree_color = 1
 
 [node name="TreeSmall140" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 35, -56 )
+fixed_position_x = 2293760
+fixed_position_y = -3670016
 tree_color = 1
 
 [node name="TreeSmall141" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -151, -204 )
+fixed_position_x = -9895936
+fixed_position_y = -13369344
 tree_color = 1
 
 [node name="TreeSmall142" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -278, 8 )
+fixed_position_x = -18219008
+fixed_position_y = 524288
 tree_color = 1
 
 [node name="TreeSmall143" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -316, -39 )
+fixed_position_x = -20709376
+fixed_position_y = -2555904
 tree_color = 1
 
 [node name="TreeSmall144" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -413, -132 )
+fixed_position_x = -27066368
+fixed_position_y = -8650752
 tree_color = 1
 
 [node name="TreeSmall145" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -290, 228 )
+fixed_position_x = -19005440
+fixed_position_y = 14942208
 tree_color = 1
 
 [node name="TreeSmall146" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -150, 169 )
+fixed_position_x = -9830400
+fixed_position_y = 11075584
 tree_color = 1
 
 [node name="TreeSmall147" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -6, 360 )
+fixed_position_x = -393216
+fixed_position_y = 23592960
 tree_color = 1
 
 [node name="TreeSmall148" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2, 292 )
+fixed_position_x = 131072
+fixed_position_y = 19136512
 tree_color = 1
 
 [node name="TreeSmall149" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -151, 419 )
+fixed_position_x = -9895936
+fixed_position_y = 27459584
 tree_color = 1
 
 [node name="TreeSmall150" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -426, 444 )
+fixed_position_x = -27918336
+fixed_position_y = 29097984
 tree_color = 1
 
 [node name="TreeSmall151" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -303, 622 )
+fixed_position_x = -19857408
+fixed_position_y = 40763392
 tree_color = 1
 
 [node name="TreeSmall152" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -239, 588 )
+fixed_position_x = -15663104
+fixed_position_y = 38535168
 tree_color = 1
 
 [node name="TreeSmall153" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -243, 639 )
+fixed_position_x = -15925248
+fixed_position_y = 41877504
 tree_color = 1
 
 [node name="TreeSmall154" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -48, 635 )
+fixed_position_x = -3145728
+fixed_position_y = 41615360
 tree_color = 1
 
 [node name="TreeSmall155" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -290, 826 )
+fixed_position_x = -19005440
+fixed_position_y = 54132736
 tree_color = 1
 
 [node name="TreeSmall156" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -53, 822 )
+fixed_position_x = -3473408
+fixed_position_y = 53870592
 tree_color = 1
 
 [node name="TreeSmall157" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 146, 847 )
+fixed_position_x = 9568256
+fixed_position_y = 55508992
 tree_color = 1
 
 [node name="TreeSmall158" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 125, 906 )
+fixed_position_x = 8192000
+fixed_position_y = 59375616
 tree_color = 1
 
 [node name="TreeSmall159" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 405, 851 )
+fixed_position_x = 26542080
+fixed_position_y = 55771136
 tree_color = 1
 
 [node name="TreeSmall160" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -2, 1050 )
+fixed_position_x = -131072
+fixed_position_y = 68812800
 tree_color = 1
 
 [node name="TreeSmall161" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 36, 1012 )
+fixed_position_x = 2359296
+fixed_position_y = 66322432
 tree_color = 1
 
 [node name="TreeSmall162" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -210, 1143 )
+fixed_position_x = -13762560
+fixed_position_y = 74907648
 tree_color = 1
 
 [node name="TreeSmall163" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -214, 961 )
+fixed_position_x = -14024704
+fixed_position_y = 62980096
 tree_color = 1
 
 [node name="TreeSmall164" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -460, 825 )
+fixed_position_x = -30146560
+fixed_position_y = 54067200
 tree_color = 1
 
 [node name="TreeSmall165" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -494, 876 )
+fixed_position_x = -32374784
+fixed_position_y = 57409536
 tree_color = 1
 
 [node name="TreeSmall166" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -354, 1075 )
+fixed_position_x = -23199744
+fixed_position_y = 70451200
 tree_color = 1
 
 [node name="TreeSmall167" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2083, -184 )
+fixed_position_x = 136511488
+fixed_position_y = -12058624
 tree_color = 1
 
 [node name="TreeSmall168" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2125, -341 )
+fixed_position_x = 139264000
+fixed_position_y = -22347776
 tree_color = 1
 
 [node name="TreeSmall169" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2231, -383 )
+fixed_position_x = 146210816
+fixed_position_y = -25100288
 tree_color = 1
 
 [node name="TreeSmall170" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -494, 1359 )
+fixed_position_x = -32374784
+fixed_position_y = 89063424
 tree_color = 1
 
 [node name="TreeSmall171" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -490, 1431 )
+fixed_position_x = -32112640
+fixed_position_y = 93782016
 tree_color = 1
 
 [node name="TreeSmall172" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -244, 1291 )
+fixed_position_x = -15990784
+fixed_position_y = 84606976
 tree_color = 1
 
 [node name="TreeSmall173" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -176, 1257 )
+fixed_position_x = -11534336
+fixed_position_y = 82378752
 tree_color = 1
 
 [node name="TreeSmall174" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 78, 1346 )
+fixed_position_x = 5111808
+fixed_position_y = 88211456
 tree_color = 1
 
 [node name="TreeSmall175" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 125, 1304 )
+fixed_position_x = 8192000
+fixed_position_y = 85458944
 tree_color = 1
 
 [node name="TreeSmall176" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 197, 1160 )
+fixed_position_x = 12910592
+fixed_position_y = 76021760
 tree_color = 1
 
 [node name="TreeSmall177" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -367, 1529 )
+fixed_position_x = -24051712
+fixed_position_y = 100204544
 tree_color = 1
 
 [node name="TreeSmall178" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -308, 1495 )
+fixed_position_x = -20185088
+fixed_position_y = 97976320
 tree_color = 1
 
 [node name="TreeSmall179" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -287, 1563 )
+fixed_position_x = -18808832
+fixed_position_y = 102432768
 tree_color = 1
 
 [node name="TreeSmall180" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -156, 1516 )
+fixed_position_x = -10223616
+fixed_position_y = 99352576
 tree_color = 1
 
 [node name="TreeSmall181" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -224, 1669 )
+fixed_position_x = -14680064
+fixed_position_y = 109379584
 tree_color = 1
 
 [node name="TreeSmall182" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -67, 1661 )
+fixed_position_x = -4390912
+fixed_position_y = 108855296
 tree_color = 1
 
 [node name="TreeSmall183" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -131, 1742 )
+fixed_position_x = -8585216
+fixed_position_y = 114163712
 tree_color = 1
 
 [node name="TreeSmall200" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -461, 2648 )
+fixed_position_x = -30212096
+fixed_position_y = 173539328
 tree_color = 1
 
 [node name="TreeSmall201" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -304, 2640 )
+fixed_position_x = -19922944
+fixed_position_y = 173015040
 tree_color = 1
 
 [node name="TreeSmall202" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -368, 2721 )
+fixed_position_x = -24117248
+fixed_position_y = 178323456
 tree_color = 1
 
 [node name="TreeSmall203" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -296, 3101 )
+fixed_position_x = -19398656
+fixed_position_y = 203227136
 tree_color = 1
 
 [node name="TreeSmall204" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -139, 3093 )
+fixed_position_x = -9109504
+fixed_position_y = 202702848
 tree_color = 1
 
 [node name="TreeSmall205" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -203, 3174 )
+fixed_position_x = -13303808
+fixed_position_y = 208011264
 tree_color = 1
 
 [node name="TreeSmall206" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 149, 3067 )
+fixed_position_x = 9764864
+fixed_position_y = 200998912
 tree_color = 1
 
 [node name="TreeSmall207" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 306, 3059 )
+fixed_position_x = 20054016
+fixed_position_y = 200474624
 tree_color = 1
 
 [node name="TreeSmall208" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 242, 3140 )
+fixed_position_x = 15859712
+fixed_position_y = 205783040
 tree_color = 1
 
 [node name="TreeSmall209" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1598, 3143 )
+fixed_position_x = 104726528
+fixed_position_y = 205979648
 tree_color = 1
 
 [node name="TreeSmall210" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1755, 3135 )
+fixed_position_x = 115015680
+fixed_position_y = 205455360
 tree_color = 1
 
 [node name="TreeSmall211" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1691, 3216 )
+fixed_position_x = 110821376
+fixed_position_y = 210763776
 tree_color = 1
 
 [node name="TreeSmall212" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2018, 3084 )
+fixed_position_x = 132251648
+fixed_position_y = 202113024
 tree_color = 1
 
 [node name="TreeSmall213" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2175, 3076 )
+fixed_position_x = 142540800
+fixed_position_y = 201588736
 tree_color = 1
 
 [node name="TreeSmall214" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2111, 3157 )
+fixed_position_x = 138346496
+fixed_position_y = 206897152
 tree_color = 1
 
 [node name="TreeSmall215" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2336, 3131 )
+fixed_position_x = 153092096
+fixed_position_y = 205193216
 tree_color = 1
 
 [node name="TreeSmall216" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2493, 3123 )
+fixed_position_x = 163381248
+fixed_position_y = 204668928
 tree_color = 1
 
 [node name="TreeSmall217" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2429, 3204 )
+fixed_position_x = 159186944
+fixed_position_y = 209977344
 tree_color = 1
 
 [node name="TreeSmall218" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2726, 3072 )
+fixed_position_x = 178651136
+fixed_position_y = 201326592
 tree_color = 1
 
 [node name="TreeSmall219" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2883, 3064 )
+fixed_position_x = 188940288
+fixed_position_y = 200802304
 tree_color = 1
 
 [node name="TreeSmall224" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -402, 3001 )
+fixed_position_x = -26345472
+fixed_position_y = 196673536
 tree_color = 1
 
 [node name="TreeSmall225" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 132, 2721 )
+fixed_position_x = 8650752
+fixed_position_y = 178323456
 tree_color = 1
 
 [node name="TreeSmall226" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -29, 2916 )
+fixed_position_x = -1900544
+fixed_position_y = 191102976
 tree_color = 1
 
 [node name="TreeSmall227" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 52, 2285 )
+fixed_position_x = 3407872
+fixed_position_y = 149749760
 tree_color = 1
 
 [node name="TreeSmall228" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -414, 1967 )
+fixed_position_x = -27131904
+fixed_position_y = 128909312
 tree_color = 1
 
 [node name="TreeSmall229" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -253, 2925 )
+fixed_position_x = -16580608
+fixed_position_y = 191692800
 tree_color = 1
 
 [node name="TreeSmall230" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2832, -338 )
+fixed_position_x = 185597952
+fixed_position_y = -22151168
 tree_color = 1
 
 [node name="TreeSmall231" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3141, -363 )
+fixed_position_x = 205848576
+fixed_position_y = -23789568
 tree_color = 1
 
 [node name="TreeSmall232" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3476, -363 )
+fixed_position_x = 227803136
+fixed_position_y = -23789568
 tree_color = 1
 
 [node name="TreeSmall220" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2819, 3145 )
+fixed_position_x = 184745984
+fixed_position_y = 206110720
 tree_color = 1
 
 [node name="TreeSmall221" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3162, 3123 )
+fixed_position_x = 207224832
+fixed_position_y = 204668928
 tree_color = 1
 
 [node name="TreeSmall222" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3319, 3115 )
+fixed_position_x = 217513984
+fixed_position_y = 204144640
 tree_color = 1
 
 [node name="TreeSmall223" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3255, 3196 )
+fixed_position_x = 213319680
+fixed_position_y = 209453056
 tree_color = 1
 
 [node name="TreeSmall184" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -84, 1789 )
+fixed_position_x = -5505024
+fixed_position_y = 117243904
 tree_color = 1
 
 [node name="TreeSmall185" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -266, 1895 )
+fixed_position_x = -17432576
+fixed_position_y = 124190720
 tree_color = 1
 
 [node name="TreeSmall186" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -266, 1895 )
+fixed_position_x = -17432576
+fixed_position_y = 124190720
 tree_color = 1
 
 [node name="TreeSmall187" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -228, 2094 )
+fixed_position_x = -14942208
+fixed_position_y = 137232384
 tree_color = 1
 
 [node name="TreeSmall195" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -335, 2149 )
+fixed_position_x = -21954560
+fixed_position_y = 140836864
 tree_color = 1
 
 [node name="TreeSmall196" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -288, 2196 )
+fixed_position_x = -18874368
+fixed_position_y = 143917056
 tree_color = 1
 
 [node name="TreeSmall197" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -470, 2302 )
+fixed_position_x = -30801920
+fixed_position_y = 150863872
 tree_color = 1
 
 [node name="TreeSmall198" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -470, 2302 )
+fixed_position_x = -30801920
+fixed_position_y = 150863872
 tree_color = 1
 
 [node name="TreeSmall199" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -432, 2501 )
+fixed_position_x = -28311552
+fixed_position_y = 163905536
 tree_color = 1
 
 [node name="TreeSmall188" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -177, 1988 )
+fixed_position_x = -11599872
+fixed_position_y = 130285568
 tree_color = 1
 
 [node name="TreeSmall189" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 14, 2158 )
+fixed_position_x = 917504
+fixed_position_y = 141426688
 tree_color = 1
 
 [node name="TreeSmall190" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -134, 2340 )
+fixed_position_x = -8781824
+fixed_position_y = 153354240
 tree_color = 1
 
 [node name="TreeSmall191" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -248, 2493 )
+fixed_position_x = -16252928
+fixed_position_y = 163381248
 tree_color = 1
 
 [node name="TreeSmall192" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -40, 2557 )
+fixed_position_x = -2621440
+fixed_position_y = 167575552
 tree_color = 1
 
 [node name="TreeSmall193" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -226, 2714 )
+fixed_position_x = -14811136
+fixed_position_y = 177864704
 tree_color = 1
 
 [node name="TreeSmall194" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( -175, 2756 )
+fixed_position_x = -11468800
+fixed_position_y = 180617216
 tree_color = 1
 
 [node name="TreeSmall75" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2925, -222 )
+fixed_position_x = 191692800
+fixed_position_y = -14548992
 tree_color = 1
 
 [node name="TreeSmall76" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2749, -179 )
+fixed_position_x = 180158464
+fixed_position_y = -11730944
 tree_color = 1
 
 [node name="TreeSmall77" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2595, 96 )
+fixed_position_x = 170065920
+fixed_position_y = 6291456
 tree_color = 1
 
 [node name="TreeSmall78" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2618, -80 )
+fixed_position_x = 171573248
+fixed_position_y = -5242880
 tree_color = 1
 
 [node name="TreeSmall79" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2671, 31 )
+fixed_position_x = 175046656
+fixed_position_y = 2031616
 tree_color = 1
 
 [node name="TreeSmall80" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2396, 157 )
+fixed_position_x = 157024256
+fixed_position_y = 10289152
 tree_color = 1
 
 [node name="TreeSmall81" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2351, 195 )
+fixed_position_x = 154075136
+fixed_position_y = 12779520
 tree_color = 1
 
 [node name="TreeSmall82" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2348, 145 )
+fixed_position_x = 153878528
+fixed_position_y = 9502720
 tree_color = 1
 
 [node name="TreeSmall83" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2159, 142 )
+fixed_position_x = 141492224
+fixed_position_y = 9306112
 tree_color = 1
 
 [node name="TreeSmall84" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2078, 213 )
+fixed_position_x = 136183808
+fixed_position_y = 13959168
 tree_color = 1
 
 [node name="TreeSmall85" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1985, 72 )
+fixed_position_x = 130088960
+fixed_position_y = 4718592
 tree_color = 1
 
 [node name="TreeSmall86" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2030, 32 )
+fixed_position_x = 133038080
+fixed_position_y = 2097152
 tree_color = 1
 
 [node name="TreeSmall87" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1901, -149 )
+fixed_position_x = 124583936
+fixed_position_y = -9764864
 tree_color = 1
 
 [node name="TreeSmall312" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1838.7, -196.194 )
+fixed_position_x = 120501040
+fixed_position_y = -12857770
 tree_color = 1
 
 [node name="TreeSmall88" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1666.55, -209.959 )
+fixed_position_x = 109219024
+fixed_position_y = -13759873
 tree_color = 1
 
 [node name="TreeSmall89" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1606, -180 )
+fixed_position_x = 105250816
+fixed_position_y = -11796480
 tree_color = 1
 
 [node name="TreeSmall90" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1283, -175 )
+fixed_position_x = 84082688
+fixed_position_y = -11468800
 tree_color = 1
 
 [node name="TreeSmall91" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1223, -178 )
+fixed_position_x = 80150528
+fixed_position_y = -11665408
 tree_color = 1
 
 [node name="TreeSmall92" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1170, -201 )
+fixed_position_x = 76677120
+fixed_position_y = -13172736
 tree_color = 1
 
 [node name="TreeSmall93" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1054, -168 )
+fixed_position_x = 69074944
+fixed_position_y = -11010048
 tree_color = 1
 
 [node name="TreeSmall94" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 764, -160 )
+fixed_position_x = 50069504
+fixed_position_y = -10485760
 tree_color = 1
 
 [node name="TreeSmall95" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 802, -241 )
+fixed_position_x = 52559872
+fixed_position_y = -15794176
 tree_color = 1
 
 [node name="TreeSmall96" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 510, -163 )
+fixed_position_x = 33423360
+fixed_position_y = -10682368
 tree_color = 1
 
 [node name="TreeSmall97" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 525, -221 )
+fixed_position_x = 34406400
+fixed_position_y = -14483456
 tree_color = 1
 
 [node name="TreeSmall98" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 296, -153 )
+fixed_position_x = 19398656
+fixed_position_y = -10027008
 tree_color = 1
 
 [node name="TreeSmall99" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 215, -22 )
+fixed_position_x = 14090240
+fixed_position_y = -1441792
 tree_color = 1
 
 [node name="TreeSmall100" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 134, -88 )
+fixed_position_x = 8781824
+fixed_position_y = -5767168
 tree_color = 1
 
 [node name="TreeSmall101" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 172, 194 )
+fixed_position_x = 11272192
+fixed_position_y = 12713984
 tree_color = 1
 
 [node name="TreeSmall102" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 220, 219 )
+fixed_position_x = 14417920
+fixed_position_y = 14352384
 tree_color = 1
 
 [node name="TreeSmall103" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 230, 567 )
+fixed_position_x = 15073280
+fixed_position_y = 37158912
 tree_color = 1
 
 [node name="TreeSmall104" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 137, 622 )
+fixed_position_x = 8978432
+fixed_position_y = 40763392
 tree_color = 1
 
 [node name="TreeSmall105" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 394, 715 )
+fixed_position_x = 25821184
+fixed_position_y = 46858240
 tree_color = 1
 
 [node name="TreeSmall106" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 492, 665 )
+fixed_position_x = 32243712
+fixed_position_y = 43581440
 tree_color = 1
 
 [node name="TreeSmall107" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 487, 796 )
+fixed_position_x = 31916032
+fixed_position_y = 52166656
 tree_color = 1
 
 [node name="TreeSmall2" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 495, 1050 )
+fixed_position_x = 32440320
+fixed_position_y = 68812800
 tree_color = 1
 
 [node name="TreeBig78" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3305, 1680 )
+fixed_position_x = 216596480
+fixed_position_y = 110100480
 tree_color = 1
 
 [node name="TreeBig79" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3340, 1800 )
+fixed_position_x = 218890240
+fixed_position_y = 117964800
 tree_color = 1
 
 [node name="TreeSmall108" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3358, 1912 )
+fixed_position_x = 220069888
+fixed_position_y = 125304832
 tree_color = 1
 
 [node name="TreeSmall109" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3254, 1868 )
+fixed_position_x = 213254144
+fixed_position_y = 122421248
 tree_color = 1
 
 [node name="TreeBig80" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2407, -163 )
+fixed_position_x = 157745152
+fixed_position_y = -10682368
 tree_color = 1
 
 [node name="TreeBig92" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2301, -184 )
+fixed_position_x = 150798336
+fixed_position_y = -12058624
 tree_color = 1
 
 [node name="TreeBig93" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2712, -303 )
+fixed_position_x = 177733632
+fixed_position_y = -19857408
 tree_color = 1
 
 [node name="TreeBig94" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3021, -295 )
+fixed_position_x = 197984256
+fixed_position_y = -19333120
 tree_color = 1
 
 [node name="TreeBig95" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3246, -282 )
+fixed_position_x = 212729856
+fixed_position_y = -18481152
 tree_color = 1
 
 [node name="TreeBig96" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3390, -333 )
+fixed_position_x = 222167040
+fixed_position_y = -21823488
 tree_color = 1
 
 [node name="TreeBig97" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3496, -278 )
+fixed_position_x = 229113856
+fixed_position_y = -18219008
 tree_color = 1
 
 [node name="TreeBig98" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1072, -274 )
+fixed_position_x = 70254592
+fixed_position_y = -17956864
 tree_color = 1
 
 [node name="TreeBig99" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 521, -342 )
+fixed_position_x = 34144256
+fixed_position_y = -22413312
 tree_color = 1
 
 [node name="TreeBig100" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 716, -329 )
+fixed_position_x = 46923776
+fixed_position_y = -21561344
 tree_color = 1
 
 [node name="TreeBig101" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1369, -329 )
+fixed_position_x = 89718784
+fixed_position_y = -21561344
 tree_color = 1
 
 [node name="TreeBig270" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1378.44, -217.623 )
+fixed_position_x = 90337440
+fixed_position_y = -14262141
 tree_color = 1
 
 [node name="TreeBig102" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2009, -321 )
+fixed_position_x = 131661824
+fixed_position_y = -21037056
 tree_color = 1
 
 [node name="TreeBig103" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1852, -338 )
+fixed_position_x = 121372672
+fixed_position_y = -22151168
 tree_color = 1
 
 [node name="TreeBig104" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1657, -296 )
+fixed_position_x = 108593152
+fixed_position_y = -19398656
 tree_color = 1
 
 [node name="TreeBig105" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1547, -330 )
+fixed_position_x = 101384192
+fixed_position_y = -21626880
 tree_color = 1
 
 [node name="TreeBig106" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 894, -343 )
+fixed_position_x = 58589184
+fixed_position_y = -22478848
 tree_color = 1
 
 [node name="TreeBig107" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 275, -318 )
+fixed_position_x = 18022400
+fixed_position_y = -20840448
 tree_color = 1
 
 [node name="TreeBig108" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 67, -233 )
+fixed_position_x = 4390912
+fixed_position_y = -15269888
 tree_color = 1
 
 [node name="TreeBig109" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 139, -335 )
+fixed_position_x = 9109504
+fixed_position_y = -21954560
 tree_color = 1
 
 [node name="TreeBig110" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 283, 839 )
+fixed_position_x = 18546688
+fixed_position_y = 54984704
 tree_color = 1
 
 [node name="TreeBig111" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 169, 1013 )
+fixed_position_x = 11075584
+fixed_position_y = 66387968
 tree_color = 1
 
 [node name="TreeBig112" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 80, 1174 )
+fixed_position_x = 5242880
+fixed_position_y = 76939264
 tree_color = 1
 
 [node name="TreeBig113" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -9, 903 )
+fixed_position_x = -589824
+fixed_position_y = 59179008
 tree_color = 1
 
 [node name="TreeBig114" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 25, 742 )
+fixed_position_x = 1638400
+fixed_position_y = 48627712
 tree_color = 1
 
 [node name="TreeBig115" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -123, 1183 )
+fixed_position_x = -8060928
+fixed_position_y = 77529088
 tree_color = 1
 
 [node name="TreeBig116" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -110, 1022 )
+fixed_position_x = -7208960
+fixed_position_y = 66977792
 tree_color = 1
 
 [node name="TreeBig117" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -144, 789 )
+fixed_position_x = -9437184
+fixed_position_y = 51707904
 tree_color = 1
 
 [node name="TreeBig118" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -34, 1272 )
+fixed_position_x = -2228224
+fixed_position_y = 83361792
 tree_color = 1
 
 [node name="TreeBig119" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -17, 1463 )
+fixed_position_x = -1114112
+fixed_position_y = 95879168
 tree_color = 1
 
 [node name="TreeBig120" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 34, 1573 )
+fixed_position_x = 2228224
+fixed_position_y = 103088128
 tree_color = 1
 
 [node name="TreeBig121" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -148, 1624 )
+fixed_position_x = -9699328
+fixed_position_y = 106430464
 tree_color = 1
 
 [node name="TreeBig122" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -173, 1433 )
+fixed_position_x = -11337728
+fixed_position_y = 93913088
 tree_color = 1
 
 [node name="TreeBig123" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -321, 1196 )
+fixed_position_x = -21037056
+fixed_position_y = 78381056
 tree_color = 1
 
 [node name="TreeBig124" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -287, 954 )
+fixed_position_x = -18808832
+fixed_position_y = 62521344
 tree_color = 1
 
 [node name="TreeBig125" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -351, 763 )
+fixed_position_x = -23003136
+fixed_position_y = 50003968
 tree_color = 1
 
 [node name="TreeBig126" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -160, 555 )
+fixed_position_x = -10485760
+fixed_position_y = 36372480
 tree_color = 1
 
 [node name="TreeBig127" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -270, 364 )
+fixed_position_x = -17694720
+fixed_position_y = 23855104
 tree_color = 1
 
 [node name="TreeBig128" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -79, 309 )
+fixed_position_x = -5177344
+fixed_position_y = 20250624
 tree_color = 1
 
 [node name="TreeBig129" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 23, 479 )
+fixed_position_x = 1507328
+fixed_position_y = 31391744
 tree_color = 1
 
 [node name="TreeBig130" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -28, 123 )
+fixed_position_x = -1835008
+fixed_position_y = 8060928
 tree_color = 1
 
 [node name="TreeBig131" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -159, 38 )
+fixed_position_x = -10420224
+fixed_position_y = 2490368
 tree_color = 1
 
 [node name="TreeBig132" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -265, 144 )
+fixed_position_x = -17367040
+fixed_position_y = 9437184
 tree_color = 1
 
 [node name="TreeBig133" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -87, -76 )
+fixed_position_x = -5701632
+fixed_position_y = -4980736
 tree_color = 1
 
 [node name="TreeBig134" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -282, -148 )
+fixed_position_x = -18481152
+fixed_position_y = -9699328
 tree_color = 1
 
 [node name="TreeBig135" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -430, 47 )
+fixed_position_x = -28180480
+fixed_position_y = 3080192
 tree_color = 1
 
 [node name="TreeBig136" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -400, 259 )
+fixed_position_x = -26214400
+fixed_position_y = 16973824
 tree_color = 1
 
 [node name="TreeBig137" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -375, 509 )
+fixed_position_x = -24576000
+fixed_position_y = 33357824
 tree_color = 1
 
 [node name="TreeBig138" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -358, 1395 )
+fixed_position_x = -23461888
+fixed_position_y = 91422720
 tree_color = 1
 
 [node name="TreeBig139" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -341, 1666 )
+fixed_position_x = -22347776
+fixed_position_y = 109182976
 tree_color = 1
 
 [node name="TreeBig140" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -222, 1840 )
+fixed_position_x = -14548992
+fixed_position_y = 120586240
 tree_color = 1
 
 [node name="TreeBig141" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -2, 1755 )
+fixed_position_x = -131072
+fixed_position_y = 115015680
 tree_color = 1
 
 [node name="TreeBig142" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2, 1929 )
+fixed_position_x = 131072
+fixed_position_y = 126418944
 tree_color = 1
 
 [node name="TreeBig143" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -45, 2077 )
+fixed_position_x = -2949120
+fixed_position_y = 136118272
 tree_color = 1
 
 [node name="TreeBig144" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -223, 2361 )
+fixed_position_x = -14614528
+fixed_position_y = 154730496
 tree_color = 1
 
 [node name="TreeBig145" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -210, 2179 )
+fixed_position_x = -13762560
+fixed_position_y = 142802944
 tree_color = 1
 
 [node name="TreeBig146" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -312, 2065 )
+fixed_position_x = -20447232
+fixed_position_y = 135331840
 tree_color = 1
 
 [node name="TreeBig147" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -384, 1857 )
+fixed_position_x = -25165824
+fixed_position_y = 121700352
 tree_color = 1
 
 [node name="TreeBig148" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -36, 2268 )
+fixed_position_x = -2359296
+fixed_position_y = 148635648
 tree_color = 1
 
 [node name="TreeBig149" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 11, 2421 )
+fixed_position_x = 720896
+fixed_position_y = 158662656
 tree_color = 1
 
 [node name="TreeBig150" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -116, 2518 )
+fixed_position_x = -7602176
+fixed_position_y = 165019648
 tree_color = 1
 
 [node name="TreeBig151" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -385, 2236 )
+fixed_position_x = -25231360
+fixed_position_y = 146538496
 tree_color = 1
 
 [node name="TreeBig152" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -385, 2422 )
+fixed_position_x = -25231360
+fixed_position_y = 158728192
 tree_color = 1
 
 [node name="TreeBig153" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -304, 2566 )
+fixed_position_x = -19922944
+fixed_position_y = 168165376
 tree_color = 1
 
 [node name="TreeBig154" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 60, 2659 )
+fixed_position_x = 3932160
+fixed_position_y = 174260224
 tree_color = 1
 
 [node name="TreeBig155" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -71, 2744 )
+fixed_position_x = -4653056
+fixed_position_y = 179830784
 tree_color = 1
 
 [node name="TreeBig156" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -253, 2808 )
+fixed_position_x = -16580608
+fixed_position_y = 184025088
 tree_color = 1
 
 [node name="TreeBig157" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -113, 2905 )
+fixed_position_x = -7405568
+fixed_position_y = 190382080
 tree_color = 1
 
 [node name="TreeBig158" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 65, 2846 )
+fixed_position_x = 4259840
+fixed_position_y = 186515456
 tree_color = 1
 
 [node name="TreeBig159" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 52, 3020 )
+fixed_position_x = 3407872
+fixed_position_y = 197918720
 tree_color = 1
 
 [node name="TreeBig160" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -71, 3134 )
+fixed_position_x = -4653056
+fixed_position_y = 205389824
 tree_color = 1
 
 [node name="TreeBig161" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -215, 3053 )
+fixed_position_x = -14090240
+fixed_position_y = 200081408
 tree_color = 1
 
 [node name="TreeBig162" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -325, 3184 )
+fixed_position_x = -21299200
+fixed_position_y = 208666624
 tree_color = 1
 
 [node name="TreeBig163" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -456, 3082 )
+fixed_position_x = -29884416
+fixed_position_y = 201981952
 tree_color = 1
 
 [node name="TreeBig164" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -400, 2905 )
+fixed_position_x = -26214400
+fixed_position_y = 190382080
 tree_color = 1
 
 [node name="TreeBig165" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -506, 2710 )
+fixed_position_x = -33161216
+fixed_position_y = 177602560
 tree_color = 1
 
 [node name="TreeBig166" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -502, 2490 )
+fixed_position_x = -32899072
+fixed_position_y = 163184640
 tree_color = 1
 
 [node name="TreeBig167" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -481, 2075 )
+fixed_position_x = -31522816
+fixed_position_y = 135987200
 tree_color = 1
 
 [node name="TreeBig168" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -498, 1575 )
+fixed_position_x = -32636928
+fixed_position_y = 103219200
 tree_color = 1
 
 [node name="TreeBig169" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -490, 1227 )
+fixed_position_x = -32112640
+fixed_position_y = 80412672
 tree_color = 1
 
 [node name="TreeBig170" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -460, 989 )
+fixed_position_x = -30146560
+fixed_position_y = 64815104
 tree_color = 1
 
 [node name="TreeBig171" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -485, 646 )
+fixed_position_x = -31784960
+fixed_position_y = 42336256
 tree_color = 1
 
 [node name="TreeBig172" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -536, 396 )
+fixed_position_x = -35127296
+fixed_position_y = 25952256
 tree_color = 1
 
 [node name="TreeBig173" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -494, 150 )
+fixed_position_x = -32374784
+fixed_position_y = 9830400
 tree_color = 1
 
 [node name="TreeBig174" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -494, -100 )
+fixed_position_x = -32374784
+fixed_position_y = -6553600
 tree_color = 1
 
 [node name="TreeBig175" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -388, -278 )
+fixed_position_x = -25427968
+fixed_position_y = -18219008
 tree_color = 1
 
 [node name="TreeBig176" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -528, -375 )
+fixed_position_x = -34603008
+fixed_position_y = -24576000
 tree_color = 1
 
 [node name="TreeBig177" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -210, -316 )
+fixed_position_x = -13762560
+fixed_position_y = -20709376
 tree_color = 1
 
 [node name="TreeBig178" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -70, -231 )
+fixed_position_x = -4587520
+fixed_position_y = -15138816
 tree_color = 1
 
 [node name="TreeBig179" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( -36, -379 )
+fixed_position_x = -2359296
+fixed_position_y = -24838144
 tree_color = 1
 
 [node name="TreeSmall233" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4161, -158 )
+fixed_position_x = 272695296
+fixed_position_y = -10354688
 tree_color = 1
 
 [node name="TreeSmall296" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3367, 1584 )
+fixed_position_x = 220659712
+fixed_position_y = 103809024
 tree_color = 1
 
 [node name="TreeSmall297" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3421, 1544 )
+fixed_position_x = 224198656
+fixed_position_y = 101187584
 tree_color = 1
 
 [node name="TreeSmall298" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3427, 1603 )
+fixed_position_x = 224591872
+fixed_position_y = 105054208
 tree_color = 1
 
 [node name="TreeSmall299" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3650, 1651 )
+fixed_position_x = 239206400
+fixed_position_y = 108199936
 tree_color = 1
 
 [node name="TreeSmall300" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3642, 1747 )
+fixed_position_x = 238682112
+fixed_position_y = 114491392
 tree_color = 1
 
 [node name="TreeSmall301" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3707, 1671 )
+fixed_position_x = 242941952
+fixed_position_y = 109510656
 tree_color = 1
 
 [node name="TreeSmall302" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3619, 1802 )
+fixed_position_x = 237174784
+fixed_position_y = 118095872
 tree_color = 1
 
 [node name="TreeSmall303" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3630, 1907 )
+fixed_position_x = 237895680
+fixed_position_y = 124977152
 tree_color = 1
 
 [node name="TreeSmall304" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3602, 2099 )
+fixed_position_x = 236060672
+fixed_position_y = 137560064
 tree_color = 1
 
 [node name="TreeSmall305" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3667, 2376 )
+fixed_position_x = 240320512
+fixed_position_y = 155713536
 tree_color = 1
 
 [node name="TreeSmall306" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3613, 2747 )
+fixed_position_x = 236781568
+fixed_position_y = 180027392
 tree_color = 1
 
 [node name="TreeSmall307" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3667, 3157 )
+fixed_position_x = 240320512
+fixed_position_y = 206897152
 tree_color = 1
 
 [node name="TreeSmall308" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3709, 3202 )
+fixed_position_x = 243073024
+fixed_position_y = 209846272
 tree_color = 1
 
 [node name="TreeSmall309" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3678, 1058 )
+fixed_position_x = 241041408
+fixed_position_y = 69337088
 tree_color = 1
 
 [node name="TreeSmall310" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3771, 1225 )
+fixed_position_x = 247136256
+fixed_position_y = 80281600
 tree_color = 1
 
 [node name="TreeSmall234" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4169, -99 )
+fixed_position_x = 273219584
+fixed_position_y = -6488064
 tree_color = 1
 
 [node name="TreeSmall235" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3983, -247 )
+fixed_position_x = 261029888
+fixed_position_y = -16187392
 tree_color = 1
 
 [node name="TreeSmall236" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3856, -35 )
+fixed_position_x = 252706816
+fixed_position_y = -2293760
 tree_color = 1
 
 [node name="TreeSmall237" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3818, -82 )
+fixed_position_x = 250216448
+fixed_position_y = -5373952
 tree_color = 1
 
 [node name="TreeSmall238" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3721, -175 )
+fixed_position_x = 243859456
+fixed_position_y = -11468800
 tree_color = 1
 
 [node name="TreeSmall239" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3844, 185 )
+fixed_position_x = 251920384
+fixed_position_y = 12124160
 tree_color = 1
 
 [node name="TreeSmall240" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3984, 126 )
+fixed_position_x = 261095424
+fixed_position_y = 8257536
 tree_color = 1
 
 [node name="TreeSmall241" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4128, 317 )
+fixed_position_x = 270532608
+fixed_position_y = 20774912
 tree_color = 1
 
 [node name="TreeSmall242" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4136, 249 )
+fixed_position_x = 271056896
+fixed_position_y = 16318464
 tree_color = 1
 
 [node name="TreeSmall243" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3983, 376 )
+fixed_position_x = 261029888
+fixed_position_y = 24641536
 tree_color = 1
 
 [node name="TreeSmall244" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3708, 401 )
+fixed_position_x = 243007488
+fixed_position_y = 26279936
 tree_color = 1
 
 [node name="TreeSmall245" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3831, 579 )
+fixed_position_x = 251068416
+fixed_position_y = 37945344
 tree_color = 1
 
 [node name="TreeSmall246" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3895, 545 )
+fixed_position_x = 255262720
+fixed_position_y = 35717120
 tree_color = 1
 
 [node name="TreeSmall247" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3891, 596 )
+fixed_position_x = 255000576
+fixed_position_y = 39059456
 tree_color = 1
 
 [node name="TreeSmall248" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4086, 592 )
+fixed_position_x = 267780096
+fixed_position_y = 38797312
 tree_color = 1
 
 [node name="TreeSmall249" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3844, 783 )
+fixed_position_x = 251920384
+fixed_position_y = 51314688
 tree_color = 1
 
 [node name="TreeSmall250" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4081, 779 )
+fixed_position_x = 267452416
+fixed_position_y = 51052544
 tree_color = 1
 
 [node name="TreeSmall251" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4132, 1007 )
+fixed_position_x = 270794752
+fixed_position_y = 65994752
 tree_color = 1
 
 [node name="TreeSmall252" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4170, 969 )
+fixed_position_x = 273285120
+fixed_position_y = 63504384
 tree_color = 1
 
 [node name="TreeSmall253" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3924, 1100 )
+fixed_position_x = 257163264
+fixed_position_y = 72089600
 tree_color = 1
 
 [node name="TreeSmall254" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3920, 918 )
+fixed_position_x = 256901120
+fixed_position_y = 60162048
 tree_color = 1
 
 [node name="TreeSmall255" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3674, 782 )
+fixed_position_x = 240779264
+fixed_position_y = 51249152
 tree_color = 1
 
 [node name="TreeSmall256" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3640, 833 )
+fixed_position_x = 238551040
+fixed_position_y = 54591488
 tree_color = 1
 
 [node name="TreeSmall257" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3780, 1032 )
+fixed_position_x = 247726080
+fixed_position_y = 67633152
 tree_color = 1
 
 [node name="TreeSmall258" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3640, 1316 )
+fixed_position_x = 238551040
+fixed_position_y = 86245376
 tree_color = 1
 
 [node name="TreeSmall259" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3644, 1388 )
+fixed_position_x = 238813184
+fixed_position_y = 90963968
 tree_color = 1
 
 [node name="TreeSmall260" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3890, 1248 )
+fixed_position_x = 254935040
+fixed_position_y = 81788928
 tree_color = 1
 
 [node name="TreeSmall261" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3958, 1214 )
+fixed_position_x = 259391488
+fixed_position_y = 79560704
 tree_color = 1
 
 [node name="TreeSmall262" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3767, 1486 )
+fixed_position_x = 246874112
+fixed_position_y = 97386496
 tree_color = 1
 
 [node name="TreeSmall263" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3826, 1452 )
+fixed_position_x = 250740736
+fixed_position_y = 95158272
 tree_color = 1
 
 [node name="TreeSmall264" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3847, 1520 )
+fixed_position_x = 252116992
+fixed_position_y = 99614720
 tree_color = 1
 
 [node name="TreeSmall265" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3978, 1473 )
+fixed_position_x = 260702208
+fixed_position_y = 96534528
 tree_color = 1
 
 [node name="TreeSmall266" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3910, 1626 )
+fixed_position_x = 256245760
+fixed_position_y = 106561536
 tree_color = 1
 
 [node name="TreeSmall267" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4067, 1618 )
+fixed_position_x = 266534912
+fixed_position_y = 106037248
 tree_color = 1
 
 [node name="TreeSmall268" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4003, 1699 )
+fixed_position_x = 262340608
+fixed_position_y = 111345664
 tree_color = 1
 
 [node name="TreeSmall269" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3673, 2605 )
+fixed_position_x = 240713728
+fixed_position_y = 170721280
 tree_color = 1
 
 [node name="TreeSmall270" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3830, 2597 )
+fixed_position_x = 251002880
+fixed_position_y = 170196992
 tree_color = 1
 
 [node name="TreeSmall271" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3766, 2678 )
+fixed_position_x = 246808576
+fixed_position_y = 175505408
 tree_color = 1
 
 [node name="TreeSmall272" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3838, 3058 )
+fixed_position_x = 251527168
+fixed_position_y = 200409088
 tree_color = 1
 
 [node name="TreeSmall273" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3995, 3050 )
+fixed_position_x = 261816320
+fixed_position_y = 199884800
 tree_color = 1
 
 [node name="TreeSmall274" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3931, 3131 )
+fixed_position_x = 257622016
+fixed_position_y = 205193216
 tree_color = 1
 
 [node name="TreeSmall275" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3732, 2958 )
+fixed_position_x = 244580352
+fixed_position_y = 193855488
 tree_color = 1
 
 [node name="TreeSmall311" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3627, 2923 )
+fixed_position_x = 237699072
+fixed_position_y = 191561728
 tree_color = 1
 
 [node name="TreeSmall276" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4105, 2873 )
+fixed_position_x = 269025280
+fixed_position_y = 188284928
 tree_color = 1
 
 [node name="TreeSmall277" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4186, 2242 )
+fixed_position_x = 274333696
+fixed_position_y = 146931712
 tree_color = 1
 
 [node name="TreeSmall278" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3720, 1924 )
+fixed_position_x = 243793920
+fixed_position_y = 126091264
 tree_color = 1
 
 [node name="TreeSmall279" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3881, 2882 )
+fixed_position_x = 254345216
+fixed_position_y = 188874752
 tree_color = 1
 
 [node name="TreeSmall280" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4050, 1746 )
+fixed_position_x = 265420800
+fixed_position_y = 114425856
 tree_color = 1
 
 [node name="TreeSmall281" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3868, 1852 )
+fixed_position_x = 253493248
+fixed_position_y = 121372672
 tree_color = 1
 
 [node name="TreeSmall282" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3868, 1852 )
+fixed_position_x = 253493248
+fixed_position_y = 121372672
 tree_color = 1
 
 [node name="TreeSmall283" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3906, 2051 )
+fixed_position_x = 255983616
+fixed_position_y = 134414336
 tree_color = 1
 
 [node name="TreeSmall284" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3799, 2106 )
+fixed_position_x = 248971264
+fixed_position_y = 138018816
 tree_color = 1
 
 [node name="TreeSmall285" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3846, 2153 )
+fixed_position_x = 252051456
+fixed_position_y = 141099008
 tree_color = 1
 
 [node name="TreeSmall286" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3664, 2259 )
+fixed_position_x = 240123904
+fixed_position_y = 148045824
 tree_color = 1
 
 [node name="TreeSmall287" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3664, 2259 )
+fixed_position_x = 240123904
+fixed_position_y = 148045824
 tree_color = 1
 
 [node name="TreeSmall288" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3702, 2458 )
+fixed_position_x = 242614272
+fixed_position_y = 161087488
 tree_color = 1
 
 [node name="TreeSmall289" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3957, 1945 )
+fixed_position_x = 259325952
+fixed_position_y = 127467520
 tree_color = 1
 
 [node name="TreeSmall290" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4148, 2115 )
+fixed_position_x = 271843328
+fixed_position_y = 138608640
 tree_color = 1
 
 [node name="TreeSmall291" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4000, 2297 )
+fixed_position_x = 262144000
+fixed_position_y = 150536192
 tree_color = 1
 
 [node name="TreeSmall292" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3886, 2450 )
+fixed_position_x = 254672896
+fixed_position_y = 160563200
 tree_color = 1
 
 [node name="TreeSmall293" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 4094, 2514 )
+fixed_position_x = 268304384
+fixed_position_y = 164757504
 tree_color = 1
 
 [node name="TreeSmall294" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3908, 2671 )
+fixed_position_x = 256114688
+fixed_position_y = 175046656
 tree_color = 1
 
 [node name="TreeSmall295" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 3959, 2713 )
+fixed_position_x = 259457024
+fixed_position_y = 177799168
 tree_color = 1
 
 [node name="TreeBig202" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4201, -276 )
+fixed_position_x = 275316736
+fixed_position_y = -18087936
 tree_color = 1
 
 [node name="TreeBig203" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4125, 860 )
+fixed_position_x = 270336000
+fixed_position_y = 56360960
 tree_color = 1
 
 [node name="TreeBig204" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4159, 699 )
+fixed_position_x = 272564224
+fixed_position_y = 45809664
 tree_color = 1
 
 [node name="TreeBig205" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4011, 1140 )
+fixed_position_x = 262864896
+fixed_position_y = 74711040
 tree_color = 1
 
 [node name="TreeBig206" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4024, 979 )
+fixed_position_x = 263716864
+fixed_position_y = 64159744
 tree_color = 1
 
 [node name="TreeBig207" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3990, 746 )
+fixed_position_x = 261488640
+fixed_position_y = 48889856
 tree_color = 1
 
 [node name="TreeBig208" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4100, 1229 )
+fixed_position_x = 268697600
+fixed_position_y = 80543744
 tree_color = 1
 
 [node name="TreeBig209" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4117, 1420 )
+fixed_position_x = 269811712
+fixed_position_y = 93061120
 tree_color = 1
 
 [node name="TreeBig210" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4168, 1530 )
+fixed_position_x = 273154048
+fixed_position_y = 100270080
 tree_color = 1
 
 [node name="TreeBig211" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3986, 1581 )
+fixed_position_x = 261226496
+fixed_position_y = 103612416
 tree_color = 1
 
 [node name="TreeBig212" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3961, 1390 )
+fixed_position_x = 259588096
+fixed_position_y = 91095040
 tree_color = 1
 
 [node name="TreeBig213" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3813, 1153 )
+fixed_position_x = 249888768
+fixed_position_y = 75563008
 tree_color = 1
 
 [node name="TreeBig214" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3847, 911 )
+fixed_position_x = 252116992
+fixed_position_y = 59703296
 tree_color = 1
 
 [node name="TreeBig215" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3783, 720 )
+fixed_position_x = 247922688
+fixed_position_y = 47185920
 tree_color = 1
 
 [node name="TreeBig216" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3974, 512 )
+fixed_position_x = 260440064
+fixed_position_y = 33554432
 tree_color = 1
 
 [node name="TreeBig217" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3864, 321 )
+fixed_position_x = 253231104
+fixed_position_y = 21037056
 tree_color = 1
 
 [node name="TreeBig218" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4055, 266 )
+fixed_position_x = 265748480
+fixed_position_y = 17432576
 tree_color = 1
 
 [node name="TreeBig219" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4157, 436 )
+fixed_position_x = 272433152
+fixed_position_y = 28573696
 tree_color = 1
 
 [node name="TreeBig220" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4106, 80 )
+fixed_position_x = 269090816
+fixed_position_y = 5242880
 tree_color = 1
 
 [node name="TreeBig221" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3975, -5 )
+fixed_position_x = 260505600
+fixed_position_y = -327680
 tree_color = 1
 
 [node name="TreeBig222" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3869, 101 )
+fixed_position_x = 253558784
+fixed_position_y = 6619136
 tree_color = 1
 
 [node name="TreeBig223" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4047, -119 )
+fixed_position_x = 265224192
+fixed_position_y = -7798784
 tree_color = 1
 
 [node name="TreeBig224" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3852, -191 )
+fixed_position_x = 252444672
+fixed_position_y = -12517376
 tree_color = 1
 
 [node name="TreeBig225" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3704, 4 )
+fixed_position_x = 242745344
+fixed_position_y = 262144
 tree_color = 1
 
 [node name="TreeBig226" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3734, 216 )
+fixed_position_x = 244711424
+fixed_position_y = 14155776
 tree_color = 1
 
 [node name="TreeBig227" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3759, 466 )
+fixed_position_x = 246349824
+fixed_position_y = 30539776
 tree_color = 1
 
 [node name="TreeBig228" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3776, 1352 )
+fixed_position_x = 247463936
+fixed_position_y = 88604672
 tree_color = 1
 
 [node name="TreeBig229" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3793, 1623 )
+fixed_position_x = 248578048
+fixed_position_y = 106364928
 tree_color = 1
 
 [node name="TreeBig230" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3912, 1797 )
+fixed_position_x = 256376832
+fixed_position_y = 117768192
 tree_color = 1
 
 [node name="TreeBig231" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4132, 1712 )
+fixed_position_x = 270794752
+fixed_position_y = 112197632
 tree_color = 1
 
 [node name="TreeBig232" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4136, 1886 )
+fixed_position_x = 271056896
+fixed_position_y = 123600896
 tree_color = 1
 
 [node name="TreeBig233" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4089, 2034 )
+fixed_position_x = 267976704
+fixed_position_y = 133300224
 tree_color = 1
 
 [node name="TreeBig234" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3911, 2318 )
+fixed_position_x = 256311296
+fixed_position_y = 151912448
 tree_color = 1
 
 [node name="TreeBig235" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3924, 2136 )
+fixed_position_x = 257163264
+fixed_position_y = 139984896
 tree_color = 1
 
 [node name="TreeBig236" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3822, 2022 )
+fixed_position_x = 250478592
+fixed_position_y = 132513792
 tree_color = 1
 
 [node name="TreeBig237" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3750, 1814 )
+fixed_position_x = 245760000
+fixed_position_y = 118882304
 tree_color = 1
 
 [node name="TreeBig238" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4098, 2225 )
+fixed_position_x = 268566528
+fixed_position_y = 145817600
 tree_color = 1
 
 [node name="TreeBig239" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4145, 2378 )
+fixed_position_x = 271646720
+fixed_position_y = 155844608
 tree_color = 1
 
 [node name="TreeBig240" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4018, 2475 )
+fixed_position_x = 263323648
+fixed_position_y = 162201600
 tree_color = 1
 
 [node name="TreeBig241" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3749, 2193 )
+fixed_position_x = 245694464
+fixed_position_y = 143720448
 tree_color = 1
 
 [node name="TreeBig242" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3749, 2379 )
+fixed_position_x = 245694464
+fixed_position_y = 155910144
 tree_color = 1
 
 [node name="TreeBig243" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3830, 2523 )
+fixed_position_x = 251002880
+fixed_position_y = 165347328
 tree_color = 1
 
 [node name="TreeBig244" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4194, 2616 )
+fixed_position_x = 274857984
+fixed_position_y = 171442176
 tree_color = 1
 
 [node name="TreeBig245" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4063, 2701 )
+fixed_position_x = 266272768
+fixed_position_y = 177012736
 tree_color = 1
 
 [node name="TreeBig246" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3881, 2765 )
+fixed_position_x = 254345216
+fixed_position_y = 181207040
 tree_color = 1
 
 [node name="TreeBig247" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4021, 2862 )
+fixed_position_x = 263520256
+fixed_position_y = 187564032
 tree_color = 1
 
 [node name="TreeBig248" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4199, 2803 )
+fixed_position_x = 275185664
+fixed_position_y = 183697408
 tree_color = 1
 
 [node name="TreeBig249" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4186, 2977 )
+fixed_position_x = 274333696
+fixed_position_y = 195100672
 tree_color = 1
 
 [node name="TreeBig250" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4063, 3091 )
+fixed_position_x = 266272768
+fixed_position_y = 202571776
 tree_color = 1
 
 [node name="TreeBig251" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3919, 3010 )
+fixed_position_x = 256835584
+fixed_position_y = 197263360
 tree_color = 1
 
 [node name="TreeBig252" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3809, 3141 )
+fixed_position_x = 249626624
+fixed_position_y = 205848576
 tree_color = 1
 
 [node name="TreeBig253" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3678, 3039 )
+fixed_position_x = 241041408
+fixed_position_y = 199163904
 tree_color = 1
 
 [node name="TreeBig254" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3734, 2862 )
+fixed_position_x = 244711424
+fixed_position_y = 187564032
 tree_color = 1
 
 [node name="TreeBig255" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3628, 2667 )
+fixed_position_x = 237764608
+fixed_position_y = 174784512
 tree_color = 1
 
 [node name="TreeBig256" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3632, 2447 )
+fixed_position_x = 238026752
+fixed_position_y = 160366592
 tree_color = 1
 
 [node name="TreeBig257" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3653, 2032 )
+fixed_position_x = 239403008
+fixed_position_y = 133169152
 tree_color = 1
 
 [node name="TreeBig258" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3636, 1532 )
+fixed_position_x = 238288896
+fixed_position_y = 100401152
 tree_color = 1
 
 [node name="TreeBig259" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3644, 1184 )
+fixed_position_x = 238813184
+fixed_position_y = 77594624
 tree_color = 1
 
 [node name="TreeBig260" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3674, 946 )
+fixed_position_x = 240779264
+fixed_position_y = 61997056
 tree_color = 1
 
 [node name="TreeBig261" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3649, 603 )
+fixed_position_x = 239140864
+fixed_position_y = 39518208
 tree_color = 1
 
 [node name="TreeBig262" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3598, 353 )
+fixed_position_x = 235798528
+fixed_position_y = 23134208
 tree_color = 1
 
 [node name="TreeBig263" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3640, 107 )
+fixed_position_x = 238551040
+fixed_position_y = 7012352
 tree_color = 1
 
 [node name="TreeBig264" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3640, -143 )
+fixed_position_x = 238551040
+fixed_position_y = -9371648
 tree_color = 1
 
 [node name="TreeBig265" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3746, -321 )
+fixed_position_x = 245497856
+fixed_position_y = -21037056
 tree_color = 1
 
 [node name="TreeBig266" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3606, -418 )
+fixed_position_x = 236322816
+fixed_position_y = -27394048
 tree_color = 1
 
 [node name="TreeBig267" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3924, -359 )
+fixed_position_x = 257163264
+fixed_position_y = -23527424
 tree_color = 1
 
 [node name="TreeBig268" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4064, -274 )
+fixed_position_x = 266338304
+fixed_position_y = -17956864
 tree_color = 1
 
 [node name="TreeBig269" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 4098, -422 )
+fixed_position_x = 268566528
+fixed_position_y = -27656192
 tree_color = 1
 
 [node name="TreeBig180" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 154, 3172 )
+fixed_position_x = 10092544
+fixed_position_y = 207880192
 tree_color = 1
 
 [node name="TreeBig181" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 468, 3147 )
+fixed_position_x = 30670848
+fixed_position_y = 206241792
 tree_color = 1
 
 [node name="TreeBig182" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 663, 3177 )
+fixed_position_x = 43450368
+fixed_position_y = 208207872
 tree_color = 1
 
 [node name="TreeBig183" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 858, 3164 )
+fixed_position_x = 56229888
+fixed_position_y = 207355904
 tree_color = 1
 
 [node name="TreeBig184" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1108, 3130 )
+fixed_position_x = 72613888
+fixed_position_y = 205127680
 tree_color = 1
 
 [node name="TreeBig185" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1600, 2753 )
+fixed_position_x = 104857600
+fixed_position_y = 180420608
 tree_color = 1
 
 [node name="TreeBig186" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1621, 2901 )
+fixed_position_x = 106233856
+fixed_position_y = 190119936
 tree_color = 1
 
 [node name="TreeBig187" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1223, 3087 )
+fixed_position_x = 80150528
+fixed_position_y = 202309632
 tree_color = 1
 
 [node name="TreeBig188" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1393, 3180 )
+fixed_position_x = 91291648
+fixed_position_y = 208404480
 tree_color = 1
 
 [node name="TreeBig189" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1626, 3078 )
+fixed_position_x = 106561536
+fixed_position_y = 201719808
 tree_color = 1
 
 [node name="TreeBig190" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1851, 3137 )
+fixed_position_x = 121307136
+fixed_position_y = 205586432
 tree_color = 1
 
 [node name="TreeBig191" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2037, 3196 )
+fixed_position_x = 133496832
+fixed_position_y = 209453056
 tree_color = 1
 
 [node name="TreeBig192" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2262, 3149 )
+fixed_position_x = 148242432
+fixed_position_y = 206372864
 tree_color = 1
 
 [node name="TreeBig193" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2567, 3119 )
+fixed_position_x = 168230912
+fixed_position_y = 204406784
 tree_color = 1
 
 [node name="TreeBig194" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2953, 3081 )
+fixed_position_x = 193527808
+fixed_position_y = 201916416
 tree_color = 1
 
 [node name="TreeBig195" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2767, 3212 )
+fixed_position_x = 181338112
+fixed_position_y = 210501632
 tree_color = 1
 
 [node name="TreeBig196" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3080, 3198 )
+fixed_position_x = 201850880
+fixed_position_y = 209584128
 tree_color = 1
 
 [node name="TreeBig197" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3241, 3117 )
+fixed_position_x = 212402176
+fixed_position_y = 204275712
 tree_color = 1
 
 [node name="TreeBig198" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3419, 3104 )
+fixed_position_x = 224067584
+fixed_position_y = 203423744
 tree_color = 1
 
 [node name="TreeBig199" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 3550, 3176 )
+fixed_position_x = 232652800
+fixed_position_y = 208142336
 tree_color = 1
 
 [node name="TreeBig200" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2541, -363 )
+fixed_position_x = 166526976
+fixed_position_y = -23789568
 tree_color = 1
 
 [node name="TreeBig201" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2355, -355 )
+fixed_position_x = 154337280
+fixed_position_y = -23265280
 tree_color = 1
 
 [node name="TreeBig81" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 2442, -43 )
+fixed_position_x = 160038912
+fixed_position_y = -2818048
 tree_color = 1
 
 [node name="TreeSmall110" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2460, 69 )
+fixed_position_x = 161218560
+fixed_position_y = 4521984
 tree_color = 1
 
 [node name="TreeSmall111" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 2356, 25 )
+fixed_position_x = 154402816
+fixed_position_y = 1638400
 tree_color = 1
 
 [node name="TreeBig82" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1254, 2753 )
+fixed_position_x = 82182144
+fixed_position_y = 180420608
 tree_color = 1
 
 [node name="TreeBig83" parent="Objects/Border" instance=ExtResource( 4 )]
 position = Vector2( 1289, 2873 )
+fixed_position_x = 84475904
+fixed_position_y = 188284928
 tree_color = 1
 
 [node name="TreeSmall112" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1307, 2985 )
+fixed_position_x = 85655552
+fixed_position_y = 195624960
 tree_color = 1
 
 [node name="TreeSmall113" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 1203, 2941 )
+fixed_position_x = 78839808
+fixed_position_y = 192741376
 tree_color = 1
 
 [node name="TreeSmall3" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 339, 1366 )
+fixed_position_x = 22216704
+fixed_position_y = 89522176
 tree_color = 1
 
 [node name="TreeSmall4" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 155, 1422 )
+fixed_position_x = 10158080
+fixed_position_y = 93192192
 tree_color = 1
 
 [node name="TreeSmall5" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 199, 1794 )
+fixed_position_x = 13041664
+fixed_position_y = 117571584
 tree_color = 1
 
 [node name="TreeSmall6" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 155, 1842 )
+fixed_position_x = 10158080
+fixed_position_y = 120717312
 tree_color = 1
 
 [node name="TreeSmall7" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 215, 1874 )
+fixed_position_x = 14090240
+fixed_position_y = 122814464
 tree_color = 1
 
 [node name="TreeSmall8" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 224, 2225 )
+fixed_position_x = 14680064
+fixed_position_y = 145817600
 tree_color = 1
 
 [node name="TreeSmall9" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 215, 2357 )
+fixed_position_x = 14090240
+fixed_position_y = 154468352
 tree_color = 1
 
 [node name="TreeSmall10" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 185, 2414 )
+fixed_position_x = 12124160
+fixed_position_y = 158203904
 tree_color = 1
 
 [node name="TreeSmall11" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 239, 2600 )
+fixed_position_x = 15663104
+fixed_position_y = 170393600
 tree_color = 1
 
 [node name="TreeSmall12" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 208, 2863 )
+fixed_position_x = 13631488
+fixed_position_y = 187629568
 tree_color = 1
 
 [node name="TreeSmall13" parent="Objects/Border" instance=ExtResource( 6 )]
 position = Vector2( 245, 2897 )
+fixed_position_x = 16056320
+fixed_position_y = 189857792
 tree_color = 1
 
 [node name="DropCrateSpawnArea1" parent="." instance=ExtResource( 2 )]
 position = Vector2( 1026, 472 )
+fixed_position_x = 67239936
+fixed_position_y = 30932992
 
 [node name="DropCrateSpawnArea2" parent="." instance=ExtResource( 2 )]
 position = Vector2( 3461, 444 )
+fixed_position_x = 226820096
+fixed_position_y = 29097984
 
 [node name="DropCrateSpawnArea3" parent="." instance=ExtResource( 2 )]
 position = Vector2( 1026, 2847 )
+fixed_position_x = 67239936
+fixed_position_y = 186580992
 
 [node name="DropCrateSpawnArea4" parent="." instance=ExtResource( 2 )]
 position = Vector2( 3423, 2831 )
+fixed_position_x = 224329728
+fixed_position_y = 185532416

@@ -25,6 +25,16 @@ func _ready() -> void:
 	
 	_is_ready = true
 
+func _save_state() -> Dictionary:
+	return {
+		_message_text = message_label.text,
+		_message_visible = message_label.visible,
+	}
+
+func _load_state(state: Dictionary) -> void:
+	message_label.text = state['_message_text']
+	message_label.visible = state['_message_visible']
+
 func add_screen(screen) -> void:
 	screens.add_child(screen)
 	_setup_screen(screen)
@@ -38,9 +48,7 @@ func get_screens():
 	return screens.get_children()
 
 func get_screen(name: String):
-	if screens.has_node(name):
-		return screens.get_node(name)
-	return null
+	return screens.get_node_or_null(name)
 
 func get_current_screen_name() -> String:
 	if current_screen:

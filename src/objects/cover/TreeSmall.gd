@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends SGStaticBody2D
 
 enum TreeColors {
 	GREEN,

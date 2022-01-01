@@ -22,7 +22,7 @@ func set_entity_name(index: int, name: String) -> void:
 	if score_node:
 		score_node.set_entity_name(name)
 
-remotesync func set_score(index: int, score: int) -> void:
+func set_score(index: int, score: int) -> void:
 	var score_node = _get_score_node(index)
 	assert(score_node != null)
 	if score_node:

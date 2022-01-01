@@ -8,16 +8,21 @@ var match_scene
 var map_path: String
 var teams := []
 var use_teams := false
+var random_seed := 0
 var game
 var ui_layer: UILayer
 var players := {}
 var score := ScoreCounter.new()
+
+func _ready() -> void:
+	add_to_group('network_sync')
 
 func match_setup(_info: Dictionary, _match_scene, _game, _ui_layer) -> void:
 	config = _info['config']
 	map_path = _info['map_path']
 	teams = _info['teams']
 	use_teams = config.get('teams', false)
+	random_seed = _info['random_seed']
 	match_scene = _match_scene
 	game = _game
 	ui_layer = _ui_layer
@@ -59,17 +64,26 @@ func get_player_team(peer_id: int) -> int:
 	
 	return -1
 
+func _save_state() -> Dictionary:
+	return {
+		score = score.to_dict(),
+	}
+
+func _load_state(state: Dictionary) -> void:
+	score = ScoreCounter.new(state['score'])
+
 #
 # For child classes to override:
 #
 
 func _do_match_setup() -> void:
 	# A sensible default.
-	game.game_setup(players, map_path)
+	game.game_setup(players, map_path, random_seed)
 
 func match_start() -> void:
 	# A sensible default.
-	game.rpc("game_start")
+	game.game_start()
 
 func match_stop() -> void:
 	pass
+

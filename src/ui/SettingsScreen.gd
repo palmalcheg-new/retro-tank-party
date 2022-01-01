@@ -7,7 +7,10 @@ onready var sound_slider := $Panel/VBoxContainer/ScrollContainer/GridContainer/S
 onready var tank_engine_sounds_field = $Panel/VBoxContainer/ScrollContainer/GridContainer/TankEngineSoundsOptions
 onready var full_screen_field = $Panel/VBoxContainer/ScrollContainer/GridContainer/FullScreenOptions
 onready var screenshake_field := $Panel/VBoxContainer/ScrollContainer/GridContainer/ScreenshakeOptions
+onready var network_relay_label := $Panel/VBoxContainer/ScrollContainer/GridContainer/NetworkRelayLabel
 onready var network_relay_field := $Panel/VBoxContainer/ScrollContainer/GridContainer/NetworkRelayOptions
+onready var detailed_logging_label := $Panel/VBoxContainer/ScrollContainer/GridContainer/DetailedLoggingLabel
+onready var detailed_logging_field := $Panel/VBoxContainer/ScrollContainer/GridContainer/DetailedLoggingOptions
 onready var control_scheme_field := $Panel/VBoxContainer/ScrollContainer/GridContainer/ControlScheme
 onready var gamepad_device_field = $Panel/VBoxContainer/ScrollContainer/GridContainer/GamepadDeviceOptions
 
@@ -33,10 +36,21 @@ func _ready() -> void:
 	control_scheme_field.add_item("Retro", GameSettings.ControlScheme.RETRO)
 	control_scheme_field.set_value(GameSettings.control_scheme, false)
 	
-	network_relay_field.add_item("Disabled", OnlineMatch.NetworkRelay.DISABLED)
-	network_relay_field.add_item("Auto", OnlineMatch.NetworkRelay.AUTO)
-	network_relay_field.add_item("Forced", OnlineMatch.NetworkRelay.FORCED)
+	network_relay_field.add_item("Disabled", GameSettings.NetworkRelay.DISABLED)
+	network_relay_field.add_item("Auto", GameSettings.NetworkRelay.AUTO)
+	network_relay_field.add_item("Forced", GameSettings.NetworkRelay.FORCED)
+	#network_relay_field.add_item("Fallback (Auto)", GameSettings.NetworkRelay.FALLBACK)
+	#network_relay_field.add_item("Fallback (Forced)", GameSettings.NetworkRelay.FORCED_FALLBACK)
 	network_relay_field.set_value(GameSettings.use_network_relay, false)
+	
+	if OS.can_use_threads():
+		detailed_logging_field.add_item("Disabled", false)
+		detailed_logging_field.add_item("Enabled", true)
+		detailed_logging_field.set_value(GameSettings.use_detailed_logging, false)
+	else:
+		# Detailed logs only work if we have threads, so hide option otherwise.
+		detailed_logging_label.visible = false
+		detailed_logging_field.visible = false
 	
 	_update_gamepad_options()
 	Input.connect("joy_connection_changed", self, "_on_joy_connection_changed")
@@ -48,6 +62,8 @@ func _ready() -> void:
 func _setup_field_neighbors() -> void:
 	var previous_neighbor = null;
 	for child in field_container.get_children():
+		if not child.visible:
+			continue
 		if previous_neighbor:
 			previous_neighbor.focus_neighbour_bottom = child.get_path()
 			previous_neighbor.focus_next = child.get_path()
@@ -56,6 +72,13 @@ func _setup_field_neighbors() -> void:
 		previous_neighbor = child
 
 func _show_screen(info: Dictionary = {}) -> void:
+	network_relay_label.visible = not SyncManager.started
+	network_relay_field.visible = not SyncManager.started
+	
+	if OS.can_use_threads():
+		detailed_logging_label.visible = not SyncManager.started
+		detailed_logging_field.visible = not SyncManager.started
+	
 	scroll_container.scroll_vertical = 0
 	music_slider.focus.grab_without_sound()
 	ui_layer.show_back_button()
@@ -85,6 +108,9 @@ func _on_ScreenshakeOptions_item_selected(value, _index) -> void:
 func _on_NetworkRelayOptions_item_selected(value, _index) -> void:
 	GameSettings.use_network_relay = value
 
+func _on_DetailedLoggingOptions_item_selected(value, index) -> void:
+	GameSettings.use_detailed_logging = value
+
 func _on_ControlScheme_item_selected(value, _index) -> void:
 	GameSettings.control_scheme = value
 
@@ -110,4 +136,3 @@ func _unhandled_input(event: InputEvent) -> void:
 	if visible and event.is_action_pressed('ui_accept'):
 		get_tree().set_input_as_handled()
 		_on_DoneButton_pressed()
-

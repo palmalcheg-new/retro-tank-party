@@ -1,12 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/fonts/monogram.tres" type="DynamicFont" id=1]
-[ext_resource path="res://src/sound/MyAudioStreamPlayer2D.gd" type="Script" id=2]
 [ext_resource path="res://src/objects/pickups/Pickup.gd" type="Script" id=3]
-[ext_resource path="res://assets/sounds/Pickup__010.wav" type="AudioStream" id=4]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 18, 18 )
+[sub_resource type="SGRectangleShape2D" id=1]
+extents_x = 1179648
+extents_y = 1179648
 
 [sub_resource type="Animation" id=2]
 resource_name = "shine"
@@ -24,20 +23,10 @@ tracks/0/keys = {
 "update": 0,
 "values": [ Vector2( 0, 0 ), Vector2( 0, -16 ), Vector2( 0, 0 ), Vector2( 0, -16 ) ]
 }
-tracks/1/type = "value"
-tracks/1/path = NodePath("CollisionShape2D:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5, 1, 1.5 ),
-"transitions": PoolRealArray( 1, 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, -16 ), Vector2( 0, 0 ), Vector2( 0, -16 ) ]
-}
 
-[node name="Pickup" type="Area2D"]
+[node name="Pickup" type="SGArea2D" groups=[
+"network_sync",
+]]
 collision_layer = 8
 collision_mask = 2
 script = ExtResource( 3 )
@@ -77,16 +66,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="SGCollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/shine = SubResource( 2 )
-
-[node name="Sound" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 4 )
-bus = "Sound"
-script = ExtResource( 2 )
-
-[connection signal="body_entered" from="." to="." method="_on_Powerup_body_entered"]
-[connection signal="finished" from="Sound" to="." method="_on_Sound_finished"]

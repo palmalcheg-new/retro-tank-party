@@ -1,7 +1,12 @@
 extends Node2D
 
+const LOG_FILE_DIRECTORY = 'user://detailed_logs'
+
 onready var game := $Game
 onready var ui_layer := $UILayer
+
+onready var regaining_sync_message := $UILayer2/RegainingSyncMessage
+onready var regaining_sync_animation_player := $UILayer2/RegainingSyncMessage/AnimationPlayer
 
 var match_manager
 var match_info: Dictionary
@@ -10,6 +15,11 @@ func _ready() -> void:
 	OnlineMatch.connect("error", self, "_on_OnlineMatch_error")
 	OnlineMatch.connect("disconnected", self, "_on_OnlineMatch_disconnected")
 	OnlineMatch.connect("player_left", self, "_on_OnlineMatch_player_left")
+	
+	SyncManager.connect("sync_started", self, "_on_SyncManager_sync_started")
+	SyncManager.connect("sync_lost", self, "_on_SyncManager_sync_lost")
+	SyncManager.connect("sync_regained", self, "_on_SyncManager_sync_regained")
+	SyncManager.connect("sync_error", self, "_on_SyncManager_sync_error")
 	
 	randomize()
 	
@@ -28,18 +38,48 @@ func scene_setup(operation: RemoteOperations.ClientOperation, info: Dictionary) 
 	ui_layer.show_back_button()
 	
 	operation.mark_done()
+	
+	if GameSettings.use_detailed_logging:
+		var dir = Directory.new()
+		if not dir.dir_exists(LOG_FILE_DIRECTORY):
+			dir.make_dir(LOG_FILE_DIRECTORY)
+		
+		var datetime = OS.get_datetime(true)
+		var match_id = OnlineMatch.match_id
+		match_id.erase(match_id.length() - 1, 1)
+		
+		var log_file_name = "%04d%02d%02d-%02d%02d%02d-%s-%d.log" % [
+			datetime['year'],
+			datetime['month'],
+			datetime['day'],
+			datetime['hour'],
+			datetime['minute'],
+			datetime['second'],
+			match_id,
+			get_tree().get_network_unique_id(),
+		]
+		
+		SyncManager.start_logging(LOG_FILE_DIRECTORY + '/' + log_file_name)
 
 func scene_start() -> void:
-	match_manager.match_start()
+	SyncManager.start()
 
 func finish_match() -> void:
+	SyncManager.stop()
+	SyncManager.stop_logging()
+	
 	if get_tree().is_network_server():
 		match_manager.match_stop()
 		# @todo pass current config so we start from the same settings
 		RemoteOperations.change_scene("res://src/main/MatchSetup.tscn", match_info)
 
 func quit_match() -> void:
+	SyncManager.stop()
 	OnlineMatch.leave()
+	
+	# Do this last because it will block until the logging thread stops.
+	SyncManager.stop_logging()
+	
 	get_tree().change_scene("res://src/main/SessionSetup.tscn")
 
 func _on_Game_game_error(message) -> void:
@@ -74,7 +114,7 @@ func _on_MenuScreen_exit_pressed() -> void:
 
 #func _unhandled_input(event: InputEvent) -> void:
 #	# Trigger debugging action!
-#	if event.is_action_pressed("special_debug"):
+#	if event.is_action_pressed('special_debug'):
 #		print (" ** DEBUG ** FORCING WEBRTC CONNECTIONS TO CLOSE **")
 #		# Close all our peers to force a reconnect (to make sure it works).
 #		for session_id in OnlineMatch._webrtc_peers:
@@ -109,6 +149,8 @@ func _remove_from_team(peer_id) -> bool:
 	return true
 
 func _on_OnlineMatch_player_left(player) -> void:
+	SyncManager.remove_peer(player.peer_id)
+	
 	# Call deferred so we can still access the player on the players array
 	# in all the other signal handlers.
 	game.call_deferred("remove_player", player.peer_id)
@@ -117,3 +159,25 @@ func _on_OnlineMatch_player_left(player) -> void:
 		_on_OnlineMatch_error(player.username + " has left - not enough players!")
 	else:
 		ui_layer.show_message(player.username + " has left")
+
+#####
+# SyncManager callbacks
+#####
+
+func _on_SyncManager_sync_started() -> void:
+	match_manager.match_start()
+
+func _on_SyncManager_sync_lost() -> void:
+	regaining_sync_message.visible = true
+	regaining_sync_animation_player.play("Flash")
+
+func _hide_regaining_sync_message() -> void:
+	regaining_sync_message.visible = false
+	regaining_sync_animation_player.stop()
+
+func _on_SyncManager_sync_regained() -> void:
+	_hide_regaining_sync_message()
+
+func _on_SyncManager_sync_error(_msg) -> void:
+	_hide_regaining_sync_message()
+	_on_OnlineMatch_error('Synchronization lost')

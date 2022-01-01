@@ -17,15 +17,16 @@
 [node name="MenuButton" type="Button"]
 margin_right = 12.0
 margin_bottom = 20.0
+custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
+custom_colors/font_color_focus = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0.6, 0.6, 0.6, 1 )
+custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
+custom_fonts/font = ExtResource( 2 )
 custom_styles/hover = SubResource( 1 )
 custom_styles/pressed = SubResource( 2 )
 custom_styles/focus = SubResource( 3 )
 custom_styles/disabled = SubResource( 4 )
 custom_styles/normal = SubResource( 5 )
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color_disabled = Color( 0, 0, 0, 1 )
-custom_colors/font_color = Color( 0.6, 0.6, 0.6, 1 )
-custom_colors/font_color_hover = Color( 0, 0, 0, 1 )
 text = "Text"
 align = 0
 script = ExtResource( 1 )
@@ -38,6 +39,7 @@ visible = false
 position = Vector2( -44, 15 )
 texture = ExtResource( 3 )
 centered = false
+
 [connection signal="focus_entered" from="." to="." method="_on_MenuButton_focus_entered"]
 [connection signal="focus_exited" from="." to="." method="_on_MenuButton_focus_exited"]
 [connection signal="mouse_entered" from="." to="." method="_on_MenuButton_mouse_entered"]
