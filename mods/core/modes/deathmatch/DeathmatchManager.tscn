@@ -1,20 +1,44 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://mods/core/modes/deathmatch/DeathmatchManager.gd" type="Script" id=1]
 [ext_resource path="res://src/ui/TimedMatchHUD.tscn" type="PackedScene" id=2]
+[ext_resource path="res://addons/network-sync-rollback/NetworkTimer.gd" type="Script" id=3]
+[ext_resource path="res://addons/network-sync-rollback/NetworkRandomNumberGenerator.gd" type="Script" id=4]
 
-[node name="DeathmatchManager" type="Node"]
+[node name="DeathmatchManager" type="Node" groups=["network_sync"]]
 script = ExtResource( 1 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="TimedMatchHUD" parent="CanvasLayer" instance=ExtResource( 2 )]
 
-[node name="WeaponWarningTimer" type="Timer" parent="."]
-one_shot = true
+[node name="PlayerManagers" type="Node" parent="."]
 
-[node name="WeaponTimeoutTimer" type="Timer" parent="."]
-one_shot = true
+[node name="RandomNumberGenerator" type="Node" parent="."]
+script = ExtResource( 4 )
 
-[connection signal="timeout" from="WeaponWarningTimer" to="." method="_on_WeaponWarningTimer_timeout"]
-[connection signal="timeout" from="WeaponTimeoutTimer" to="." method="_on_WeaponTimeoutTimer_timeout"]
+[node name="YouLoseTimer" type="Node" parent="."]
+script = ExtResource( 3 )
+one_shot = true
+wait_ticks = 30
+hash_state = false
+
+[node name="ShowWinnerTimer" type="Node" parent="."]
+script = ExtResource( 3 )
+one_shot = true
+wait_ticks = 15
+
+[node name="ShowScoreTimer" type="Node" parent="."]
+script = ExtResource( 3 )
+one_shot = true
+wait_ticks = 60
+
+[node name="MatchFinishedTimer" type="Node" parent="."]
+script = ExtResource( 3 )
+one_shot = true
+wait_ticks = 60
+
+[connection signal="timeout" from="YouLoseTimer" to="." method="_on_YouLoseTimer_timeout"]
+[connection signal="timeout" from="ShowWinnerTimer" to="." method="_on_ShowWinnerTimer_timeout"]
+[connection signal="timeout" from="ShowScoreTimer" to="." method="_on_ShowScoreTimer_timeout"]
+[connection signal="timeout" from="MatchFinishedTimer" to="." method="_on_MatchFinishedTimer_timeout"]

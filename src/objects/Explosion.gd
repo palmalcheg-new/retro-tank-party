@@ -1,32 +1,42 @@
-extends AnimatedSprite
+extends SGFixedNode2D
 
-onready var sounds = $Sounds
+onready var animation_player = $AnimationPlayer
 
-var animation_finished := false
-var sound_finished := false
+const MissSound = preload("res://assets/sounds/Snare__001.wav")
+const HitSound = preload("res://assets/sounds/Explosion3__004.wav")
+const BigSound = preload("res://assets/sounds/Explosion2__007.wav")
 
-func setup(_position: Vector2, _scale: float, _anim: String) -> void:
-	position = _position
-	scale = Vector2(_scale, _scale)
-	play(_anim)
+func _network_spawn(data: Dictionary) -> void:
+	visible = true
+	fixed_position = data['fixed_position']
+	fixed_scale = SGFixed.vector2(data['scale'], data['scale'])
 	
-	yield(get_tree().create_timer(randf() * 0.150), "timeout")
+	var anim = data['type']
+	animation_player.play(anim)
 	
-	if _anim == 'smoke':
-		sounds.play('Miss')
+	# @todo Can we do something like this with rollback?
+	#yield(get_tree().create_timer(randf() * 0.150), "timeout")
+	
+	var sound_id = str(get_path())
+	if anim == 'smoke':
+		SyncManager.play_sound(sound_id, MissSound, {
+			position = global_position,
+		})
 	else:
-		if _scale > 1.0:
-			sounds.play('Big')
+		if data['scale'] > 1.0:
+			SyncManager.play_sound(sound_id, BigSound, {
+				volume_db = 2.0,
+				position = global_position,
+			})
 		else:
-			sounds.play('Hit')
+			SyncManager.play_sound(sound_id, HitSound, {
+				volume_db = 2.0,
+				position = global_position,
+			})
 
-func _on_Explosion_animation_finished() -> void:
+func _network_despawn() -> void:
+	animation_player.stop(true)
+
+func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 	visible = false
-	animation_finished = true
-	if sound_finished:
-		queue_free()
-
-func _on_Sounds_finished() -> void:
-	sound_finished = true
-	if animation_finished:
-		queue_free()
+	SyncManager.despawn(self)

@@ -214,6 +214,37 @@ script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="NetworkRelayWarning" type="ColorRect" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -100.0
+color = Color( 0, 0, 0, 0.25098 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="NetworkRelayWarning"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="NetworkRelayWarning/MarginContainer"]
+margin_left = 20.0
+margin_top = 35.0
+margin_right = 1260.0
+margin_bottom = 64.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = ExtResource( 5 )
+text = "If you're having issues, try different \"Network Relay\" settings before starting a match."
+align = 1
+valign = 1
+autowrap = true
+
 [connection signal="item_selected" from="PanelContainer/VBoxContainer/OptionSwitcher" to="." method="_on_OptionSwitcher_item_selected"]
 [connection signal="text_entered" from="PanelContainer/VBoxContainer/MarginContainer/JoinPanel/Fields/LineEdit" to="." method="_on_LineEdit_text_entered"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/MarginContainer/JoinPanel/Fields/PasteButton" to="." method="_on_PasteButton_pressed"]

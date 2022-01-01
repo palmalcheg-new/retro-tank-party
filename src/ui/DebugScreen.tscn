@@ -7,7 +7,9 @@
 [ext_resource path="res://assets/ui/blue_title_panel.tres" type="StyleBox" id=5]
 [ext_resource path="res://src/ui/DebugScreen.gd" type="Script" id=6]
 
-[node name="DebugScreen" type="Control"]
+[node name="DebugScreen" type="Control" groups=[
+"network_sync",
+]]
 anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 2 )

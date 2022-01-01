@@ -20,9 +20,7 @@ tracks/0/keys = {
 "values": [ Color( 0.952941, 0.952941, 0.952941, 1 ), Color( 1, 0, 0.188235, 1 ) ]
 }
 
-[node name="DropCrate" type="StaticBody2D" groups=[
-"DropCrate",
-]]
+[node name="DropCrate" type="SGStaticBody2D" groups=["DropCrate"]]
 collision_mask = 6
 script = ExtResource( 1 )
 
@@ -32,8 +30,8 @@ texture = ExtResource( 2 )
 region_enabled = true
 region_rect = Rect2( 592, 420, 56, 56 )
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( -28, -18, 0, -28, 28, -19, 28, 19, 0, 28, -28, 19 )
+[node name="CollisionPolygon2D" type="SGCollisionPolygon2D" parent="."]
+fixed_polygon_pairs = [ [ -1835008, -1179648 ], [ 0, -1835008 ], [ 1769472, -1179648 ], [ 1703936, 1310720 ], [ 0, 1900544 ], [ -1835008, 1245184 ] ]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/glow = SubResource( 1 )

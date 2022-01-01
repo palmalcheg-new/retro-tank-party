@@ -20,6 +20,12 @@ extends Node
 var encryption_password := '${ENCRYPTION_PASSWORD:-dev}'
 EOF
 
+if [ -n "$FALLBACK_ICE_SERVERS" ]; then
+cat << EOF >> $BUILD_FILE
+var fallback_ice_servers: Array = $FALLBACK_ICE_SERVERS
+EOF
+fi
+
 cat << EOF >> $BUILD_FILE
 func _ready() -> void:
 	OnlineMatch.client_version = '$CLIENT_VERSION'

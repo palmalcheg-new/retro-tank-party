@@ -1,10 +1,12 @@
-image: barichello/godot-ci:3.3.2
+image: registry.gitlab.com/snopek-games/godot-builder-docker:latest
 
 variables:
   EXPORT_NAME: retro-tank-party
   ITCHIO_NAME: dsnopek/retro-tank-party
   APPLICATION_NAME: "Retro Tank Party"
   APPLICATION_URL: "https://www.snopekgames.com"
+  GODOT_SOURCE_DIR: godot
+  GODOT_BUILD_DIR: build/godot
 
 stages:
   - build
@@ -12,11 +14,43 @@ stages:
   - sign
   - deploy
 
+build-godot:
+  image: registry.gitlab.com/snopek-games/godot-builder-docker:latest
+  stage: build
+  tags:
+    - multicore
+  variables:
+    SCONS_OPTS: "debug_symbols=yes separate_debug_symbols=yes module_godotsteam_enabled=no"
+  script:
+    - podman login "$GODOT_BUILD_REGISTRY" $PODMAN_OPTS --username="$GODOT_BUILD_REGISTRY_USERNAME" --password="$GODOT_BUILD_REGISTRY_PASSWORD"
+    - rm -rf build/godot/bin
+    - OVERWRITE_EXISTNG=yes ./scripts/build-godot.sh
+    # Remove the bin directory so it doesn't get captured in the cache.
+    - rm -rf build/godot/bin
+  dependencies: []
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "steam" || $CI_COMMIT_BRANCH =~ /^steam-.*$/'
+      when: never
+    - if: '$FORCE_BUILD_GODOT == "yes" || $CI_COMMIT_MESSAGE =~ /\[build godot\]/'
+      variables:
+        FORCE_REBUILD_GODOT: "yes"
+    - changes:
+      - godot/*
+      - godot/**/*
+  parallel:
+    matrix:
+      - BUILD_TYPE: server-tools
+      - BUILD_TYPE: linux-64
+      - BUILD_TYPE: windows-64
+      - BUILD_TYPE: macosx-universal
+      - BUILD_TYPE: html5
+#  cache:
+#    key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+#    paths:
+#      - build/godot
+
 .export_before_script: &export_before_script
   before_script:
-    - apt-get update
-    - apt-get install -y --no-install-recommends ca-certificates unzip wget
-
     # Put in the production Nakama info
     - ./scripts/generate-build-variables.sh
 
@@ -24,15 +58,22 @@ windows:
   <<: *export_before_script
   stage: export
   script:
+    - BUILD_TYPE=server-tools DOWNLOAD_ONLY=yes ./scripts/build-godot.sh
+    - BUILD_TYPE=windows-64   DOWNLOAD_ONLY=yes ./scripts/build-godot.sh
+
     # Pull in the WebRTC GDNative plugin
     - ./scripts/download-webrtc-plugin.sh windows release
 
     # Delete the debug version of the plugin.
-    - rm webrtc_debug/webrtc_debug.gdnlib
+    - rm -rf webrtc_debug/
+
+    # Change to our custom export template.
+    - ./scripts/update-export-setting.py export_presets.cfg preset.0.options custom_template/debug "\"$PWD/build/godot/bin/godot.windows.opt.64.exe\""
+    - ./scripts/update-export-setting.py export_presets.cfg preset.0.options custom_template/release "\"$PWD/build/godot/bin/godot.windows.opt.64.exe\""
 
     # Export!
     - mkdir -v -p build/windows
-    - godot -v --export "Windows Desktop" ./build/windows/$EXPORT_NAME.exe
+    - build/godot/bin/godot_server.x11.opt.tools.64 -v --export "Windows Desktop" ./build/windows/$EXPORT_NAME.exe
   artifacts:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
@@ -65,15 +106,22 @@ linux:
   <<: *export_before_script
   stage: export
   script:
+    - BUILD_TYPE=server-tools DOWNLOAD_ONLY=yes ./scripts/build-godot.sh
+    - BUILD_TYPE=linux-64     DOWNLOAD_ONLY=yes ./scripts/build-godot.sh
+
     # Pull in the WebRTC GDNative plugin
     - ./scripts/download-webrtc-plugin.sh linux release
 
     # Delete the debug version of the plugin.
-    - rm webrtc_debug/webrtc_debug.gdnlib
+    - rm -rf webrtc_debug/
+
+    # Change to our custom export template.
+    - ./scripts/update-export-setting.py export_presets.cfg preset.1.options custom_template/debug "\"$PWD/build/godot/bin/godot.x11.opt.64\""
+    - ./scripts/update-export-setting.py export_presets.cfg preset.1.options custom_template/release "\"$PWD/build/godot/bin/godot.x11.opt.64\""
 
     # Export!
     - mkdir -v -p build/linux
-    - godot -v --export "Linux/X11" ./build/linux/$EXPORT_NAME.x86_64
+    - build/godot/bin/godot_server.x11.opt.tools.64 -v --export "Linux/X11" ./build/linux/$EXPORT_NAME.x86_64
   artifacts:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
@@ -86,15 +134,22 @@ macosx:
   <<: *export_before_script
   stage: export
   script:
+    - BUILD_TYPE=server-tools     DOWNLOAD_ONLY=yes ./scripts/build-godot.sh
+    - BUILD_TYPE=macosx-universal DOWNLOAD_ONLY=yes ./scripts/build-godot.sh
+
     # Pull in the WebRTC GDNative plugin
     - ./scripts/download-webrtc-plugin.sh macosx release
 
     # Delete the debug version of the plugin.
-    - rm webrtc_debug/webrtc_debug.gdnlib
+    - rm -rf webrtc_debug/
+
+    # Change to our custom export template.
+    - ./scripts/update-export-setting.py export_presets.cfg preset.2.options custom_template/debug "\"$PWD/build/godot/bin/osx.zip\""
+    - ./scripts/update-export-setting.py export_presets.cfg preset.2.options custom_template/release "\"$PWD/build/godot/bin/osx.zip\""
 
     # Export!
     - mkdir -v -p build/macosx
-    - godot -v --export "Mac OSX" ./build/macosx/$EXPORT_NAME.zip
+    - build/godot/bin/godot_server.x11.opt.tools.64 -v --export "Mac OSX" ./build/macosx/$EXPORT_NAME.zip
 
     # Extract the zip file since GitLab CI will zip it up again.
     - (cd ./build/macosx && unzip -a $EXPORT_NAME.zip && rm $EXPORT_NAME.zip)
@@ -133,13 +188,47 @@ web:
   <<: *export_before_script
   stage: export
   script:
+    - BUILD_TYPE=server-tools DOWNLOAD_ONLY=yes ./scripts/build-godot.sh
+    - BUILD_TYPE=html5        DOWNLOAD_ONLY=yes ./scripts/build-godot.sh
+
+    # Change to our custom export template.
+    - ./scripts/update-export-setting.py export_presets.cfg preset.3.options custom_template/debug "\"$PWD/build/godot/bin/godot.javascript.opt.zip\""
+    - ./scripts/update-export-setting.py export_presets.cfg preset.3.options custom_template/release "\"$PWD/build/godot/bin/godot.javascript.opt.zip\""
+
     - mkdir -v -p build/web
-    - godot -v --export "HTML5" ./build/web/index.html
+    - build/godot/bin/godot_server.x11.opt.tools.64 -v --export "HTML5" ./build/web/index.html
   artifacts:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
       - build/web
   except:
+    - steam
+    - /^steam-.*$/
+
+web-review:
+  stage: deploy
+  dependencies:
+    - web
+  needs:
+    - web
+  script:
+    # Stash SSH key info.
+    - mkdir -p ~/.ssh
+    - echo "$SSH_DEPLOY_KEY" >> ~/.ssh/id_rsa
+    - echo "$SSH_KNOWN_HOSTS" >> ~/.ssh/known_hosts
+    - chmod 0700 ~/.ssh
+    - chmod 0600 ~/.ssh/id_rsa
+    - chmod 0644 ~/.ssh/known_hosts
+
+    # Push build up to the server.
+    - sudo python3 -m pip install paramiko
+    - scripts/upload-build.py build/web buildbot registry.snopekgames.com "/app/registry/static/uncached/builds/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME"
+  environment:
+    name: "review/$CI_COMMIT_REF_NAME"
+    url: "https://static.snopekgames.com/uncached/builds/$CI_PROJECT_NAME/$CI_COMMIT_REF_NAME/index.html"
+  except:
+    - devel
+    - master
     - steam
     - /^steam-.*$/
 
@@ -173,26 +262,95 @@ itch:
   only:
     - master
 
+build-godot-steam:
+  image: registry.gitlab.com/snopek-games/godot-builder-docker:latest
+  stage: build
+  tags:
+    - multicore
+  variables:
+    GODOT_ARCHIVE_SUFFIX: "steam"
+    SCONS_OPTS: "debug_symbols=yes separate_debug_symbols=yes module_godotsteam_enabled=yes"
+  script:
+    - export GODOT_SOURCE_HASH=$(python3 scripts/godot/calculate-hash.py godot)
+    - podman login "$GODOT_BUILD_REGISTRY" $PODMAN_OPTS --username="$GODOT_BUILD_REGISTRY_USERNAME" --password="$GODOT_BUILD_REGISTRY_PASSWORD"
+    - rm -rf build/godot/bin
+    - ./scripts/download-steam-sdk.sh public/ redistributable_bin/ godot/modules/godotsteam/sdk/
+    - ls godot/modules/godotsteam/sdk/
+    - OVERWRITE_EXISTNG=yes ./scripts/build-godot.sh
+    # Remove the bin directory so it doesn't get captured in the cache.
+    - rm -rf build/godot/bin
+  dependencies: []
+  rules:
+    - if: '$CI_COMMIT_BRANCH != "master" && $CI_COMMIT_BRANCH != "steam" && $CI_COMMIT_BRANCH !~ /^steam-.*$/'
+      when: never
+    - if: '$FORCE_BUILD_GODOT == "yes" || $CI_COMMIT_MESSAGE =~ /\[build godot\]/'
+      variables:
+        FORCE_REBUILD_GODOT: "yes"
+    - changes:
+      - godot/*
+      - godot/**/*
+  parallel:
+    matrix:
+      - BUILD_TYPE: server-tools
+      - BUILD_TYPE: linux-64
+      - BUILD_TYPE: macosx-x86-64
+  cache:
+    key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+    paths:
+      - build/godot
+
+build-godot-steam-windows:
+  image: registry.snopekgames.com/godot/msvc
+  stage: build
+  tags:
+    - windows-docker
+  variables:
+    GODOT_ARCHIVE_SUFFIX: "steam"
+    SCONS_OPTS: "module_godotsteam_enabled=yes"
+  script:
+    - python scripts/godot/build-msvc-steam.py
+  dependencies: []
+  rules:
+    - if: '$CI_COMMIT_BRANCH != "master" && $CI_COMMIT_BRANCH != "steam" && $CI_COMMIT_BRANCH !~ /^steam-.*$/'
+      when: never
+    - if: '$FORCE_BUILD_GODOT == "yes" || $CI_COMMIT_MESSAGE =~ /\[build godot\]/'
+      variables:
+        FORCE_REBUILD_GODOT: "yes"
+    - changes:
+      - godot/*
+      - godot/**/*
+  cache:
+    key: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
+    paths:
+      - build/godot
+
 windows-steam:
   <<: *export_before_script
   stage: export
+  variables:
+    GODOT_ARCHIVE_SUFFIX: "steam"
   script:
+    - BUILD_TYPE=server-tools DOWNLOAD_ONLY=yes ./scripts/build-godot.sh
+    - BUILD_TYPE=windows-msvc DOWNLOAD_ONLY=yes ./scripts/build-godot.sh
+
+    # The steam library is needed to run our server-tools version of Godot too.
+    - ./scripts/download-steam-sdk.sh public/ redistributable_bin/ godot/modules/godotsteam/sdk/
+    - export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$PWD/godot/modules/godotsteam/sdk/redistributable_bin/linux64/"
+
     # Pull in the WebRTC GDNative plugin
     - ./scripts/download-webrtc-plugin.sh windows release
 
     # Delete the debug version of the plugin.
-    - rm webrtc_debug/webrtc_debug.gdnlib
+    - rm -rf webrtc_debug/
 
-    # Get the GodotSteam export templates.
-    - wget "https://www.dropbox.com/s/thuz1r1wu4l1jr4/windows-332-64bit.zip?dl=1" -O ./build/templates/templates.zip
-    - (cd ./build/templates && unzip templates.zip)
-    - ./scripts/update-export-setting.py export_presets.cfg preset.4.options custom_template/debug "\"$PWD/build/templates/windows-332-template-64bit.exe\""
-    - ./scripts/update-export-setting.py export_presets.cfg preset.4.options custom_template/release "\"$PWD/build/templates/windows-332-template-64bit.exe\""
+    # Change to our custom export template.
+    - ./scripts/update-export-setting.py export_presets.cfg preset.4.options custom_template/debug "\"$PWD/build/godot/bin/godot.windows.opt.64.exe\""
+    - ./scripts/update-export-setting.py export_presets.cfg preset.4.options custom_template/release "\"$PWD/build/godot/bin/godot.windows.opt.64.exe\""
 
     # Export!
     - mkdir -v -p build/windows-steam
-    - godot -v --export "Windows Desktop (Steam)" ./build/windows-steam/$EXPORT_NAME.exe
-    - ./scripts/download-steam-redistributables.sh win64/steam_api64.dll ./build/windows-steam/
+    - build/godot/bin/godot_server.x11.opt.tools.64 -v --export "Windows Desktop (Steam)" ./build/windows-steam/$EXPORT_NAME.exe
+    - cp godot/modules/godotsteam/sdk/redistributable_bin/win64/steam_api64.dll ./build/windows-steam/
   artifacts:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
@@ -227,23 +385,30 @@ windows-steam-signed:
 linux-steam:
   <<: *export_before_script
   stage: export
+  variables:
+    GODOT_ARCHIVE_SUFFIX: "steam"
   script:
+    - BUILD_TYPE=server-tools DOWNLOAD_ONLY=yes ./scripts/build-godot.sh
+    - BUILD_TYPE=linux-64     DOWNLOAD_ONLY=yes ./scripts/build-godot.sh
+
+    # The steam library is needed to run our server-tools version of Godot too.
+    - ./scripts/download-steam-sdk.sh public/ redistributable_bin/ godot/modules/godotsteam/sdk/
+    - export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$PWD/godot/modules/godotsteam/sdk/redistributable_bin/linux64/"
+
     # Pull in the WebRTC GDNative plugin
     - ./scripts/download-webrtc-plugin.sh linux release
 
     # Delete the debug version of the plugin.
-    - rm webrtc_debug/webrtc_debug.gdnlib
+    - rm -rf webrtc_debug/
 
-    # Get the GodotSteam export templates.
-    - wget "https://www.dropbox.com/s/sl3kfbrxugmvmxd/linux-332-64bit.tar.gz?dl=1" -O ./build/templates/templates.tgz
-    - (cd ./build/templates && tar -xzvf templates.tgz)
-    - ./scripts/update-export-setting.py export_presets.cfg preset.5.options custom_template/debug "\"$PWD/build/templates/linux-332-template-64bit\""
-    - ./scripts/update-export-setting.py export_presets.cfg preset.5.options custom_template/release "\"$PWD/build/templates/linux-332-template-64bit\""
+    # Change to our custom export template.
+    - ./scripts/update-export-setting.py export_presets.cfg preset.5.options custom_template/debug "\"$PWD/build/godot/bin/godot.x11.opt.64\""
+    - ./scripts/update-export-setting.py export_presets.cfg preset.5.options custom_template/release "\"$PWD/build/godot/bin/godot.x11.opt.64\""
 
     # Export!
     - mkdir -v -p build/linux-steam
-    - godot -v --export "Linux/X11 (Steam)" ./build/linux-steam/$EXPORT_NAME.x86_64
-    - ./scripts/download-steam-redistributables.sh linux64/libsteam_api.so ./build/linux-steam/
+    - build/godot/bin/godot_server.x11.opt.tools.64 -v --export "Linux/X11 (Steam)" ./build/linux-steam/$EXPORT_NAME.x86_64
+    - cp godot/modules/godotsteam/sdk/redistributable_bin/linux64/libsteam_api.so ./build/linux-steam/
   artifacts:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
@@ -256,29 +421,36 @@ linux-steam:
 macosx-steam:
   <<: *export_before_script
   stage: export
+  variables:
+    GODOT_ARCHIVE_SUFFIX: "steam"
   script:
+    - BUILD_TYPE=server-tools  DOWNLOAD_ONLY=yes ./scripts/build-godot.sh
+    - BUILD_TYPE=macosx-x86-64 DOWNLOAD_ONLY=yes ./scripts/build-godot.sh
+
+    # The steam library is needed to run our server-tools version of Godot too.
+    - ./scripts/download-steam-sdk.sh public/ redistributable_bin/ godot/modules/godotsteam/sdk/
+    - export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$PWD/godot/modules/godotsteam/sdk/redistributable_bin/linux64/"
+
     # Pull in the WebRTC GDNative plugin
     - ./scripts/download-webrtc-plugin.sh macosx release
 
     # Delete the debug version of the plugin.
-    - rm webrtc_debug/webrtc_debug.gdnlib
+    - rm -rf webrtc_debug/
 
-    # Get the GodotSteam export templates.
-    - wget "https://www.dropbox.com/s/v59jzylu4dutsld/macos-332-x86_64.zip?dl=1" -O ./build/templates/templates.zip
-    - (cd ./build/templates && unzip templates.zip)
-    - ./scripts/update-export-setting.py export_presets.cfg preset.6.options custom_template/debug "\"$PWD/build/templates/osx.zip\""
-    - ./scripts/update-export-setting.py export_presets.cfg preset.6.options custom_template/release "\"$PWD/build/templates/osx.zip\""
+    # Change to our custom export template.
+    - ./scripts/update-export-setting.py export_presets.cfg preset.6.options custom_template/debug "\"$PWD/build/godot/bin/osx.zip\""
+    - ./scripts/update-export-setting.py export_presets.cfg preset.6.options custom_template/release "\"$PWD/build/godot/bin/osx.zip\""
 
     # Export!
     - mkdir -v -p build/macosx-steam
-    - godot -v --export "Mac OSX (Steam)" ./build/macosx-steam/$EXPORT_NAME.zip
+    - build/godot/bin/godot_server.x11.opt.tools.64 -v --export "Mac OSX (Steam)" ./build/macosx-steam/$EXPORT_NAME.zip
 
     # Extract the zip file since GitLab CI will zip it up again.
     - (cd ./build/macosx-steam && unzip -a $EXPORT_NAME.zip && rm $EXPORT_NAME.zip)
     - >
       APP_PATH=$(find ./build/macosx-steam/ -name \*.app -print -quit);
       APP_NAME=$(basename "$APP_PATH");
-      ./scripts/download-steam-redistributables.sh osx/libsteam_api.dylib "./build/macosx-steam/$APP_NAME/Contents/MacOS/";
+      cp godot/modules/godotsteam/sdk/redistributable_bin/osx/libsteam_api.dylib "./build/macosx-steam/$APP_NAME/Contents/MacOS/";
       rm -f "./build/macosx-steam/$APP_NAME/Contents/MacOS/steam_appid.txt";
   artifacts:
     name: $EXPORT_NAME-$CI_JOB_NAME

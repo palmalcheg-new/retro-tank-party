@@ -5,30 +5,33 @@ onready var timer := $Timer
 
 signal countdown_finished ()
 
-var end_time := 0
+var seconds_remaining := 0
 
 func _ready() -> void:
 	label.visible = false
+
+func _save_state() -> Dictionary:
+	return {
+		seconds_remaining = seconds_remaining,
+	}
+
+func _load_state(state: Dictionary) -> void:
+	seconds_remaining = state['seconds_remaining']
 
 func start_countdown(seconds: int) -> void:
 	if seconds <= 0:
 		return
 	
-	end_time = OS.get_system_time_secs() + seconds
-	_update_label()
+	seconds_remaining = seconds
+	_update_countdown()
 	label.visible = true
 	timer.start()
 
-func _update_label():
-	var seconds_remaining: int = end_time - OS.get_system_time_secs()
-	rpc("_update_remote_label", seconds_remaining)
-
-remotesync func _update_remote_label(seconds_remaining: int) -> void:
+func _update_countdown():
 	if seconds_remaining < 0:
 		label.visible = false
 		timer.stop()
-		if is_network_master():
-			emit_signal("countdown_finished")
+		emit_signal("countdown_finished")
 	else:
 		label.visible = true
 	
@@ -38,4 +41,5 @@ remotesync func _update_remote_label(seconds_remaining: int) -> void:
 	label.text = str(minutes) + ":" + str(seconds).pad_zeros(2)
 
 func _on_Timer_timeout() -> void:
-	_update_label()
+	seconds_remaining -= 1
+	_update_countdown()

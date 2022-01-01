@@ -4,9 +4,8 @@
 [ext_resource path="res://src/components/weapons/BaseBullet.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/objects/Bullet.gd" type="Script" id=3]
 
-[sub_resource type="CapsuleShape2D" id=1]
-radius = 8.0
-height = 0.0
+[sub_resource type="SGCircleShape2D" id=1]
+radius = 524288
 
 [node name="Bullet" instance=ExtResource( 2 )]
 script = ExtResource( 3 )
@@ -20,7 +19,7 @@ texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 570, 584, 16, 28 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="2"]
+[node name="CollisionShape2D" type="SGCollisionShape2D" parent="." index="2"]
 position = Vector2( 8, 0 )
-rotation = 1.5708
+fixed_position_x = 524288
 shape = SubResource( 1 )

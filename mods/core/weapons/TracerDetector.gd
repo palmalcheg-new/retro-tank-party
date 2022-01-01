@@ -1,4 +1,4 @@
-extends Node2D
+extends SGFixedNode2D
 
 func setup_tracer_detector(tank) -> void:
 	for raycast in get_children():
@@ -7,7 +7,7 @@ func setup_tracer_detector(tank) -> void:
 func get_tracer_target():
 	var target = null
 	for raycast in get_children():
-		raycast.force_raycast_update()
+		raycast.update_raycast_collision()
 		if raycast.is_colliding():
 			target = raycast.get_collider()
 			break

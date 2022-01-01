@@ -7,16 +7,29 @@ symbol_prefix="godot_"
 
 [entry]
 
-OSX.64 = "res://webrtc/lib/libwebrtc_native.osx.release.64.dylib"
+OSX.64="res://webrtc/lib/libwebrtc_native.osx.release.64.dylib"
+OSX.arm64="res://webrtc/lib/libwebrtc_native.osx.release.arm64.dylib"
 Windows.64="res://webrtc/lib/webrtc_native.windows.release.64.dll"
 Windows.32="res://webrtc/lib/webrtc_native.windows.release.32.dll"
 X11.64="res://webrtc/lib/libwebrtc_native.linux.release.64.so"
 X11.32="res://webrtc/lib/libwebrtc_native.linux.release.32.so"
+Server.64="res://webrtc/lib/libwebrtc_native.linux.release.64.so"
+Server.32="res://webrtc/lib/libwebrtc_native.linux.release.32.so"
+Android.armeabi-v7a="res://webrtc/lib/libwebrtc_native.android.release.armv7.so"
+Android.arm64-v8a="res://webrtc/lib/libwebrtc_native.android.release.arm64v8.so"
+Android.x64="res://webrtc/lib/libwebrtc_native.android.release.x86_64.so"
+Android.x86="res://webrtc/lib/libwebrtc_native.android.release.x86.so"
+iOS.armv7="res://webrtc/lib/libwebrtc_native.ios.release.armv7.dylib"
+iOS.arm64="res://webrtc/lib/libwebrtc_native.ios.release.arm64.dylib"
+iOS.x86_64="res://webrtc/lib/libwebrtc_native.ios.release.x86_64.dylib"
 
 [dependencies]
 
-OSX.64 = [  ]
 Windows.64=[  ]
 Windows.32=[  ]
 X11.64=[  ]
 X11.32=[  ]
+Server.64=[  ]
+Server.32=[  ]
+Android.armeabi-v7a=[  ]
+Android.arm64-v8a=[  ]

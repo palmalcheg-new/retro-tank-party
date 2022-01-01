@@ -74,8 +74,8 @@ func _on_MapScreen_map_changed(map_scene_path) -> void:
 	if not map_parent:
 		return
 	
-	if map_parent.has_node('Map'):
-		var old_map_scene = map_parent.get_node('Map')
+	var old_map_scene = map_parent.get_node_or_null(@"Map")
+	if old_map_scene:
 		map_parent.remove_child(old_map_scene)
 		old_map_scene.queue_free()
 	
@@ -89,11 +89,15 @@ func _on_MapScreen_map_changed(map_scene_path) -> void:
 	map_scene.scale = get_viewport_rect().size / map_rect.size
 
 func _on_ReadyScreen_ready_pressed() -> void:
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	
 	var match_info = {
 		manager_path = mode_screen.get_mode_manager_scene_path(),
 		config = mode_screen.get_config_values(),
 		map_path = map_screen.get_map_scene_path(),
 		teams = team_screen.get_teams(),
+		random_seed = rng.seed,
 	}
 	RemoteOperations.change_scene("res://src/main/Match.tscn", match_info)
 
@@ -122,6 +126,7 @@ func _on_OnlineMatch_disconnected():
 	_on_OnlineMatch_error('')
 
 func _on_OnlineMatch_player_left(player) -> void:
+	SyncManager.remove_peer(player.peer_id)
 	if OnlineMatch.players.size() < 2:
 		_on_OnlineMatch_error(player.username + " has left - not enough players!")
 	else:

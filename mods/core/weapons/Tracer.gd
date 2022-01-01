@@ -15,5 +15,6 @@ func detach_weapon() -> void:
 	detector.queue_free()
 
 func fire_weapon() -> void:
-	var bullet = create_bullet()
-	bullet.target = detector.get_tracer_target()
+	create_bullet({
+		target = detector.get_tracer_target(),
+	})

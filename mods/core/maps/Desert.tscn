@@ -21,21 +21,33 @@ tile_data = PoolIntArray( -1, 15, 0, -65536, 15, 0, -65535, 14, 0, -65534, 14, 0
 
 [node name="PlayerStartPositions" type="Node2D" parent="."]
 
-[node name="Player1" type="Position2D" parent="PlayerStartPositions"]
+[node name="Player1" type="SGFixedPosition2D" parent="PlayerStartPositions"]
 position = Vector2( 198, 196 )
-rotation = 0.643801
+rotation = 0.643799
+fixed_rotation = 42192
+fixed_position_x = 12976128
+fixed_position_y = 12845056
 
-[node name="Player2" type="Position2D" parent="PlayerStartPositions"]
+[node name="Player2" type="SGFixedPosition2D" parent="PlayerStartPositions"]
 position = Vector2( 2453, 1562 )
-rotation = -2.28443
+rotation = -2.28442
+fixed_rotation = -149712
+fixed_position_x = 160759808
+fixed_position_y = 102367232
 
-[node name="Player3" type="Position2D" parent="PlayerStartPositions"]
+[node name="Player3" type="SGFixedPosition2D" parent="PlayerStartPositions"]
 position = Vector2( 2457, 193 )
 rotation = 2.21715
+fixed_rotation = 145303
+fixed_position_x = 161021952
+fixed_position_y = 12648448
 
-[node name="Player4" type="Position2D" parent="PlayerStartPositions"]
+[node name="Player4" type="SGFixedPosition2D" parent="PlayerStartPositions"]
 position = Vector2( 205, 1564 )
-rotation = -0.922228
+rotation = -0.922226
+fixed_rotation = -60439
+fixed_position_x = 13434880
+fixed_position_y = 102498304
 
 [node name="Objects" type="Node2D" parent="."]
 
@@ -43,661 +55,1136 @@ rotation = -0.922228
 
 [node name="SandbagBiege" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 583, 1769 )
+fixed_position_x = 38207488
+fixed_position_y = 115933184
 
 [node name="SandbagBiege2" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 521, 1763 )
+fixed_position_x = 34144256
+fixed_position_y = 115539968
 
 [node name="SandbagBiege3" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 467, 1773 )
+fixed_position_x = 30605312
+fixed_position_y = 116195328
 
 [node name="SandbagBiege4" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 394.546, 1776.41 )
-rotation = 0.0588176
+rotation = 0.0588074
+fixed_rotation = 3854
+fixed_position_x = 25856966
+fixed_position_y = 116418808
 
 [node name="SandbagBiege5" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 326.5, 1785 )
+fixed_position_x = 21397504
+fixed_position_y = 116981760
 
 [node name="SandbagBiege6" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 262.773, 1780.41 )
+fixed_position_x = 17221092
+fixed_position_y = 116680952
 
 [node name="SandbagBiege7" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 199.091, 1773.59 )
+fixed_position_x = 13047628
+fixed_position_y = 116233992
 
 [node name="SandbagBiege9" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 135.909, 1779.36 )
+fixed_position_x = 8906932
+fixed_position_y = 116612136
 
 [node name="SandbagBiege10" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 86.9086, 1755.36 )
-rotation = 0.256921
+rotation = 0.256912
+fixed_rotation = 16837
+fixed_position_x = 5695642
+fixed_position_y = 115039272
 
 [node name="SandbagBiege11" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 48.9087, 1714.36 )
-rotation = -1.98205
+rotation = -1.98204
+fixed_rotation = -129895
+fixed_position_x = 3205280
+fixed_position_y = 112352296
 
 [node name="SandbagBiege12" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 42.9086, 1655.36 )
-rotation = -1.61331
+rotation = -1.6133
+fixed_rotation = -105729
+fixed_position_x = 2812058
+fixed_position_y = 108485672
 
 [node name="SandbagBiege13" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 36.9086, 1598.36 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 2418842
+fixed_position_y = 104750120
 
 [node name="SandbagBiege14" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 20.9086, 1544.36 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 1370266
+fixed_position_y = 101211176
 
 [node name="SandbagBiege15" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 34.9086, 1487.36 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 2287770
+fixed_position_y = 97475624
 
 [node name="SandbagBiege16" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 29.9086, 1428.36 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 1960090
+fixed_position_y = 93609000
 
 [node name="SandbagBiege17" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 46.9086, 1372.36 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 3074202
+fixed_position_y = 89938984
 
 [node name="SandbagBiege99" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 22.9086, 1326.36 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 1501338
+fixed_position_y = 86924328
 
 [node name="SandbagBiege100" parent="Objects/Border" instance=ExtResource( 5 )]
-position = Vector2( 6.90863, 1272.36 )
-rotation = -1.5708
+position = Vector2( 6.90862, 1272.36 )
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 452763
+fixed_position_y = 83385384
 
 [node name="SandbagBiege101" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 20.9086, 1215.36 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 1370266
+fixed_position_y = 79649832
 
 [node name="SandbagBiege102" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 15.9086, 1156.36 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 1042586
+fixed_position_y = 75783208
 
 [node name="SandbagBiege103" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 32.9086, 1100.36 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 2156698
+fixed_position_y = 72113192
 
 [node name="SandbagBiege18" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 532, 16 )
+fixed_position_x = 34865152
+fixed_position_y = 1048576
 
 [node name="SandbagBiege19" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 472, 3 )
+fixed_position_x = 30932992
+fixed_position_y = 196608
 
 [node name="SandbagBiege20" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 415, 16 )
+fixed_position_x = 27197440
+fixed_position_y = 1048576
 
 [node name="SandbagBiege21" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 358, 21 )
+fixed_position_x = 23461888
+fixed_position_y = 1376256
 
 [node name="SandbagBiege22" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 304, 7 )
+fixed_position_x = 19922944
+fixed_position_y = 458752
 
 [node name="SandbagBiege23" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 247, 10 )
+fixed_position_x = 16187392
+fixed_position_y = 655360
 
 [node name="SandbagBiege25" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 139.409, 3.27283 )
+fixed_position_x = 9136308
+fixed_position_y = 214488
 
 [node name="SandbagBiege26" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 98.9086, 15.3636 )
-rotation = -0.328559
+rotation = -0.328552
+fixed_rotation = -21532
+fixed_position_x = 6482074
+fixed_position_y = 1006868
 
 [node name="SandbagBiege27" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 98.9086, 15.3636 )
-rotation = -0.247916
+rotation = -0.24791
+fixed_rotation = -16247
+fixed_position_x = 6482074
+fixed_position_y = 1006868
 
 [node name="SandbagBiege28" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 50.9086, 44.3636 )
 rotation = -1.02213
+fixed_rotation = -66986
+fixed_position_x = 3336346
+fixed_position_y = 2907413
 
 [node name="SandbagBiege29" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 39.9086, 100.364 )
-rotation = -1.68756
+rotation = -1.68755
+fixed_rotation = -110595
+fixed_position_x = 2615450
+fixed_position_y = 6577455
 
 [node name="SandbagBiege30" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 36.9086, 151.364 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 2418842
+fixed_position_y = 9919791
 
 [node name="SandbagBiege31" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 17.9086, 208.364 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 1173658
+fixed_position_y = 13655343
 
 [node name="SandbagBiege32" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 28.9086, 265.364 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 1894554
+fixed_position_y = 17390896
 
 [node name="SandbagBiege33" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 25.9086, 325.364 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 1697946
+fixed_position_y = 21323056
 
 [node name="SandbagBiege34" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 27.9086, 388.364 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 1829018
+fixed_position_y = 25451824
 
 [node name="SandbagBiege134" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 17.9086, 446.364 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 1173658
+fixed_position_y = 29252912
 
 [node name="SandbagBiege135" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 14.9086, 506.364 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 977050
+fixed_position_y = 33185072
 
 [node name="SandbagBiege138" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 16.9086, 569.364 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 1108122
+fixed_position_y = 37313840
 
 [node name="SandbagBiege139" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 19.9086, 617.364 )
-rotation = -1.44009
+rotation = -1.44008
+fixed_rotation = -94377
+fixed_position_x = 1304730
+fixed_position_y = 40459568
 
 [node name="SandbagBiege94" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 30.9086, 802.364 )
-rotation = -1.68756
+rotation = -1.68755
+fixed_rotation = -110595
+fixed_position_x = 2025626
+fixed_position_y = 52583728
 
 [node name="SandbagBiege95" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 30.9086, 861.364 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 2025626
+fixed_position_y = 56450352
 
 [node name="SandbagBiege127" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2660, 487 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 174325760
+fixed_position_y = 31916032
 
 [node name="SandbagBiege131" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2671, 544 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 175046656
+fixed_position_y = 35651584
 
 [node name="SandbagBiege132" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2668, 604 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 174850048
+fixed_position_y = 39583744
 
 [node name="SandbagBiege133" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2670, 667 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 174981120
+fixed_position_y = 43712512
 
 [node name="SandbagBiege96" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 11.9086, 918.364 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 780442
+fixed_position_y = 60185904
 
 [node name="SandbagBiege97" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 22.9086, 978.364 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 1501338
+fixed_position_y = 64118064
 
 [node name="SandbagBiege98" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 19.9086, 1041.36 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 1304730
+fixed_position_y = 68246568
 
 [node name="SandbagBiege24" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 187, 4 )
-rotation = -0.139493
+rotation = -0.139481
+fixed_rotation = -9141
+fixed_position_x = 12255232
+fixed_position_y = 262144
 
 [node name="SandbagBiege67" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 996, 16 )
+fixed_position_x = 65273856
+fixed_position_y = 1048576
 
 [node name="SandbagBiege68" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 936, 3 )
+fixed_position_x = 61341696
+fixed_position_y = 196608
 
 [node name="SandbagBiege69" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 879, 10 )
+fixed_position_x = 57606144
+fixed_position_y = 655360
 
 [node name="SandbagBiege70" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 822, 21 )
+fixed_position_x = 53870592
+fixed_position_y = 1376256
 
 [node name="SandbagBiege71" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 768, 7 )
+fixed_position_x = 50331648
+fixed_position_y = 458752
 
 [node name="SandbagBiege72" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 711, 10 )
+fixed_position_x = 46596096
+fixed_position_y = 655360
 
 [node name="SandbagBiege73" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 595, 10 )
+fixed_position_x = 38993920
+fixed_position_y = 655360
 
 [node name="SandbagBiege74" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 651, 4 )
-rotation = -0.139493
+rotation = -0.139481
+fixed_rotation = -9141
+fixed_position_x = 42663936
+fixed_position_y = 262144
 
 [node name="SandbagBiege75" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1460, 10 )
+fixed_position_x = 95682560
+fixed_position_y = 655360
 
 [node name="SandbagBiege76" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1400, -3 )
+fixed_position_x = 91750400
+fixed_position_y = -196608
 
 [node name="SandbagBiege77" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1343, 10 )
+fixed_position_x = 88014848
+fixed_position_y = 655360
 
 [node name="SandbagBiege78" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1286, 15 )
+fixed_position_x = 84279296
+fixed_position_y = 983040
 
 [node name="SandbagBiege79" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1232, 1 )
+fixed_position_x = 80740352
+fixed_position_y = 65536
 
 [node name="SandbagBiege80" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1175, 4 )
+fixed_position_x = 77004800
+fixed_position_y = 262144
 
 [node name="SandbagBiege81" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1059, 4 )
+fixed_position_x = 69402624
+fixed_position_y = 262144
 
 [node name="SandbagBiege82" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1115, 4 )
-rotation = 0.165954
+rotation = 0.165939
+fixed_rotation = 10875
+fixed_position_x = 73072640
+fixed_position_y = 262144
 
 [node name="SandbagBiege83" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1921, 10 )
+fixed_position_x = 125894656
+fixed_position_y = 655360
 
 [node name="SandbagBiege84" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1864, -9 )
+fixed_position_x = 122159104
+fixed_position_y = -589824
 
 [node name="SandbagBiege85" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1807, 4 )
+fixed_position_x = 118423552
+fixed_position_y = 262144
 
 [node name="SandbagBiege91" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2097, 4 )
+fixed_position_x = 137428992
+fixed_position_y = 262144
 
 [node name="SandbagBiege92" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2037, -9 )
+fixed_position_x = 133496832
+fixed_position_y = -589824
 
 [node name="SandbagBiege93" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1980, 12 )
+fixed_position_x = 129761280
+fixed_position_y = 786432
 
 [node name="SandbagBiege86" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1750, 9 )
+fixed_position_x = 114688000
+fixed_position_y = 589824
 
 [node name="SandbagBiege87" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1696, -5 )
+fixed_position_x = 111149056
+fixed_position_y = -327680
 
 [node name="SandbagBiege88" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1639, -2 )
+fixed_position_x = 107413504
+fixed_position_y = -131072
 
 [node name="SandbagBiege89" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1523, -2 )
+fixed_position_x = 99811328
+fixed_position_y = -131072
 
 [node name="SandbagBiege90" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1579, -8 )
-rotation = -0.139493
+rotation = -0.139481
+fixed_rotation = -9141
+fixed_position_x = 103481344
+fixed_position_y = -524288
 
 [node name="SandbagBiege104" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1050, 1787 )
+fixed_position_x = 68812800
+fixed_position_y = 117112832
 
 [node name="SandbagBiege105" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 990, 1774 )
+fixed_position_x = 64880640
+fixed_position_y = 116260864
 
 [node name="SandbagBiege106" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 933, 1781 )
+fixed_position_x = 61145088
+fixed_position_y = 116719616
 
 [node name="SandbagBiege107" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 876, 1792 )
+fixed_position_x = 57409536
+fixed_position_y = 117440512
 
 [node name="SandbagBiege108" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 822, 1778 )
+fixed_position_x = 53870592
+fixed_position_y = 116523008
 
 [node name="SandbagBiege109" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 765, 1781 )
+fixed_position_x = 50135040
+fixed_position_y = 116719616
 
 [node name="SandbagBiege110" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 649, 1781 )
+fixed_position_x = 42532864
+fixed_position_y = 116719616
 
 [node name="SandbagBiege111" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 705, 1775 )
-rotation = -0.139493
+rotation = -0.139481
+fixed_rotation = -9141
+fixed_position_x = 46202880
+fixed_position_y = 116326400
 
 [node name="SandbagBiege112" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1514, 1781 )
+fixed_position_x = 99221504
+fixed_position_y = 116719616
 
 [node name="SandbagBiege113" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1454, 1768 )
+fixed_position_x = 95289344
+fixed_position_y = 115867648
 
 [node name="SandbagBiege114" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1397, 1781 )
+fixed_position_x = 91553792
+fixed_position_y = 116719616
 
 [node name="SandbagBiege115" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1340, 1786 )
+fixed_position_x = 87818240
+fixed_position_y = 117047296
 
 [node name="SandbagBiege116" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1286, 1772 )
+fixed_position_x = 84279296
+fixed_position_y = 116129792
 
 [node name="SandbagBiege117" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1229, 1775 )
+fixed_position_x = 80543744
+fixed_position_y = 116326400
 
 [node name="SandbagBiege118" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1113, 1775 )
+fixed_position_x = 72941568
+fixed_position_y = 116326400
 
 [node name="SandbagBiege119" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1169, 1775 )
-rotation = 0.165954
+rotation = 0.165939
+fixed_rotation = 10875
+fixed_position_x = 76611584
+fixed_position_y = 116326400
 
 [node name="SandbagBiege128" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2081, 1778 )
+fixed_position_x = 136380416
+fixed_position_y = 116523008
 
 [node name="SandbagBiege129" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1965, 1778 )
+fixed_position_x = 128778240
+fixed_position_y = 116523008
 
 [node name="SandbagBiege130" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2021, 1778 )
-rotation = 0.165954
+rotation = 0.165939
+fixed_rotation = 10875
+fixed_position_x = 132448256
+fixed_position_y = 116523008
 
 [node name="SandbagBiege120" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1918, 1762 )
+fixed_position_x = 125698048
+fixed_position_y = 115474432
 
 [node name="SandbagBiege121" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1861, 1775 )
+fixed_position_x = 121962496
+fixed_position_y = 116326400
 
 [node name="SandbagBiege122" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1804, 1780 )
+fixed_position_x = 118226944
+fixed_position_y = 116654080
 
 [node name="SandbagBiege123" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1750, 1766 )
+fixed_position_x = 114688000
+fixed_position_y = 115736576
 
 [node name="SandbagBiege124" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1693, 1769 )
+fixed_position_x = 110952448
+fixed_position_y = 115933184
 
 [node name="SandbagBiege125" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1577, 1769 )
+fixed_position_x = 103350272
+fixed_position_y = 115933184
 
 [node name="SandbagBiege126" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 1633, 1763 )
-rotation = -0.139493
+rotation = -0.139481
+fixed_rotation = -9141
+fixed_position_x = 107020288
+fixed_position_y = 115539968
 
 [node name="SandbagBiege35" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2129, 1771 )
+fixed_position_x = 139526144
+fixed_position_y = 116064256
 
 [node name="SandbagBiege36" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2182, 1759 )
+fixed_position_x = 142999552
+fixed_position_y = 115277824
 
 [node name="SandbagBiege37" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2238, 1772 )
+fixed_position_x = 146669568
+fixed_position_y = 116129792
 
 [node name="SandbagBiege38" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2290, 1753 )
+fixed_position_x = 150077440
+fixed_position_y = 114884608
 
 [node name="SandbagBiege39" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2344, 1766 )
+fixed_position_x = 153616384
+fixed_position_y = 115736576
 
 [node name="SandbagBiege40" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2403, 1763 )
+fixed_position_x = 157483008
+fixed_position_y = 115539968
 
 [node name="SandbagBiege41" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2462, 1769 )
+fixed_position_x = 161349632
+fixed_position_y = 115933184
 
 [node name="SandbagBiege42" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2518, 1764 )
-rotation = 0.11924
+rotation = 0.119232
+fixed_rotation = 7814
+fixed_position_x = 165019648
+fixed_position_y = 115605504
 
 [node name="SandbagBiege43" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2575, 1753 )
-rotation = -0.524014
+rotation = -0.524002
+fixed_rotation = -34341
+fixed_position_x = 168755200
+fixed_position_y = 114884608
 
 [node name="SandbagBiege44" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2622, 1718 )
-rotation = -1.03599
+rotation = -1.03598
+fixed_rotation = -67894
+fixed_position_x = 171835392
+fixed_position_y = 112590848
 
 [node name="SandbagBiege45" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2643, 1662 )
-rotation = -1.68463
+rotation = -1.68462
+fixed_rotation = -110403
+fixed_position_x = 173211648
+fixed_position_y = 108920832
 
 [node name="SandbagBiege63" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2646, 1601 )
-rotation = -1.50173
+rotation = -1.50172
+fixed_rotation = -98417
+fixed_position_x = 173408256
+fixed_position_y = 104923136
 
 [node name="SandbagBiege64" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2659, 1540 )
-rotation = -1.79495
+rotation = -1.79494
+fixed_rotation = -117633
+fixed_position_x = 174260224
+fixed_position_y = 100925440
 
 [node name="SandbagBiege46" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2646, 843 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 173408256
+fixed_position_y = 55246848
 
 [node name="SandbagBiege47" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2652, 906 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 173801472
+fixed_position_y = 59375616
 
 [node name="SandbagBiege48" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2647, 968 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 173473792
+fixed_position_y = 63438848
 
 [node name="SandbagBiege136" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2658, 783 )
-rotation = -1.46672
+rotation = -1.46671
+fixed_rotation = -96122
+fixed_position_x = 174194688
+fixed_position_y = 51314688
 
 [node name="SandbagBiege137" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2672, 726 )
 rotation = -1.56409
+fixed_rotation = -102504
+fixed_position_x = 175112192
+fixed_position_y = 47579136
 
 [node name="SandbagBiege49" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2650, 1028 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 173670400
+fixed_position_y = 67371008
 
 [node name="SandbagBiege140" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2660, 1087 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 174325760
+fixed_position_y = 71237632
 
 [node name="SandbagBiege141" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2669, 1157 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 174915584
+fixed_position_y = 75825152
 
 [node name="SandbagBiege142" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2658, 1251 )
-rotation = -1.3832
+rotation = -1.38319
+fixed_rotation = -90649
+fixed_position_x = 174194688
+fixed_position_y = 81985536
 
 [node name="SandbagBiege50" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2651, 1477 )
-rotation = -1.38456
+rotation = -1.38455
+fixed_rotation = -90738
+fixed_position_x = 173735936
+fixed_position_y = 96796672
 
 [node name="SandbagBiege51" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2150, 18 )
+fixed_position_x = 140902400
+fixed_position_y = 1179648
 
 [node name="SandbagBiege52" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2210, 13 )
+fixed_position_x = 144834560
+fixed_position_y = 851968
 
 [node name="SandbagBiege53" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2272, 24 )
+fixed_position_x = 148897792
+fixed_position_y = 1572864
 
 [node name="SandbagBiege54" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2339, 12 )
+fixed_position_x = 153288704
+fixed_position_y = 786432
 
 [node name="SandbagBiege55" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2399, 15 )
+fixed_position_x = 157220864
+fixed_position_y = 983040
 
 [node name="SandbagBiege56" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2465, 10 )
+fixed_position_x = 161546240
+fixed_position_y = 655360
 
 [node name="SandbagBiege57" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2535, 15 )
-rotation = 0.267366
+rotation = 0.267365
+fixed_rotation = 17522
+fixed_position_x = 166133760
+fixed_position_y = 983040
 
 [node name="SandbagBiege58" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2655, 136 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 173998080
+fixed_position_y = 8912896
 
 [node name="SandbagBiege65" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2641, 74 )
-rotation = -1.95036
+rotation = -1.95035
+fixed_rotation = -127818
+fixed_position_x = 173080576
+fixed_position_y = 4849664
 
 [node name="SandbagBiege66" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2605, 21 )
-rotation = -2.87742
+rotation = -2.87741
+fixed_rotation = -188574
+fixed_position_x = 170721280
+fixed_position_y = 1376256
 
 [node name="SandbagBiege59" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2663, 196 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 174522368
+fixed_position_y = 12845056
 
 [node name="SandbagBiege61" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2666, 312 )
-rotation = -1.5708
+rotation = -1.57079
+fixed_rotation = -102943
+fixed_position_x = 174718976
+fixed_position_y = 20447232
 
 [node name="SandbagBiege62" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2660, 400 )
-rotation = -1.27714
+rotation = -1.27713
+fixed_rotation = -83698
+fixed_position_x = 174325760
+fixed_position_y = 26214400
 
 [node name="SandbagBiege60" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2652, 255 )
-rotation = -1.93344
+rotation = -1.93343
+fixed_rotation = -126709
+fixed_position_x = 173801472
+fixed_position_y = 16711680
 
 [node name="SandbagBiege143" parent="Objects/Border" instance=ExtResource( 5 )]
 position = Vector2( 2663, 1426 )
-rotation = -1.93344
+rotation = -1.93343
+fixed_rotation = -126709
+fixed_position_x = 174522368
+fixed_position_y = 93454336
 
 [node name="CrateMetal" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 819, 273 )
-rotation = 0.0680258
+rotation = 0.0680237
+fixed_rotation = 4458
+fixed_position_x = 53673984
+fixed_position_y = 17891328
 
 [node name="CrateMetal2" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 808, 345 )
-rotation = -0.258485
+rotation = -0.258484
+fixed_rotation = -16940
+fixed_position_x = 52953088
+fixed_position_y = 22609920
 
 [node name="CrateMetal3" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 875, 374 )
-rotation = 0.368723
+rotation = 0.368713
+fixed_rotation = 24164
+fixed_position_x = 57344000
+fixed_position_y = 24510464
 
 [node name="CrateMetal4" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 883, 299 )
-rotation = -0.0557812
+rotation = -0.0557709
+fixed_rotation = -3655
+fixed_position_x = 57868288
+fixed_position_y = 19595264
 
 [node name="CrateMetal5" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 950, 360 )
-rotation = -0.0557812
+rotation = -0.0557709
+fixed_rotation = -3655
+fixed_position_x = 62259200
+fixed_position_y = 23592960
 
 [node name="CrateMetal6" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 950, 256 )
-rotation = -2.40692
+rotation = -2.40691
+fixed_rotation = -157739
+fixed_position_x = 62259200
+fixed_position_y = 16777216
 
 [node name="CrateMetal7" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 1364, 801 )
-rotation = -2.40692
+rotation = -2.40691
+fixed_rotation = -157739
+fixed_position_x = 89391104
+fixed_position_y = 52494336
 
 [node name="CrateMetal8" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 1282, 791 )
-rotation = -3.22198
+rotation = -3.22197
+fixed_rotation = -211155
+fixed_position_x = 84017152
+fixed_position_y = 51838976
 
 [node name="CrateMetal9" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 1309, 855 )
-rotation = -3.22198
+rotation = -3.22197
+fixed_rotation = -211155
+fixed_position_x = 85786624
+fixed_position_y = 56033280
 
 [node name="CrateMetal30" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 1700, 1372 )
-rotation = -3.22198
+rotation = -3.22197
+fixed_rotation = -211155
+fixed_position_x = 111411200
+fixed_position_y = 89915392
 
 [node name="CrateMetal10" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 1210, 810 )
-rotation = -1.48713
+rotation = -1.48712
+fixed_rotation = -97460
+fixed_position_x = 79298560
+fixed_position_y = 53084160
 
 [node name="CrateMetal11" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 1242, 884 )
 rotation = -1.55544
+fixed_rotation = -101937
+fixed_position_x = 81395712
+fixed_position_y = 57933824
 
 [node name="CrateMetal26" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 543, 791 )
-rotation = -1.48713
+rotation = -1.48712
+fixed_rotation = -97460
+fixed_position_x = 35586048
+fixed_position_y = 51838976
 
 [node name="CrateMetal27" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 575, 865 )
 rotation = -1.55544
+fixed_rotation = -101937
+fixed_position_x = 37683200
+fixed_position_y = 56688640
 
 [node name="CrateMetal14" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 1844, 261 )
-rotation = -3.22198
+rotation = -3.22197
+fixed_rotation = -211155
+fixed_position_x = 120848384
+fixed_position_y = 17104896
 
 [node name="CrateMetal15" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 1871, 325 )
-rotation = -3.22198
+rotation = -3.22197
+fixed_rotation = -211155
+fixed_position_x = 122617856
+fixed_position_y = 21299200
 
 [node name="CrateMetal16" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 1772, 280 )
-rotation = -1.48713
+rotation = -1.48712
+fixed_rotation = -97460
+fixed_position_x = 116129792
+fixed_position_y = 18350080
 
 [node name="CrateMetal17" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 1804, 354 )
 rotation = -1.55544
+fixed_rotation = -101937
+fixed_position_x = 118226944
+fixed_position_y = 23199744
 
 [node name="CrateMetal28" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 607, 1366 )
-rotation = -3.22198
+rotation = -3.22197
+fixed_rotation = -211155
+fixed_position_x = 39780352
+fixed_position_y = 89522176
 
 [node name="CrateMetal29" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 540, 1395 )
 rotation = -1.55544
+fixed_rotation = -101937
+fixed_position_x = 35389440
+fixed_position_y = 91422720
 
 [node name="CrateMetal31" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 422, 1279 )
 rotation = -1.55544
+fixed_rotation = -101937
+fixed_position_x = 27656192
+fixed_position_y = 83820544
 
 [node name="CrateMetal12" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 1400, 876 )
-rotation = -3.141
+rotation = -3.14099
+fixed_rotation = -205848
+fixed_position_x = 91750400
+fixed_position_y = 57409536
 
 [node name="CrateMetal13" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 1338, 922 )
-rotation = -3.141
+rotation = -3.14099
+fixed_rotation = -205848
+fixed_position_x = 87687168
+fixed_position_y = 60424192
 
 [node name="BarricadeWood" parent="Objects" instance=ExtResource( 6 )]
 position = Vector2( 31.4223, 705.985 )
+fixed_position_x = 2059291
+fixed_position_y = 46267432
 
 [node name="BarricadeWood2" parent="Objects" instance=ExtResource( 6 )]
 position = Vector2( 2656, 1344 )
+fixed_position_x = 174063616
+fixed_position_y = 88080384
 
 [node name="FenceRed" parent="Objects" instance=ExtResource( 7 )]
 position = Vector2( 745, 318 )
-rotation = -1.60644
+rotation = -1.60643
+fixed_rotation = -105279
+fixed_position_x = 48824320
+fixed_position_y = 20840448
 
 [node name="FenceYellow" parent="Objects" instance=ExtResource( 8 )]
 position = Vector2( 1949, 315 )
-rotation = 1.5968
+rotation = 1.59679
+fixed_rotation = 104647
+fixed_position_x = 127729664
+fixed_position_y = 20643840
 
 [node name="BarricadeWood3" parent="Objects" instance=ExtResource( 9 )]
 position = Vector2( 881, 219 )
+fixed_position_x = 57737216
+fixed_position_y = 14352384
 
 [node name="CrateMetal18" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 429, 1366 )
-rotation = -0.0557812
+rotation = -0.0557709
+fixed_rotation = -3655
+fixed_position_x = 28114944
+fixed_position_y = 89522176
 
 [node name="CrateMetal19" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 496, 1323 )
-rotation = -2.40692
+rotation = -2.40691
+fixed_rotation = -157739
+fixed_position_x = 32505856
+fixed_position_y = 86704128
 
 [node name="CrateMetal20" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 419, 883 )
-rotation = -0.0557812
+rotation = -0.0557709
+fixed_rotation = -3655
+fixed_position_x = 27459584
+fixed_position_y = 57868288
 
 [node name="CrateMetal21" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 486, 840 )
-rotation = -2.40692
+rotation = -2.40691
+fixed_rotation = -157739
+fixed_position_x = 31850496
+fixed_position_y = 55050240
 
 [node name="BarricadeWood5" parent="Objects" instance=ExtResource( 9 )]
 position = Vector2( 417, 803 )
+fixed_position_x = 27328512
+fixed_position_y = 52625408
 
 [node name="CrateMetal22" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 1561, 1299 )
-rotation = -0.0557812
+rotation = -0.0557709
+fixed_rotation = -3655
+fixed_position_x = 102301696
+fixed_position_y = 85131264
 
 [node name="CrateMetal23" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 1645, 1323 )
-rotation = -2.40692
+rotation = -2.40691
+fixed_rotation = -157739
+fixed_position_x = 107806720
+fixed_position_y = 86704128
 
 [node name="BarricadeWood6" parent="Objects" instance=ExtResource( 9 )]
 position = Vector2( 1581, 1374 )
+fixed_position_x = 103612416
+fixed_position_y = 90046464
 
 [node name="CrateMetal24" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 2469, 1171 )
-rotation = -0.0557812
+rotation = -0.0557709
+fixed_rotation = -3655
+fixed_position_x = 161808384
+fixed_position_y = 76742656
 
 [node name="CrateMetal25" parent="Objects" instance=ExtResource( 4 )]
 position = Vector2( 2546, 1128 )
-rotation = -2.40692
+rotation = -2.40691
+fixed_rotation = -157739
+fixed_position_x = 166854656
+fixed_position_y = 73924608
 
 [node name="BarricadeWood7" parent="Objects" instance=ExtResource( 9 )]
 position = Vector2( 2485, 1250 )
+fixed_position_x = 162856960
+fixed_position_y = 81920000
 
 [node name="BarricadeWood8" parent="Objects" instance=ExtResource( 9 )]
 position = Vector2( 2555, 1199 )
 rotation = 1.55109
+fixed_rotation = 101652
+fixed_position_x = 167444480
+fixed_position_y = 78577664
 
 [node name="DropCrateSpawnArea1" parent="." instance=ExtResource( 2 )]
 position = Vector2( 1274.15, 299 )
+fixed_position_x = 83502696
+fixed_position_y = 19595264
 
 [node name="DropCrateSpawnArea2" parent="." instance=ExtResource( 2 )]
 position = Vector2( 911, 1086 )
+fixed_position_x = 59703296
+fixed_position_y = 71172096
 
 [node name="DropCrateSpawnArea3" parent="." instance=ExtResource( 2 )]
 position = Vector2( 2016.06, 667.883 )
+fixed_position_x = 132124512
+fixed_position_y = 43770380
 
 [node name="DropCrateSpawnArea4" parent="." instance=ExtResource( 2 )]
 position = Vector2( 2016.06, 1154.37 )
+fixed_position_x = 132124512
+fixed_position_y = 75652792

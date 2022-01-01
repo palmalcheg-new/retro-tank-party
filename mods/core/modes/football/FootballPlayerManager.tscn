@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://addons/network-sync-rollback/NetworkTimer.gd" type="Script" id=1]
+[ext_resource path="res://mods/core/modes/football/FootballPlayerManager.gd" type="Script" id=2]
+
+[node name="FootballPlayerManager" type="Node" groups=[
+"network_sync",
+]]
+script = ExtResource( 2 )
+
+[node name="RespawnTimer" type="Node" parent="."]
+script = ExtResource( 1 )
+one_shot = true
+wait_ticks = 60
+
+[connection signal="timeout" from="RespawnTimer" to="." method="_on_RespawnTimer_timeout"]

@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends SGStaticBody2D
 
 var GreenTwigs = preload("res://src/objects/cosmetic/GreenTwigs.tscn")
 
@@ -7,22 +7,25 @@ var contents: Pickup
 func _ready():
 	$AnimationPlayer.play("glow")
 
-func set_contents(_contents: Pickup):
-	contents = _contents
+func _network_spawn(data: Dictionary) -> void:
+	set_global_fixed_position(data['fixed_position'])
+	contents = load(data['contents_path'])
+	sync_to_physics_engine()
 
-func take_damage(damage: int, attacker_id: int, attack_vector: Vector2) -> void:
-	rpc("open_crate")
+func take_damage(damage: int, attacker_id: int, attack_vector: SGFixedVector2) -> void:
+	open_crate()
+
+func open_crate() -> void:
+	if get_parent() == null:
+		return
 	
-remotesync func open_crate() -> void:
-	var twigs = GreenTwigs.instance()
-	twigs.position = position
-	get_parent().add_child(twigs)
-		
-	var powerup = contents.instance()
-	powerup.set_name("Powerup")
-	powerup.position = position
-	# Adding a new area to the scene interacts with the physics engine, and
-	# so we need to defer it.
-	get_parent().call_deferred("add_child", powerup)
+	SyncManager.spawn('GreenTwigs', get_parent(), GreenTwigs, {
+		fixed_position = fixed_position.copy(),
+	})
 	
-	queue_free()
+	SyncManager.spawn('Powerup', get_parent(), contents.get_pickup_scene(), {
+		fixed_position = fixed_position.copy(),
+		pickup_path = contents.resource_path,
+	}, false)
+	
+	SyncManager.despawn(self)
