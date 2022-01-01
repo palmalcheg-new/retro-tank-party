@@ -248,6 +248,7 @@ pages:
    - devel
 
 itch:
+  image: barichello/godot-ci:3.4.2
   stage: deploy
   dependencies:
     - web
