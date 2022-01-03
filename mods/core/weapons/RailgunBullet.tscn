@@ -33,7 +33,6 @@ shape = SubResource( 1 )
 [node name="RayCast2D" type="SGRayCast2D" parent="." index="2"]
 position = Vector2( 1, 0 )
 fixed_position_x = 65536
-collision_mask = 3
 cast_to_x = 6116693
 cast_to_y = 0
 

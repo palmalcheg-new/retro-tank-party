@@ -7,6 +7,7 @@ onready var line: Line2D = $Line2D
 var speed = 6116693
 var growing := true
 var bounces := 0
+var first := true
 
 func _ready():
 	line.set_as_toplevel(true)
@@ -17,6 +18,7 @@ func _network_spawn(data: Dictionary) -> void:
 	._network_spawn(data)
 	growing = true
 	bounces = 0
+	first = true
 	line.default_color = Globals.art.get_tank_color(player_index)
 	line.add_point(fixed_position.to_float())
 
@@ -33,11 +35,13 @@ func _save_state() -> Dictionary:
 	var state = ._save_state()
 	state['growing'] = growing
 	state['bounces'] = bounces
+	state['first'] = first
 	state['_points'] = line.points
 	
 	var exceptions := []
 	for node in ray_cast.get_exceptions():
 		if not node.is_inside_tree():
+			ray_cast.remove_exception(node)
 			continue
 		var node_path = str(node.get_path())
 		exceptions.append(node_path)
@@ -48,11 +52,12 @@ func _save_state() -> Dictionary:
 func _load_state(state: Dictionary) -> void:
 	growing = state['growing']
 	bounces = state['bounces']
+	first = state['first']
 	line.points = state['_points']
 	
 	ray_cast.clear_exceptions()
 	for node_path in state['exceptions']:
-		var node = get_node(node_path)
+		var node = get_node_or_null(node_path)
 		if node:
 			ray_cast.add_exception(node)
 	
@@ -60,10 +65,13 @@ func _load_state(state: Dictionary) -> void:
 
 func _network_process(delta: float, input: Dictionary) -> void:
 	# Note: We don't call the parent _network_process() on purpose.
-	if growing:
+	
+	if first:
+		# In the first frame, we check collision at our original position.
 		check_collision()
-		
-		var increment = vector.mul(speed)
+		first = false
+	
+	if growing:
 		ray_cast.update_raycast_collision()
 		if ray_cast.is_colliding():
 			var collider = ray_cast.get_collider()
@@ -72,21 +80,19 @@ func _network_process(delta: float, input: Dictionary) -> void:
 				set_global_fixed_position(ray_cast.get_collision_point())
 			
 				var collision_normal = ray_cast.get_collision_normal()
-				#print ("[%s] collision normal: (%s, %s)" % [SyncManager.current_tick, collision_normal.x, collision_normal.y])
 				if !(collision_normal.x == 0 and collision_normal.y == 0):
 					vector = vector.bounce(collision_normal).normalized()
-					#print ("[%s] vector: (%s, %s)" % [SyncManager.current_tick, vector.x, vector.y])
 					fixed_rotation = vector.angle()
-					#print ("[%s] angle: %s" % [SyncManager.current_tick, fixed_rotation])
 				
-				bounces += 1
-			
-			ray_cast.clear_exceptions()
-			ray_cast.add_exception(collider)
+					bounces += 1
+					
+					ray_cast.clear_exceptions()
+					ray_cast.add_exception(collider)
 		else:
-			fixed_position.iadd(increment)
+			fixed_position.iadd(vector.mul(speed))
 		
 		sync_to_physics_engine()
+		check_collision()
 		
 		line.add_point(fixed_position.to_float())
 		

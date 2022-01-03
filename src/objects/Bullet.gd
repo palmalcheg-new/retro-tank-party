@@ -17,10 +17,16 @@ func explode(type: String) -> void:
 
 func _network_process(delta: float, _input: Dictionary) -> void:
 	._network_process(delta, _input)
+	
+	# If we've already exploded, then we don't bother moving.
+	if not is_inside_tree():
+		return
+	
 	# @todo Is there a way to pre-calculate the vector * speed without losing
 	#       flexibility in child classes?
 	fixed_position.iadd(vector.mul(speed))
 	sync_to_physics_engine()
+	check_collision()
 
 func _on_LifetimeTimer_timeout() -> void:
 	explode("Smoke")
