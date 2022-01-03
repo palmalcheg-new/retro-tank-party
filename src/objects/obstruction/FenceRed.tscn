@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://assets/objects.png" type="Texture" id=1]
+[ext_resource path="res://mods/core/art/classic/FenceRed.png" type="Texture" id=1]
+[ext_resource path="res://src/objects/SimpleVisual.gd" type="Script" id=2]
 
 [sub_resource type="SGRectangleShape2D" id=1]
 extents_x = 3145728
@@ -8,11 +9,13 @@ extents_y = 983040
 
 [node name="FenceRed" type="SGStaticBody2D"]
 collision_mask = 2
+script = ExtResource( 2 )
+visual_id = "FenceRed"
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Visual" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="Visual"]
 texture = ExtResource( 1 )
-region_enabled = true
-region_rect = Rect2( 243, 336, 96, 32 )
 
 [node name="CollisionShape2D" type="SGCollisionShape2D" parent="."]
 shape = SubResource( 1 )

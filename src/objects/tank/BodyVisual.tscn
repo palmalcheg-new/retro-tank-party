@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://mods/core/art/classic/TankBody1.png" type="Texture" id=1]
+
+[node name="BodyVisual" type="Node2D"]
+
+[node name="Sprite" type="Sprite" parent="."]
+use_parent_material = true
+rotation = -1.5708
+texture = ExtResource( 1 )

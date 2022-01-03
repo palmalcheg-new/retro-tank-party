@@ -135,10 +135,6 @@ func _ready():
 	player_info_node.set_as_toplevel(true)
 	player_info_node.position = global_position + player_info_offset
 	
-	var sprite_material = body_sprite.material.duplicate()
-	body_sprite.material = sprite_material
-	turret_sprite.material = sprite_material
-	
 	set_weapon_type(BaseWeaponType)
 	
 	SyncManager.connect("scene_spawned", self, "_on_SyncManager_scene_spawned")
@@ -175,6 +171,10 @@ func _network_spawn(data: Dictionary) -> void:
 	set_network_master(data['peer_id'])
 	player_info_node.set_player_name(data['player_name'])
 	set_tank_color(data['player_index'])
+	
+	var visual_material = preload("res://src/objects/whitening_shader.tres").duplicate()
+	body_visual.material = visual_material
+	turret_visual.material = visual_material
 	
 	if data['team'] != -1:
 		player_info_node.set_team(data['team'])

@@ -18,5 +18,5 @@ func set_player_name(_name: String) -> void:
 
 func set_team(team: int) -> void:
 	team_parent.visible = true
-	team_parent.color = Globals.TEAM_COLORS[team]
+	team_parent.color = Globals.art.get_team_color(team)
 	team_label.text = Globals.TEAM_NAMES[team][0]

@@ -50,5 +50,5 @@ func _launch_fireworks() -> void:
 	fireworks.global_position = Vector2(
 		top_left.x + (randi() % int(shape_float_extents.x * 2)),
 		top_left.y + (randi() % int(shape_float_extents.y * 2)))
-	fireworks.color = Globals.TEAM_COLORS[Globals.Teams.RED if goal_color == GoalColor.BLUE else Globals.Teams.BLUE]
+	fireworks.color = Globals.art.get_team_color(goal_color)
 

@@ -4,8 +4,8 @@ var GreenTwigs = preload("res://src/objects/cosmetic/GreenTwigs.tscn")
 
 var contents: Pickup
 
-func _ready():
-	$AnimationPlayer.play("glow")
+func _ready() -> void:
+	Globals.art.replace_visual("DropCrate", $Visual)
 
 func _network_spawn(data: Dictionary) -> void:
 	set_global_fixed_position(data['fixed_position'])

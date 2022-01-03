@@ -78,9 +78,9 @@ func _on_bullet_collision(body: SGCollisionObject2D) -> void:
 	
 	if body.has_method("take_damage"):
 		body.take_damage(damage, player_id, vector.normalized())
-		explode("fire")
+		explode("Fire")
 	else:
-		explode("smoke")
+		explode("Smoke")
 
 func _on_LifetimeTimer_timeout() -> void:
 	# Overriden by child classes (namely "res://src/objects/Bullet.gd")

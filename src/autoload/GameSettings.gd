@@ -13,6 +13,7 @@ enum NetworkRelay {
 	FORCED_FALLBACK,
 }
 
+var art_style := "res://mods/core/art/classic.tres" setget set_art_style
 var sound_volume := 1.0 setget set_sound_volume
 var music_volume := 1.0 setget set_music_volume
 var tank_engine_sounds := true setget set_tank_engine_sounds
@@ -25,6 +26,7 @@ var joy_id := 0 setget set_joy_id
 var joy_name := "" setget set_joy_name
 
 const SETTINGS_KEYS = [
+	'art_style',
 	'music_volume',
 	'sound_volume',
 	'tank_engine_sounds',
@@ -42,6 +44,10 @@ func _ready() -> void:
 	Input.connect("joy_connection_changed", self, "_on_joy_connection_changed")
 	joy_name = Input.get_joy_name(joy_id)
 	load_settings()
+
+func set_art_style(_art_style: String) -> void:
+	art_style = _art_style
+	Globals.art.load_art_style(art_style)
 
 func set_music_volume(_music_volume: float) -> void:
 	music_volume = _music_volume

@@ -49,6 +49,17 @@ func unsubscribe(event_name: String, object: Object, method: String) -> void:
 			return
 	assert ("Cannot unsubscribe - no matching listeners on event %s" % event_name)
 
+func has_subscriber(event_name: String, object: Object, method: String) -> bool:
+	if not listeners.has(event_name):
+		return false
+	
+	for i in range(listeners[event_name].size()):
+		var listener = listeners[event_name][i]
+		if listener.object.get_ref() == object and listener.method == method:
+			return true
+	
+	return false
+
 func clear() -> void:
 	listeners.clear()
 
