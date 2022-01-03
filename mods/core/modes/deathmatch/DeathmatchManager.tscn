@@ -2,8 +2,8 @@
 
 [ext_resource path="res://mods/core/modes/deathmatch/DeathmatchManager.gd" type="Script" id=1]
 [ext_resource path="res://src/ui/TimedMatchHUD.tscn" type="PackedScene" id=2]
-[ext_resource path="res://addons/network-sync-rollback/NetworkTimer.gd" type="Script" id=3]
-[ext_resource path="res://addons/network-sync-rollback/NetworkRandomNumberGenerator.gd" type="Script" id=4]
+[ext_resource path="res://addons/godot-rollback-netcode/NetworkTimer.gd" type="Script" id=3]
+[ext_resource path="res://addons/godot-rollback-netcode/NetworkRandomNumberGenerator.gd" type="Script" id=4]
 
 [node name="DeathmatchManager" type="Node" groups=["network_sync"]]
 script = ExtResource( 1 )

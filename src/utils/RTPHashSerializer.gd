@@ -1,4 +1,4 @@
-extends "res://addons/network-sync-rollback/HashSerializer.gd"
+extends "res://addons/godot-rollback-netcode/HashSerializer.gd"
 
 func serialize_object(value: Object):
 	if value is SGFixedVector2:

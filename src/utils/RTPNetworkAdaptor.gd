@@ -1,4 +1,4 @@
-extends "res://addons/network-sync-rollback/NakamaWebRTCNetworkAdaptor.gd"
+extends "res://addons/godot-rollback-netcode/NakamaWebRTCNetworkAdaptor.gd"
 
 func _init() -> void:
 	._init()

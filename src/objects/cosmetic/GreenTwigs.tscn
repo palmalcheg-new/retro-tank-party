@@ -2,7 +2,7 @@
 
 [ext_resource path="res://mods/core/art/classic/GreenTwigs.png" type="Texture" id=1]
 [ext_resource path="res://src/objects/cosmetic/GreenTwigs.gd" type="Script" id=2]
-[ext_resource path="res://addons/network-sync-rollback/NetworkTimer.gd" type="Script" id=3]
+[ext_resource path="res://addons/godot-rollback-netcode/NetworkTimer.gd" type="Script" id=3]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Dissolve"

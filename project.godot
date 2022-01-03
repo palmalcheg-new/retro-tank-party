@@ -127,17 +127,17 @@ _global_script_classes=[ {
 "base": "AnimationPlayer",
 "class": "NetworkAnimationPlayer",
 "language": "GDScript",
-"path": "res://addons/network-sync-rollback/NetworkAnimationPlayer.gd"
+"path": "res://addons/godot-rollback-netcode/NetworkAnimationPlayer.gd"
 }, {
 "base": "Node",
 "class": "NetworkRandomNumberGenerator",
 "language": "GDScript",
-"path": "res://addons/network-sync-rollback/NetworkRandomNumberGenerator.gd"
+"path": "res://addons/godot-rollback-netcode/NetworkRandomNumberGenerator.gd"
 }, {
 "base": "Node",
 "class": "NetworkTimer",
 "language": "GDScript",
-"path": "res://addons/network-sync-rollback/NetworkTimer.gd"
+"path": "res://addons/godot-rollback-netcode/NetworkTimer.gd"
 }, {
 "base": "Resource",
 "class": "Pickup",
@@ -215,9 +215,9 @@ RemoteOperations="*res://src/autoload/RemoteOperations.gd"
 Sounds="*res://src/autoload/Sounds.tscn"
 Music="*res://src/autoload/Music.tscn"
 Modding="*res://src/autoload/Modding.gd"
-SyncDebugger="*res://addons/network-sync-rollback/SyncDebugger.gd"
+SyncDebugger="*res://addons/godot-rollback-netcode/SyncDebugger.gd"
 Utils="*res://src/autoload/Utils.gd"
-SyncManager="*res://addons/network-sync-rollback/SyncManager.gd"
+SyncManager="*res://addons/godot-rollback-netcode/SyncManager.gd"
 
 [debug]
 
@@ -246,7 +246,7 @@ convert_text_resources_to_binary_on_export=true
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/multirun/plugin.cfg", "res://addons/network-sync-rollback/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/multirun/plugin.cfg", "res://addons/godot-rollback-netcode/plugin.cfg" )
 
 [gdnative]
 

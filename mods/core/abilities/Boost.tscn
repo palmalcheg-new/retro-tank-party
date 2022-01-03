@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://mods/core/abilities/Boost.gd" type="Script" id=1]
-[ext_resource path="res://addons/network-sync-rollback/NetworkTimer.gd" type="Script" id=2]
+[ext_resource path="res://addons/godot-rollback-netcode/NetworkTimer.gd" type="Script" id=2]
 
 [node name="Boost" type="Node2D" groups=["network_sync"]]
 script = ExtResource( 1 )
