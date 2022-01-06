@@ -4,6 +4,7 @@ const BaseWeaponType = preload("res://mods/core/weapons/base.tres")
 const Explosion = preload("res://src/objects/Explosion.tscn")
 const EventDispatcher = preload("res://src/utils/EventDispatcher.gd")
 
+const TankMaterial = preload("res://src/objects/whitening_shader.tres")
 const ShootSound = preload("res://assets/sounds/Bass Drum__003.wav")
 
 const ONE_POINT_FIVE = 98304
@@ -172,14 +173,16 @@ func _network_spawn(data: Dictionary) -> void:
 	player_info_node.set_player_name(data['player_name'])
 	set_tank_color(data['player_index'])
 	
-	var visual_material = preload("res://src/objects/whitening_shader.tres").duplicate()
-	body_visual.material = visual_material
-	turret_visual.material = visual_material
-	
 	if data['team'] != -1:
 		player_info_node.set_team(data['team'])
 	
 	sync_to_physics_engine()
+
+func set_tank_color(player_index: int) -> void:
+	.set_tank_color(player_index)
+	var visual_material = TankMaterial.duplicate()
+	body_visual.material = visual_material
+	turret_visual.material = visual_material
 
 func _network_despawn() -> void:
 	# Reset some stuff for when this node is reused
