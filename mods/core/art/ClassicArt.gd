@@ -1,15 +1,15 @@
 extends "res://src/components/art/BaseArt.gd"
 
 const TANK_COLORS := {
-	1: Color("419fdd"),
-	2: Color("2ecc71"),
-	3: Color("e74c3c"),
-	4: Color("5f5d55"),
+	1: Color("43f7ff"),
+	2: Color("25ff50"),
+	3: Color("f63824"),
+	4: Color("f8f8f8"),
 }
 
 const TEAM_COLORS := [
-	Color('#e74c3c'),
-	Color('#419fdd'),
+	Color('#f63824'),
+	Color('#43f7ff'),
 ]
 
 func get_tank_color(index: int) -> Color:
