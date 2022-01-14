@@ -1,5 +1,8 @@
 extends Reference
 
+const PickupGenericVisual = preload("res://src/objects/pickups/PickupGenericVisual.tscn")
+const PickupSpriteVisual = preload("res://src/objects/pickups/PickupSpriteVisual.tscn")
+
 var art_style_resource
 var texture_replace_cache := {}
 
@@ -45,6 +48,8 @@ func get_texture_name_for_visual(id: String, info: Dictionary = {}) -> String:
 			return id + str(info['type'])
 		'TreeBig', 'TreeSmall':
 			return id + '_' + info['color']
+		'Pickup':
+			return id + '_' + info['name']
 	return id
 
 func replace_visual(id: String, node: Node, info: Dictionary = {}) -> Node:
@@ -53,6 +58,15 @@ func replace_visual(id: String, node: Node, info: Dictionary = {}) -> Node:
 	
 	if art_style_resource.texture_base_path != "":
 		var texture_name = get_texture_name_for_visual(id, info)
+		
+		if id == 'Pickup':
+			var texture = get_texture(texture_name)
+			if texture:
+				node = PickupSpriteVisual.instance()
+			else:
+				node = PickupGenericVisual.instance()
+				return node
+		
 		replace_sprite_texture(texture_name, node)
 	
 	return node

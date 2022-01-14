@@ -9,6 +9,11 @@ export (PackedScene) var pickup_scene
 func get_default_pickup_scene() -> PackedScene:
 	return preload("res://src/objects/pickups/Pickup.tscn")
 
+func get_pickup_machine_name() -> String:
+	var fn = resource_path.get_basename()
+	var parts = fn.split('/')
+	return parts[parts.size() - 1]
+
 func get_pickup_scene() -> PackedScene:
 	if pickup_scene == null:
 		return get_default_pickup_scene()
