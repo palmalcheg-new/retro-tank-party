@@ -1,5 +1,5 @@
 /*************************************************************************/
-/* Copyright (c) 2021 David Snopek                                       */
+/* Copyright (c) 2021-2022 David Snopek                                  */
 /*                                                                       */
 /* Permission is hereby granted, free of charge, to any person obtaining */
 /* a copy of this software and associated documentation files (the       */
@@ -71,6 +71,7 @@ void SGFixed::_bind_methods() {
 	BIND_CONSTANT(NEG_ONE);
 	BIND_CONSTANT(PI);
 	BIND_CONSTANT(TAU);
+	BIND_CONSTANT(PI_DIV_2);
 	BIND_CONSTANT(PI_DIV_4);
 	BIND_CONSTANT(EPSILON);
 

@@ -1,5 +1,5 @@
 /*************************************************************************/
-/* Copyright (c) 2021 David Snopek                                       */
+/* Copyright (c) 2021-2022 David Snopek                                  */
 /*                                                                       */
 /* Permission is hereby granted, free of charge, to any person obtaining */
 /* a copy of this software and associated documentation files (the       */
@@ -47,26 +47,25 @@ SGFixedVector2Internal SGFixedVector2Internal::rotated(fixed p_rotation) const {
 }
 
 void SGFixedVector2Internal::normalize() {
-	// If a fixed value is less than 256, then squaring it can become 0,
-	// causing this method to break with small values. Since only direction
-	// matters, we can increase the vector's magnitude to avoid this.
+	// For values less than 2048 we get really imprecise results. Since only
+	// direction matters, we can increase the vector's magnitude.
 	fixed x_abs = x.abs();
 	fixed y_abs = y.abs();
-	if ((x.value != 0 && x_abs.value < 256) || (y.value != 0 && y_abs.value < 256)) {
+	if ((x.value != 0 && x_abs.value < 2048) || (y.value != 0 && y_abs.value < 2048)) {
 		// Watch out for values that will overflow even 64 bits.
-		// 11863283 = sqrt(MAX_SIGNED_64BIT_NUMBER) / 256
-		if (x_abs.value >= 11863283) {
-			x = fixed::ONE;
+		// 1482910 = sqrt(MAX_SIGNED_64BIT_NUMBER) / 2048
+		if (x_abs.value >= 1482910) {
+			x = x.value > 0 ? fixed::ONE : fixed::NEG_ONE;
 			y = fixed::ZERO;
 		}
-		else if (y_abs.value >= 11863283) {
+		else if (y_abs.value >= 1482910) {
 			x = fixed::ZERO;
-			y = fixed::ONE;
+			y = y.value > 0 ? fixed::ONE : fixed::NEG_ONE;
 		}
 		else {
-			// Multiply X and Y by 256.
-			fixed x_big = fixed(x.value << 8);
-			fixed y_big = fixed(y.value << 8);
+			// Multiply X and Y by 2048.
+			fixed x_big = fixed(x.value << 11);
+			fixed y_big = fixed(y.value << 11);
 			fixed l = SGFixedVector2Internal(x_big, y_big).length();
 			if (l != fixed::ZERO) {
 				x = x_big / l;
@@ -96,11 +95,27 @@ bool SGFixedVector2Internal::is_normalized() const {
 fixed SGFixedVector2Internal::length() const {
 	// By directly using 64-bit integers we can avoid a left shift, since
 	// multiplying two fixed point numbers effectively shifts them left.
-	return fixed(sg_sqrt_64(x.value * x.value + y.value * y.value));
+	int64_t length_squared = x.value * x.value + y.value * y.value;
+	if (length_squared == 0) {
+		return fixed::ZERO;
+	}
+	fixed length = fixed(sg_sqrt_64(length_squared));
+	if (length == fixed::ZERO) {
+		// If the vector was non-zero, then we must return some length.
+		return fixed(1);
+	}
+	return length;
 }
 
 fixed SGFixedVector2Internal::length_squared() const {
-	return x * x + y * y;
+	fixed ret = x * x + y * y;
+	// Squaring a fixed-point number smaller than 15 will be 0, which means
+	// that it's possible for ret to equal 0.
+	if (ret == fixed::ZERO && (x != fixed::ZERO || y != fixed::ZERO)) {
+		// If the vector was non-zero, then we must return some length.
+		return fixed(1);
+	}
+	return ret;
 }
 
 fixed SGFixedVector2Internal::distance_to(const SGFixedVector2Internal &p_other) const {
@@ -163,3 +178,25 @@ bool SGFixedVector2Internal::is_equal_approx(const SGFixedVector2Internal &p_v) 
 	return fixed::is_equal_approx(x, p_v.x) && fixed::is_equal_approx(y, p_v.y);
 }
 
+SGFixedVector2Internal SGFixedVector2Internal::cubic_interpolate(const SGFixedVector2Internal& p_b, const SGFixedVector2Internal& p_pre_a, const SGFixedVector2Internal& p_post_b, fixed p_weight) const {
+	SGFixedVector2Internal p0 = p_pre_a;
+	SGFixedVector2Internal p1 = *this;
+	SGFixedVector2Internal p2 = p_b;
+	SGFixedVector2Internal p3 = p_post_b;
+
+	fixed t = p_weight;
+	fixed t2 = t * t;
+	fixed t3 = t2 * t;
+
+	// from original floating point compute:
+	//out = 0.5 *
+	//	((p1 * 2.0) +
+	//		(-p0 + p2) * t +
+	//		(2.0 * p0 - 5.0 * p1 + 4 * p2 - p3) * t2 +
+	//		(-p0 + 3.0 * p1 - 3.0 * p2 + p3) * t3);
+	SGFixedVector2Internal out = ((p1 * fixed(131072)) +
+			(-p0 + p2) * t +
+			((p0 * fixed(131072)) - p1 * fixed(327680) + (p2 * fixed(262144)) - p3) * t2 +
+			(-p0 + p1 * fixed(196608) - p2 * fixed(196608) + p3) * t3) * fixed(32768);
+	return out;
+}

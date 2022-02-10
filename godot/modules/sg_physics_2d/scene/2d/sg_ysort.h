@@ -21,26 +21,22 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                */
 /*************************************************************************/
 
-#ifndef SG_AREA_2D_H
-#define SG_AREA_2D_H
+// Code originally from Godot Engine's YSort (MIT License)
 
-#include "sg_collision_object_2d.h"
+#ifndef SG_YSORT_H
+#define SG_YSORT_H
 
-#include "../../math/sg_fixed_vector2.h"
+#include "sg_fixed_node_2d.h"
 
-class SGArea2D : public SGCollisionObject2D {
-	GDCLASS(SGArea2D, SGCollisionObject2D);
-
-protected:
+class SGYSort : public SGFixedNode2D {
+	GDCLASS(SGYSort, SGFixedNode2D);
+	bool sort_enabled;
 	static void _bind_methods();
 
 public:
-	Array get_overlapping_areas(bool sort = true) const;
-	Array get_overlapping_bodies(bool sort = true) const;
-
-	SGArea2D();
-	~SGArea2D();
-
+	void set_sort_enabled(bool p_enabled);
+	bool is_sort_enabled() const;
+	SGYSort();
 };
 
-#endif
+#endif // SG_YSORT_H

@@ -1,5 +1,5 @@
 /*************************************************************************/
-/* Copyright (c) 2021 David Snopek                                       */
+/* Copyright (c) 2021-2022 David Snopek                                  */
 /*                                                                       */
 /* Permission is hereby granted, free of charge, to any person obtaining */
 /* a copy of this software and associated documentation files (the       */
@@ -83,6 +83,13 @@ struct SGFixedRect2Internal {
 
 		return new_rect;
 	};
+
+	inline void grow_by(fixed p_by) {
+		position.x -= p_by;
+		position.y -= p_by;
+		size.width += p_by * fixed::TWO;
+		size.height += p_by * fixed::TWO;
+	}
 
 	inline void expand_to(const SGFixedVector2Internal &p_vector) {
 		SGFixedVector2Internal begin = position;

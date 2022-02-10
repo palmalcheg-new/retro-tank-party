@@ -21,26 +21,28 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                */
 /*************************************************************************/
 
-#ifndef SG_AREA_2D_H
-#define SG_AREA_2D_H
+// Code originally from Godot Engine's YSort (MIT License)
 
-#include "sg_collision_object_2d.h"
+#include "sg_ysort.h"
 
-#include "../../math/sg_fixed_vector2.h"
+void SGYSort::set_sort_enabled(bool p_enabled) {
+	sort_enabled = p_enabled;
+	VS::get_singleton()->canvas_item_set_sort_children_by_y(get_canvas_item(), sort_enabled);
+}
 
-class SGArea2D : public SGCollisionObject2D {
-	GDCLASS(SGArea2D, SGCollisionObject2D);
+bool SGYSort::is_sort_enabled() const {
+	return sort_enabled;
+}
 
-protected:
-	static void _bind_methods();
+void SGYSort::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("set_sort_enabled", "enabled"), &SGYSort::set_sort_enabled);
+	ClassDB::bind_method(D_METHOD("is_sort_enabled"), &SGYSort::is_sort_enabled);
 
-public:
-	Array get_overlapping_areas(bool sort = true) const;
-	Array get_overlapping_bodies(bool sort = true) const;
+	ADD_GROUP("Sort", "sort_");
+	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "sort_enabled"), "set_sort_enabled", "is_sort_enabled");
+}
 
-	SGArea2D();
-	~SGArea2D();
-
-};
-
-#endif
+SGYSort::SGYSort() {
+	sort_enabled = true;
+	VS::get_singleton()->canvas_item_set_sort_children_by_y(get_canvas_item(), true);
+}

@@ -1,5 +1,5 @@
 /*************************************************************************/
-/* Copyright (c) 2021 David Snopek                                       */
+/* Copyright (c) 2021-2022 David Snopek                                  */
 /*                                                                       */
 /* Permission is hereby granted, free of charge, to any person obtaining */
 /* a copy of this software and associated documentation files (the       */
@@ -35,6 +35,7 @@ class SGCollisionShape2DEditor : public Control {
 	enum ShapeType {
 		RECTANGLE_SHAPE,
 		CIRCLE_SHAPE,
+		CAPSULE_SHAPE,
 	};
 
 	EditorNode *editor;

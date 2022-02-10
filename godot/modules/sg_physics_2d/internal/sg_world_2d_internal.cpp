@@ -1,5 +1,5 @@
 /*************************************************************************/
-/* Copyright (c) 2021 David Snopek                                       */
+/* Copyright (c) 2021-2022 David Snopek                                  */
 /*                                                                       */
 /* Permission is hereby granted, free of charge, to any person obtaining */
 /* a copy of this software and associated documentation files (the       */
@@ -56,15 +56,15 @@ void SGWorld2DInternal::remove_body(SGBody2DInternal *p_body) {
 	p_body->remove_from_broadphase();
 }
 
-bool SGWorld2DInternal::overlaps(SGCollisionObject2DInternal *p_object1, SGCollisionObject2DInternal *p_object2, SGWorld2DInternal::BodyOverlapInfo *p_info) const {
+bool SGWorld2DInternal::overlaps(SGCollisionObject2DInternal *p_object1, SGCollisionObject2DInternal *p_object2, fixed p_margin, SGWorld2DInternal::BodyOverlapInfo *p_info) const {
 	bool overlapping = false;
 
 	SGWorld2DInternal::ShapeOverlapInfo shape_overlap_info;
-	fixed longest_separation_squared = -fixed::HALF;
+	fixed longest_separation_squared;
 
 	for (const List<SGShape2DInternal *>::Element *S1 = p_object1->get_shapes().front(); S1; S1 = S1->next()) {
 		for (const List<SGShape2DInternal *>::Element *S2 = p_object2->get_shapes().front(); S2; S2 = S2->next()) {
-			if (overlaps(S1->get(), S2->get(), &shape_overlap_info)) {
+			if (overlaps(S1->get(), S2->get(), p_margin, &shape_overlap_info)) {
 				overlapping = true;
 				if (!p_info) {
 					return overlapping;
@@ -77,6 +77,7 @@ bool SGWorld2DInternal::overlaps(SGCollisionObject2DInternal *p_object1, SGColli
 					p_info->collider_shape = S2->get();
 					p_info->local_shape = S1->get();
 					p_info->separation = shape_overlap_info.separation;
+					p_info->collision_normal = shape_overlap_info.collision_normal;
 				}
 			}
 		}
@@ -85,7 +86,7 @@ bool SGWorld2DInternal::overlaps(SGCollisionObject2DInternal *p_object1, SGColli
 	return overlapping;
 }
 
-bool SGWorld2DInternal::overlaps(SGShape2DInternal *p_shape1, SGShape2DInternal *p_shape2, SGWorld2DInternal::ShapeOverlapInfo *p_info) const {
+bool SGWorld2DInternal::overlaps(SGShape2DInternal *p_shape1, SGShape2DInternal *p_shape2, fixed p_margin, SGWorld2DInternal::ShapeOverlapInfo *p_info) const {
 	using ShapeType = SGShape2DInternal::ShapeType;
 
 	ShapeType shape1_type = p_shape1->get_shape_type();
@@ -98,39 +99,68 @@ bool SGWorld2DInternal::overlaps(SGShape2DInternal *p_shape1, SGShape2DInternal 
 	bool swap = false;
 
 	if (shape1_type == ShapeType::SHAPE_RECTANGLE && shape2_type == ShapeType::SHAPE_RECTANGLE) {
-		overlapping = SGCollisionDetector2DInternal::Rectangle_overlaps_Rectangle(*((SGRectangle2DInternal *)p_shape1), *((SGRectangle2DInternal *)p_shape2), overlap_info_ptr);
+		overlapping = SGCollisionDetector2DInternal::Rectangle_overlaps_Rectangle(*((SGRectangle2DInternal *)p_shape1), *((SGRectangle2DInternal *)p_shape2), p_margin, overlap_info_ptr);
 	}
 	else if (shape1_type == ShapeType::SHAPE_CIRCLE && shape2_type == ShapeType::SHAPE_CIRCLE) {
-		overlapping = SGCollisionDetector2DInternal::Circle_overlaps_Circle(*((SGCircle2DInternal *)p_shape1), *((SGCircle2DInternal *)p_shape2), overlap_info_ptr);
+		overlapping = SGCollisionDetector2DInternal::Circle_overlaps_Circle(*((SGCircle2DInternal *)p_shape1), *((SGCircle2DInternal *)p_shape2), p_margin, overlap_info_ptr);
 	}
 	else if (shape1_type == ShapeType::SHAPE_CIRCLE && shape2_type == ShapeType::SHAPE_RECTANGLE) {
-		overlapping = SGCollisionDetector2DInternal::Circle_overlaps_Rectangle(*((SGCircle2DInternal *)p_shape1), *((SGRectangle2DInternal *)p_shape2), overlap_info_ptr);
+		overlapping = SGCollisionDetector2DInternal::Circle_overlaps_Rectangle(*((SGCircle2DInternal *)p_shape1), *((SGRectangle2DInternal *)p_shape2), p_margin, overlap_info_ptr);
 	}
 	else if (shape1_type == ShapeType::SHAPE_RECTANGLE && shape2_type == ShapeType::SHAPE_CIRCLE) {
-		overlapping = SGCollisionDetector2DInternal::Circle_overlaps_Rectangle(*((SGCircle2DInternal *)p_shape2), *((SGRectangle2DInternal *)p_shape1), overlap_info_ptr);
+		overlapping = SGCollisionDetector2DInternal::Circle_overlaps_Rectangle(*((SGCircle2DInternal *)p_shape2), *((SGRectangle2DInternal *)p_shape1), p_margin, overlap_info_ptr);
 		swap = true;
 	}
 	else if (shape1_type == ShapeType::SHAPE_POLYGON && shape2_type == ShapeType::SHAPE_POLYGON) {
-		overlapping = SGCollisionDetector2DInternal::Polygon_overlaps_Polygon(*((SGPolygon2DInternal *)p_shape1), *((SGPolygon2DInternal *)p_shape2), overlap_info_ptr);
+		overlapping = SGCollisionDetector2DInternal::Polygon_overlaps_Polygon(*((SGPolygon2DInternal *)p_shape1), *((SGPolygon2DInternal *)p_shape2), p_margin, overlap_info_ptr);
 	}
 	else if (shape1_type == ShapeType::SHAPE_POLYGON && shape2_type == ShapeType::SHAPE_CIRCLE) {
-		overlapping = SGCollisionDetector2DInternal::Polygon_overlaps_Circle(*((SGPolygon2DInternal *)p_shape1), *((SGCircle2DInternal *)p_shape2), overlap_info_ptr);
+		overlapping = SGCollisionDetector2DInternal::Polygon_overlaps_Circle(*((SGPolygon2DInternal *)p_shape1), *((SGCircle2DInternal *)p_shape2), p_margin, overlap_info_ptr);
 	}
 	else if (shape1_type == ShapeType::SHAPE_CIRCLE && shape2_type == ShapeType::SHAPE_POLYGON) {
-		overlapping = SGCollisionDetector2DInternal::Polygon_overlaps_Circle(*((SGPolygon2DInternal *)p_shape2), *((SGCircle2DInternal *)p_shape1), overlap_info_ptr);
+		overlapping = SGCollisionDetector2DInternal::Polygon_overlaps_Circle(*((SGPolygon2DInternal *)p_shape2), *((SGCircle2DInternal *)p_shape1), p_margin, overlap_info_ptr);
 		swap = true;
 	}
 	else if (shape1_type == ShapeType::SHAPE_POLYGON && shape2_type == ShapeType::SHAPE_RECTANGLE) {
-		overlapping = SGCollisionDetector2DInternal::Polygon_overlaps_Rectangle(*((SGPolygon2DInternal *)p_shape1), *((SGRectangle2DInternal *)p_shape2), overlap_info_ptr);
+		overlapping = SGCollisionDetector2DInternal::Polygon_overlaps_Rectangle(*((SGPolygon2DInternal *)p_shape1), *((SGRectangle2DInternal *)p_shape2), p_margin, overlap_info_ptr);
 	}
 	else if (shape1_type == ShapeType::SHAPE_RECTANGLE && shape2_type == ShapeType::SHAPE_POLYGON) {
-		overlapping = SGCollisionDetector2DInternal::Polygon_overlaps_Rectangle(*((SGPolygon2DInternal *)p_shape2), *((SGRectangle2DInternal *)p_shape1), overlap_info_ptr);
+		overlapping = SGCollisionDetector2DInternal::Polygon_overlaps_Rectangle(*((SGPolygon2DInternal *)p_shape2), *((SGRectangle2DInternal *)p_shape1), p_margin, overlap_info_ptr);
+		swap = true;
+	}
+	else if (shape1_type == ShapeType::SHAPE_CAPSULE && shape2_type == ShapeType::SHAPE_CIRCLE) {
+		overlapping = SGCollisionDetector2DInternal::Capsule_overlaps_Circle(*((SGCapsule2DInternal*)p_shape1), *((SGCircle2DInternal*)p_shape2), p_margin, overlap_info_ptr);
+	}
+	else if (shape1_type == ShapeType::SHAPE_CIRCLE && shape2_type == ShapeType::SHAPE_CAPSULE) {
+		overlapping = SGCollisionDetector2DInternal::Capsule_overlaps_Circle(*((SGCapsule2DInternal*)p_shape2), *((SGCircle2DInternal*)p_shape1), p_margin, overlap_info_ptr);
+		swap = true;
+	}
+	else if (shape1_type == ShapeType::SHAPE_CAPSULE && shape2_type == ShapeType::SHAPE_RECTANGLE) {
+		overlapping = SGCollisionDetector2DInternal::Capsule_overlaps_Rectangle(*((SGCapsule2DInternal*)p_shape1), *((SGRectangle2DInternal*)p_shape2), p_margin, overlap_info_ptr);
+	}
+	else if (shape1_type == ShapeType::SHAPE_RECTANGLE && shape2_type == ShapeType::SHAPE_CAPSULE) {
+		overlapping = SGCollisionDetector2DInternal::Capsule_overlaps_Rectangle(*((SGCapsule2DInternal*)p_shape2), *((SGRectangle2DInternal*)p_shape1), p_margin, overlap_info_ptr);
+		swap = true;
+	}
+	else if (shape1_type == ShapeType::SHAPE_CAPSULE && shape2_type == ShapeType::SHAPE_POLYGON) {
+		overlapping = SGCollisionDetector2DInternal::Capsule_overlaps_Polygon(*((SGCapsule2DInternal*)p_shape1), *((SGPolygon2DInternal*)p_shape2), p_margin, overlap_info_ptr);
+	}
+	else if (shape1_type == ShapeType::SHAPE_POLYGON && shape2_type == ShapeType::SHAPE_CAPSULE) {
+		overlapping = SGCollisionDetector2DInternal::Capsule_overlaps_Polygon(*((SGCapsule2DInternal*)p_shape2), *((SGPolygon2DInternal*)p_shape1), p_margin, overlap_info_ptr);
+		swap = true;
+	}
+	else if (shape1_type == ShapeType::SHAPE_CAPSULE && shape2_type == ShapeType::SHAPE_CAPSULE) {
+		overlapping = SGCollisionDetector2DInternal::Capsule_overlaps_Capsule(*((SGCapsule2DInternal*)p_shape1), *((SGCapsule2DInternal*)p_shape2), p_margin, overlap_info_ptr);
+	}
+	else if (shape1_type == ShapeType::SHAPE_CAPSULE && shape2_type == ShapeType::SHAPE_CAPSULE) {
+		overlapping = SGCollisionDetector2DInternal::Capsule_overlaps_Capsule(*((SGCapsule2DInternal*)p_shape2), *((SGCapsule2DInternal*)p_shape1), p_margin, overlap_info_ptr);
 		swap = true;
 	}
 
 	if (overlapping && p_info) {
 		// Make sure the info is from the perspective of the first shape.
 		p_info->shape = p_shape2;
+		p_info->collision_normal = swap ? -overlap_info.collision_normal : overlap_info.collision_normal;
 		p_info->separation = swap ? -overlap_info.separation : overlap_info.separation;
 	}
 
@@ -142,12 +172,13 @@ private:
 
 	const SGWorld2DInternal *world;
 	SGCollisionObject2DInternal *object;
+	fixed margin;
 	SGWorld2DInternal::BodyOverlapInfo *overlap_info;
 	SGWorld2DInternal::CompareCallback compare;
 
 	bool overlapping;
 	SGWorld2DInternal::BodyOverlapInfo test_overlap_info;
-	fixed longest_separation_squared = -fixed::HALF;
+	fixed longest_separation_squared;
 
 public:
 
@@ -161,7 +192,7 @@ public:
 			return;
 		}
 
-		if (world->overlaps(object, other, &test_overlap_info)) {
+		if (world->overlaps(object, other, margin, &test_overlap_info)) {
 			overlapping = true;
 
 			fixed separation_length_squared = test_overlap_info.separation.length_squared();
@@ -181,14 +212,17 @@ public:
 
 	_FORCE_INLINE_ bool is_overlapping() const { return overlapping; }
 
-	_FORCE_INLINE_ SGBestOverlappingResultHandler(const SGWorld2DInternal *p_world, SGCollisionObject2DInternal *p_object, SGWorld2DInternal::BodyOverlapInfo *p_overlap_info, SGWorld2DInternal::CompareCallback p_compare)
-		: world(p_world), object(p_object), overlap_info(p_overlap_info), compare(p_compare), overlapping(false) { }
+	_FORCE_INLINE_ SGBestOverlappingResultHandler(const SGWorld2DInternal *p_world, SGCollisionObject2DInternal *p_object, fixed p_margin, SGWorld2DInternal::BodyOverlapInfo *p_overlap_info, SGWorld2DInternal::CompareCallback p_compare)
+		: world(p_world), object(p_object), margin(p_margin), overlap_info(p_overlap_info), compare(p_compare), overlapping(false) { }
 
 };
 
-bool SGWorld2DInternal::get_best_overlapping_body(SGCollisionObject2DInternal *p_object, SGWorld2DInternal::BodyOverlapInfo *p_info, SGWorld2DInternal::CompareCallback p_compare) const {
-	SGBestOverlappingResultHandler result_handler(this, p_object, p_info, p_compare);
-	broadphase->find_nearby(p_object->get_bounds(), &result_handler, SGCollisionObject2DInternal::OBJECT_BODY);
+bool SGWorld2DInternal::get_best_overlapping_body(SGCollisionObject2DInternal *p_object, fixed p_margin, SGWorld2DInternal::BodyOverlapInfo *p_info, SGWorld2DInternal::CompareCallback p_compare) const {
+	SGFixedRect2Internal bounds = p_object->get_bounds();
+	bounds.grow_by(p_margin);
+
+	SGBestOverlappingResultHandler result_handler(this, p_object, p_margin, p_info, p_compare);
+	broadphase->find_nearby(bounds, &result_handler, SGCollisionObject2DInternal::OBJECT_BODY);
 	return result_handler.is_overlapping();
 }
 
@@ -210,7 +244,7 @@ public:
 			return;
 		}
 
-		if (world->overlaps(object, p_object)) {
+		if (world->overlaps(object, p_object, fixed::ZERO)) {
 			result_handler->handle_result(p_object);
 		}
 	}
@@ -243,6 +277,8 @@ bool SGWorld2DInternal::segment_intersects_shape(const SGFixedVector2Internal &p
 		case ShapeType::SHAPE_CIRCLE:
 			return SGCollisionDetector2DInternal::segment_intersects_Circle(p_start, p_cast_to, *(SGCircle2DInternal *)p_shape, p_intersection_point, p_collision_normal);
 
+		case ShapeType::SHAPE_CAPSULE:
+			return SGCollisionDetector2DInternal::segment_intersects_Capsule(p_start, p_cast_to, *(SGCapsule2DInternal*)p_shape, p_intersection_point, p_collision_normal);
 	}
 
 	return false;
