@@ -14,7 +14,6 @@ signal timeout ()
 
 func _ready() -> void:
 	add_to_group('network_sync')
-	var SyncManager = get_node(@'/root/SyncManager')
 	SyncManager.connect("sync_stopped", self, "_on_SyncManager_sync_stopped")
 	if autostart:
 		start()
@@ -35,7 +34,7 @@ func stop():
 func _on_SyncManager_sync_stopped() -> void:
 	stop()
 
-func _network_process(_delta: float, _input: Dictionary) -> void:
+func _network_process(_input: Dictionary) -> void:
 	if not _running:
 		return
 	if ticks_left <= 0:
