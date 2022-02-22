@@ -181,8 +181,9 @@ macosx-signed:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
       - build/macosx-signed
-  only:
-    - master
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_MESSAGE =~ /\[sign\]/'
 
 web:
   <<: *export_before_script
