@@ -99,8 +99,9 @@ windows-signed:
     name: $EXPORT_NAME-$CI_JOB_NAME
     paths:
       - build/windows-signed
-  only:
-    - master
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+    - if: '$CI_COMMIT_MESSAGE =~ /\[sign\]/'
 
 linux:
   <<: *export_before_script
