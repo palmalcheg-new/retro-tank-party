@@ -56,7 +56,7 @@ func _show_screen(info: Dictionary = {}) -> void:
 	weapon_field.set_value(tank.weapon_type.resource_path, false)
 	ability_field.set_value(tank.held_ability_type.resource_path if tank.held_ability_type != null else "None", false)
 
-func _network_process(delta, data: Dictionary) -> void:
+func _network_process(data: Dictionary) -> void:
 	emit_signal('network_process')
 
 func _on_HealthSlider_value_changed(value: float) -> void:

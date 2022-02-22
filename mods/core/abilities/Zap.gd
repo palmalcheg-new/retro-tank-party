@@ -94,7 +94,7 @@ func _load_state(state: Dictionary) -> void:
 	tank.collision_shape.disabled = state['tank_collision_shape_disabled']
 	tank.player_info_node.visible = state['_tank_player_info_node_visible']
 
-func _network_process(delta: float, input: Dictionary) -> void:
+func _network_process(input: Dictionary) -> void:
 	if zap_stage == ZapStage.NONE:
 		return
 	

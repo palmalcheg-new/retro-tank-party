@@ -25,7 +25,7 @@ func _network_spawn(data: Dictionary) -> void:
 	fixed_position = data['fixed_position']
 	sync_to_physics_engine()
 
-func _network_process(delta: float, _input: Dictionary) -> void:
+func _network_process(_input: Dictionary) -> void:
 	var overlapping_bodies = get_overlapping_bodies()
 	if overlapping_bodies.size() > 0:
 		_on_Powerup_body_entered(overlapping_bodies[0])

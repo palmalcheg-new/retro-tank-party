@@ -15,8 +15,8 @@ func explode(type: String) -> void:
 	SyncManager.despawn(self)
 	lifetime_timer.stop()
 
-func _network_process(delta: float, _input: Dictionary) -> void:
-	._network_process(delta, _input)
+func _network_process(_input: Dictionary) -> void:
+	._network_process(_input)
 	
 	# If we've already exploded, then we don't bother moving.
 	if not is_inside_tree():

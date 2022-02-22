@@ -63,7 +63,7 @@ func _load_state(state: Dictionary) -> void:
 	
 	._load_state(state)
 
-func _network_process(delta: float, input: Dictionary) -> void:
+func _network_process(input: Dictionary) -> void:
 	# Note: We don't call the parent _network_process() on purpose.
 	
 	if first:

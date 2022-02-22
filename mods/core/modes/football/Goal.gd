@@ -29,7 +29,7 @@ func set_goal_color(_goal_color: int) -> void:
 			yield(self, "ready")
 		sprite.texture = sprites[_goal_color]
 
-func _network_process(delta: float, input: Dictionary) -> void:
+func _network_process(input: Dictionary) -> void:
 	check_for_tanks()
 
 func check_for_tanks() -> void:

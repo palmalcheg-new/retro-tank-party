@@ -39,7 +39,7 @@ func _load_state(state: Dictionary) -> void:
 	last_movement_direction = state['last_movement_direction']
 	spawn_counter = state['spawn_counter']
 
-func _network_process(delta: float, input: Dictionary) -> void:
+func _network_process(input: Dictionary) -> void:
 	if spawn_counter <= 0:
 		spawn_counter = spawn_rate
 		spawn()

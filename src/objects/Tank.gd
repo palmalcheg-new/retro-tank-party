@@ -385,7 +385,7 @@ func _predict_remote_input(previous_input: Dictionary, ticks_since_real_input: i
 	
 	return input
 
-func _network_process(delta: float, input: Dictionary) -> void:
+func _network_process(input: Dictionary) -> void:
 	var movement_vector = _calculate_movement_vector(input)
 	
 	engine_sound.turning = false

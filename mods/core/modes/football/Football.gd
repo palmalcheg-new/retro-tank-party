@@ -67,7 +67,7 @@ func mark_as_held(_held) -> void:
 	else:
 		visible = true
 
-func _network_process(delta: float, input: Dictionary) -> void:
+func _network_process(input: Dictionary) -> void:
 	if frames_countdown > 0:
 		frames_countdown -= 1
 	
