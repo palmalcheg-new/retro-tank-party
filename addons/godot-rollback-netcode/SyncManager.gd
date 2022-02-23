@@ -162,6 +162,7 @@ var debug_message_bytes := 700
 var debug_skip_nth_message := 0
 var debug_physics_process_msecs := 10.0
 var debug_process_msecs := 10.0
+var debug_check_message_serializer_roundtrip := false
 
 # In seconds, because we don't want it to be dependent on the network tick.
 var ping_frequency := 1.0 setget set_ping_frequency
@@ -215,7 +216,13 @@ signal tick_finished (is_rollback)
 signal tick_retired (tick)
 signal tick_input_complete (tick)
 signal scene_spawned (name, spawned_node, scene, data)
+signal scene_despawned (name, node)
 signal interpolation_frame ()
+
+func _enter_tree() -> void:
+	var project_settings_node = load("res://addons/godot-rollback-netcode/ProjectSettings.gd").new()
+	project_settings_node.add_project_settings()
+	project_settings_node.free()
 
 func _ready() -> void:
 	#get_tree().connect("network_peer_disconnected", self, "remove_peer")
@@ -238,6 +245,7 @@ func _ready() -> void:
 		debug_skip_nth_message = 'network/rollback/debug/skip_nth_message',
 		debug_physics_process_msecs = 'network/rollback/debug/physics_process_msecs',
 		debug_process_msecs = 'network/rollback/debug/process_msecs',
+		debug_check_message_serializer_roundtrip = 'network/rollback/debug/check_message_serializer_roundtrip'
 	}
 	for property_name in project_settings:
 		var setting_name = project_settings[property_name]
@@ -257,6 +265,7 @@ func _ready() -> void:
 	_spawn_manager.name = "SpawnManager"
 	add_child(_spawn_manager)
 	_spawn_manager.connect("scene_spawned", self, "_on_SpawnManager_scene_spawned")
+	_spawn_manager.connect("scene_despawned", self, "_on_SpawnManager_scene_despawned")
 	
 	_sound_manager = SoundManager.new()
 	_sound_manager.name = "SoundManager"
@@ -506,13 +515,35 @@ func _call_predict_remote_input(previous_input: Dictionary, ticks_since_real_inp
 
 func _call_network_process(input_frame: InputBufferFrame) -> void:
 	var nodes: Array = get_tree().get_nodes_in_group('network_sync')
+	var process_nodes := []
+	var postprocess_nodes := []
+	
+	# Call _network_preprocess() and collect list of nodes with the other
+	# virtual methods.
 	var i = nodes.size()
 	while i > 0:
 		i -= 1
 		var node = nodes[i]
-		if node.has_method('_network_process') and node.is_inside_tree() and not node.is_queued_for_deletion():
-			var player_input = input_frame.get_player_input(node.get_network_master())
+		if node.is_inside_tree() and not node.is_queued_for_deletion():
+			if node.has_method('_network_preprocess'):
+				var player_input = input_frame.get_player_input(network_adaptor.get_network_master_for_node(node))
+				node._network_preprocess(player_input.get(str(node.get_path()), {}))
+			if node.has_method('_network_process'):
+				process_nodes.append(node)
+			if node.has_method('_network_postprocess'):
+				postprocess_nodes.append(node)
+	
+	# Call _network_process().
+	for node in process_nodes:
+		if node.is_inside_tree() and not node.is_queued_for_deletion():
+			var player_input = input_frame.get_player_input(network_adaptor.get_network_master_for_node(node))
 			node._network_process(player_input.get(str(node.get_path()), {}))
+	
+	# Call _network_postprocess().
+	for node in postprocess_nodes:
+		if node.is_inside_tree() and not node.is_queued_for_deletion():
+			var player_input = input_frame.get_player_input(network_adaptor.get_network_master_for_node(node))
+			node._network_postprocess(player_input.get(str(node.get_path()), {}))
 
 func _call_save_state() -> Dictionary:
 	var state := {}
@@ -737,7 +768,7 @@ func get_latest_input_from_peer(peer_id: int) -> Dictionary:
 	return {}
 
 func get_latest_input_for_node(node: Node) -> Dictionary:
-	return get_latest_input_from_peer_for_path(node.get_network_master(), str(node.get_path()))
+	return get_latest_input_from_peer_for_path(network_adaptor.get_network_master_for_node(node), str(node.get_path()))
 
 func get_latest_input_from_peer_for_path(peer_id: int, path: String) -> Dictionary:
 	return get_latest_input_from_peer(peer_id).get(path, {})
@@ -1058,7 +1089,16 @@ func _physics_process(_delta: float) -> void:
 	var local_input = _call_get_local_input()
 	_calculate_data_hash(local_input)
 	input_frame.players[network_adaptor.get_network_unique_id()] = InputForPlayer.new(local_input, false)
-	_input_send_queue.append(message_serializer.serialize_input(local_input))
+	var serialized_input := message_serializer.serialize_input(local_input)
+	
+	# check that the serialized then unserialized input matches the original 
+	if debug_check_message_serializer_roundtrip:
+		var unserialized_input := message_serializer.unserialize_input(serialized_input)
+		_calculate_data_hash(unserialized_input)
+		if local_input["$"] != unserialized_input["$"]:
+			push_error("The input is different after being serialized and unserialized \n Original: %s \n Unserialized: %s" % [ordered_dict2str(local_input), ordered_dict2str(unserialized_input)])
+		
+	_input_send_queue.append(serialized_input)
 	assert(input_tick == _input_send_queue_start_tick + _input_send_queue.size() - 1, "Input send queue ticks numbers are misaligned")
 	_send_input_messages_to_all_peers()
 	
@@ -1304,6 +1344,9 @@ func despawn(node: Node) -> void:
 func _on_SpawnManager_scene_spawned(name: String, spawned_node: Node, scene: PackedScene, data: Dictionary) -> void:
 	emit_signal("scene_spawned", name, spawned_node, scene, data)
 
+func _on_SpawnManager_scene_despawned(name: String, node: Node) -> void:
+	emit_signal("scene_despawned", name, node)
+
 func is_in_rollback() -> bool:
 	return _in_rollback
 
@@ -1324,3 +1367,15 @@ func ensure_current_tick_input_complete() -> bool:
 	if requested_input_complete_tick == 0 or requested_input_complete_tick > current_tick:
 		requested_input_complete_tick = current_tick
 	return false
+
+func ordered_dict2str(dict: Dictionary) -> String:
+	var ret := "{"
+	for i in dict.size():
+		var key = dict.keys()[i]
+		var value = dict[key]
+		var value_str := ordered_dict2str(value) if value is Dictionary else str(value)
+		ret += "%s:%s" % [key, value_str]
+		if i != dict.size() - 1:
+			ret += ", "
+	ret += "}"
+	return ret
