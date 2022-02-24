@@ -215,9 +215,10 @@ RemoteOperations="*res://src/autoload/RemoteOperations.gd"
 Sounds="*res://src/autoload/Sounds.tscn"
 Music="*res://src/autoload/Music.tscn"
 Modding="*res://src/autoload/Modding.gd"
-SyncDebugger="*res://addons/godot-rollback-netcode/SyncDebugger.gd"
 Utils="*res://src/autoload/Utils.gd"
 SyncManager="*res://addons/godot-rollback-netcode/SyncManager.gd"
+SyncDebugger="*res://addons/godot-rollback-netcode/SyncDebugger.gd"
+SyncReplay="*res://addons/godot-rollback-netcode/SyncReplay.gd"
 
 [debug]
 
@@ -246,7 +247,7 @@ convert_text_resources_to_binary_on_export=true
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/multirun/plugin.cfg", "res://addons/godot-rollback-netcode/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/godot-rollback-netcode/plugin.cfg", "res://addons/multirun/plugin.cfg" )
 
 [gdnative]
 
@@ -384,6 +385,7 @@ rollback/classes/network_adaptor="res://src/utils/RTPNetworkAdaptor.gd"
 rollback/classes/message_serializer="res://src/utils/RTPMessageSerializer.gd"
 rollback/classes/hash_serializer="res://src/utils/RTPHashSerializer.gd"
 rollback/debug/message_bytes=600
+rollback/log_inspector/replay_match_scene_path="res://src/main/Match.tscn"
 
 [physics]
 

@@ -92,12 +92,19 @@ func _on_ReadyScreen_ready_pressed() -> void:
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	
+	var player_session_ids := {}
+	for session_id in OnlineMatch.players:
+		player_session_ids[OnlineMatch.players[session_id].peer_id] = session_id
+	
 	var match_info = {
 		manager_path = mode_screen.get_mode_manager_scene_path(),
 		config = mode_screen.get_config_values(),
 		map_path = map_screen.get_map_scene_path(),
 		teams = team_screen.get_teams(),
 		random_seed = rng.seed,
+		player_names = OnlineMatch.get_player_names_by_peer_id(),
+		player_session_ids = player_session_ids,
+		
 	}
 	RemoteOperations.change_scene("res://src/main/Match.tscn", match_info)
 
