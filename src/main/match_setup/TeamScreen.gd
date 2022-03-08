@@ -40,7 +40,7 @@ func disable_screen() -> void:
 	next_button.disabled = true
 
 func _on_team_selected(value, index, field_index) -> void:
-	if is_network_master():
+	if SyncManager.network_adaptor.is_network_host():
 		rpc("_remote_update", field_index, value)
 
 puppet func _remote_update(field_index: int, value: int) -> void:

@@ -63,7 +63,7 @@ func _on_config_changed() -> void:
 	send_remote_update()
 
 func send_remote_update() -> void:
-	if is_network_master():
+	if SyncManager.network_adaptor.is_network_host():
 		rpc("_remote_update", mode_field.value, get_config_values())
 
 puppet func _remote_update(mode_path: String, config_values: Dictionary) -> void:

@@ -73,7 +73,7 @@ func scene_setup(operation: RemoteOperations.ClientOperation, info: Dictionary) 
 			datetime['minute'],
 			datetime['second'],
 			match_id,
-			get_tree().get_network_unique_id(),
+			SyncManager.network_adaptor.get_network_unique_id(),
 		]
 		
 		SyncManager.start_logging(LOG_FILE_DIRECTORY + '/' + log_file_name, match_info)
@@ -85,7 +85,7 @@ func finish_match() -> void:
 	SyncManager.stop()
 	SyncManager.stop_logging()
 	
-	if get_tree().is_network_server() and not SyncReplay.active:
+	if SyncManager.network_adaptor.is_network_host() and not SyncReplay.active:
 		match_manager.match_stop()
 		
 		# @todo pass current config so we start from the same settings
@@ -119,7 +119,7 @@ func _on_UILayer_back_button() -> void:
 func _on_MenuScreen_exit_pressed() -> void:
 	var alert_content: String
 	
-	if get_tree().is_network_server():
+	if SyncManager.network_adaptor.is_network_host():
 		alert_content = 'This will end the match for everyone and return to the match setup screen.'
 	else:
 		alert_content = 'You will leave the session and won\'t be able to to rejoin.'
@@ -127,7 +127,7 @@ func _on_MenuScreen_exit_pressed() -> void:
 	ui_layer.show_alert('Are you sure you want to exit?', alert_content)
 	var result: bool = yield(ui_layer, "alert_completed")
 	if result:
-		if get_tree().is_network_server():
+		if SyncManager.network_adaptor.is_network_host():
 			finish_match()
 		else:
 			quit_match()

@@ -34,7 +34,7 @@ func _load_state(state: Dictionary) -> void:
 	winner_id = state['winner_id']
 
 func _on_game_player_dead(player_id: int, killer_id: int) -> void:
-	var my_id = get_tree().get_network_unique_id()
+	var my_id = SyncManager.network_adaptor.get_network_unique_id()
 	if player_id == my_id:
 		you_lose_timer.start()
 	

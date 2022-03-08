@@ -61,7 +61,7 @@ func use_ability() -> void:
 	
 	tank.collision_shape.disabled = true
 	
-	if not tank.is_network_master():
+	if not SyncManager.network_adaptor.is_network_master_for_node(tank):
 		tank.player_info_node.visible = false
 	
 	SyncManager.play_sound(str(get_path()), HidingSound, {

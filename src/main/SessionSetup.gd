@@ -11,6 +11,9 @@ func _ready() -> void:
 	SyncManager.stop()
 	SyncManager.clear_peers()
 	
+	# Reset the network adaptor if it has been changed by Practice mode.
+	SyncManager.reset_network_adaptor()
+	
 	OnlineMatch.connect("error", self, "_on_OnlineMatch_error")
 	OnlineMatch.connect("disconnected", self, "_on_OnlineMatch_disconnected")
 	OnlineMatch.connect("player_status_changed", self, "_on_OnlineMatch_player_status_changed")
@@ -31,7 +34,7 @@ func _on_UILayer_back_button() -> void:
 	if ui_layer.current_screen_name == 'ReadyScreen':
 		var alert_content: String
 	
-		if get_tree().is_network_server():
+		if SyncManager.network_adaptor.is_network_host():
 			alert_content = 'This will end the match for everyone.'
 		else:
 			alert_content = 'You will leave the session and won\'t be able to to rejoin.'
@@ -54,7 +57,7 @@ func _on_ReadyScreen_ready_pressed() -> void:
 remotesync func player_ready(session_id: String) -> void:
 	ready_screen.set_status(session_id, "READY!")
 	
-	if get_tree().is_network_server() and not players_ready.has(session_id):
+	if SyncManager.network_adaptor.is_network_host() and not players_ready.has(session_id):
 		players_ready[session_id] = true
 		_start_match_if_all_ready()
 
@@ -97,7 +100,7 @@ func _on_OnlineMatch_player_left(player) -> void:
 
 func _on_OnlineMatch_player_status_changed(player, status) -> void:
 	if status == OnlineMatch.PlayerStatus.CONNECTED:
-		if get_tree().is_network_server():
+		if SyncManager.network_adaptor.is_network_host():
 			# Tell this new player about all the other players that are already ready.
 			for session_id in players_ready:
 				rpc_id(player.peer_id, "player_ready", session_id)

@@ -68,7 +68,7 @@ func game_setup(_players: Dictionary, map_path: String, random_seed: int, _playe
 	johnny.set_seed(random_seed)
 	player_start_transforms = _player_start_transforms if _player_start_transforms != null else map.get_player_start_transforms()
 	
-	var my_id: int = get_tree().get_network_unique_id()
+	var my_id: int = SyncManager.network_adaptor.get_network_unique_id()
 	if players.has(my_id):
 		var player = players[my_id]
 		_setup_player_camera(player_start_transforms[player.index - 1].get_origin().to_float())
@@ -120,7 +120,7 @@ func _on_SyncManager_scene_spawned(name: String, spawned_node: Node, scene: Pack
 		if not spawned_node.is_connected("player_dead", self, "_on_player_dead"):
 			spawned_node.connect("player_dead", self, "_on_player_dead", [spawned_node])
 		
-		if peer_id == get_tree().get_network_unique_id():
+		if peer_id == SyncManager.network_adaptor.get_network_unique_id():
 			spawned_node.player_controlled = true
 			_setup_player_camera(spawned_node.global_position)
 			spawned_node.camera = player_camera
