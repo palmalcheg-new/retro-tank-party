@@ -42,6 +42,8 @@ func _ready() -> void:
 	state_input_viewer.set_replay_server(replay_server)
 	frame_viewer.set_replay_server(replay_server)
 	
+	file_dialog.current_dir = OS.get_user_data_dir() + "/detailed_logs/"
+	
 	# Show and make full screen if the scene is being run on its own.
 	if get_parent() == get_tree().root:
 		visible = true
@@ -62,24 +64,15 @@ func set_editor_interface(editor_interface) -> void:
 	replay_server.set_editor_interface(editor_interface)
 
 func _on_ClearButton_pressed() -> void:
+	if log_data.is_loading():
+		return
+	
 	log_data.clear()
 	data_description_label.text = data_description_label_default_text
 	state_input_viewer.clear()
 	frame_viewer.clear()
 
-func _on_AddUserLogButton_pressed() -> void:
-	file_dialog.access = FileDialog.ACCESS_USERDATA
-	file_dialog.current_dir = "user://detailed_logs/"
-	file_dialog.current_file = ''
-	file_dialog.current_path = ''
-	file_dialog.show_modal()
-	file_dialog.invalidate()
-
-func _on_AddAnyLogButton_pressed() -> void:
-	var dir := Directory.new()
-	
-	file_dialog.access = FileDialog.ACCESS_FILESYSTEM
-	file_dialog.current_dir = dir.get_current_dir()
+func _on_AddLogButton_pressed() -> void:
 	file_dialog.current_file = ''
 	file_dialog.current_path = ''
 	file_dialog.show_modal()
@@ -97,6 +90,9 @@ func _on_FileDialog_files_selected(paths: PoolStringArray) -> void:
 			log_data.load_log_file(first_file)
 
 func refresh_from_log_data() -> void:
+	if log_data.is_loading():
+		return
+	
 	data_description_label.text = "%s logs (peer ids: %s) and %s ticks" % [log_data.peer_ids.size(), log_data.peer_ids, log_data.max_tick]
 	if log_data.mismatches.size() > 0:
 		data_description_label.text += " with %s mismatches" % log_data.mismatches.size()
