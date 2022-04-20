@@ -6,6 +6,7 @@ const NetworkAdaptor = preload("res://addons/godot-rollback-netcode/NetworkAdapt
 const MessageSerializer = preload("res://addons/godot-rollback-netcode/MessageSerializer.gd")
 const HashSerializer = preload("res://addons/godot-rollback-netcode/HashSerializer.gd")
 const Logger = preload("res://addons/godot-rollback-netcode/Logger.gd")
+const DebugStateComparer = preload("res://addons/godot-rollback-netcode/DebugStateComparer.gd")
 
 class Peer extends Reference:
 	var peer_id: int
@@ -145,7 +146,10 @@ var peers := {}
 var input_buffer := []
 var state_buffer := []
 var state_hashes := []
+
 var mechanized := false setget set_mechanized
+var mechanized_input_received := {}
+var mechanized_rollback_ticks := 0
 
 var max_buffer_size := 20
 var ticks_to_calculate_advantage := 60
@@ -164,6 +168,7 @@ var debug_skip_nth_message := 0
 var debug_physics_process_msecs := 10.0
 var debug_process_msecs := 10.0
 var debug_check_message_serializer_roundtrip := false
+var debug_check_local_state_consistency := false
 
 # In seconds, because we don't want it to be dependent on the network tick.
 var ping_frequency := 1.0 setget set_ping_frequency
@@ -196,6 +201,8 @@ var _last_state_hashed_tick := 0
 var _state_mismatch_count := 0
 var _in_rollback := false
 var _ran_physics_process := false
+var _ticks_since_last_interpolation_frame := 0
+var _debug_check_local_state_consistency_buffer := []
 
 signal sync_started ()
 signal sync_stopped ()
@@ -225,6 +232,9 @@ func _enter_tree() -> void:
 	project_settings_node.add_project_settings()
 	project_settings_node.free()
 
+func _exit_tree() -> void:
+	stop_logging()
+
 func _ready() -> void:
 	#get_tree().connect("network_peer_disconnected", self, "remove_peer")
 	#get_tree().connect("server_disconnected", self, "stop")
@@ -246,7 +256,8 @@ func _ready() -> void:
 		debug_skip_nth_message = 'network/rollback/debug/skip_nth_message',
 		debug_physics_process_msecs = 'network/rollback/debug/physics_process_msecs',
 		debug_process_msecs = 'network/rollback/debug/process_msecs',
-		debug_check_message_serializer_roundtrip = 'network/rollback/debug/check_message_serializer_roundtrip'
+		debug_check_message_serializer_roundtrip = 'network/rollback/debug/check_message_serializer_roundtrip',
+		debug_check_local_state_consistency = 'network/rollback/debug/check_local_state_consistency',
 	}
 	for property_name in project_settings:
 		var setting_name = project_settings[property_name]
@@ -333,6 +344,9 @@ func set_mechanized(_mechanized: bool) -> void:
 	set_process(not mechanized)
 	set_physics_process(not mechanized)
 	_ping_timer.paused = mechanized
+	
+	if mechanized:
+		stop_logging()
 
 func set_ping_frequency(_ping_frequency) -> void:
 	ping_frequency = _ping_frequency
@@ -400,6 +414,8 @@ func start_logging(log_file_path: String, match_info: Dictionary = {}) -> void:
 	# Our logger needs threads!
 	if not OS.can_use_threads():
 		return
+	if mechanized:
+		return
 	
 	if not _logger:
 		_logger = Logger.new(self)
@@ -463,6 +479,7 @@ func _reset() -> void:
 	_state_mismatch_count = 0
 	_in_rollback = false
 	_ran_physics_process = false
+	_ticks_since_last_interpolation_frame = 0
 
 func _on_received_remote_start() -> void:
 	_reset()
@@ -651,11 +668,13 @@ func _do_tick(is_rollback: bool = false) -> bool:
 	# Predict any missing input.
 	for peer_id in peers:
 		if not input_frame.players.has(peer_id) or input_frame.players[peer_id].predicted:
-			var predicted_input := {}
+			var predicted_input: Dictionary
 			if previous_frame:
 				var peer: Peer = peers[peer_id]
 				var ticks_since_real_input = current_tick - peer.last_remote_input_tick_received
 				predicted_input = _call_predict_remote_input(previous_frame.get_player_input(peer_id), ticks_since_real_input)
+			else:
+				predicted_input = _call_predict_remote_input({}, -1)
 			_calculate_data_hash(predicted_input)
 			input_frame.players[peer_id] = InputForPlayer.new(predicted_input, true)
 	
@@ -668,6 +687,10 @@ func _do_tick(is_rollback: bool = false) -> bool:
 		return false
 	
 	_save_current_state()
+	
+	# Debug check that states computed multiple times with complete inputs are the same
+	if debug_check_local_state_consistency and _last_state_hashed_tick >= current_tick:
+		_debug_check_consistent_local_state(state_buffer[-1], "Recomputed")
 	
 	emit_signal("tick_finished", is_rollback)
 	return true
@@ -739,7 +762,7 @@ func _cleanup_buffers() -> bool:
 	
 	while state_hashes.size() > (max_buffer_size * 2):
 		var state_hash_to_retire: StateHashFrame = state_hashes[0]
-		if not state_hash_to_retire.is_complete(peers):
+		if not state_hash_to_retire.is_complete(peers) and not mechanized:
 			var missing: Array = state_hash_to_retire.get_missing_peers(peers)
 			var message = "Attempting to retire state hash frame %s, but we're still missing hashes (missing peer(s): %s)" % [state_hash_to_retire.tick, missing]
 			push_warning(message)
@@ -960,16 +983,19 @@ func _physics_process(_delta: float) -> void:
 	# STEP 1: PERFORM ANY ROLLBACKS, IF NECESSARY.
 	#####
 	
-	if debug_random_rollback_ticks > 0:
-		randomize()
-		debug_rollback_ticks = randi() % debug_random_rollback_ticks
-	if debug_rollback_ticks > 0 and current_tick >= debug_rollback_ticks:
-		rollback_ticks = max(rollback_ticks, debug_rollback_ticks)
-	
-	# We need to resimulate the current tick since we did a partial rollback
-	# to the previous tick in order to interpolate.
-	if interpolation and current_tick > 1:
-		rollback_ticks = max(rollback_ticks, 1)
+	if mechanized:
+		rollback_ticks = mechanized_rollback_ticks
+	else:
+		if debug_random_rollback_ticks > 0:
+			randomize()
+			debug_rollback_ticks = randi() % debug_random_rollback_ticks
+		if debug_rollback_ticks > 0 and current_tick >= debug_rollback_ticks:
+			rollback_ticks = max(rollback_ticks, debug_rollback_ticks)
+		
+		# We need to resimulate the current tick since we did a partial rollback
+		# to the previous tick in order to interpolate.
+		if interpolation and current_tick > 1:
+			rollback_ticks = max(rollback_ticks, 1)
 	
 	if rollback_ticks > 0:
 		if _logger:
@@ -985,8 +1011,18 @@ func _physics_process(_delta: float) -> void:
 			return
 		
 		_call_load_state(state_buffer[-rollback_ticks - 1].data)
-		state_buffer.resize(state_buffer.size() - rollback_ticks)
+		
 		current_tick -= rollback_ticks
+		
+		if debug_check_local_state_consistency:
+			# Save already computed states for better logging in case of discrepancy
+			_debug_check_local_state_consistency_buffer = state_buffer.slice(state_buffer.size() - rollback_ticks - 1, state_buffer.size() - 1)
+			# Debug check that states computed multiple times with complete inputs are the same
+			if _last_state_hashed_tick >= current_tick:
+				var state := StateBufferFrame.new(current_tick, _call_save_state())
+				_debug_check_consistent_local_state(state, "Loaded")
+		
+		state_buffer.resize(state_buffer.size() - rollback_ticks)
 		
 		# Invalidate sync ticks after this, they may be asked for again
 		if requested_input_complete_tick > 0 and current_tick >= requested_input_complete_tick:
@@ -1013,72 +1049,75 @@ func _physics_process(_delta: float) -> void:
 	# STEP 2: SKIP TICKS, IF NECESSARY.
 	#####
 	
-	_record_advantage()
-	
-	if _ticks_spent_regaining_sync > 0:
-		_ticks_spent_regaining_sync += 1
-		if max_ticks_to_regain_sync > 0 and _ticks_spent_regaining_sync > max_ticks_to_regain_sync:
-			_handle_fatal_error("Unable to regain synchronization")
-			return
+	if not mechanized:
+		_record_advantage()
 		
-		# Check again if we're still getting input buffer underruns.
-		if not _cleanup_buffers():
+		if _ticks_spent_regaining_sync > 0:
+			_ticks_spent_regaining_sync += 1
+			if max_ticks_to_regain_sync > 0 and _ticks_spent_regaining_sync > max_ticks_to_regain_sync:
+				_handle_fatal_error("Unable to regain synchronization")
+				return
+			
+			# Check again if we're still getting input buffer underruns.
+			if not _cleanup_buffers():
+				# This can happen if there's a fatal error in _cleanup_buffers().
+				if not started:
+					return
+				# Even when we're skipping ticks, still send input.
+				_send_input_messages_to_all_peers()
+				if _logger:
+					_logger.skip_tick(Logger.SkipReason.INPUT_BUFFER_UNDERRUN, start_time)
+				return
+			
+			# Check if our max lag is still greater than the min lag to regain sync.
+			if min_lag_to_regain_sync > 0 and _calculate_max_local_lag() > min_lag_to_regain_sync:
+				#print ("REGAINING SYNC: wait for local lag to reduce")
+				# Even when we're skipping ticks, still send input.
+				_send_input_messages_to_all_peers()
+				if _logger:
+					_logger.skip_tick(Logger.SkipReason.WAITING_TO_REGAIN_SYNC, start_time)
+				return
+			
+			# If we've reach this point, that means we've regained sync!
+			_ticks_spent_regaining_sync = 0
+			emit_signal("sync_regained")
+			
+			# We don't want to skip ticks through the normal mechanism, because
+			# any skips that were previously calculated don't apply anymore.
+			skip_ticks = 0
+		
+		# Attempt to clean up buffers, but if we can't, that means we've lost sync.
+		elif not _cleanup_buffers():
 			# This can happen if there's a fatal error in _cleanup_buffers().
 			if not started:
 				return
+			emit_signal("sync_lost")
+			_ticks_spent_regaining_sync = 1
 			# Even when we're skipping ticks, still send input.
 			_send_input_messages_to_all_peers()
 			if _logger:
 				_logger.skip_tick(Logger.SkipReason.INPUT_BUFFER_UNDERRUN, start_time)
 			return
 		
-		# Check if our max lag is still greater than the min lag to regain sync.
-		if min_lag_to_regain_sync > 0 and _calculate_max_local_lag() > min_lag_to_regain_sync:
-			#print ("REGAINING SYNC: wait for local lag to reduce")
-			# Even when we're skipping ticks, still send input.
-			_send_input_messages_to_all_peers()
-			if _logger:
-				_logger.skip_tick(Logger.SkipReason.WAITING_TO_REGAIN_SYNC, start_time)
-			return
+		if skip_ticks > 0:
+			skip_ticks -= 1
+			if skip_ticks == 0:
+				for peer in peers.values():
+					peer.clear_advantage()
+			else:
+				# Even when we're skipping ticks, still send input.
+				_send_input_messages_to_all_peers()
+				if _logger:
+					_logger.skip_tick(Logger.SkipReason.ADVANTAGE_ADJUSTMENT, start_time)
+				return
 		
-		# If we've reach this point, that means we've regained sync!
-		_ticks_spent_regaining_sync = 0
-		emit_signal("sync_regained")
-		
-		# We don't want to skip ticks through the normal mechanism, because
-		# any skips that were previously calculated don't apply anymore.
-		skip_ticks = 0
-	
-	# Attempt to clean up buffers, but if we can't, that means we've lost sync.
-	elif not _cleanup_buffers():
-		# This can happen if there's a fatal error in _cleanup_buffers().
-		if not started:
-			return
-		emit_signal("sync_lost")
-		_ticks_spent_regaining_sync = 1
-		# Even when we're skipping ticks, still send input.
-		_send_input_messages_to_all_peers()
-		if _logger:
-			_logger.skip_tick(Logger.SkipReason.INPUT_BUFFER_UNDERRUN, start_time)
-		return
-	
-	if skip_ticks > 0:
-		skip_ticks -= 1
-		if skip_ticks == 0:
-			for peer in peers.values():
-				peer.clear_advantage()
-		else:
-			# Even when we're skipping ticks, still send input.
-			_send_input_messages_to_all_peers()
+		if _calculate_skip_ticks():
+			# This means we need to skip some ticks, so may as well start now!
 			if _logger:
 				_logger.skip_tick(Logger.SkipReason.ADVANTAGE_ADJUSTMENT, start_time)
 			return
-	
-	if _calculate_skip_ticks():
-		# This means we need to skip some ticks, so may as well start now!
-		if _logger:
-			_logger.skip_tick(Logger.SkipReason.ADVANTAGE_ADJUSTMENT, start_time)
-		return
+	else:
+		_cleanup_buffers()
 	
 	#####
 	# STEP 3: GATHER INPUT AND RUN CURRENT TICK
@@ -1087,30 +1126,34 @@ func _physics_process(_delta: float) -> void:
 	input_tick += 1
 	current_tick += 1
 	
-	var input_frame := _get_or_create_input_frame(input_tick)
-	# The underlying error would have already been reported in
-	# _get_or_create_input_frame() so we can just return here.
-	if input_frame == null:
-		return
-	
-	if _logger:
-		_logger.data['input_tick'] = input_tick
-	
-	var local_input = _call_get_local_input()
-	_calculate_data_hash(local_input)
-	input_frame.players[network_adaptor.get_network_unique_id()] = InputForPlayer.new(local_input, false)
-	var serialized_input := message_serializer.serialize_input(local_input)
-	
-	# check that the serialized then unserialized input matches the original 
-	if debug_check_message_serializer_roundtrip:
-		var unserialized_input := message_serializer.unserialize_input(serialized_input)
-		_calculate_data_hash(unserialized_input)
-		if local_input["$"] != unserialized_input["$"]:
-			push_error("The input is different after being serialized and unserialized \n Original: %s \n Unserialized: %s" % [ordered_dict2str(local_input), ordered_dict2str(unserialized_input)])
+	if not mechanized:
+		var input_frame := _get_or_create_input_frame(input_tick)
+		# The underlying error would have already been reported in
+		# _get_or_create_input_frame() so we can just return here.
+		if input_frame == null:
+			return
 		
-	_input_send_queue.append(serialized_input)
-	assert(input_tick == _input_send_queue_start_tick + _input_send_queue.size() - 1, "Input send queue ticks numbers are misaligned")
-	_send_input_messages_to_all_peers()
+		if _logger:
+			_logger.data['input_tick'] = input_tick
+		
+		var local_input = _call_get_local_input()
+		_calculate_data_hash(local_input)
+		input_frame.players[network_adaptor.get_network_unique_id()] = InputForPlayer.new(local_input, false)
+		
+		# Only serialize and send input when we have real remote peers.
+		if peers.size() > 0:
+			var serialized_input := message_serializer.serialize_input(local_input)
+			
+			# check that the serialized then unserialized input matches the original 
+			if debug_check_message_serializer_roundtrip:
+				var unserialized_input := message_serializer.unserialize_input(serialized_input)
+				_calculate_data_hash(unserialized_input)
+				if local_input["$"] != unserialized_input["$"]:
+					push_error("The input is different after being serialized and unserialized \n Original: %s \n Unserialized: %s" % [ordered_dict2str(local_input), ordered_dict2str(unserialized_input)])
+				
+			_input_send_queue.append(serialized_input)
+			assert(input_tick == _input_send_queue_start_tick + _input_send_queue.size() - 1, "Input send queue ticks numbers are misaligned")
+			_send_input_messages_to_all_peers()
 	
 	if current_tick > 0:
 		if _logger:
@@ -1137,6 +1180,7 @@ func _physics_process(_delta: float) -> void:
 	
 	_time_since_last_tick = 0.0
 	_ran_physics_process = true
+	_ticks_since_last_interpolation_frame += 1
 	
 	var total_time_msecs = float(OS.get_ticks_usec() - start_time) / 1000.0
 	if debug_physics_process_msecs > 0 and total_time_msecs > debug_physics_process_msecs:
@@ -1153,15 +1197,16 @@ func _process(delta: float) -> void:
 	
 	# These are things that we want to run during "interpolation frames", in
 	# order to slim down the normal frames. Or, if interpolation is disabled,
-	# we need to run these always.
-	if not interpolation or not _ran_physics_process:
+	# we need to run these always. If we haven't managed to run this for more
+	# one tick, we make sure to sneak it in just in case.
+	if not interpolation or not _ran_physics_process or _ticks_since_last_interpolation_frame > 1:
 		if _logger:
 			_logger.begin_interpolation_frame(current_tick)
 		
 		_time_since_last_tick += delta
 		
-		# Don't interpolate if we are skipping ticks.
-		if interpolation and skip_ticks == 0:
+		# Don't interpolate if we are skipping ticks, or just ran physics process.
+		if interpolation and skip_ticks == 0 and not _ran_physics_process:
 			var weight: float = _time_since_last_tick / tick_time
 			if weight > 1.0:
 				weight = 1.0
@@ -1183,6 +1228,9 @@ func _process(delta: float) -> void:
 		
 		if _logger:
 			_logger.end_interpolation_frame(start_time)
+		
+		# Clear counter, because we just did an interpolation frame.
+		_ticks_since_last_interpolation_frame = 0
 	
 	# Clear flag so subsequent _process() calls will know that they weren't
 	# preceeded by _physics_process().
@@ -1333,6 +1381,34 @@ func _on_received_input_tick(peer_id: int, serialized_msg: PoolByteArray) -> voi
 	# Record the next state hash that the other peer needs.
 	peer.next_local_hash_tick_requested = max(msg[MessageSerializer.InputMessageKey.NEXT_HASH_TICK_REQUESTED], peer.next_local_hash_tick_requested)
 
+func reset_mechanized_data() -> void:
+	mechanized_input_received.clear()
+	mechanized_rollback_ticks = 0
+
+func _process_mechanized_input() -> void:
+	for peer_id in mechanized_input_received:
+		var peer_input = mechanized_input_received[peer_id]
+		for tick in peer_input:
+			var input = peer_input[tick]
+			var input_frame := _get_or_create_input_frame(int(tick))
+			input_frame.players[int(peer_id)] = InputForPlayer.new(input, false)
+
+func execute_mechanized_tick() -> void:
+	_process_mechanized_input()
+	_physics_process(tick_time)
+	reset_mechanized_data()
+
+func execute_mechanized_interpolation_frame(delta: float) -> void:
+	_update_input_complete_tick()
+	_ran_physics_process = false
+	_process(delta)
+	_process_mechanized_input()
+	reset_mechanized_data()
+
+func execute_mechanized_interframe() -> void:
+	_process_mechanized_input()
+	reset_mechanized_data()
+
 func sort_dictionary_keys(input: Dictionary) -> Dictionary:
 	var output := {}
 	
@@ -1391,3 +1467,15 @@ func ordered_dict2str(dict: Dictionary) -> String:
 			ret += ", "
 	ret += "}"
 	return ret
+
+func _debug_check_consistent_local_state(state: StateBufferFrame, message := "Loaded") -> void:
+	var hashed_state := _calculate_data_hash(state.data)
+	var previously_hashed_frame := _get_state_hash_frame(current_tick)
+	var previous_state = _debug_check_local_state_consistency_buffer.pop_front()
+	if previously_hashed_frame and previously_hashed_frame.state_hash != hashed_state:
+		var comparer = DebugStateComparer.new()
+		comparer.find_mismatches(previous_state.data, state.data)
+		push_error("%s state is not consistent with saved state:\n %s" % [
+			message,
+			comparer.print_mismatches(),
+			])

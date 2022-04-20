@@ -35,8 +35,8 @@ func setup_match_for_replay(my_peer_id: int, peer_ids: Array, match_info: Dictio
 	peer_ids.push_front(my_peer_id)
 	OnlineMatch.players.clear()
 	for peer_id in peer_ids:
-		var session_id = player_session_ids.get(str(peer_id), str(peer_id))
-		OnlineMatch.players[session_id] = OnlineMatch.Player.new(session_id, player_names.get(str(peer_id), 'Peer %s' % peer_id), int(peer_id))
+		var session_id = player_session_ids.get(peer_id, str(peer_id))
+		OnlineMatch.players[session_id] = OnlineMatch.Player.new(session_id, player_names.get(peer_id, 'Peer %s' % peer_id), peer_id)
 	
 	scene_setup(null, match_info)
 	scene_start()
