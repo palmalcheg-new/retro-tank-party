@@ -60,7 +60,7 @@ bool SGWorld2DInternal::overlaps(SGCollisionObject2DInternal *p_object1, SGColli
 	bool overlapping = false;
 
 	SGWorld2DInternal::ShapeOverlapInfo shape_overlap_info;
-	fixed longest_separation_squared;
+	fixed longest_separation;
 
 	for (const List<SGShape2DInternal *>::Element *S1 = p_object1->get_shapes().front(); S1; S1 = S1->next()) {
 		for (const List<SGShape2DInternal *>::Element *S2 = p_object2->get_shapes().front(); S2; S2 = S2->next()) {
@@ -70,9 +70,9 @@ bool SGWorld2DInternal::overlaps(SGCollisionObject2DInternal *p_object1, SGColli
 					return overlapping;
 				}
 
-				fixed separation_length_squared = shape_overlap_info.separation.length_squared();
-				if (separation_length_squared > longest_separation_squared) {
-					longest_separation_squared = separation_length_squared;
+				fixed separation_length = shape_overlap_info.separation.length();
+				if (separation_length > longest_separation) {
+					longest_separation = separation_length;
 					p_info->collider = p_object2;
 					p_info->collider_shape = S2->get();
 					p_info->local_shape = S1->get();
@@ -178,7 +178,7 @@ private:
 
 	bool overlapping;
 	SGWorld2DInternal::BodyOverlapInfo test_overlap_info;
-	fixed longest_separation_squared;
+	fixed longest_separation;
 
 public:
 
@@ -195,14 +195,14 @@ public:
 		if (world->overlaps(object, other, margin, &test_overlap_info)) {
 			overlapping = true;
 
-			fixed separation_length_squared = test_overlap_info.separation.length_squared();
-			if (separation_length_squared > longest_separation_squared) {
-				longest_separation_squared = separation_length_squared;
+			fixed separation_length = test_overlap_info.separation.length();
+			if (separation_length > longest_separation) {
+				longest_separation = separation_length;
 				*overlap_info = test_overlap_info;
 			}
 			// If we find another with the same separation, use the compare
 			// callback to decide which is first.
-			else if (separation_length_squared == longest_separation_squared && compare != nullptr && overlap_info->collider != nullptr) {
+			else if (separation_length == longest_separation && compare != nullptr && overlap_info->collider != nullptr) {
 				if (compare(other, overlap_info->collider)) {
 					*overlap_info = test_overlap_info;
 				}
@@ -295,7 +295,7 @@ private:
 
 	bool intersects;
 	SGCollisionObject2DInternal *collider;
-	fixed shortest_distance_squared;
+	fixed shortest_distance;
 	SGFixedVector2Internal closest_intersection_point;
 	SGFixedVector2Internal closest_collision_normal;
 	SGFixedVector2Internal intersection_point;
@@ -317,9 +317,9 @@ public:
 			if (world->segment_intersects_shape(start, cast_to, shape, intersection_point, collision_normal)) {
 				intersects = true;
 
-				fixed distance_squared = (intersection_point - start).length_squared();
-				if (collider == nullptr || distance_squared < shortest_distance_squared) {
-					shortest_distance_squared = distance_squared;
+				fixed distance = (intersection_point - start).length();
+				if (collider == nullptr || distance < shortest_distance) {
+					shortest_distance = distance;
 					collider = p_object;
 					closest_intersection_point = intersection_point;
 					closest_collision_normal = collision_normal;
@@ -348,13 +348,21 @@ public:
 
 };
 
-bool SGWorld2DInternal::cast_ray(const SGFixedVector2Internal &p_start, const SGFixedVector2Internal &p_cast_to, uint32_t p_collision_mask, Set<SGCollisionObject2DInternal *> *p_exceptions, SGWorld2DInternal::RayCastInfo *p_info) const {
+bool SGWorld2DInternal::cast_ray(const SGFixedVector2Internal &p_start, const SGFixedVector2Internal &p_cast_to, uint32_t p_collision_mask, Set<SGCollisionObject2DInternal *> *p_exceptions,
+		bool collide_with_areas, bool collide_with_bodies, SGWorld2DInternal::RayCastInfo *p_info) const {
 	SGRayCastResultHandler result_handler(this, p_start, p_cast_to, p_collision_mask, p_exceptions);
 
 	SGFixedRect2Internal bounds(p_start, SGFixedVector2Internal());
 	bounds.expand_to(p_start + p_cast_to);
 
-	broadphase->find_nearby(bounds, &result_handler, SGCollisionObject2DInternal::OBJECT_BODY);
+	int collide_with = 0;
+	if (collide_with_areas) {
+		collide_with |= SGCollisionObject2DInternal::OBJECT_AREA;
+	}
+	if (collide_with_bodies) {
+		collide_with |= SGCollisionObject2DInternal::OBJECT_BODY;
+	}
+	broadphase->find_nearby(bounds, &result_handler, collide_with);
 	if (p_info) {
 		result_handler.populate_info(p_info);
 	}
@@ -363,9 +371,9 @@ bool SGWorld2DInternal::cast_ray(const SGFixedVector2Internal &p_start, const SG
 
 SGWorld2DInternal::SGWorld2DInternal()
 {
-	int cell_size = ProjectSettings::get_singleton()->get_setting("physics/2d/cell_size");
-	if (cell_size == 0) {
-		cell_size = 128;
+	int cell_size = 128;
+	if (ProjectSettings::get_singleton()->has_setting("physics/2d/cell_size")) {
+		cell_size = ProjectSettings::get_singleton()->get_setting("physics/2d/cell_size");
 	}
 
 	broadphase = memnew(SGBroadphase2DInternal(cell_size));
