@@ -50,7 +50,8 @@ custom_fonts/bold_font = ExtResource( 3 )
 custom_fonts/normal_font = SubResource( 1 )
 bbcode_enabled = true
 bbcode_text = "[b]Team:[/b]
-  [color=black]David Snopek[/color] from [color=#1ea7e1][url=https://www.snopekgames.com]Snopek Games[/url][/color]
+  [color=black]David Snopek[/color] from [color=#1ea7e1][url=https://www.snopekgames.com]Snopek Games[/url][/color]: [color=black]Programming and Design[/color]
+  [color=black]Ross Klettke[/color] from [color=#1ea7e1][url=https://www.whatnotory.com/]Whatnotory[/url][/color]:   [color=black]Additional Art Styles[/color]
 
 [b]Free assets:[/b]
   [color=#1ea7e1][url=https://www.kenney.nl/assets/topdown-tanks-redux]Top-down Tanks Redux[/url][/color] by [color=black]Kenney.nl[/color]
@@ -103,7 +104,8 @@ Unless required by applicable law or agreed to in writing, software distributed 
 "
 tab_size = 2
 text = "Team:
-  David Snopek from Snopek Games
+  David Snopek from Snopek Games: Programming and Design
+  Ross Klettke from Whatnotory:   Additional Art Styles
 
 Free assets:
   Top-down Tanks Redux by Kenney.nl
