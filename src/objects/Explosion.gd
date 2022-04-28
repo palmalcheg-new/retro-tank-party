@@ -11,14 +11,16 @@ func _network_spawn(data: Dictionary) -> void:
 	fixed_position = data['fixed_position']
 	fixed_scale = SGFixed.vector2(data['scale'], data['scale'])
 	
-	var anim = data['type']
-	animation_player.play(anim)
+	var type = data['type']
+	Globals.art.replace_visual('Explosion', $Visual, { type = type })
+	
+	animation_player.play("fire")
 	
 	# @todo Can we do something like this with rollback?
 	#yield(get_tree().create_timer(randf() * 0.150), "timeout")
 	
 	var sound_id = str(get_path())
-	if anim == 'smoke':
+	if type == 'Smoke':
 		SyncManager.play_sound(sound_id, MissSound, {
 			position = global_position,
 		})

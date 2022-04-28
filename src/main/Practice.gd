@@ -1,15 +1,14 @@
 extends Node2D
 
 const Game = preload("res://src/Game.gd")
+const DummyNetworkAdaptor = preload("res://addons/godot-rollback-netcode/DummyNetworkAdaptor.gd")
 
 onready var game := $Game
 onready var respawn_timer := $RespawnTimer
 onready var ui_layer := $UILayer
 
 func _ready() -> void:
-	var faux_multiplayer = WebRTCMultiplayer.new()
-	faux_multiplayer.initialize(1)
-	get_tree().set_network_peer(faux_multiplayer)
+	SyncManager.network_adaptor = DummyNetworkAdaptor.new(1)
 	
 	var players = {
 		1: Game.Player.new(1, "Practice", 1),

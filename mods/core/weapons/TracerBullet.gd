@@ -22,7 +22,7 @@ func _load_state(state: Dictionary) -> void:
 	._load_state(state)
 	target_path = state['target_path']
 
-func _network_process(delta: float, input: Dictionary) -> void:
+func _network_process(input: Dictionary) -> void:
 	if target_path != '':
 		var target = get_node_or_null(target_path)
 		if target:
@@ -30,4 +30,4 @@ func _network_process(delta: float, input: Dictionary) -> void:
 			vector = vector.linear_interpolate(target_vector, target_seek_speed).normalized()
 			fixed_rotation = vector.angle()
 	
-	._network_process(delta, input)
+	._network_process(input)

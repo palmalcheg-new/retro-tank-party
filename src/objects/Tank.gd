@@ -4,6 +4,7 @@ const BaseWeaponType = preload("res://mods/core/weapons/base.tres")
 const Explosion = preload("res://src/objects/Explosion.tscn")
 const EventDispatcher = preload("res://src/utils/EventDispatcher.gd")
 
+const TankMaterial = preload("res://src/objects/whitening_shader.tres")
 const ShootSound = preload("res://assets/sounds/Bass Drum__003.wav")
 
 const ONE_POINT_FIVE = 98304
@@ -135,10 +136,6 @@ func _ready():
 	player_info_node.set_as_toplevel(true)
 	player_info_node.position = global_position + player_info_offset
 	
-	var sprite_material = body_sprite.material.duplicate()
-	body_sprite.material = sprite_material
-	turret_sprite.material = sprite_material
-	
 	set_weapon_type(BaseWeaponType)
 	
 	SyncManager.connect("scene_spawned", self, "_on_SyncManager_scene_spawned")
@@ -180,6 +177,12 @@ func _network_spawn(data: Dictionary) -> void:
 		player_info_node.set_team(data['team'])
 	
 	sync_to_physics_engine()
+
+func set_tank_color(player_index: int) -> void:
+	.set_tank_color(player_index)
+	var visual_material = TankMaterial.duplicate()
+	body_visual.material = visual_material
+	turret_visual.material = visual_material
 
 func _network_despawn() -> void:
 	# Reset some stuff for when this node is reused
@@ -382,7 +385,7 @@ func _predict_remote_input(previous_input: Dictionary, ticks_since_real_input: i
 	
 	return input
 
-func _network_process(delta: float, input: Dictionary) -> void:
+func _network_process(input: Dictionary) -> void:
 	var movement_vector = _calculate_movement_vector(input)
 	
 	engine_sound.turning = false

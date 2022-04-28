@@ -1,5 +1,5 @@
 /*************************************************************************/
-/* Copyright (c) 2021 David Snopek                                       */
+/* Copyright (c) 2021-2022 David Snopek                                  */
 /*                                                                       */
 /* Permission is hereby granted, free of charge, to any person obtaining */
 /* a copy of this software and associated documentation files (the       */
@@ -148,6 +148,9 @@ struct SGFixedVector2Internal {
 	//fixed posmod(const fixed p_mod) const;
 	//fixed posmodv(const SGFixedVector2Internal &p_modv) const;
 	//SGFixedVector2Internal project(const SGFixedVector2Internal &p_to) const;
+	_FORCE_INLINE_ SGFixedVector2Internal tangent() const { 
+		return SGFixedVector2Internal(y, -x);
+	}
 
 	_FORCE_INLINE_ static SGFixedVector2Internal linear_interpolate(const SGFixedVector2Internal &p_a, const SGFixedVector2Internal &p_b, fixed p_weight);
 
@@ -166,6 +169,9 @@ struct SGFixedVector2Internal {
 	_FORCE_INLINE_ SGFixedVector2Internal()
 		: x(fixed::ZERO), y(fixed::ZERO) {}
 
+	SGFixedVector2Internal cubic_interpolate(const SGFixedVector2Internal& p_b, const SGFixedVector2Internal& p_pre_a, const SGFixedVector2Internal& p_post_b, fixed p_weight) const;
+
+	static SGFixedVector2Internal get_closest_point_to_segment_2d(const SGFixedVector2Internal &p_point, const SGFixedVector2Internal *p_segment);
 };
 
 SGFixedVector2Internal SGFixedVector2Internal::direction_to(const SGFixedVector2Internal &p_to) const {

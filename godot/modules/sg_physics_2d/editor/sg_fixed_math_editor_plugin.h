@@ -1,5 +1,5 @@
 /*************************************************************************/
-/* Copyright (c) 2021 David Snopek                                       */
+/* Copyright (c) 2021-2022 David Snopek                                  */
 /*                                                                       */
 /* Permission is hereby granted, free of charge, to any person obtaining */
 /* a copy of this software and associated documentation files (the       */
@@ -27,20 +27,33 @@
 #include <editor/editor_plugin.h>
 #include <editor/editor_properties.h>
 
-class EditorPropertySGFixedVector2 : public EditorProperty {
-	GDCLASS(EditorPropertySGFixedVector2, EditorProperty);
+class FixedEditorSpinSlider : public EditorSpinSlider {
+	GDCLASS(FixedEditorSpinSlider, EditorSpinSlider);
 
-	EditorSpinSlider *spin[2];
-	bool setting;
-	void _value_changed(double p_val, const String &p_name);
+	void _evaluate_input_text();
 
 protected:
-	void _notification(int p_what);
+	static void _bind_methods();
+
+public:
+	Control *make_custom_tooltip(const String &p_text) const override;
+	void _value_focus_exited();
+	FixedEditorSpinSlider();
+};
+
+class EditorPropertyFixed : public EditorProperty {
+	GDCLASS(EditorPropertyFixed, EditorProperty);
+	FixedEditorSpinSlider *spin;
+	bool setting;
+	void _value_changed(double p_val);
+
+protected:
 	static void _bind_methods();
 
 public:
 	virtual void update_property();
-	EditorPropertySGFixedVector2();
+	void setup(int64_t p_min, int64_t p_max, int64_t p_step, bool p_allow_greater, bool p_allow_lesser);
+	EditorPropertyFixed();
 };
 
 class SGFixedMathEditorInspectorPlugin : public EditorInspectorPlugin {

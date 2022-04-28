@@ -27,7 +27,7 @@ func _do_match_setup() -> void:
 		player_managers_node.add_child(player_manager)
 		player_manager.setup_player_manager(players[player_id], config, game)
 		player_manager.connect("respawn_player", self, "_on_player_manager_respawn_player")
-		if player_id == get_tree().get_network_unique_id():
+		if player_id == SyncManager.network_adaptor.get_network_unique_id():
 			player_manager.connect("weapon_warning", self, "_on_player_manager_weapon_warning")
 			player_manager.connect("weapon_timeout", self, "_on_player_manager_weapon_timeout")
 		player_managers[player_id] = player_manager
@@ -91,7 +91,7 @@ func _on_player_manager_weapon_timeout() -> void:
 	pass
 
 func _on_game_player_dead(player_id: int, killer_id: int) -> void:
-	var my_id = get_tree().get_network_unique_id()
+	var my_id = SyncManager.network_adaptor.get_network_unique_id()
 	if player_id == my_id:
 		you_lose_timer.start()
 	
@@ -134,7 +134,7 @@ func _on_player_manager_respawn_player(player_id: int) -> void:
 	
 	game.respawn_player(player_id, spawn_transform)
 	
-	if player_id == get_tree().get_network_unique_id():
+	if player_id == SyncManager.network_adaptor.get_network_unique_id():
 		ui_layer.hide_message()
 
 func _on_countdown_finished() -> void:

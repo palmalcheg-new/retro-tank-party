@@ -19,7 +19,7 @@ func _ready() -> void:
 	# Make the host in charge of this scene.
 	set_network_master(1)
 	show_default_message()
-	if not is_network_master():
+	if not SyncManager.network_adaptor.is_network_host():
 		ui_layer.show_cover()
 		for screen in ui_layer.get_screens():
 			if screen.has_method('disable_screen'):
@@ -31,23 +31,23 @@ func _ready() -> void:
 	Music.play("Menu")
 
 func show_default_message() -> void:
-	if get_tree().is_network_server():
+	if SyncManager.network_adaptor.is_network_host():
 		ui_layer.show_message("You're the host! How you wanna do this?")
 	else:
 		ui_layer.show_message("The host is configuring the match...")
 
 func _on_UILayer_change_screen(name, screen, info) -> void:
 	show_default_message()
-	if is_network_master():
+	if SyncManager.network_adaptor.is_network_host():
 		ui_layer.rpc("show_screen", name, info)
 
 func _on_UILayer_back_button() -> void:
 	var current_screen = ui_layer.current_screen_name
 	
-	if not is_network_master() or current_screen == "ModeScreen":
+	if not SyncManager.network_adaptor.is_network_host() or current_screen == "ModeScreen":
 		var alert_content: String
 	
-		if get_tree().is_network_server():
+		if SyncManager.network_adaptor.is_network_host():
 			alert_content = 'This will end the session for everyone.'
 		else:
 			alert_content = 'You will leave the session and won\'t be able to to rejoin.'
@@ -57,7 +57,7 @@ func _on_UILayer_back_button() -> void:
 		if result:
 			OnlineMatch.leave()
 			get_tree().change_scene("res://src/main/SessionSetup.tscn")
-		elif not is_network_master():
+		elif not SyncManager.network_adaptor.is_network_host():
 			ui_layer.show_cover()
 	elif current_screen == 'ReadyScreen':
 		ui_layer.show_screen('MapScreen')
@@ -92,12 +92,19 @@ func _on_ReadyScreen_ready_pressed() -> void:
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 	
+	var player_session_ids := {}
+	for session_id in OnlineMatch.players:
+		player_session_ids[OnlineMatch.players[session_id].peer_id] = session_id
+	
 	var match_info = {
 		manager_path = mode_screen.get_mode_manager_scene_path(),
 		config = mode_screen.get_config_values(),
 		map_path = map_screen.get_map_scene_path(),
 		teams = team_screen.get_teams(),
 		random_seed = rng.seed,
+		player_names = OnlineMatch.get_player_names_by_peer_id(),
+		player_session_ids = player_session_ids,
+		
 	}
 	RemoteOperations.change_scene("res://src/main/Match.tscn", match_info)
 

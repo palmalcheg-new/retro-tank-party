@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/objects/DropCrateSpawnArea.gd" type="Script" id=1]
-[ext_resource path="res://addons/network-sync-rollback/NetworkTimer.gd" type="Script" id=2]
-[ext_resource path="res://addons/network-sync-rollback/NetworkRandomNumberGenerator.gd" type="Script" id=3]
+[ext_resource path="res://addons/godot-rollback-netcode/NetworkTimer.gd" type="Script" id=2]
+[ext_resource path="res://addons/godot-rollback-netcode/NetworkRandomNumberGenerator.gd" type="Script" id=3]
 
 [sub_resource type="SGRectangleShape2D" id=1]
 extents_x = 16056320

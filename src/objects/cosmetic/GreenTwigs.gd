@@ -3,6 +3,9 @@ extends SGFixedNode2D
 onready var animation_player := $AnimationPlayer
 onready var timer := $Timer
 
+func _ready() -> void:
+	Globals.art.replace_visual('GreenTwigs', $Visual)
+
 func _network_spawn(data: Dictionary) -> void:
 	fixed_position = data['fixed_position']
 	timer.start()

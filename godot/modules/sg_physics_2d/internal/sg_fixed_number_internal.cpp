@@ -1,5 +1,5 @@
 /*************************************************************************/
-/* Copyright (c) 2021 David Snopek                                       */
+/* Copyright (c) 2021-2022 David Snopek                                  */
 /*                                                                       */
 /* Permission is hereby granted, free of charge, to any person obtaining */
 /* a copy of this software and associated documentation files (the       */
@@ -70,6 +70,7 @@ const fixed fixed::TWO  = fixed(131072);
 const fixed fixed::NEG_ONE = fixed(-fix16_one);
 const fixed fixed::PI = fixed(fix16_pi);
 const fixed fixed::TAU = fixed(fix16_pi << 1);
+const fixed fixed::PI_DIV_2 = fixed(fix16_pi >> 1);
 const fixed fixed::PI_DIV_4 = fixed(PI_DIV_4);
 const fixed fixed::EPSILON = fixed(fix16_eps);
 const fixed fixed::ARITHMETIC_OVERFLOW = fixed(INT64_MIN);
@@ -84,6 +85,17 @@ fixed fixed::sin() const {
 }
 
 fixed fixed::cos() const {
+	// libfixmath's fix16_cos(0) will return 65537, rather than the correct
+	// result of 65536. Because cos(0) is used when generating rotation
+	// matrices with a rotation of 0, we need cos(0) to be 65536 to match the
+	// identity matrix.
+	//
+	// @todo Remove after we've replaced libfixmatch per issue #4:
+	//       https://gitlab.com/snopek-games/sg-physics-2d/-/issues/4
+	if (value == 0) {
+		return fixed(65536);
+	}
+
 	if (value < fix16_maximum && value > fix16_minimum) {
 		return fixed(fix16_cos(value));
 	}
@@ -102,6 +114,12 @@ fixed fixed::tan() const {
 }
 
 fixed fixed::asin() const {
+	if (value == 65536) {
+		// libfixmath generates an incorrect result for asin(65536).
+		// @todo Remove after we've replaced libfixmatch per issue #4:
+		//       https://gitlab.com/snopek-games/sg-physics-2d/-/issues/4
+		return fixed::PI_DIV_2;
+	}
 	if (value < fix16_maximum && value > fix16_minimum) {
 		return fixed(fix16_asin(value));
 	}
@@ -111,6 +129,12 @@ fixed fixed::asin() const {
 }
 
 fixed fixed::acos() const {
+	if (value == 65536) {
+		// libfixmath generates an incorrect result for acos(65536).
+		// @todo Remove after we've replaced libfixmatch per issue #4:
+		//       https://gitlab.com/snopek-games/sg-physics-2d/-/issues/4
+		return fixed::ZERO;
+	}
 	if (value < fix16_maximum && value > fix16_minimum) {
 		return fixed(fix16_acos(value));
 	}
@@ -129,6 +153,9 @@ fixed fixed::atan() const {
 }
 
 fixed fixed::atan2(const fixed &inY) const {
+	if (value == 0 && inY.value == 0) {
+		return fixed::ZERO;
+	}
 	if (value < fix16_maximum && value > fix16_minimum) {
 		return fixed(fix16_atan2(value, inY.value));
 	}

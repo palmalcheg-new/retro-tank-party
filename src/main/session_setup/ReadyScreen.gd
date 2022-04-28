@@ -102,7 +102,7 @@ func _on_OnlineMatch_player_status_changed(player, status) -> void:
 		# Don't go backwards from 'READY!'
 		if get_status(player.session_id) != 'READY!':
 			set_status(player.session_id, 'Connected.')
-		if player.peer_id != get_tree().get_network_unique_id():
+		if player.peer_id != SyncManager.network_adaptor.get_network_unique_id():
 			SyncManager.add_peer(player.peer_id)
 	elif status == OnlineMatch.PlayerStatus.CONNECTING:
 		set_status(player.session_id, 'Connecting...')

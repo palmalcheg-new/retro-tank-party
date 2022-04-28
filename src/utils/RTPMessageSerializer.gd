@@ -1,4 +1,4 @@
-extends "res://addons/network-sync-rollback/MessageSerializer.gd"
+extends "res://addons/godot-rollback-netcode/MessageSerializer.gd"
 
 const Tank = preload("res://src/objects/Tank.gd")
 

@@ -37,7 +37,7 @@ func use_ability() -> void:
 	lifetime_timer.start()
 
 func set_tank_visible(tank_visible: bool) -> void:
-	if tank.is_network_master():
+	if SyncManager.network_adaptor.is_network_master_for_node(tank):
 		tank.visible = true
 		tank.modulate = VISIBLE_COLOR if tank_visible else INVISIBLE_COLOR
 	else:
@@ -69,7 +69,7 @@ func _on_WarningTimer_timeout() -> void:
 		blink_timer.start()
 
 func _on_BlinkTimer_timeout() -> void:
-	if tank.is_network_master():
+	if SyncManager.network_adaptor.is_network_master_for_node(tank):
 		tank.visible = false if tank.visible else true
 
 func _on_LifetimeTimer_timeout() -> void:

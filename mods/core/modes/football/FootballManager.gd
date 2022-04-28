@@ -165,7 +165,7 @@ func _on_goal_tank_present(tank, goal) -> void:
 				show_winner(score.get_name(player_team))
 
 func check_goals() -> void:
-	if get_tree().is_network_server():
+	if SyncManager.network_adaptor.is_network_host():
 		for goal in goals:
 			goal.check_for_tanks()
 
@@ -211,7 +211,7 @@ func _on_NextRoundTimer_timeout() -> void:
 func _on_tank_player_dead(killer_id: int, tank) -> void:
 	var player_id = tank.get_network_master()
 	
-	var my_id = get_tree().get_network_unique_id()
+	var my_id = SyncManager.network_adaptor.get_network_unique_id()
 	if my_id == tank.get_network_master():
 		ui_layer.show_message("Wasted!")
 	
@@ -231,7 +231,7 @@ func _on_player_manager_respawn_player(player_id: int) -> void:
 	var player_start_transforms = _get_player_start_transforms()
 	game.respawn_player(player_id, player_start_transforms[player.index - 1])
 	
-	if player_id == get_tree().get_network_unique_id():
+	if player_id == SyncManager.network_adaptor.get_network_unique_id():
 		ui_layer.hide_message()
 
 func _on_countdown_finished() -> void:

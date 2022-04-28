@@ -1,5 +1,5 @@
 /*************************************************************************/
-/* Copyright (c) 2021 David Snopek                                       */
+/* Copyright (c) 2021-2022 David Snopek                                  */
 /*                                                                       */
 /* Permission is hereby granted, free of charge, to any person obtaining */
 /* a copy of this software and associated documentation files (the       */
@@ -64,6 +64,7 @@ void SGFixedVector2::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("cross", "other_vector"), &SGFixedVector2::cross);
 
 	ClassDB::bind_method(D_METHOD("linear_interpolate", "other_vector", "weight"), &SGFixedVector2::linear_interpolate);
+	ClassDB::bind_method(D_METHOD("cubic_interpolate", "other_vector", "pre_a", "post_b", "weight"), &SGFixedVector2::cubic_interpolate);
 
 	ClassDB::bind_method(D_METHOD("slide", "normal"), &SGFixedVector2::slide);
 	ClassDB::bind_method(D_METHOD("bounce", "normal"), &SGFixedVector2::bounce);
@@ -75,7 +76,7 @@ void SGFixedVector2::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("to_float"), &SGFixedVector2::to_float);
 }
 
-Variant SGFixedVector2::add(const Variant &p_other) const {
+Ref<SGFixedVector2> SGFixedVector2::add(const Variant &p_other) const {
 	if (p_other.get_type() == Variant::INT) {
 		return SGFixedVector2::from_internal(value + fixed(p_other));
 	}
@@ -101,7 +102,7 @@ void SGFixedVector2::iadd(const Variant &p_other) {
 	}
 }
 
-Variant SGFixedVector2::sub(const Variant &p_other) const {
+Ref<SGFixedVector2> SGFixedVector2::sub(const Variant &p_other) const {
 	if (p_other.get_type() == Variant::INT) {
 		return SGFixedVector2::from_internal(value - fixed(p_other));
 	}
@@ -127,7 +128,7 @@ void SGFixedVector2::isub(const Variant &p_other) {
 	}
 }
 
-Variant SGFixedVector2::mul(const Variant &p_other) const {
+Ref<SGFixedVector2> SGFixedVector2::mul(const Variant &p_other) const {
 	if (p_other.get_type() == Variant::INT) {
 		return SGFixedVector2::from_internal(value * fixed(p_other));
 	}
@@ -153,7 +154,7 @@ void SGFixedVector2::imul(const Variant &p_other) {
 	}
 }
 
-Variant SGFixedVector2::div(const Variant &p_other) const {
+Ref<SGFixedVector2> SGFixedVector2::div(const Variant &p_other) const {
 	if (p_other.get_type() == Variant::INT) {
 		return SGFixedVector2::from_internal(value / fixed(p_other));
 	}
@@ -296,5 +297,9 @@ void SGFixedVector2::from_float(Vector2 p_float_vector) {
 
 Vector2 SGFixedVector2::to_float() const {
 	return Vector2(value.x.to_float(), value.y.to_float());
+}
+
+Ref<SGFixedVector2> SGFixedVector2::cubic_interpolate(const Ref<SGFixedVector2>& p_b, const Ref<SGFixedVector2>& p_pre_a, const Ref<SGFixedVector2>& p_post_b, int64_t p_weight) const {
+	return SGFixedVector2::from_internal(value.cubic_interpolate(p_b->get_internal(), p_pre_a->get_internal(), p_post_b->get_internal(), fixed(p_weight)));
 }
 

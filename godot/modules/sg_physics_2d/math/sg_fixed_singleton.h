@@ -1,5 +1,5 @@
 /*************************************************************************/
-/* Copyright (c) 2021 David Snopek                                       */
+/* Copyright (c) 2021-2022 David Snopek                                  */
 /*                                                                       */
 /* Permission is hereby granted, free of charge, to any person obtaining */
 /* a copy of this software and associated documentation files (the       */
@@ -47,6 +47,7 @@ public:
 		NEG_ONE = -65536,
 		PI = 205887,
 		TAU = 411774,
+		PI_DIV_2 = 102943,
 		PI_DIV_4 = 51471,
 		EPSILON = 1,
 		ARITHMETIC_OVERFLOW = INT64_MIN,
@@ -71,6 +72,7 @@ public:
 	int64_t atan(int64_t p_fixed_value) const;
 	int64_t atan2(int64_t p_fixed_y_value, int64_t p_fixed_x_value) const;
 	int64_t sqrt(int64_t p_fixed_value) const;
+	int64_t move_toward(int64_t p_from, int64_t p_to, int64_t p_delta) const;
 
 	Ref<SGFixedVector2> vector2(int64_t p_fixed_x, int64_t p_fixed_y) const;
 	Ref<SGFixedVector2> from_float_vector2(const Vector2 &p_float_vector) const;

@@ -135,18 +135,32 @@ margin_top = 274.0
 margin_right = 936.0
 margin_bottom = 340.0
 
-[node name="NetworkRelayLabel" type="Label" parent="Panel/VBoxContainer/ScrollContainer/GridContainer"]
+[node name="ArtStyleLabel" type="Label" parent="Panel/VBoxContainer/ScrollContainer/GridContainer"]
 margin_top = 357.0
 margin_right = 432.0
 margin_bottom = 408.0
-text = "Network relay"
+size_flags_horizontal = 3
+text = "Art style"
 
-[node name="NetworkRelayOptions" parent="Panel/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="ArtStyleOptions" parent="Panel/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 anchor_right = 0.0
 margin_left = 436.0
 margin_top = 350.0
 margin_right = 936.0
 margin_bottom = 416.0
+
+[node name="NetworkRelayLabel" type="Label" parent="Panel/VBoxContainer/ScrollContainer/GridContainer"]
+margin_top = 433.0
+margin_right = 432.0
+margin_bottom = 484.0
+text = "Network relay"
+
+[node name="NetworkRelayOptions" parent="Panel/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+margin_left = 436.0
+margin_top = 426.0
+margin_right = 936.0
+margin_bottom = 492.0
 
 [node name="DetailedLoggingLabel" type="Label" parent="Panel/VBoxContainer/ScrollContainer/GridContainer"]
 margin_top = 433.0
@@ -211,6 +225,7 @@ script = ExtResource( 4 )
 [connection signal="item_selected" from="Panel/VBoxContainer/ScrollContainer/GridContainer/TankEngineSoundsOptions" to="." method="_on_TankEngineSoundsOptions_item_selected"]
 [connection signal="item_selected" from="Panel/VBoxContainer/ScrollContainer/GridContainer/FullScreenOptions" to="." method="_on_FullScreenOptions_item_selected"]
 [connection signal="item_selected" from="Panel/VBoxContainer/ScrollContainer/GridContainer/ScreenshakeOptions" to="." method="_on_ScreenshakeOptions_item_selected"]
+[connection signal="item_selected" from="Panel/VBoxContainer/ScrollContainer/GridContainer/ArtStyleOptions" to="." method="_on_ArtStyleOptions_item_selected"]
 [connection signal="item_selected" from="Panel/VBoxContainer/ScrollContainer/GridContainer/NetworkRelayOptions" to="." method="_on_NetworkRelayOptions_item_selected"]
 [connection signal="item_selected" from="Panel/VBoxContainer/ScrollContainer/GridContainer/DetailedLoggingOptions" to="." method="_on_DetailedLoggingOptions_item_selected"]
 [connection signal="item_selected" from="Panel/VBoxContainer/ScrollContainer/GridContainer/ControlScheme" to="." method="_on_ControlScheme_item_selected"]

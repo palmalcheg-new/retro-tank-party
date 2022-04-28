@@ -37,7 +37,7 @@ func _network_spawn(data: Dictionary) -> void:
 func _network_despawn() -> void:
 	lifetime_timer.stop()
 
-func _network_process(_delta: float, _input: Dictionary) -> void:
+func _network_process(_input: Dictionary) -> void:
 	check_collision()
 
 func _save_state() -> Dictionary:
@@ -78,9 +78,9 @@ func _on_bullet_collision(body: SGCollisionObject2D) -> void:
 	
 	if body.has_method("take_damage"):
 		body.take_damage(damage, player_id, vector.normalized())
-		explode("fire")
+		explode("Fire")
 	else:
-		explode("smoke")
+		explode("Smoke")
 
 func _on_LifetimeTimer_timeout() -> void:
 	# Overriden by child classes (namely "res://src/objects/Bullet.gd")

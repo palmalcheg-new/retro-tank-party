@@ -1,5 +1,5 @@
 /*************************************************************************/
-/* Copyright (c) 2021 David Snopek                                       */
+/* Copyright (c) 2021-2022 David Snopek                                  */
 /*                                                                       */
 /* Permission is hereby granted, free of charge, to any person obtaining */
 /* a copy of this software and associated documentation files (the       */
@@ -79,13 +79,13 @@ public:
 		watcher = p_watcher;
 	}
 
-	Variant add(const Variant &p_other) const;
+	Ref<SGFixedVector2> add(const Variant &p_other) const;
 	void iadd(const Variant &p_other);
-	Variant sub(const Variant &p_other) const;
+	Ref<SGFixedVector2> sub(const Variant &p_other) const;
 	void isub(const Variant &p_other);
-	Variant mul(const Variant &p_other) const;
+	Ref<SGFixedVector2> mul(const Variant &p_other) const;
 	void imul(const Variant &p_other);
-	Variant div(const Variant &p_other) const;
+	Ref<SGFixedVector2> div(const Variant &p_other) const;
 	void idiv(const Variant &p_other);
 
 	Ref<SGFixedVector2> copy() const;
@@ -111,6 +111,7 @@ public:
 	int64_t cross(const Ref<SGFixedVector2> &p_other) const;
 
 	Ref<SGFixedVector2> linear_interpolate(const Ref<SGFixedVector2> &p_to, int64_t weight) const;
+	Ref<SGFixedVector2> cubic_interpolate(const Ref<SGFixedVector2>& p_b, const Ref<SGFixedVector2>& p_pre_a, const Ref<SGFixedVector2>& p_post_b, int64_t p_weight) const;
 
 	Ref<SGFixedVector2> slide(const Ref<SGFixedVector2> &p_normal) const;
 	Ref<SGFixedVector2> bounce(const Ref<SGFixedVector2> &p_normal) const;

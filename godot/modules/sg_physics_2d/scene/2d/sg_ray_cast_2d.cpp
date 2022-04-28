@@ -1,5 +1,5 @@
 /*************************************************************************/
-/* Copyright (c) 2021 David Snopek                                       */
+/* Copyright (c) 2021-2022 David Snopek                                  */
 /*                                                                       */
 /* Permission is hereby granted, free of charge, to any person obtaining */
 /* a copy of this software and associated documentation files (the       */
@@ -31,12 +31,29 @@
 void SGRayCast2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_cast_to"), &SGRayCast2D::get_cast_to);
 	ClassDB::bind_method(D_METHOD("set_cast_to", "cast_to"), &SGRayCast2D::set_cast_to);
+	ClassDB::bind_method(D_METHOD("_get_cast_to_x"), &SGRayCast2D::_get_cast_to_x);
+	ClassDB::bind_method(D_METHOD("_set_cast_to_x", "x"), &SGRayCast2D::_set_cast_to_x);
+	ClassDB::bind_method(D_METHOD("_get_cast_to_y"), &SGRayCast2D::_get_cast_to_y);
+	ClassDB::bind_method(D_METHOD("_set_cast_to_y", "y"), &SGRayCast2D::_set_cast_to_y);
 
-	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "cast_to", PROPERTY_HINT_TYPE_STRING, "SGFixedVector2", PROPERTY_USAGE_EDITOR), "set_cast_to", "get_cast_to");
+	// For editor and storage.
+	ADD_PROPERTY(PropertyInfo(Variant::INT, "cast_to_x"), "_set_cast_to_x", "_get_cast_to_x");
+	ADD_PROPERTY(PropertyInfo(Variant::INT, "cast_to_y"), "_set_cast_to_y", "_get_cast_to_y");
+
+	// For code only.
+	ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "cast_to", PROPERTY_HINT_NONE, "", 0), "set_cast_to", "get_cast_to");
 
 	ClassDB::bind_method(D_METHOD("get_collision_mask"), &SGRayCast2D::get_collision_mask);
 	ClassDB::bind_method(D_METHOD("set_collision_mask", "collision_mask"), &SGRayCast2D::set_collision_mask);
 	ClassDB::bind_method(D_METHOD("set_collision_mask_bit", "bit", "value"), &SGRayCast2D::set_collision_mask_bit);
+
+	ClassDB::bind_method(D_METHOD("set_collide_with_areas", "collide_with_areas"), &SGRayCast2D::set_collide_with_areas);
+	ClassDB::bind_method(D_METHOD("get_collide_with_areas"), &SGRayCast2D::get_collide_with_areas);
+	ClassDB::bind_method(D_METHOD("set_collide_with_bodies", "collide_with_bodies"), &SGRayCast2D::set_collide_with_bodies);
+	ClassDB::bind_method(D_METHOD("get_collide_with_bodies"), &SGRayCast2D::get_collide_with_bodies);
+
+	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "collide_with_areas"), "set_collide_with_areas", "get_collide_with_areas");
+	ADD_PROPERTY(PropertyInfo(Variant::BOOL, "collide_with_bodies"), "set_collide_with_bodies", "get_collide_with_bodies");
 
 	ADD_GROUP("Collision", "collision_");
 	ADD_PROPERTY(PropertyInfo(Variant::INT, "collision_mask", PROPERTY_HINT_LAYERS_2D_PHYSICS), "set_collision_mask", "get_collision_mask");
@@ -52,19 +69,6 @@ void SGRayCast2D::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_exceptions"), &SGRayCast2D::get_exceptions);
 	ClassDB::bind_method(D_METHOD("set_exceptions", "exceptions"), &SGRayCast2D::set_exceptions);
 	ClassDB::bind_method(D_METHOD("clear_exceptions"), &SGRayCast2D::clear_exceptions);
-
-	//
-	// For storage in TSCN and SCN files only.
-	//
-
-	ClassDB::bind_method(D_METHOD("_get_cast_to_x"), &SGRayCast2D::_get_cast_to_x);
-	ClassDB::bind_method(D_METHOD("_set_cast_to_x", "x"), &SGRayCast2D::_set_cast_to_x);
-	ClassDB::bind_method(D_METHOD("_get_cast_to_y"), &SGRayCast2D::_get_cast_to_y);
-	ClassDB::bind_method(D_METHOD("_set_cast_to_y", "y"), &SGRayCast2D::_set_cast_to_y);
-
-	ADD_PROPERTY(PropertyInfo(Variant::INT, "cast_to_x", PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE), "_set_cast_to_x", "_get_cast_to_x");
-	ADD_PROPERTY(PropertyInfo(Variant::INT, "cast_to_y", PROPERTY_HINT_NONE, "", PROPERTY_USAGE_STORAGE), "_set_cast_to_y", "_get_cast_to_y");
-
 }
 
 void SGRayCast2D::_notification(int p_what) {
@@ -103,6 +107,7 @@ void SGRayCast2D::set_cast_to(const Ref<SGFixedVector2> &p_cast_to) {
 	ERR_FAIL_COND(!p_cast_to.is_valid());
 	cast_to->set_internal(p_cast_to->get_internal());
 	update();
+	_change_notify("cast_to");
 }
 
 int64_t SGRayCast2D::_get_cast_to_x() const {
@@ -111,6 +116,8 @@ int64_t SGRayCast2D::_get_cast_to_x() const {
 
 void SGRayCast2D::_set_cast_to_x(int64_t p_x) {
 	cast_to->set_x(p_x);
+	update();
+	_change_notify("cast_to_x");
 }
 
 int64_t SGRayCast2D::_get_cast_to_y() const {
@@ -119,6 +126,8 @@ int64_t SGRayCast2D::_get_cast_to_y() const {
 
 void SGRayCast2D::_set_cast_to_y(int64_t p_y) {
 	cast_to->set_y(p_y);
+	update();
+	_change_notify("cast_to_y");
 }
 
 uint32_t SGRayCast2D::get_collision_mask() const {
@@ -140,6 +149,22 @@ void SGRayCast2D::set_collision_mask_bit(int p_bit, bool p_value) {
 	set_collision_mask(m);
 }
 
+void SGRayCast2D::set_collide_with_areas(bool p_collide_with_areas){
+	collide_with_areas = p_collide_with_areas;
+}
+
+bool SGRayCast2D::get_collide_with_areas() {
+	return collide_with_areas;
+}
+
+void SGRayCast2D::set_collide_with_bodies(bool p_collide_with_bodies) {
+	collide_with_bodies = p_collide_with_bodies;
+}
+
+bool SGRayCast2D::get_collide_with_bodies() {
+	return collide_with_bodies;
+}
+
 void SGRayCast2D::update_raycast_collision() {
 	SGWorld2DInternal::RayCastInfo info;
 
@@ -147,7 +172,7 @@ void SGRayCast2D::update_raycast_collision() {
 	SGFixedVector2Internal start = t.get_origin();
 	t.set_origin(SGFixedVector2Internal::ZERO);
 
-	if (SGWorld2DInternal::get_singleton()->cast_ray(start, t.xform(cast_to->get_internal()), collision_mask, &exceptions, &info)) {
+	if (SGWorld2DInternal::get_singleton()->cast_ray(start, t.xform(cast_to->get_internal()), collision_mask, &exceptions, collide_with_areas, collide_with_bodies, &info)) {
 		colliding = true;
 		collider = ((Object *)info.body->get_data())->get_instance_id();
 		collision_point->set_internal(info.collision_point);

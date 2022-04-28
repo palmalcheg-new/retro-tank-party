@@ -7,6 +7,8 @@ onready var sound_slider := $Panel/VBoxContainer/ScrollContainer/GridContainer/S
 onready var tank_engine_sounds_field = $Panel/VBoxContainer/ScrollContainer/GridContainer/TankEngineSoundsOptions
 onready var full_screen_field = $Panel/VBoxContainer/ScrollContainer/GridContainer/FullScreenOptions
 onready var screenshake_field := $Panel/VBoxContainer/ScrollContainer/GridContainer/ScreenshakeOptions
+onready var art_style_label := $Panel/VBoxContainer/ScrollContainer/GridContainer/ArtStyleLabel
+onready var art_style_field := $Panel/VBoxContainer/ScrollContainer/GridContainer/ArtStyleOptions
 onready var network_relay_label := $Panel/VBoxContainer/ScrollContainer/GridContainer/NetworkRelayLabel
 onready var network_relay_field := $Panel/VBoxContainer/ScrollContainer/GridContainer/NetworkRelayOptions
 onready var detailed_logging_label := $Panel/VBoxContainer/ScrollContainer/GridContainer/DetailedLoggingLabel
@@ -32,6 +34,12 @@ func _ready() -> void:
 	screenshake_field.add_item("Enabled", true)
 	screenshake_field.set_value(GameSettings.use_screenshake, false)
 	
+	var art_styles = Modding.find_resources("art")
+	for art_style_path in art_styles:
+		var art_style = load(art_style_path)
+		art_style_field.add_item(art_style.name, art_style_path)
+	art_style_field.set_value(GameSettings.art_style, false)
+	
 	control_scheme_field.add_item("Modern", GameSettings.ControlScheme.MODERN)
 	control_scheme_field.add_item("Retro", GameSettings.ControlScheme.RETRO)
 	control_scheme_field.set_value(GameSettings.control_scheme, false)
@@ -40,7 +48,7 @@ func _ready() -> void:
 	network_relay_field.add_item("Auto", GameSettings.NetworkRelay.AUTO)
 	network_relay_field.add_item("Forced", GameSettings.NetworkRelay.FORCED)
 	#network_relay_field.add_item("Fallback (Auto)", GameSettings.NetworkRelay.FALLBACK)
-	#network_relay_field.add_item("Fallback (Forced)", GameSettings.NetworkRelay.FORCED_FALLBACK)
+	network_relay_field.add_item("Fallback", GameSettings.NetworkRelay.FORCED_FALLBACK)
 	network_relay_field.set_value(GameSettings.use_network_relay, false)
 	
 	if OS.can_use_threads():
@@ -72,6 +80,9 @@ func _setup_field_neighbors() -> void:
 		previous_neighbor = child
 
 func _show_screen(info: Dictionary = {}) -> void:
+	art_style_label.visible = not SyncManager.started
+	art_style_field.visible = not SyncManager.started
+	
 	network_relay_label.visible = not SyncManager.started
 	network_relay_field.visible = not SyncManager.started
 	
@@ -105,6 +116,9 @@ func _on_FullScreenOptions_item_selected(value, index) -> void:
 func _on_ScreenshakeOptions_item_selected(value, _index) -> void:
 	GameSettings.use_screenshake = value
 
+func _on_ArtStyleOptions_item_selected(value, index) -> void:
+	GameSettings.art_style = value
+
 func _on_NetworkRelayOptions_item_selected(value, _index) -> void:
 	GameSettings.use_network_relay = value
 
@@ -136,3 +150,4 @@ func _unhandled_input(event: InputEvent) -> void:
 	if visible and event.is_action_pressed('ui_accept'):
 		get_tree().set_input_as_handled()
 		_on_DoneButton_pressed()
+

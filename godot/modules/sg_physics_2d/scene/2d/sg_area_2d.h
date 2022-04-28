@@ -1,5 +1,5 @@
 /*************************************************************************/
-/* Copyright (c) 2021 David Snopek                                       */
+/* Copyright (c) 2021-2022 David Snopek                                  */
 /*                                                                       */
 /* Permission is hereby granted, free of charge, to any person obtaining */
 /* a copy of this software and associated documentation files (the       */
@@ -31,12 +31,17 @@
 class SGArea2D : public SGCollisionObject2D {
 	GDCLASS(SGArea2D, SGCollisionObject2D);
 
+	bool monitorable = true;
+
 protected:
 	static void _bind_methods();
 
 public:
 	Array get_overlapping_areas(bool sort = true) const;
 	Array get_overlapping_bodies(bool sort = true) const;
+
+	void set_monitorable(bool p_monitorable);
+	bool get_monitorable() const;
 
 	SGArea2D();
 	~SGArea2D();
