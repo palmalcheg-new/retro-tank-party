@@ -375,8 +375,10 @@ func _predict_remote_input(previous_input: Dictionary, ticks_since_real_input: i
 			input.erase(PlayerInput.INPUT_VECTOR)
 		else:
 			input[PlayerInput.INPUT_VECTOR] = input_vector
-	
-	# We get turrent input from the most recent input.
+
+	# We get turrent input from the most recent input. If we didn't do this, the enemy
+	# tanks wouldn't move their turrents until something caused a rollback, because the
+	# turret isn't included in the input hash.
 	var latest_input: Dictionary = SyncManager.get_latest_input_for_node(self)
 	if latest_input.has(PlayerInput.TURRET_ROTATION):
 		input[PlayerInput.TURRET_ROTATION] = latest_input[PlayerInput.TURRET_ROTATION]
