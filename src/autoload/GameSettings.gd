@@ -126,9 +126,11 @@ func set_language(_lang_code: String) -> void:
 
 func _update_language() -> void:
 	var locale = language
+	print ("Settings language: ", language)
 	if language == 'default':
 		if SteamManager.use_steam:
 			var steam_language = SteamManager.Steam.getCurrentGameLanguage()
+			print ("Steam language: ", steam_language)
 			match steam_language:
 				"english":
 					locale = "en"
@@ -139,8 +141,11 @@ func _update_language() -> void:
 		else:
 			locale = OS.get_locale_language()
 
+	print ("Current locale: ", TranslationServer.get_locale())
+	print ("New locale: ", locale)
 	if TranslationServer.get_locale() != locale:
 		TranslationServer.set_locale(locale)
+		print ("Language updated")
 		get_node("/root").propagate_notification(NOTIFICATION_TRANSLATION_CHANGED)
 
 func _on_joy_connection_changed(device: int, connected: bool) -> void:
