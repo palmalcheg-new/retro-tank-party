@@ -47,9 +47,12 @@ func _ready() -> void:
 	joy_name = Input.get_joy_name(joy_id)
 	load_settings()
 
-	# Set language to default for players that upgrade from older versions.
 	if language == '':
+		# Set language to default for players that upgrade from older versions.
 		set_language('default')
+	elif language == 'default':
+		# Determine the default language and enable it.
+		_update_language()
 
 func set_art_style(_art_style: String) -> void:
 	art_style = _art_style
@@ -119,24 +122,26 @@ func set_joy_name(_joy_name: String) -> void:
 func set_language(_lang_code: String) -> void:
 	if language != _lang_code:
 		language = _lang_code
+		_update_language()
 
-		var locale = language
-		if language == 'default':
-			if SteamManager.use_steam:
-				var steam_language = SteamManager.Steam.getCurrentGameLanguage()
-				match steam_language:
-					"english":
-						locale = "en"
-					"spanish", "latam":
-						locale = "es"
-					_:
-						locale = OS.get_locale_language()
-			else:
-				locale = OS.get_locale_language()
+func _update_language() -> void:
+	var locale = language
+	if language == 'default':
+		if SteamManager.use_steam:
+			var steam_language = SteamManager.Steam.getCurrentGameLanguage()
+			match steam_language:
+				"english":
+					locale = "en"
+				"spanish", "latam":
+					locale = "es"
+				_:
+					locale = OS.get_locale_language()
+		else:
+			locale = OS.get_locale_language()
 
-		if TranslationServer.get_locale() != locale:
-			TranslationServer.set_locale(locale)
-			get_node("/root").propagate_notification(NOTIFICATION_TRANSLATION_CHANGED)
+	if TranslationServer.get_locale() != locale:
+		TranslationServer.set_locale(locale)
+		get_node("/root").propagate_notification(NOTIFICATION_TRANSLATION_CHANGED)
 
 func _on_joy_connection_changed(device: int, connected: bool) -> void:
 	if connected:
