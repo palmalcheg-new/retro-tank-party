@@ -8,11 +8,11 @@ func _ready() -> void:
 	for i in range(1, 10):
 		points_to_win_field.add_item(str(i), i)
 	points_to_win_field.value = 5
-	
-	teams_field.add_item("No", false)
-	teams_field.add_item("Yes", true)
+
+	teams_field.add_item("OPTION_NO", false)
+	teams_field.add_item("OPTION_YES", true)
 	teams_field.set_value(false, false)
-	
+
 	if OnlineMatch.players.size() < 3:
 		teams_label.visible = false
 		teams_field.visible = false

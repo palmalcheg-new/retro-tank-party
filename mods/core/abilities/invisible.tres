@@ -5,6 +5,6 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Invisible"
+name = "ABILITY_NAME_INVISIBLE"
 ability_scene = ExtResource( 2 )
 charges = 1

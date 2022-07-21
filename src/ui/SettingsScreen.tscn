@@ -17,219 +17,267 @@ __meta__ = {
 }
 
 [node name="Panel" type="PanelContainer" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 100.0
-margin_top = 100.0
-margin_right = -100.0
-margin_bottom = -103.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -550.0
+margin_top = -262.5
+margin_right = 550.0
+margin_bottom = 262.5
+grow_horizontal = 2
+rect_min_size = Vector2( 1024, 525 )
 custom_styles/panel = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 margin_left = 25.0
 margin_top = 6.0
-margin_right = 1055.0
-margin_bottom = 492.0
+margin_right = 1075.0
+margin_bottom = 500.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer"]
-margin_right = 1030.0
+margin_right = 1050.0
 margin_bottom = 75.0
 rect_min_size = Vector2( 0, 75 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "Settings"
+text = "SETTINGS_TITLE"
 align = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer"]
 margin_top = 79.0
-margin_right = 1030.0
-margin_bottom = 417.0
+margin_right = 1050.0
+margin_bottom = 424.0
+size_flags_horizontal = 3
 size_flags_vertical = 3
 follow_focus = true
 scroll_horizontal_enabled = false
 
-[node name="GridContainer" type="GridContainer" parent="Panel/VBoxContainer/ScrollContainer"]
-margin_right = 936.0
-margin_bottom = 644.0
+[node name="MarginContainer" type="MarginContainer" parent="Panel/VBoxContainer/ScrollContainer"]
+margin_right = 1042.0
+margin_bottom = 1003.0
+size_flags_horizontal = 3
+custom_constants/margin_right = 20
+
+[node name="GridContainer" type="GridContainer" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer"]
+margin_right = 1022.0
+margin_bottom = 1003.0
+size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/vseparation = 10
+custom_constants/hseparation = 15
 columns = 2
 
-[node name="MusicLabel" type="Label" parent="Panel/VBoxContainer/ScrollContainer/GridContainer"]
-margin_right = 432.0
-margin_bottom = 51.0
-text = "Music"
+[node name="MusicLabel" type="Label" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer"]
+margin_right = 503.0
+margin_bottom = 52.0
+size_flags_horizontal = 3
+text = "SETTING_MUSIC"
+autowrap = true
 
-[node name="MusicSlider" type="HSlider" parent="Panel/VBoxContainer/ScrollContainer/GridContainer"]
-margin_left = 436.0
-margin_top = 9.0
-margin_right = 936.0
-margin_bottom = 51.0
-rect_min_size = Vector2( 500, 0 )
-size_flags_vertical = 12
+[node name="MusicSlider" type="HSlider" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer"]
+margin_left = 518.0
+margin_top = 5.0
+margin_right = 1021.0
+margin_bottom = 47.0
+rect_min_size = Vector2( 100, 0 )
+size_flags_horizontal = 3
+size_flags_vertical = 4
 max_value = 1.25
 step = 0.05
 value = 1.0
 script = ExtResource( 1 )
 
-[node name="SoundLabel" type="Label" parent="Panel/VBoxContainer/ScrollContainer/GridContainer"]
-margin_top = 61.0
-margin_right = 432.0
-margin_bottom = 112.0
-text = "Sound"
+[node name="SoundLabel" type="Label" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer"]
+margin_top = 62.0
+margin_right = 503.0
+margin_bottom = 114.0
+text = "SETTING_SOUND"
+autowrap = true
 
-[node name="SoundSlider" type="HSlider" parent="Panel/VBoxContainer/ScrollContainer/GridContainer"]
-margin_left = 436.0
-margin_top = 70.0
-margin_right = 936.0
-margin_bottom = 112.0
-rect_min_size = Vector2( 500, 0 )
-size_flags_vertical = 12
+[node name="SoundSlider" type="HSlider" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer"]
+margin_left = 518.0
+margin_top = 67.0
+margin_right = 1021.0
+margin_bottom = 109.0
+size_flags_vertical = 4
 max_value = 1.25
 step = 0.05
 value = 1.0
 script = ExtResource( 1 )
 
-[node name="TankEngineSoundsLabel" type="Label" parent="Panel/VBoxContainer/ScrollContainer/GridContainer"]
-margin_top = 129.0
-margin_right = 432.0
-margin_bottom = 180.0
-text = "Tank engine sounds"
+[node name="TankEngineSoundsLabel" type="Label" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer"]
+margin_top = 124.0
+margin_right = 503.0
+margin_bottom = 231.0
+text = "SETTING_TANK_ENGINE_SOUNDS"
+autowrap = true
 
-[node name="TankEngineSoundsOptions" parent="Panel/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="TankEngineSoundsOptions" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer" instance=ExtResource( 3 )]
 anchor_right = 0.0
-margin_left = 436.0
-margin_top = 122.0
-margin_right = 936.0
-margin_bottom = 188.0
+margin_left = 518.0
+margin_top = 144.0
+margin_right = 1021.0
+margin_bottom = 210.0
+size_flags_vertical = 4
 
-[node name="FullScreenLabel" type="Label" parent="Panel/VBoxContainer/ScrollContainer/GridContainer"]
-margin_top = 205.0
-margin_right = 432.0
-margin_bottom = 256.0
-text = "Full screen"
+[node name="FullScreenLabel" type="Label" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer"]
+margin_top = 248.0
+margin_right = 503.0
+margin_bottom = 300.0
+text = "SETTING_FULL_SCREEN"
+autowrap = true
 
-[node name="FullScreenOptions" parent="Panel/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="FullScreenOptions" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer" instance=ExtResource( 3 )]
 anchor_right = 0.0
-margin_left = 436.0
-margin_top = 198.0
-margin_right = 936.0
-margin_bottom = 264.0
+margin_left = 518.0
+margin_top = 241.0
+margin_right = 1021.0
+margin_bottom = 307.0
+size_flags_vertical = 4
 
-[node name="ScreenshakeLabel" type="Label" parent="Panel/VBoxContainer/ScrollContainer/GridContainer"]
-margin_top = 281.0
-margin_right = 432.0
-margin_bottom = 332.0
+[node name="LanguageLabel" type="Label" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer"]
+margin_top = 324.0
+margin_right = 503.0
+margin_bottom = 376.0
 size_flags_horizontal = 3
-text = "Screen shake"
+text = "SETTING_LANGUAGE"
+autowrap = true
 
-[node name="ScreenshakeOptions" parent="Panel/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="LanguageOptions" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer" instance=ExtResource( 3 )]
 anchor_right = 0.0
-margin_left = 436.0
-margin_top = 274.0
-margin_right = 936.0
-margin_bottom = 340.0
+margin_left = 518.0
+margin_top = 317.0
+margin_right = 1021.0
+margin_bottom = 383.0
+size_flags_vertical = 4
 
-[node name="ArtStyleLabel" type="Label" parent="Panel/VBoxContainer/ScrollContainer/GridContainer"]
-margin_top = 357.0
-margin_right = 432.0
-margin_bottom = 408.0
+[node name="ScreenshakeLabel" type="Label" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer"]
+margin_top = 400.0
+margin_right = 503.0
+margin_bottom = 452.0
 size_flags_horizontal = 3
-text = "Art style"
+text = "SETTING_SCREEN_SHAKE"
+autowrap = true
 
-[node name="ArtStyleOptions" parent="Panel/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="ScreenshakeOptions" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer" instance=ExtResource( 3 )]
 anchor_right = 0.0
-margin_left = 436.0
-margin_top = 350.0
-margin_right = 936.0
-margin_bottom = 416.0
+margin_left = 518.0
+margin_top = 393.0
+margin_right = 1021.0
+margin_bottom = 459.0
+size_flags_vertical = 4
 
-[node name="NetworkRelayLabel" type="Label" parent="Panel/VBoxContainer/ScrollContainer/GridContainer"]
-margin_top = 433.0
-margin_right = 432.0
-margin_bottom = 484.0
-text = "Network relay"
+[node name="ArtStyleLabel" type="Label" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer"]
+margin_top = 476.0
+margin_right = 503.0
+margin_bottom = 528.0
+size_flags_horizontal = 3
+text = "SETTING_ART_STYLE"
+autowrap = true
 
-[node name="NetworkRelayOptions" parent="Panel/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="ArtStyleOptions" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer" instance=ExtResource( 3 )]
 anchor_right = 0.0
-margin_left = 436.0
-margin_top = 426.0
-margin_right = 936.0
-margin_bottom = 492.0
+margin_left = 518.0
+margin_top = 469.0
+margin_right = 1021.0
+margin_bottom = 535.0
+size_flags_vertical = 4
 
-[node name="DetailedLoggingLabel" type="Label" parent="Panel/VBoxContainer/ScrollContainer/GridContainer"]
-margin_top = 433.0
-margin_right = 432.0
-margin_bottom = 484.0
-text = "Detailed logging"
+[node name="NetworkRelayLabel" type="Label" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer"]
+margin_top = 545.0
+margin_right = 503.0
+margin_bottom = 652.0
+text = "SETTING_NETWORK_RELAY"
+autowrap = true
 
-[node name="DetailedLoggingOptions" parent="Panel/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="NetworkRelayOptions" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer" instance=ExtResource( 3 )]
 anchor_right = 0.0
-margin_left = 436.0
-margin_top = 426.0
-margin_right = 936.0
-margin_bottom = 492.0
+margin_left = 518.0
+margin_top = 565.0
+margin_right = 1021.0
+margin_bottom = 631.0
+size_flags_vertical = 4
 
-[node name="ControlSchemeLabel" type="Label" parent="Panel/VBoxContainer/ScrollContainer/GridContainer"]
-margin_top = 509.0
-margin_right = 432.0
-margin_bottom = 560.0
-text = "Control scheme"
+[node name="DetailedLoggingLabel" type="Label" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer"]
+margin_top = 662.0
+margin_right = 503.0
+margin_bottom = 769.0
+text = "SETTING_DETAILED_LOGGING"
+autowrap = true
 
-[node name="ControlScheme" parent="Panel/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="DetailedLoggingOptions" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer" instance=ExtResource( 3 )]
 anchor_right = 0.0
-margin_left = 436.0
-margin_top = 502.0
-margin_right = 936.0
-margin_bottom = 568.0
+margin_left = 518.0
+margin_top = 682.0
+margin_right = 1021.0
+margin_bottom = 748.0
+size_flags_vertical = 4
 
-[node name="GamepadDeviceLabel" type="Label" parent="Panel/VBoxContainer/ScrollContainer/GridContainer"]
-margin_top = 585.0
-margin_right = 432.0
-margin_bottom = 636.0
-text = "Gamepad device"
+[node name="ControlSchemeLabel" type="Label" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer"]
+margin_top = 779.0
+margin_right = 503.0
+margin_bottom = 886.0
+text = "SETTING_CONTROL_SCHEME"
+autowrap = true
 
-[node name="GamepadDeviceOptions" parent="Panel/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
+[node name="ControlScheme" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer" instance=ExtResource( 3 )]
 anchor_right = 0.0
-margin_left = 436.0
-margin_top = 578.0
-margin_right = 936.0
-margin_bottom = 644.0
+margin_left = 518.0
+margin_top = 799.0
+margin_right = 1021.0
+margin_bottom = 865.0
+size_flags_vertical = 4
 
-[node name="Label" parent="Panel/VBoxContainer/ScrollContainer/GridContainer/GamepadDeviceOptions/VBoxContainer" index="1"]
-margin_right = 446.0
+[node name="GamepadDeviceLabel" type="Label" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer"]
+margin_top = 896.0
+margin_right = 503.0
+margin_bottom = 1003.0
+text = "SETTING_GAMEPAD_DEVICE"
+autowrap = true
+
+[node name="GamepadDeviceOptions" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer" instance=ExtResource( 3 )]
+anchor_right = 0.0
+margin_left = 518.0
+margin_top = 916.0
+margin_right = 1021.0
+margin_bottom = 982.0
+size_flags_vertical = 4
+
+[node name="Label" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer/GamepadDeviceOptions/VBoxContainer" index="1"]
+margin_right = 449.0
 align = 0
 clip_text = true
 
-[node name="ForwardButton" parent="Panel/VBoxContainer/ScrollContainer/GridContainer/GamepadDeviceOptions/VBoxContainer" index="2"]
-margin_left = 450.0
-margin_right = 500.0
+[node name="ForwardButton" parent="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer/GamepadDeviceOptions/VBoxContainer" index="2"]
+margin_left = 453.0
+margin_right = 503.0
 
 [node name="DoneButton" type="Button" parent="Panel/VBoxContainer"]
-margin_left = 440.0
-margin_top = 421.0
-margin_right = 590.0
-margin_bottom = 486.534
+margin_left = 386.0
+margin_top = 428.0
+margin_right = 662.324
+margin_bottom = 494.534
 rect_min_size = Vector2( 150, 0 )
 size_flags_horizontal = 4
-text = "Done"
+text = "BUTTON_DONE"
 script = ExtResource( 4 )
 
-[connection signal="value_changed" from="Panel/VBoxContainer/ScrollContainer/GridContainer/MusicSlider" to="." method="_on_MusicSlider_value_changed"]
-[connection signal="value_changed" from="Panel/VBoxContainer/ScrollContainer/GridContainer/SoundSlider" to="." method="_on_SoundSlider_value_changed"]
-[connection signal="item_selected" from="Panel/VBoxContainer/ScrollContainer/GridContainer/TankEngineSoundsOptions" to="." method="_on_TankEngineSoundsOptions_item_selected"]
-[connection signal="item_selected" from="Panel/VBoxContainer/ScrollContainer/GridContainer/FullScreenOptions" to="." method="_on_FullScreenOptions_item_selected"]
-[connection signal="item_selected" from="Panel/VBoxContainer/ScrollContainer/GridContainer/ScreenshakeOptions" to="." method="_on_ScreenshakeOptions_item_selected"]
-[connection signal="item_selected" from="Panel/VBoxContainer/ScrollContainer/GridContainer/ArtStyleOptions" to="." method="_on_ArtStyleOptions_item_selected"]
-[connection signal="item_selected" from="Panel/VBoxContainer/ScrollContainer/GridContainer/NetworkRelayOptions" to="." method="_on_NetworkRelayOptions_item_selected"]
-[connection signal="item_selected" from="Panel/VBoxContainer/ScrollContainer/GridContainer/DetailedLoggingOptions" to="." method="_on_DetailedLoggingOptions_item_selected"]
-[connection signal="item_selected" from="Panel/VBoxContainer/ScrollContainer/GridContainer/ControlScheme" to="." method="_on_ControlScheme_item_selected"]
-[connection signal="item_selected" from="Panel/VBoxContainer/ScrollContainer/GridContainer/GamepadDeviceOptions" to="." method="_on_GamepadDeviceOptions_item_selected"]
+[connection signal="value_changed" from="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer/MusicSlider" to="." method="_on_MusicSlider_value_changed"]
+[connection signal="value_changed" from="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer/SoundSlider" to="." method="_on_SoundSlider_value_changed"]
+[connection signal="item_selected" from="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer/TankEngineSoundsOptions" to="." method="_on_TankEngineSoundsOptions_item_selected"]
+[connection signal="item_selected" from="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer/FullScreenOptions" to="." method="_on_FullScreenOptions_item_selected"]
+[connection signal="item_selected" from="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer/LanguageOptions" to="." method="_on_LanguageOptions_item_selected"]
+[connection signal="item_selected" from="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer/ScreenshakeOptions" to="." method="_on_ScreenshakeOptions_item_selected"]
+[connection signal="item_selected" from="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer/ArtStyleOptions" to="." method="_on_ArtStyleOptions_item_selected"]
+[connection signal="item_selected" from="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer/NetworkRelayOptions" to="." method="_on_NetworkRelayOptions_item_selected"]
+[connection signal="item_selected" from="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer/DetailedLoggingOptions" to="." method="_on_DetailedLoggingOptions_item_selected"]
+[connection signal="item_selected" from="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer/ControlScheme" to="." method="_on_ControlScheme_item_selected"]
+[connection signal="item_selected" from="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer/GamepadDeviceOptions" to="." method="_on_GamepadDeviceOptions_item_selected"]
 [connection signal="pressed" from="Panel/VBoxContainer/DoneButton" to="." method="_on_DoneButton_pressed"]
 
-[editable path="Panel/VBoxContainer/ScrollContainer/GridContainer/GamepadDeviceOptions"]
+[editable path="Panel/VBoxContainer/ScrollContainer/MarginContainer/GridContainer/GamepadDeviceOptions"]

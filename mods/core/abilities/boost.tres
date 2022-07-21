@@ -5,6 +5,6 @@
 
 [resource]
 script = ExtResource( 2 )
-name = "Boost"
+name = "ABILITY_NAME_BOOST"
 ability_scene = ExtResource( 1 )
 charges = 3

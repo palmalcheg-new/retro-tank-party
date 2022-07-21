@@ -6,8 +6,8 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Battle Royale"
-description = "The last tank standing wins the round."
+name = "MODE_NAME_BATTLE_ROYALE"
+description = "MODE_DESCRIPTION_BATTLE_ROYALE"
 requires_goals = false
 manager_scene = ExtResource( 2 )
 config_scene = ExtResource( 3 )

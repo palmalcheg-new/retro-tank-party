@@ -31,30 +31,30 @@ __meta__ = {
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
 margin_left = 25.0
 margin_top = 6.0
-margin_right = 1055.0
+margin_right = 1057.0
 margin_bottom = 492.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Label" type="Label" parent="Panel/VBoxContainer"]
-margin_right = 1030.0
+margin_right = 1032.0
 margin_bottom = 75.0
 rect_min_size = Vector2( 0, 75 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "Debug"
+text = "DEBUG_TITLE"
 align = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Panel/VBoxContainer"]
 margin_top = 79.0
-margin_right = 1030.0
+margin_right = 1032.0
 margin_bottom = 417.0
 size_flags_vertical = 3
 follow_focus = true
 scroll_horizontal_enabled = false
 
 [node name="GridContainer" type="GridContainer" parent="Panel/VBoxContainer/ScrollContainer"]
-margin_right = 1030.0
+margin_right = 1032.0
 margin_bottom = 338.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -62,15 +62,15 @@ custom_constants/vseparation = 10
 columns = 2
 
 [node name="HealthLabel" type="Label" parent="Panel/VBoxContainer/ScrollContainer/GridContainer"]
-margin_right = 513.0
+margin_right = 528.0
 margin_bottom = 51.0
 size_flags_horizontal = 3
-text = "Health"
+text = "HEALTH_FIELD_LABEL"
 
 [node name="HealthSlider" type="HSlider" parent="Panel/VBoxContainer/ScrollContainer/GridContainer"]
-margin_left = 517.0
+margin_left = 532.0
 margin_top = 9.0
-margin_right = 1030.0
+margin_right = 1032.0
 margin_bottom = 51.0
 rect_min_size = Vector2( 500, 0 )
 size_flags_horizontal = 3
@@ -82,51 +82,51 @@ script = ExtResource( 1 )
 
 [node name="InvincibleLabel" type="Label" parent="Panel/VBoxContainer/ScrollContainer/GridContainer"]
 margin_top = 68.0
-margin_right = 513.0
+margin_right = 528.0
 margin_bottom = 119.0
-text = "Invincible"
+text = "INVINCIBLE_FIELD_LABEL"
 
 [node name="InvincibleOptions" parent="Panel/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 anchor_right = 0.0
-margin_left = 517.0
+margin_left = 532.0
 margin_top = 61.0
-margin_right = 1030.0
+margin_right = 1032.0
 margin_bottom = 127.0
 
 [node name="WeaponLabel" type="Label" parent="Panel/VBoxContainer/ScrollContainer/GridContainer"]
 margin_top = 144.0
-margin_right = 513.0
+margin_right = 528.0
 margin_bottom = 195.0
-text = "Weapon"
+text = "WEAPON_FIELD_LABEL"
 
 [node name="WeaponOptions" parent="Panel/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 anchor_right = 0.0
-margin_left = 517.0
+margin_left = 532.0
 margin_top = 137.0
-margin_right = 1030.0
+margin_right = 1032.0
 margin_bottom = 203.0
 
 [node name="AbilityLabel" type="Label" parent="Panel/VBoxContainer/ScrollContainer/GridContainer"]
 margin_top = 220.0
-margin_right = 513.0
+margin_right = 528.0
 margin_bottom = 271.0
-text = "Ability"
+text = "ABILITY_FIELD_LABEL"
 
 [node name="AbilityOptions" parent="Panel/VBoxContainer/ScrollContainer/GridContainer" instance=ExtResource( 3 )]
 anchor_right = 0.0
-margin_left = 517.0
+margin_left = 532.0
 margin_top = 213.0
-margin_right = 1030.0
+margin_right = 1032.0
 margin_bottom = 279.0
 
 [node name="DoneButton" type="Button" parent="Panel/VBoxContainer"]
-margin_left = 440.0
+margin_left = 377.0
 margin_top = 421.0
-margin_right = 590.0
+margin_right = 653.324
 margin_bottom = 486.534
 rect_min_size = Vector2( 150, 0 )
 size_flags_horizontal = 4
-text = "Done"
+text = "BUTTON_DONE"
 script = ExtResource( 4 )
 
 [connection signal="value_changed" from="Panel/VBoxContainer/ScrollContainer/GridContainer/HealthSlider" to="." method="_on_HealthSlider_value_changed"]

@@ -3,6 +3,9 @@ extends Control
 onready var weapon_label = $HBoxContainer/WeaponLabel
 onready var ability_label = $HBoxContainer/AbilityLabel
 
+func _ready() -> void:
+	ability_label.set_message_translation(false)
+
 func set_weapon_label(text: String) -> void:
 	weapon_label.visible = true
 	weapon_label.blinking = false
@@ -15,7 +18,7 @@ func clear_weapon_label() -> void:
 func set_ability_label(text: String, charges: int = 1) -> void:
 	ability_label.visible = true
 	ability_label.blinking = false
-	ability_label.text = text
+	ability_label.text = tr(text)
 	if charges > 1:
 		ability_label.text += ' (' + str(charges) + ')'
 

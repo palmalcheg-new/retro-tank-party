@@ -11,7 +11,7 @@ func _ready() -> void:
 	var player_names = OnlineMatch.get_player_names_by_peer_id()
 	player_ids = player_names.keys()
 	player_ids.sort()
-	
+
 	for i in range(4):
 		var player_number = i + 1
 		var label = field_container.get_node("Player%sLabel" % player_number)
@@ -22,12 +22,12 @@ func _ready() -> void:
 		field.set_value(i % 2, false)
 		field.connect("item_selected", self, "_on_team_selected", [i])
 		fields.append(field)
-		
+
 		if player_number > OnlineMatch.players.size():
 			label.visible = false
 			field.visible = false
 			continue
-		
+
 		var player_id = player_ids[i]
 		label.text = player_names[player_id]
 
@@ -50,9 +50,9 @@ func _on_NextButton_pressed() -> void:
 	var teams = get_teams()
 	for team in teams:
 		if team.size() == 0:
-			ui_layer.show_message('Each team must have at least 1 player!')
+			ui_layer.show_message('MESSAGE_TEAM_NEEDS_PLAYERS')
 			return
-	
+
 	ui_layer.show_screen("MapScreen")
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -64,11 +64,11 @@ func get_teams() -> Array:
 	var teams = []
 	for i in range(2):
 		teams.append([])
-	
+
 	for i in range(4):
 		if i < player_ids.size():
 			teams[fields[i].value].append(player_ids[i])
-	
+
 	return teams
 
 func set_teams(teams: Array) -> void:

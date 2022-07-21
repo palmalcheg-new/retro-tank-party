@@ -13,22 +13,22 @@ var _is_ready := false
 signal network_process ()
 
 func _ready() -> void:
-	invincible_field.add_item("No", false)
-	invincible_field.add_item("Yes", true)
-	
+	invincible_field.add_item("OPTION_NO", false)
+	invincible_field.add_item("OPTION_YES", true)
+
 	var weapons = Modding.find_resources("weapons")
 	for weapon_path in weapons:
 		var weapon = load(weapon_path)
 		weapon_field.add_item(weapon.name, weapon_path)
-	
-	ability_field.add_item("None", null)
+
+	ability_field.add_item("OPTION_NONE", null)
 	var abilities = Modding.find_resources("abilities")
 	for ability_path in abilities:
 		var ability = load(ability_path)
 		ability_field.add_item(ability.name, ability_path)
-	
+
 	_setup_field_neighbors()
-	
+
 	_is_ready = true
 
 func _setup_field_neighbors() -> void:
@@ -45,12 +45,12 @@ func _show_screen(info: Dictionary = {}) -> void:
 	scroll_container.scroll_vertical = 0
 	health_slider.focus.grab_without_sound()
 	ui_layer.show_back_button()
-	
+
 	tank = info['tank']
 	assert (tank)
 	if not tank:
 		return
-	
+
 	health_slider.value = tank.health
 	invincible_field.set_value(tank.invincible, false)
 	weapon_field.set_value(tank.weapon_type.resource_path, false)
@@ -62,7 +62,7 @@ func _network_process(data: Dictionary) -> void:
 func _on_HealthSlider_value_changed(value: float) -> void:
 	if _is_ready:
 		Sounds.play("Select")
-	
+
 	if tank:
 		yield(self, 'network_process')
 		tank.update_health(value)

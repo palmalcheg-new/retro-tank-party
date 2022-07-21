@@ -4,7 +4,7 @@ onready var timelimit_field = $Timelimit
 
 func _ready() -> void:
 	for i in range(1, 11):
-		timelimit_field.add_item("%s min" % i, i)
+		timelimit_field.add_item("OPTION_%s_MINUTE" % i, i)
 	timelimit_field.set_value(5, false)
 
 func set_disabled(_disabled: bool) -> void:

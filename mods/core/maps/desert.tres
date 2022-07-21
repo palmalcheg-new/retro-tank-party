@@ -2,8 +2,8 @@
 
 [ext_resource path="res://src/components/maps/GameMap.gd" type="Script" id=1]
 
-
 [resource]
 script = ExtResource( 1 )
-name = "Desert"
+name = "MAP_NAME_DESERT"
+has_goals = false
 map_scene = "res://mods/core/maps/Desert.tscn"

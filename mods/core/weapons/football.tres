@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Football"
+name = "WEAPON_NAME_FOOTBALL"
 weapon_script = ExtResource( 2 )
 bullet_scene = ExtResource( 3 )
 damage = 0

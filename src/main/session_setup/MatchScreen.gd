@@ -6,18 +6,18 @@ onready var matchmaker_player_count_control := $PanelContainer/VBoxContainer/Mar
 onready var join_match_id_control := $PanelContainer/VBoxContainer/MarginContainer/JoinPanel/Fields/LineEdit
 
 func _ready() -> void:
-	option_switcher.add_item("Create a private match", "CreatePanel")
-	option_switcher.add_item("Join a private match", "JoinPanel")
-	option_switcher.add_item("Find a public match", "MatchPanel")
-	
-	matchmaker_player_count_control.add_item("2 players", 2)
-	matchmaker_player_count_control.add_item("3 players", 3)
-	matchmaker_player_count_control.add_item("4 players", 4)
-	
+	option_switcher.add_item("MATCH_OPTION_CREATE", "CreatePanel")
+	option_switcher.add_item("MATCH_OPTION_JOIN", "JoinPanel")
+	option_switcher.add_item("MATCH_OPTION_MATCHMAKER", "MatchPanel")
+
+	matchmaker_player_count_control.add_item("MATCHMAKER_2_PLAYERS", 2)
+	matchmaker_player_count_control.add_item("MATCHMAKER_3_PLAYERS", 3)
+	matchmaker_player_count_control.add_item("MATCHMAKER_4_PLAYERS", 4)
+
 	$PanelContainer/VBoxContainer/MarginContainer/MatchPanel/MatchButton.connect("pressed", self, "_on_match_button_pressed", [OnlineMatch.MatchMode.MATCHMAKER])
 	$PanelContainer/VBoxContainer/MarginContainer/CreatePanel/CreateButton.connect("pressed", self, "_on_match_button_pressed", [OnlineMatch.MatchMode.CREATE])
 	$PanelContainer/VBoxContainer/MarginContainer/JoinPanel/JoinButton.connect("pressed", self, "_on_match_button_pressed", [OnlineMatch.MatchMode.JOIN])
-	
+
 	OnlineMatch.connect("matchmaker_matched", self, "_on_OnlineMatch_matchmaker_matched")
 	OnlineMatch.connect("match_created", self, "_on_OnlineMatch_created")
 	OnlineMatch.connect("match_joined", self, "_on_OnlineMatch_joined")
@@ -27,7 +27,7 @@ func _show_screen(_info: Dictionary = {}) -> void:
 	matchmaker_player_count_control.value = 2
 	join_match_id_control.text = ''
 	option_switcher.focus.grab_without_sound()
-	
+
 	if Globals.arguments.has('join'):
 		# @todo Handle other values.
 		if Globals.arguments['join'] == 'matchmaker':
@@ -37,7 +37,7 @@ func _on_OptionSwitcher_item_selected(value, index) -> void:
 	var panel = panel_parent.get_node(value)
 	if not panel:
 		return
-	
+
 	for child in panel_parent.get_children():
 		child.visible = false
 	panel.visible = true
@@ -46,19 +46,19 @@ func _on_match_button_pressed(mode) -> void:
 	# If our session has expired, show the ConnectionScreen again.
 	if Online.nakama_session == null or Online.nakama_session.is_expired():
 		ui_layer.show_screen("ConnectionScreen", { next_screen = null, reconnect = true })
-		
+
 		# Wait to see if we get a new valid session.
 		yield(Online, "session_changed")
 		if Online.nakama_session == null:
 			return
-	
+
 	# Connect socket to realtime Nakama API if not connected.
 	if not Online.is_nakama_socket_connected():
 		Online.connect_nakama_socket()
 		yield(Online, "socket_connected")
-	
+
 	ui_layer.hide_message()
-	
+
 	if GameSettings.use_network_relay >= GameSettings.NetworkRelay.FALLBACK:
 		OnlineMatch.ice_servers = Build.fallback_ice_servers
 	else:
@@ -86,7 +86,7 @@ func _on_match_button_pressed(mode) -> void:
 				print ("Unable to parse JSON: %s" % ice_servers_result.payload)
 		else:
 			print ("Client error in RPC call get_ice_servers(): %s" % ice_servers_result.get_exception().message)
-	
+
 	# Call internal method to do actual work.
 	match mode:
 		OnlineMatch.MatchMode.MATCHMAKER:
@@ -98,10 +98,10 @@ func _on_match_button_pressed(mode) -> void:
 
 func _start_matchmaking() -> void:
 	var min_players = matchmaker_player_count_control.value
-	
+
 	ui_layer.hide_screen()
-	ui_layer.show_message("Looking for match...")
-	
+	ui_layer.show_message("MESSAGE_LOOKING_FOR_MATCH")
+
 	var data = {
 		min_count = min_players,
 		string_properties = {
@@ -109,7 +109,7 @@ func _start_matchmaking() -> void:
 		},
 		query = "+properties.game:retro_tank_party1",
 	}
-	
+
 	OnlineMatch.start_matchmaking(Online.nakama_socket, data)
 
 func _on_OnlineMatch_matchmaker_matched(_players: Dictionary):
@@ -125,11 +125,11 @@ func _on_OnlineMatch_created(match_id: String):
 func _join_match() -> void:
 	var match_id = join_match_id_control.text.strip_edges()
 	if match_id == '':
-		ui_layer.show_message("Need to paste Match ID to join")
+		ui_layer.show_message("MESSAGE_MATCH_ID_REQUIRED")
 		return
 	if not match_id.ends_with('.'):
 		match_id += '.'
-	
+
 	OnlineMatch.join_match(Online.nakama_socket, match_id)
 
 func _on_OnlineMatch_joined(match_id: String):
@@ -143,11 +143,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 	if get_focus_owner() is Button:
 		return
-	
+
 	if event.is_action_pressed("ui_accept"):
 		get_tree().set_input_as_handled()
 		_ui_accept_pressed()
-	
+
 func _ui_accept_pressed() -> void:
 	var match_mode: int
 	match option_switcher.value:
@@ -157,7 +157,7 @@ func _ui_accept_pressed() -> void:
 			match_mode = OnlineMatch.MatchMode.JOIN
 		"MatchPanel":
 			match_mode = OnlineMatch.MatchMode.MATCHMAKER
-	
+
 	_on_match_button_pressed(match_mode)
 
 func _on_LineEdit_text_entered(new_text: String) -> void:

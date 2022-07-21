@@ -1,5 +1,7 @@
 extends "res://src/ui/Screen.gd"
 
+onready var panel_container: PanelContainer = $PanelContainer
+onready var margin_container
 onready var online_button = $PanelContainer/MarginContainer/VBoxContainer/OnlineButton
 onready var exit_button = $PanelContainer/MarginContainer/VBoxContainer/ExitButton
 

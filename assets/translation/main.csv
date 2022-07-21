@@ -1,0 +1,198 @@
+keys,en,es
+ABILITY_NAME_BOOST,Boost,Boost
+ABILITY_FIELD_LABEL,Ability,Habilidad
+ABILITY_NAME_INVISIBLE,Invisible,Invisible
+ABILITY_NAME_ZAP,Zap!,¡Zap!
+ALERT_LEAVE_MATCH,You will leave the session and won't be able to to rejoin,Saldrás de la sesión y no podrás volver a entrar
+ALERT_LEAVE_MATCH_HOST,This will end the match for everyone and return to the match setup screen.,Esto terminará el partido para todos y volverá a la pantalla de configuración de la partida.
+ALERT_LEAVE_MATCH_SETUP_HOST,This will end the match for everyone.,Esto terminará la partida para todos
+ALERT_LEAVE_MATCH_TITLE,Are you sure you want to exit?,¿Estás seguro de que quieres salir?
+ART_STYLE_NAME_ATARI,Atari 2600,Atari 2600
+ART_STYLE_NAME_CLASSIC,Classic,Clásico
+ART_STYLE_NAME_SNES,SNES,SNES
+ART_STYLE_NAME_VECTOR,Vector,Vector
+BUTTON_MATCHMAKER,Match,Coincidir
+BUTTON_CANCEL,Cancel,Cancelar
+BUTTON_COPY,Copy,Copiar
+BUTTON_CREATE_ACCOUNT,Create Account,Crear cuenta
+BUTTON_CREATE_MATCH,Create,Crear
+BUTTON_DONE,Done,Donar
+BUTTON_JOIN_MATCH,Join,Unirse
+BUTTON_LOGIN,Login,Acceso
+BUTTON_NEXT,Next,Siguiente
+BUTTON_OK,OK,OK
+BUTTON_PASTE,Paste,Pegar
+BUTTON_READY,I'm Ready!,¡Estoy listo!
+BUTTON_RESET_PASSWORD,Reset Password,Restablecer contraseña
+BUTTON_START_MATCH,Start Match!,¡Empezar partida!
+CREDITS_TITLE,Credits,Créditos
+CREDITS_TEAM,"[b]Team:[/b]
+  [color=black]David Snopek[/color] from [color=#1ea7e1][url=https://www.snopekgames.com]Snopek Games[/url][/color]: [color=black]Programming and Design[/color]
+  [color=black]Ross Klettke[/color] from [color=#1ea7e1][url=https://www.whatnotory.com/]Whatnotory[/url][/color]:   [color=black]Additional Art Styles[/color]
+
+[b]Free assets:[/b]
+  [color=#1ea7e1][url=https://www.kenney.nl/assets/topdown-tanks-redux]Top-down Tanks Redux[/url][/color] by [color=black]Kenney.nl[/color]
+  [color=#1ea7e1][url=https://datagoblin.itch.io/monogram]Monogram font[/url][/color] by [color=black]datagoblin[/color]
+  [color=#1ea7e1][url=https://opengameart.org/content/sfx-the-ultimate-2017-16-bit-mini-pack]SFX: The Ultimate 2017 16 bit Mini pack[/url][/color] by [color=black]phoenix1291[/color]
+  [color=#1ea7e1][url=https://opengameart.org/content/engine-loop-heavy-vehicletank]Engine-loop heavy vehicle/tank[/url][/color] by [color=black]Nayckron[/color]
+  [color=#1ea7e1][url=https://www.kenney.nl/assets/interface-sounds/]Interface Sounds[/url][/color] by [color=black]Kenney.nl[/color]
+  [color=#1ea7e1][url=https://opengameart.org/content/ciptuned-rock-tune]Chiptuned Rock Tune[/url][/color] by [color=black]Bertsz[/color]
+  [color=#1ea7e1][url=https://opengameart.org/content/5-chiptunes-action]5 Action Chiptunes[/url][/color] by [color=black]Juhani Junkala[/color]
+  [color=#1ea7e1][url=https://sworndevelopment.itch.io/godot-splash-boot-video]Godot Splash Boot Video[/url][/color] by [color=black]SwornDevelopment[/color]
+  [color=#1ea7e1][url=https://orangefreesounds.com/goal-horn-sound-effect/]Goal Horn Sound Effect[/url][/color] by [color=black]Alexander[/color]","[b]Equipo:[/b]
+  [color=black]David Snopek[/color] de [color=#1ea7e1][url=https://www.snopekgames.com]Snopek Games[/url][/color]: [color=black]Programación y diseño[/color] 
+  [color=black]Ross Klettke[/color] de [color=#1ea7e1][url=https://www.whatnotory.com/]Whatnotory[/url][/color]:   [color=black]Estilos de arte adicionales[/color]
+
+[b]Materiales gratuitos:[/b]
+  [color=#1ea7e1][url=https://www.kenney.nl/assets/topdown-tanks-redux]Top-down Tanks Redux[/url][/color] por [color=black]Kenney.nl[/color]
+  [color=#1ea7e1][url=https://datagoblin.itch.io/monogram]Monogram font[/url][/color] de [color=black]datagoblin[/color]
+  [color=#1ea7e1][url=https://opengameart.org/content/sfx-the-ultimate-2017-16-bit-mini-pack]SFX: The Ultimate 2017 16 bit Mini pack[/url][/color] de [color=black]phoenix1291[/color]
+  [color=#1ea7e1][url=https://opengameart.org/content/engine-loop-heavy-vehicletank]Vehículo/tanque pesado con motor[/url][/color] de [color=black]Nayckron[/color] 
+  [color=#1ea7e1][url=https://www.kenney.nl/assets/interface-sounds/]Sonidos de la interfaz[/url][/color] de [color=black]Kenney.nl[/color]
+  [color=#1ea7e1][url=https://opengameart.org/content/ciptuned-rock-tune]Chiptuned Rock Tune[/url][/color] de [color=black]Bertsz[/color]
+  [color=#1ea7e1][url=https://opengameart.org/content/5-chiptunes-action]5 Action Chiptunes[/url][/color] de [color=black]Juhani Junkala[/color]
+  [color=#1ea7e1][url=https://sworndevelopment.itch.io/godot-splash-boot-video]Godot Splash Boot Video[/url][/color] por [color=black]SwornDevelopment[/color]
+  [color=#1ea7e1][url=https://orangefreesounds.com/goal-horn-sound-effect/]Efecto de sonido del cuerno de la portería[/url][/color] by [color=black]Alexander[/color]"
+CHECKBOX_SAVE_CREDS,Save e-mail and password,Guardar e-mail y contraseña
+CONTROL_SCHEME_OPTION_MODERN,Modern,Moderno
+CONTROL_SCHEME_OPTION_RETRO,Retro,Retro
+DEBUG_TITLE,Debug,Depuración
+EMAIL_FIELD_LABEL,E-mail:,E-mail:
+GAME_ERROR_UNABLE_TO_LOAD_MAP,Unable to load map,Imposible cargar el mapa
+GAMEPAD_DEVICE_OPTION_DEFAULT,Default,Por defecto
+HEALTH_FIELD_LABEL,Health,Salud
+INVINCIBLE_FIELD_LABEL,Invincible,Invencibilidad
+LANGUAGE_OPTION_DEFAULT,Default,Por defecto
+LANGUAGE_OPTION_ENGLISH,English,Inglés
+LANGUAGE_OPTION_SPANISH,Spanish,Español
+MAP_NAME_BATTLEFIELD,Battlefield,Campo de batalla
+MAP_NAME_DESERT,Desert,Desierto
+MAP_NAME_FOOTBALL,Football,Fútbol
+MAP_NAME_MAZE,Maze,Laberinto
+MAP_TITLE,Map,Mapa
+MATCH_ID_FIELD_LABEL,Match ID:,Match ID:
+MATCH_OPTION_CREATE,Create a private match,Crear una partida privada
+MATCH_OPTION_CREATE_DESCRIPTION,Get a private match ID and send it to your friends.,Obtener un match ID privado y enviarlo a tus amigos
+MATCH_OPTION_JOIN,Join a private match,Unirse a una partida privada
+MATCH_OPTION_JOIN_DESCRIPTION,Paste the private match ID that your friend sent you.,Pegar el match ID privado que tus amigos te enviaron.
+MATCH_OPTION_MATCHMAKER,Find a public match,Encontrar una partida pública
+MATCH_OPTION_MATCHMAKER_DESCRIPTION,"There is matchmaking, but this is a tiny indie game. Don't expect to find randos to battle! It's super cheap - buy a couple copies for your friends!","Hay emparejamiento, pero se trata de un pequeño juego indie. No esperes encontrar a alguien con quien luchar. Es súper barato: ¡compra un par de copias para tus amigos!"
+MATCHMAKER_2_PLAYERS,2 players,2 jugadores
+MATCHMAKER_3_PLAYERS,3 players,3 jugadores
+MATCHMAKER_4_PLAYERS,4 players,4 jugadores
+MATCHMAKER_PLAYERS_FIELD_LABEL,Find at least:,Encontrar
+MENU_BATTLE,Battle!,¡Batalla!
+MENU_CREDITS,Credits,Créditos
+MENU_EXIT,Exit,Salir
+MENU_PRACTICE,Practice,Práctica
+MENU_SETTINGS,Settings,Ajustes
+MESSAGE_CREATE_ACCOUNT_FAILED,Unable to create account,Imposible crear una cuenta
+MESSAGE_CREATING_ACCOUNT,Creating account...,Creando cuenta...
+MESSAGE_EMAIL_REQUIRED,Must provide email,Debes proporcionar un e-mail
+MESSAGE_EMAIL_TAKEN,E-mail already in use,E-mail ya en uso
+MESSAGE_INSTANT_DEATH,INSTANT DEATH!,¡MUERTA INSTANTÁNEA!
+MESSAGE_LOGGING_IN,Logging in...,Accediendo
+MESSAGE_LOGIN_FAILED,Login failed!,¡Acceso fallido!
+MESSAGE_LOGIN_FAILED_STEAM,Unable to connect to Steam. Please try again later.,"Imposible conectar a Steam. Por favor, inténtalo de nuevo más tarde."
+MESSAGE_LOOKING_FOR_MATCH,Looking for match...,Buscando una partida...
+MESSAGE_MATCH_ID_REQUIRED,Need to paste Match ID to join,Se necesita pegar el Match ID para unirse
+MESSAGE_NETWORK_ISSUES,"If you're having issues, try different ""Network Relay"" settings before starting a match.","Si tienes problemas, prueba diferentes configuraciones de ""Relé de red"" antes de empezar una partida."
+MESSAGE_NO_USER_ACCOUNT,No user account found,No se encontró la cuenta de usuario
+MESSAGE_PASSWORD_REQUIRED,Must provide password,Debes proveer una contraseña
+MESSAGE_PASSWORD_RESET_FAILED,Unable to send password reset email! Try again later.,No se ha podido enviar el correo electrónico de restablecimiento de la contraseña. Vuelve a intentarlo más tarde.
+MESSAGE_PASSWORD_RESET_SENDING,Sending password reset e-mail...,Mandando el restablecimiento de la contraseña al e-mail...
+MESSAGE_PASSWORD_RESET_SENT,Password reset email sent!,¡Email de restablecimiento de la contraseña enviado!
+MESSAGE_PLAYER_DEAD,Wasted!,¡Muerto!
+MESSAGE_PLAYER_HAS_LEFT,%s has left!,%s se ha ido!
+MESSAGE_PLAYER_HAS_LEFT_NOT_ENOUGH_PLAYERS,%s has left - not enough players!,"%s se ha ido, no hay suficientes jugadores!"
+MESSAGE_PLAYER_LOSE,You lose!,¡Perdiste!
+MESSAGE_PLAYER_WINS_DEATHMATCH,%s WINS THIS DEATH MATCH!,%s GANA ESTE COMBATE A MUERTE!
+MESSAGE_PLAYER_WINS_MATCH,%s WINS THE MATCH!,%s GANA LA PARTIDA!
+MESSAGE_PLAYER_WINS_ROUND,%s wins this round!,%s gana esta ronda!
+MESSAGE_SESSION_EXPIRED,Session expired! Reconnecting...,¡Sesión caducada! Reconectando...
+MESSAGE_SESSION_EXPIRED_STEAM,Session expired! Reconnecting via Steam...,¡Sesión caducada! Reconectando vía Steam...
+MESSAGE_SESSION_LOGGING_IN_STEAM,Logging in via Steam...,Conectando vía Steam...
+MESSAGE_SETUP_CLIENT,The host is configuring the match...,El anfitrión está configurando la partida...
+MESSAGE_SETUP_HOST,You're the host! How you wanna do this?,¡Tú eres el anfitrión! ¿Cómo quieres hacer esto?
+MESSAGE_SYNCHRONIZATION_LOST,Synchronization lost,Sincronización perdida
+MESSAGE_TEAM_NEEDS_PLAYERS,Each team must have at least 1 player!,¡Cada equipo debe tener al menos 1 jugador!
+MESSAGE_USERNAME_REQUIRED,Must provide username,Debes proveer un nombre de usuario
+MESSAGE_USERNAME_TAKEN,Username already taken,Nombre de usuario ya ocupado
+MODE_DESCRIPTION_BATTLE_ROYALE,The last tank standing wins the round.,El último tanque en pie gana la ronda.
+MODE_DESCRIPTION_DEATHMATCH,The tank with the most kills wins.,El tanque con más muertes gana.
+MODE_DESCRIPTION_FOOTBALL,Carry the ball to the goal to score points.,Lleva el balón a la portería para conseguir puntos.
+MODE_NAME_BATTLE_ROYALE,Battle Royale,Battle Royale
+MODE_NAME_DEATHMATCH,Deathmatch,Partida a muerte
+MODE_NAME_FOOTBALL,Football,Fútbol
+NETWORK_RELAY_OPTION_AUTO,Auto,Auto
+NETWORK_RELAY_OPTION_DISABLED,Disabled,Desactivado
+NETWORK_RELAY_OPTION_FALLBACK_AUTO,Fallback (Auto),Retroceso (Auto)
+NETWORK_RELAY_OPTION_FALLBACK_FORCED,Fallback,Retroceso (Auto)
+NETWORK_RELAY_OPTION_FORCED,Forced,Forzado
+ONLINE_MATCH_ERROR_CLIENT_JOIN_ERROR,Client not allowed to join,Cliente no permitido para unirse
+ONLINE_MATCH_ERROR_CLIENT_VERSION_ERROR,Client version doesn't match host,La versión del cliente no coincide con el host
+ONLINE_MATCH_ERROR_JOIN_MATCH_FAILED,Unable to join match,Imposible unirse a la partida
+ONLINE_MATCH_ERROR_MATCH_CREATE_FAILED,Failed to create match,No se ha podido crear la partida
+ONLINE_MATCH_ERROR_MATCH_HAS_ALREADY_BEGUN,Sorry! The match has already begun.,¡Lo siento! La partida ya empezó.
+ONLINE_MATCH_ERROR_MATCH_IS_FULL,Sorry! The match is full.,¡Lo siento! La partida está completa.
+ONLINE_MATCH_ERROR_MATCHMAKER_ERROR,Matchmaker error,Error de emparejamiento
+ONLINE_MATCH_ERROR_START_MATCHMAKING_FAILED,Unable to join match making pool,Imposible unirse al grupo de emparejamiento
+ONLINE_MATCH_ERROR_WEBSOCKET_CONNECTION_ERROR,WebSocket connection error,Error de conexión WebSocket
+OPTION_10_SECOND,10 sec,10 seg
+OPTION_20_SECOND,20 sec,20 seg
+OPTION_30_SECOND,30 sec,30 seg
+OPTION_40_SECOND,40 sec,40 seg
+OPTION_50_SECOND,50 sec,50 seg
+OPTION_60_SECOND,60 sec,60 seg
+OPTION_1_MINUTE,1 min,2 min
+OPTION_2_MINUTE,2 min,3 min
+OPTION_3_MINUTE,3 min,4 min
+OPTION_4_MINUTE,4 min,5 min
+OPTION_5_MINUTE,5 min,6 min
+OPTION_6_MINUTE,6 min,7 min
+OPTION_7_MINUTE,7 min,8 min
+OPTION_8_MINUTE,8 min,9 min
+OPTION_9_MINUTE,9 min,10 min
+OPTION_10_MINUTE,10 min,11 min
+OPTION_DISABLED,Disabled,Desactivado
+OPTION_ENABLED,Enabled,Activado
+OPTION_NEVER,Never,Nunca
+OPTION_NONE,None,Nada
+OPTION_NO,No,No
+OPTION_YES,Yes,Sí
+PASSWORD_FIELD_LABEL,Password:,Contraeña:
+PICKUP_NAME_HEALTH,Health,Salud
+PLAYER_NAME_PRACTICE,Practice,Práctica
+PLAYER_PING,%sms,%sms
+PLAYER_STATUS_CONNECTED,Connected.,Conectado.
+PLAYER_STATUS_CONNECTING,Connecting...,Conectando.
+PLAYER_STATUS_READY,READY!,¡Listo!
+POINTS_TO_WIN_FIELD_LABEL,Points to win,Puntos para ganar
+SESSION_SETUP_TAB_CREATE_ACCOUNT,Create account,Crear cuenta
+SESSION_SETUP_TAB_FORGOT_PASSWORD,Forgot password?,¿Olvidaste la contraseña?
+SESSION_SETUP_TAB_LOGIN,Login,Acceder
+SESSION_SETUP_TAB_STEAM,Steam,Steam
+SESSION_SETUP_TAB_STEAM_MESSAGE,"If you already have a SnopekGames account, use the ""Login"" tab and it'll link your Steam account for the future. Otherwise, you'll end up with two accounts.","Si ya tienes una cuenta de SnopekGames, utiliza la pestaña ""Acceder"" y se vinculará tu cuenta de Steam para el futuro. De lo contrario, acabarás teniendo dos cuentas."
+SETTING_ART_STYLE,Art style,Estilo artístico
+SETTING_CONTROL_SCHEME,Control scheme,Esquema de control
+SETTING_DETAILED_LOGGING,Detailed logging,Acceso detallado
+SETTING_FULL_SCREEN,Full screen,Pantalla completa
+SETTING_GAMEPAD_DEVICE,Gamepad device,Dispositivo Gamepad
+SETTING_LANGUAGE,Language,Idioma
+SETTING_MUSIC,Music,Música
+SETTING_NETWORK_RELAY,Network relay,Relé de red
+SETTING_SCREEN_SHAKE,Screen shake,Sacudida de pantalla
+SETTING_SOUND,Sound,Sonido
+SETTING_TANK_ENGINE_SOUNDS,Tank engine sounds,Sonidos del motor del tanque
+SETTINGS_TITLE,Settings,Ajustes
+TEAMS_FIELD_LABEL,Teams,Equipos
+TIMELIMIT_FIELD_LABEL,Timelimit,Limite de tiempo
+TITLE_PRESS_ANY_KEY,Press any key (or click) to start,Presiona cualquier tecla (o click) para empezar
+USERNAME_FIELD_LABEL,Username:,Nombre de usuario:
+WEAPON_FIELD_LABEL,Weapon,Arma
+WEAPON_NAME_FOOTBALL,Football,Fútbol
+WEAPON_NAME_NORMAL,Normal,Normal
+WEAPON_NAME_RAILGUN,Railgun,Cañón de riel
+WEAPON_NAME_SPREAD,Spread,Arma de fuego
+WEAPON_NAME_TRACER,Tracer,Rastreador
+WEAPON_TIMEOUT_FIELD_LABEL,Weapons last,Últimas armas

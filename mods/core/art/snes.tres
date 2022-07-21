@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "SNES"
+name = "ART_STYLE_NAME_SNES"
 texture_base_path = "res://mods/core/art/snes"
 art_script = ExtResource( 2 )
 cursor_texture = ExtResource( 3 )

@@ -7,7 +7,7 @@ onready var cancel_button := $VBoxContainer/HBoxContainer/CancelButton
 
 signal completed (result)
 
-func setup(title: String, content: String, ok_text: String = 'Ok', cancel_text: String = 'Cancel') -> void:
+func setup(title: String, content: String, ok_text: String = 'BUTTON_OK', cancel_text: String = 'BUTTON_CANCEL') -> void:
 	title_label.text = title
 	content_label.text = content
 	ok_button.text = ok_text

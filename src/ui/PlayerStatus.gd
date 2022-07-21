@@ -30,4 +30,4 @@ func set_host(_host: bool) -> void:
 
 func set_ping_time(rtt: int) -> void:
 	ping_label.visible = true
-	ping_label.text = str(rtt) + 'ms'
+	ping_label.text = tr("PLAYER_PING") % rtt

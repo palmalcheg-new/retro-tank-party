@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource( 2 )
-name = "Atari 2600"
+name = "ART_STYLE_NAME_ATARI"
 texture_base_path = "res://mods/core/art/atari"
 art_script = ExtResource( 3 )
 cursor_texture = ExtResource( 1 )

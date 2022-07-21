@@ -9,9 +9,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 2 )
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="ReadyButton" type="Button" parent="."]
 anchor_left = 0.5
@@ -22,7 +19,9 @@ margin_left = -175.0
 margin_top = -32.767
 margin_right = 175.0
 margin_bottom = 32.767
+grow_horizontal = 2
 rect_min_size = Vector2( 350, 0 )
-text = "Start Match!"
+text = "BUTTON_START_MATCH"
 script = ExtResource( 3 )
+
 [connection signal="pressed" from="ReadyButton" to="." method="_on_ReadyButton_pressed"]

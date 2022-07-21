@@ -26,13 +26,21 @@ func interpolate_node_transform_state(node: SGFixedNode2D, old_state: Dictionary
 		Vector2(SGFixed.to_float(old_state.get('fixed_position_x', 0)), SGFixed.to_float(old_state.get('fixed_position_y', 0))),
 		Vector2(SGFixed.to_float(new_state.get('fixed_position_x', 0)), SGFixed.to_float(new_state.get('fixed_position_y', 0))),
 		weight)
-	
+
 	node.rotation = lerp_angle(
 		SGFixed.to_float(old_state.get('fixed_rotation', 0)),
 		SGFixed.to_float(new_state.get('fixed_rotation', 0)),
 		weight)
-	
+
 	node.scale = lerp(
 		Vector2(SGFixed.to_float(old_state.get('fixed_scale_x', SGFixed.ONE)), SGFixed.to_float(old_state.get('fixed_scale_y', SGFixed.ONE))),
 		Vector2(SGFixed.to_float(new_state.get('fixed_scale_x', SGFixed.ONE)), SGFixed.to_float(new_state.get('fixed_scale_y', SGFixed.ONE))),
 		weight)
+
+func translate_online_match_error(code: int, message: String, extra) -> String:
+	var enum_name = OnlineMatch.ErrorCode.keys()[code]
+	if code == OnlineMatch.ErrorCode.CLIENT_JOIN_ERROR:
+		enum_name = OnlineMatch.JoinErrorReason.keys()[extra]
+	if enum_name:
+		return "ONLINE_MATCH_ERROR_" + enum_name
+	return ''

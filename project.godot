@@ -372,6 +372,10 @@ sync_debug={
 2d_physics/layer_3="bullets"
 2d_physics/layer_4="powerups"
 
+[locale]
+
+translations=PoolStringArray( "res://assets/translation/main.en.translation", "res://assets/translation/main.es.translation" )
+
 [network]
 
 ssl/certificates="res://ca-certificates.crt"

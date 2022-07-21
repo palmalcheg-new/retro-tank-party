@@ -11,7 +11,7 @@ var winner_id := -1
 
 func _do_match_setup() -> void:
 	._do_match_setup()
-	
+
 	game.connect("player_dead", self, "_on_game_player_dead")
 
 func start_new_round() -> void:
@@ -37,7 +37,7 @@ func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 	var my_id = SyncManager.network_adaptor.get_network_unique_id()
 	if player_id == my_id:
 		you_lose_timer.start()
-	
+
 	if not round_over and (game.players_alive.size() == 1 or (use_teams and not _check_team_alive(player_id))):
 		round_over = true
 		if use_teams:
@@ -49,7 +49,7 @@ func _on_game_player_dead(player_id: int, killer_id: int) -> void:
 
 		score.increment_score(winner_id)
 		match_over = score.get_score(winner_id) >= config['points_to_win']
-		
+
 		show_winner_timer.start()
 
 func _check_team_alive(player_id: int) -> bool:
@@ -62,16 +62,16 @@ func _check_team_alive(player_id: int) -> bool:
 func _on_YouLoseTimer_timeout() -> void:
 	game.enable_watch_camera()
 	if not round_over and not match_over:
-		ui_layer.show_message("You lose!")
+		ui_layer.show_message("MESSAGE_PLAYER_LOSE")
 
 func _on_ShowWinnerTimer_timeout() -> void:
 	var winner_name = score.get_name(winner_id)
-	
+
 	if match_over:
-		ui_layer.show_message(winner_name + " WINS THE WHOLE MATCH!")
+		ui_layer.show_message(tr("MESSAGE_PLAYER_WINS_MATCH") % winner_name)
 	else:
-		ui_layer.show_message(winner_name + " wins this round!")
-	
+		ui_layer.show_message(tr("MESSAGE_PLAYER_WINS_ROUND") % winner_name)
+
 	show_score_timer.start()
 
 func _on_ShowScoreTimer_timeout() -> void:

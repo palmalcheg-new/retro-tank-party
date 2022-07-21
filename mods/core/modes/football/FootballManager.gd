@@ -41,17 +41,17 @@ func _do_match_setup() -> void:
 		player_manager.connect("respawn_player", self, "_on_player_manager_respawn_player")
 		player_managers[player_id] = player_manager
 	game.connect("player_spawned", self, "_on_game_player_spawned")
-	
+
 	var map_temp = load(map_path).instance()
 	team_start_transforms.resize(2)
 	for i in range(2):
 		team_start_transforms[i] = map_temp.get_team_start_transforms(i)
 	game.game_setup(players, map_path, random_seed, _get_player_start_transforms())
-	
+
 	map_rect = game.map.get_map_fixed_rect()
 	bounds_rect = SGFixed.rect2(map_rect.position.sub(THIRTY_TWO), map_rect.size.sub(SIXTY_FOUR))
 	ball_start_position = game.map.get_ball_start_position()
-	
+
 	football = FootballScene.instance()
 	football.name = 'Football'
 	game.add_child(football)
@@ -60,7 +60,7 @@ func _do_match_setup() -> void:
 	football.sync_to_physics_engine()
 	football.connect("out_of_bounds", self, "_on_football_out_of_bounds")
 	football.connect("grabbed", self, "grab_football")
-	
+
 	var goal_transforms = game.map.get_goal_transforms()
 	for i in range(2):
 		var goal = GoalScene.instance()
@@ -71,17 +71,17 @@ func _do_match_setup() -> void:
 		goal.sync_to_physics_engine()
 		goal.connect("tank_present", self, "_on_goal_tank_present")
 		goals.append(goal)
-	
+
 	hud.set_instant_death_text("OVERTIME!")
 	hud.score.set_entity_count(score.entities.size())
 	for team_id in score.entities:
 		hud.score.set_entity_name(team_id + 1, score.entities[team_id].name)
-	
+
 	OnlineMatch.connect("player_left", self, '_on_OnlineMatch_player_left')
-	
+
 	game.connect("player_dead", self, "_on_game_player_dead")
 	game.connect("game_started", self, "_on_game_started")
-	
+
 	hud.countdown_timer.start_countdown(config['timelimit'] * 60)
 	hud.countdown_timer.connect("countdown_finished", self, "_on_countdown_finished")
 
@@ -113,7 +113,7 @@ func _on_game_player_spawned(tank) -> void:
 	if player_managers.has(player_id):
 		var player_manager = player_managers[player_id]
 		player_manager.set_player_tank(tank)
-	
+
 	tank.connect("player_dead", self, "_on_tank_player_dead", [tank])
 	tank.connect("hurt", self, "_on_tank_hurt", [tank])
 
@@ -135,7 +135,7 @@ func grab_football(tank) -> void:
 	if tank:
 		tank.set_weapon_type(FootballWeaponType)
 		football.mark_as_held(tank)
-		
+
 		# Just in case the ball was passed to a tank already in the goal.
 		check_goals()
 
@@ -145,7 +145,7 @@ func pass_football(_position: SGFixedVector2, _vector: SGFixedVector2) -> void:
 		if player_managers.has(player_id):
 			var player_manager = player_managers[player_id]
 			player_manager.restore_previous_weapon()
-	
+
 	football.pass_football(_position, _vector)
 
 func _on_goal_tank_present(tank, goal) -> void:
@@ -158,7 +158,7 @@ func _on_goal_tank_present(tank, goal) -> void:
 			score.increment_score(player_team)
 			hud.score.set_score(player_team + 1, score.get_score(player_team))
 			goal.celebrate()
-			
+
 			if not instant_death:
 				start_new_round("%s SCORES!" % score.get_name(player_team), 1 if player_team == 0 else 0)
 			else:
@@ -184,40 +184,40 @@ func _on_NextRoundTimer_timeout() -> void:
 			player_with_ball = teams[next_team_with_ball][player_with_ball]
 		else:
 			player_with_ball = teams[next_team_with_ball][0]
-	
+
 	next_team_with_ball = -1
-	
+
 	var player_health := {}
 	for player_id in game.players_alive:
 		var tank = game.get_tank(player_id)
 		player_health[player_id] = tank.health
-	
+
 	game.game_reset()
-	
+
 	for player_id in game.players_alive:
 		var tank = game.get_tank(player_id)
 		tank.update_health(player_health[player_id])
-	
+
 	if player_with_ball == -1:
 		# Restore the football to its starting position.
 		football.pass_football(ball_start_position, SGFixed.vector2(0, 0))
 	else:
 		grab_football(game.get_tank(player_with_ball))
-	
+
 	round_over = false
 	ui_layer.hide_message()
 	game.game_start()
 
 func _on_tank_player_dead(killer_id: int, tank) -> void:
 	var player_id = tank.get_network_master()
-	
+
 	var my_id = SyncManager.network_adaptor.get_network_unique_id()
 	if my_id == tank.get_network_master():
-		ui_layer.show_message("Wasted!")
-	
+		ui_layer.show_message("MESSAGE_PLAYER_DEAD")
+
 	if tank == football.held:
 		emit_signal("dropped_football", tank.get_global_fixed_position(), SGFixed.vector2(0, 0))
-	
+
 	if player_managers.has(player_id):
 		var player_manager = player_managers[player_id]
 		player_manager.start_respawn_timer()
@@ -230,7 +230,7 @@ func _on_player_manager_respawn_player(player_id: int) -> void:
 	var player = players[player_id]
 	var player_start_transforms = _get_player_start_transforms()
 	game.respawn_player(player_id, player_start_transforms[player.index - 1])
-	
+
 	if player_id == SyncManager.network_adaptor.get_network_unique_id():
 		ui_layer.hide_message()
 
@@ -244,7 +244,7 @@ func _on_countdown_finished() -> void:
 		hud.show_instant_death_label()
 
 func show_winner(winner_name: String) -> void:
-	ui_layer.show_message(winner_name + " WINS THIS MATCH!")
+	ui_layer.show_message(tr("MESSAGE_PLAYER_WINS_MATCH") % winner_name)
 	show_score_timer.start()
 
 func _on_ShowScoreTimer_timeout() -> void:

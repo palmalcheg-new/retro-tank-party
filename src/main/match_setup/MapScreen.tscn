@@ -11,9 +11,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 2 )
 script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Panel" type="PanelContainer" parent="."]
 anchor_left = 0.5
@@ -42,7 +39,7 @@ __meta__ = {
 [node name="Label" type="Label" parent="Panel/VBoxContainer"]
 margin_right = 570.0
 margin_bottom = 51.0
-text = "Map"
+text = "MAP_TITLE"
 align = 1
 
 [node name="MapSwitcher" parent="Panel/VBoxContainer" instance=ExtResource( 1 )]
@@ -52,13 +49,14 @@ margin_right = 570.0
 margin_bottom = 127.0
 
 [node name="NextButton" type="Button" parent="Panel/VBoxContainer"]
-margin_left = 210.0
+margin_left = 146.0
 margin_top = 137.0
-margin_right = 360.0
+margin_right = 422.324
 margin_bottom = 202.534
+grow_horizontal = 2
 rect_min_size = Vector2( 150, 0 )
 size_flags_horizontal = 4
-text = "Next"
+text = "BUTTON_NEXT"
 script = ExtResource( 5 )
 
 [connection signal="item_selected" from="Panel/VBoxContainer/MapSwitcher" to="." method="_on_MapSwitcher_item_selected"]

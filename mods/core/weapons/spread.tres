@@ -6,7 +6,7 @@
 
 [resource]
 script = ExtResource( 3 )
-name = "Spread"
+name = "WEAPON_NAME_SPREAD"
 weapon_script = ExtResource( 1 )
 bullet_scene = ExtResource( 2 )
 damage = 10

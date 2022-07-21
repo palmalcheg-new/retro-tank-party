@@ -12,9 +12,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 theme = ExtResource( 2 )
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Panel" type="Panel" parent="."]
 anchor_left = 0.5
@@ -36,21 +33,20 @@ margin_left = 100.0
 margin_top = 20.0
 margin_right = -100.0
 margin_bottom = 58.0
+grow_horizontal = 2
 custom_constants/separation = 0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Label" type="Label" parent="Panel/MatchIDContainer"]
 margin_top = 7.0
-margin_right = 216.0
-margin_bottom = 58.0
-text = "Match ID:"
+margin_right = 480.0
+margin_bottom = 59.0
+size_flags_horizontal = 9
+text = "MATCH_ID_FIELD_LABEL"
 
 [node name="MatchID" type="LineEdit" parent="Panel/MatchIDContainer"]
-margin_left = 216.0
-margin_right = 772.0
-margin_bottom = 65.0
+margin_left = 480.0
+margin_right = 666.0
+margin_bottom = 66.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 5 )
 text = "XXXX-XXXX-XXXX-XXXX"
@@ -58,10 +54,10 @@ align = 1
 editable = false
 
 [node name="MatchCopyButton" type="Button" parent="Panel/MatchIDContainer"]
-margin_left = 772.0
-margin_right = 880.324
-margin_bottom = 65.5339
-text = "Copy"
+margin_left = 666.0
+margin_right = 942.324
+margin_bottom = 66.5339
+text = "BUTTON_COPY"
 script = ExtResource( 4 )
 
 [node name="StatusContainer" type="VBoxContainer" parent="Panel"]
@@ -73,12 +69,9 @@ margin_left = -300.0
 margin_top = -100.0
 margin_right = 300.0
 margin_bottom = 24.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="PlayerStatus" parent="Panel/StatusContainer" instance=ExtResource( 3 )]
-margin_bottom = 51.0
+margin_bottom = 52.0
 
 [node name="ReadyButton" type="Button" parent="Panel"]
 anchor_top = 1.0
@@ -89,7 +82,7 @@ margin_top = -100.0
 margin_right = -300.0
 margin_bottom = -50.0
 disabled = true
-text = "I'm Ready!"
+text = "BUTTON_READY"
 script = ExtResource( 4 )
 
 [connection signal="pressed" from="Panel/MatchIDContainer/MatchCopyButton" to="." method="_on_MatchCopyButton_pressed"]

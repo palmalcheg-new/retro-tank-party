@@ -9,24 +9,24 @@ onready var ui_layer := $UILayer
 
 func _ready() -> void:
 	SyncManager.network_adaptor = DummyNetworkAdaptor.new(1)
-	
+
 	var players = {
-		1: Game.Player.new(1, "Practice", 1),
+		1: Game.Player.new(1, "PLAYER_NAME_PRACTICE", 1),
 	}
-	
+
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
-	
+
 	game.game_setup(players, "res://mods/core/maps/Battlefield.tscn", rng.seed)
 	SyncManager.start()
 	yield(SyncManager, "sync_started")
 	game.game_start()
-	
+
 	ui_layer.show_back_button()
-	
+
 	var songs := ['Track1', 'Track2', 'Track3']
 	Music.play(songs[randi() % songs.size()])
-	
+
 	if OS.has_feature('editor'):
 		ui_layer.add_screen(load("res://src/ui/DebugScreen.tscn").instance())
 

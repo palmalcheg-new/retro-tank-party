@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Football"
+name = "MAP_NAME_FOOTBALL"
 has_goals = true
 map_scene = "res://mods/core/maps/Football.tscn"

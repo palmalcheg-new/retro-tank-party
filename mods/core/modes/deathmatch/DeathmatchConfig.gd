@@ -7,20 +7,20 @@ onready var weapon_timeout_field = $WeaponTimeout
 
 func _ready() -> void:
 	for i in range(1, 11):
-		timelimit_field.add_item("%s min" % i, i)
+		timelimit_field.add_item("OPTION_%s_MINUTE" % i, i)
 	timelimit_field.set_value(5, false)
-	
-	teams_field.add_item("No", false)
-	teams_field.add_item("Yes", true)
+
+	teams_field.add_item("OPTION_NO", false)
+	teams_field.add_item("OPTION_YES", true)
 	teams_field.set_value(false, false)
-	
+
 	if OnlineMatch.players.size() < 3:
 		teams_label.visible = false
 		teams_field.visible = false
-	
-	weapon_timeout_field.add_item("Never", 0)
+
+	weapon_timeout_field.add_item("OPTION_NEVER", 0)
 	for i in range(10, 70, 10):
-		weapon_timeout_field.add_item("%s sec" % i, int(i * 30))
+		weapon_timeout_field.add_item("OPTION_%s_SECOND" % i, int(i * 30))
 	weapon_timeout_field.set_value(int(20 * 30), false)
 
 func set_disabled(_disabled: bool) -> void:

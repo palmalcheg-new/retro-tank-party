@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource( 1 )
-name = "Battlefield"
+name = "MAP_NAME_BATTLEFIELD"
 has_goals = false
 map_scene = "res://mods/core/maps/Battlefield.tscn"
