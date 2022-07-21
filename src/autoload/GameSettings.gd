@@ -52,7 +52,7 @@ func _ready() -> void:
 		set_language('default')
 	elif language == 'default':
 		# Determine the default language and enable it.
-		_update_language()
+		update_language()
 
 func set_art_style(_art_style: String) -> void:
 	art_style = _art_style
@@ -122,9 +122,9 @@ func set_joy_name(_joy_name: String) -> void:
 func set_language(_lang_code: String) -> void:
 	if language != _lang_code:
 		language = _lang_code
-		_update_language()
+		update_language()
 
-func _update_language() -> void:
+func update_language() -> void:
 	var locale = language
 	print ("Settings language: ", language)
 	if language == 'default':
