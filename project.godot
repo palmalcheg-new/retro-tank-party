@@ -204,13 +204,13 @@ run/main_scene.HTML5="res://src/main/Title.tscn"
 
 [autoload]
 
+Globals="*res://src/autoload/Globals.tscn"
+Build="*res://src/autoload/Build.gd"
+SteamManager="*res://src/autoload/SteamManager.gd"
 Nakama="*res://addons/com.heroiclabs.nakama/Nakama.gd"
 OnlineMatch="*res://addons/nakama-webrtc/OnlineMatch.gd"
-Build="*res://src/autoload/Build.gd"
-Globals="*res://src/autoload/Globals.tscn"
 GameSettings="*res://src/autoload/GameSettings.gd"
 Online="*res://src/autoload/Online.gd"
-SteamManager="*res://src/autoload/SteamManager.gd"
 RemoteOperations="*res://src/autoload/RemoteOperations.gd"
 Sounds="*res://src/autoload/Sounds.tscn"
 Music="*res://src/autoload/Music.tscn"
