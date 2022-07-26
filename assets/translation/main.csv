@@ -1,31 +1,31 @@
-keys,en,es
-ABILITY_NAME_BOOST,Boost,Boost
-ABILITY_FIELD_LABEL,Ability,Habilidad
-ABILITY_NAME_INVISIBLE,Invisible,Invisible
-ABILITY_NAME_ZAP,Zap!,¡Zap!
-ALERT_LEAVE_MATCH,You will leave the session and won't be able to to rejoin,Saldrás de la sesión y no podrás volver a entrar
-ALERT_LEAVE_MATCH_HOST,This will end the match for everyone and return to the match setup screen.,Esto terminará el partido para todos y volverá a la pantalla de configuración de la partida.
-ALERT_LEAVE_MATCH_SETUP_HOST,This will end the match for everyone.,Esto terminará la partida para todos
-ALERT_LEAVE_MATCH_TITLE,Are you sure you want to exit?,¿Estás seguro de que quieres salir?
-ART_STYLE_NAME_ATARI,Atari 2600,Atari 2600
-ART_STYLE_NAME_CLASSIC,Classic,Clásico
-ART_STYLE_NAME_SNES,SNES,SNES
-ART_STYLE_NAME_VECTOR,Vector,Vector
-BUTTON_MATCHMAKER,Match,Coincidir
-BUTTON_CANCEL,Cancel,Cancelar
-BUTTON_COPY,Copy,Copiar
-BUTTON_CREATE_ACCOUNT,Create Account,Crear cuenta
-BUTTON_CREATE_MATCH,Create,Crear
-BUTTON_DONE,Done,Donar
-BUTTON_JOIN_MATCH,Join,Unirse
-BUTTON_LOGIN,Login,Acceso
-BUTTON_NEXT,Next,Siguiente
-BUTTON_OK,OK,OK
-BUTTON_PASTE,Paste,Pegar
-BUTTON_READY,I'm Ready!,¡Estoy listo!
-BUTTON_RESET_PASSWORD,Reset Password,Restablecer contraseña
-BUTTON_START_MATCH,Start Match!,¡Empezar partida!
-CREDITS_TITLE,Credits,Créditos
+keys,en,es,pl,de,ru,uk,ja,zh_CN,zh_TW
+ABILITY_NAME_BOOST,Boost,Boost,Szybkość,Boost,Усиление,Посилити,ブースト,增强,加速
+ABILITY_FIELD_LABEL,Ability,Habilidad,Umiejętność,Fähigkeit,Способность,Здатність,アビリティ,能力,能力
+ABILITY_NAME_INVISIBLE,Invisible,Invisible,Niewidzialność,Unsichtbar,Невидимость,Невидимий,インビジブル,隐身,隱形
+ABILITY_NAME_ZAP,Zap!,¡Zap!,Teleport!,Zap!,Разряд,Бум!,ザップ！,击杀！,轟炸！
+ALERT_LEAVE_MATCH,You will leave the session and won't be able to to rejoin,Saldrás de la sesión y no podrás volver a entrar,Opuścisz sesję i nie będzie można do niej powrócić,Du verlässt die Sitzung und kannst nicht wieder beitreten.,Ты покинешь сеанс и не сможешь присоединиться повторно,Ти залишиш сесію та не зможеш приєднатися знову,セッションを離れ、再び参加ことはできません,您将退出会话，且无法重新加入,你將離開此配對，且無法再回來。
+ALERT_LEAVE_MATCH_HOST,This will end the match for everyone and return to the match setup screen.,Esto terminará el partido para todos y volverá a la pantalla de configuración de la partida.,To zakończy mecz dla wszystkich i powrócisz do ekranu ustawień meczu.,Du beendest das Match für alle und kehrst zum Bildschirm für die Spielvorbereitung zurück.,"Матч будет завершен для всех, и ты вернешься к экрану настройки матча.",На цьому матч завершиться для всіх та відбудеться повернення до екрану налаштування матчу.,設定画面,这将结束所有人的比赛，并返回到比赛设置界面。,這將會結束所有人的對戰，並且回到對戰設定畫面。
+ALERT_LEAVE_MATCH_SETUP_HOST,This will end the match for everyone.,Esto terminará la partida para todos,To zakończy mecz dla wszystkich.,Dadurch wird das Match für alle beendet.,Матч будет завершен для всех.,На цьому матч завершиться для всіх.,全員のマッチが終了します,这将结束所有人的比赛。,這將會結束所有人的對戰。
+ALERT_LEAVE_MATCH_TITLE,Are you sure you want to exit?,¿Estás seguro de que quieres salir?,Na pewno chcesz wyjść?,Wirklich beenden?,Ты точно хочешь выйти?,"Ви впевнені, що хочете вийти?",本当に終了してよろしいですか？,您确定要退出吗？,你確定想要離開嗎？
+ART_STYLE_NAME_ATARI,Atari 2600,Atari 2600,Atari 2600,Atari 2600,Atari 2600,Консоль Atari 2600,Atari 2600,雅达利2600,雅加達2600
+ART_STYLE_NAME_CLASSIC,Classic,Clásico,Klasyczny,Klassisch,Классика,Класична,クラシック,经典,經典
+ART_STYLE_NAME_SNES,SNES,SNES,SNES,SNES,SNES,Ігрова приставка SNES,スーパーファミコン,超级任天堂,超級任天堂
+ART_STYLE_NAME_VECTOR,Vector,Vector,Wektorowy,Vektor,Векторная,Вектор,ベクトル,矢量,矢量跑酷
+BUTTON_MATCHMAKER,Match,Coincidir,Szukaj,Match,Подобрать,Шукати гравців,マッチ,比赛,對戰
+BUTTON_CANCEL,Cancel,Cancelar,Anuluj,Abbrechen,Отмена,Скасувати,キャンセル,取消,取消
+BUTTON_COPY,Copy,Copiar,Kopiuj,Kopieren,Копировать,Копіювати,コピー,复制,複製
+BUTTON_CREATE_ACCOUNT,Create Account,Crear cuenta,Załóż konto,Konto erstellen,Создать аккаунт,Створити акаунт,アカウント作成,创建账户,建立帳號
+BUTTON_CREATE_MATCH,Create,Crear,Utwórz,Erstellen,Создать,Створити,作成,创建,建立
+BUTTON_DONE,Done,Donar,Gotowe,Fertig,Готово,Зроблено,完了,完成,完成
+BUTTON_JOIN_MATCH,Join,Unirse,Dołącz,Beitreten,Вступить,Приєднатися,参加,加入,參加
+BUTTON_LOGIN,Login,Acceso,Zaloguj się,Anmelden,Войти,Увійти,ログイン,登录,登入
+BUTTON_NEXT,Next,Siguiente,Dalej,Weiter,Далее,Наступне,次,下一个,下一個
+BUTTON_OK,OK,OK,OK,Okay,ОК,ГАРАЗД,OK,好的,OK
+BUTTON_PASTE,Paste,Pegar,Wklej,Einfügen,Вставить,Вставити,ペースト,粘贴,貼上
+BUTTON_READY,I'm Ready!,¡Estoy listo!,Gotowy!,Ich bin bereit!,Я готов!,Я готовий!,準備完了！,我准备好了！,我準備好了！
+BUTTON_RESET_PASSWORD,Reset Password,Restablecer contraseña,Zresetuj hasło,Passwort zurücksetzen,Сбросить пароль,Скинути пароль,パスワードを再設定,重置密码,重設密碼
+BUTTON_START_MATCH,Start Match!,¡Empezar partida!,Rozpocznij mecz!,Match starten!,Начать матч!,Почни матч!,マッチをスタート！,开始比赛！,開始對戰！
+CREDITS_TITLE,Credits,Créditos,Autorzy,Credits,Авторы,Автори,クレジット,点数,功勞
 CREDITS_TEAM,"[b]Team:[/b]
   [color=black]David Snopek[/color] from [color=#1ea7e1][url=https://www.snopekgames.com]Snopek Games[/url][/color]: [color=black]Programming and Design[/color]
   [color=black]Ross Klettke[/color] from [color=#1ea7e1][url=https://www.whatnotory.com/]Whatnotory[/url][/color]:   [color=black]Additional Art Styles[/color]
@@ -54,147 +54,246 @@ CREDITS_TEAM,"[b]Team:[/b]
   [color=#1ea7e1][url=https://opengameart.org/content/ciptuned-rock-tune]Chiptuned Rock Tune[/url][/color] de [color=black]Bertsz[/color]
   [color=#1ea7e1][url=https://opengameart.org/content/5-chiptunes-action]5 Action Chiptunes[/url][/color] de [color=black]Juhani Junkala[/color]
   [color=#1ea7e1][url=https://sworndevelopment.itch.io/godot-splash-boot-video]Godot Splash Boot Video[/url][/color] por [color=black]SwornDevelopment[/color]
-  [color=#1ea7e1][url=https://orangefreesounds.com/goal-horn-sound-effect/]Efecto de sonido del cuerno de la portería[/url][/color] by [color=black]Alexander[/color]"
-CHECKBOX_SAVE_CREDS,Save e-mail and password,Guardar e-mail y contraseña
-CONTROL_SCHEME_OPTION_MODERN,Modern,Moderno
-CONTROL_SCHEME_OPTION_RETRO,Retro,Retro
-DEBUG_TITLE,Debug,Depuración
-EMAIL_FIELD_LABEL,E-mail:,E-mail:
-GAME_ERROR_UNABLE_TO_LOAD_MAP,Unable to load map,Imposible cargar el mapa
-GAMEPAD_DEVICE_OPTION_DEFAULT,Default,Por defecto
-HEALTH_FIELD_LABEL,Health,Salud
-INVINCIBLE_FIELD_LABEL,Invincible,Invencibilidad
-LANGUAGE_OPTION_DEFAULT,Default,Por defecto
-LANGUAGE_OPTION_ENGLISH,English,Inglés
-LANGUAGE_OPTION_SPANISH,Spanish,Español
-MAP_NAME_BATTLEFIELD,Battlefield,Campo de batalla
-MAP_NAME_DESERT,Desert,Desierto
-MAP_NAME_FOOTBALL,Football,Fútbol
-MAP_NAME_MAZE,Maze,Laberinto
-MAP_TITLE,Map,Mapa
-MATCH_ID_FIELD_LABEL,Match ID:,Match ID:
-MATCH_OPTION_CREATE,Create a private match,Crear una partida privada
-MATCH_OPTION_CREATE_DESCRIPTION,Get a private match ID and send it to your friends.,Obtener un match ID privado y enviarlo a tus amigos
-MATCH_OPTION_JOIN,Join a private match,Unirse a una partida privada
-MATCH_OPTION_JOIN_DESCRIPTION,Paste the private match ID that your friend sent you.,Pegar el match ID privado que tus amigos te enviaron.
-MATCH_OPTION_MATCHMAKER,Find a public match,Encontrar una partida pública
-MATCH_OPTION_MATCHMAKER_DESCRIPTION,"There is matchmaking, but this is a tiny indie game. Don't expect to find randos to battle! It's super cheap - buy a couple copies for your friends!","Hay emparejamiento, pero se trata de un pequeño juego indie. No esperes encontrar a alguien con quien luchar. Es súper barato: ¡compra un par de copias para tus amigos!"
-MATCHMAKER_2_PLAYERS,2 players,2 jugadores
-MATCHMAKER_3_PLAYERS,3 players,3 jugadores
-MATCHMAKER_4_PLAYERS,4 players,4 jugadores
-MATCHMAKER_PLAYERS_FIELD_LABEL,Find at least:,Encontrar
-MENU_BATTLE,Battle!,¡Batalla!
-MENU_CREDITS,Credits,Créditos
-MENU_EXIT,Exit,Salir
-MENU_PRACTICE,Practice,Práctica
-MENU_SETTINGS,Settings,Ajustes
-MESSAGE_CREATE_ACCOUNT_FAILED,Unable to create account,Imposible crear una cuenta
-MESSAGE_CREATING_ACCOUNT,Creating account...,Creando cuenta...
-MESSAGE_EMAIL_REQUIRED,Must provide email,Debes proporcionar un e-mail
-MESSAGE_EMAIL_TAKEN,E-mail already in use,E-mail ya en uso
-MESSAGE_INSTANT_DEATH,INSTANT DEATH!,¡MUERTA INSTANTÁNEA!
-MESSAGE_LOGGING_IN,Logging in...,Accediendo
-MESSAGE_LOGIN_FAILED,Login failed!,¡Acceso fallido!
-MESSAGE_LOGIN_FAILED_STEAM,Unable to connect to Steam. Please try again later.,"Imposible conectar a Steam. Por favor, inténtalo de nuevo más tarde."
-MESSAGE_LOOKING_FOR_MATCH,Looking for match...,Buscando una partida...
-MESSAGE_MATCH_ID_REQUIRED,Need to paste Match ID to join,Se necesita pegar el Match ID para unirse
-MESSAGE_NETWORK_ISSUES,"If you're having issues, try different ""Network Relay"" settings before starting a match.","Si tienes problemas, prueba diferentes configuraciones de ""Relé de red"" antes de empezar una partida."
-MESSAGE_NO_USER_ACCOUNT,No user account found,No se encontró la cuenta de usuario
-MESSAGE_PASSWORD_REQUIRED,Must provide password,Debes proveer una contraseña
-MESSAGE_PASSWORD_RESET_FAILED,Unable to send password reset email! Try again later.,No se ha podido enviar el correo electrónico de restablecimiento de la contraseña. Vuelve a intentarlo más tarde.
-MESSAGE_PASSWORD_RESET_SENDING,Sending password reset e-mail...,Mandando el restablecimiento de la contraseña al e-mail...
-MESSAGE_PASSWORD_RESET_SENT,Password reset email sent!,¡Email de restablecimiento de la contraseña enviado!
-MESSAGE_PLAYER_DEAD,Wasted!,¡Muerto!
-MESSAGE_PLAYER_HAS_LEFT,%s has left!,%s se ha ido!
-MESSAGE_PLAYER_HAS_LEFT_NOT_ENOUGH_PLAYERS,%s has left - not enough players!,"%s se ha ido, no hay suficientes jugadores!"
-MESSAGE_PLAYER_LOSE,You lose!,¡Perdiste!
-MESSAGE_PLAYER_WINS_DEATHMATCH,%s WINS THIS DEATH MATCH!,%s GANA ESTE COMBATE A MUERTE!
-MESSAGE_PLAYER_WINS_MATCH,%s WINS THE MATCH!,%s GANA LA PARTIDA!
-MESSAGE_PLAYER_WINS_ROUND,%s wins this round!,%s gana esta ronda!
-MESSAGE_SESSION_EXPIRED,Session expired! Reconnecting...,¡Sesión caducada! Reconectando...
-MESSAGE_SESSION_EXPIRED_STEAM,Session expired! Reconnecting via Steam...,¡Sesión caducada! Reconectando vía Steam...
-MESSAGE_SESSION_LOGGING_IN_STEAM,Logging in via Steam...,Conectando vía Steam...
-MESSAGE_SETUP_CLIENT,The host is configuring the match...,El anfitrión está configurando la partida...
-MESSAGE_SETUP_HOST,You're the host! How you wanna do this?,¡Tú eres el anfitrión! ¿Cómo quieres hacer esto?
-MESSAGE_SYNCHRONIZATION_LOST,Synchronization lost,Sincronización perdida
-MESSAGE_TEAM_NEEDS_PLAYERS,Each team must have at least 1 player!,¡Cada equipo debe tener al menos 1 jugador!
-MESSAGE_USERNAME_REQUIRED,Must provide username,Debes proveer un nombre de usuario
-MESSAGE_USERNAME_TAKEN,Username already taken,Nombre de usuario ya ocupado
-MODE_DESCRIPTION_BATTLE_ROYALE,The last tank standing wins the round.,El último tanque en pie gana la ronda.
-MODE_DESCRIPTION_DEATHMATCH,The tank with the most kills wins.,El tanque con más muertes gana.
-MODE_DESCRIPTION_FOOTBALL,Carry the ball to the goal to score points.,Lleva el balón a la portería para conseguir puntos.
-MODE_NAME_BATTLE_ROYALE,Battle Royale,Battle Royale
-MODE_NAME_DEATHMATCH,Deathmatch,Partida a muerte
-MODE_NAME_FOOTBALL,Football,Fútbol
-NETWORK_RELAY_OPTION_AUTO,Auto,Auto
-NETWORK_RELAY_OPTION_DISABLED,Disabled,Desactivado
-NETWORK_RELAY_OPTION_FALLBACK_AUTO,Fallback (Auto),Retroceso (Auto)
-NETWORK_RELAY_OPTION_FALLBACK_FORCED,Fallback,Retroceso (Auto)
-NETWORK_RELAY_OPTION_FORCED,Forced,Forzado
-ONLINE_MATCH_ERROR_CLIENT_JOIN_ERROR,Client not allowed to join,Cliente no permitido para unirse
-ONLINE_MATCH_ERROR_CLIENT_VERSION_ERROR,Client version doesn't match host,La versión del cliente no coincide con el host
-ONLINE_MATCH_ERROR_JOIN_MATCH_FAILED,Unable to join match,Imposible unirse a la partida
-ONLINE_MATCH_ERROR_MATCH_CREATE_FAILED,Failed to create match,No se ha podido crear la partida
-ONLINE_MATCH_ERROR_MATCH_HAS_ALREADY_BEGUN,Sorry! The match has already begun.,¡Lo siento! La partida ya empezó.
-ONLINE_MATCH_ERROR_MATCH_IS_FULL,Sorry! The match is full.,¡Lo siento! La partida está completa.
-ONLINE_MATCH_ERROR_MATCHMAKER_ERROR,Matchmaker error,Error de emparejamiento
-ONLINE_MATCH_ERROR_START_MATCHMAKING_FAILED,Unable to join match making pool,Imposible unirse al grupo de emparejamiento
-ONLINE_MATCH_ERROR_WEBSOCKET_CONNECTION_ERROR,WebSocket connection error,Error de conexión WebSocket
-OPTION_10_SECOND,10 sec,10 seg
-OPTION_20_SECOND,20 sec,20 seg
-OPTION_30_SECOND,30 sec,30 seg
-OPTION_40_SECOND,40 sec,40 seg
-OPTION_50_SECOND,50 sec,50 seg
-OPTION_60_SECOND,60 sec,60 seg
-OPTION_1_MINUTE,1 min,2 min
-OPTION_2_MINUTE,2 min,3 min
-OPTION_3_MINUTE,3 min,4 min
-OPTION_4_MINUTE,4 min,5 min
-OPTION_5_MINUTE,5 min,6 min
-OPTION_6_MINUTE,6 min,7 min
-OPTION_7_MINUTE,7 min,8 min
-OPTION_8_MINUTE,8 min,9 min
-OPTION_9_MINUTE,9 min,10 min
-OPTION_10_MINUTE,10 min,11 min
-OPTION_DISABLED,Disabled,Desactivado
-OPTION_ENABLED,Enabled,Activado
-OPTION_NEVER,Never,Nunca
-OPTION_NONE,None,Nada
-OPTION_NO,No,No
-OPTION_YES,Yes,Sí
-PASSWORD_FIELD_LABEL,Password:,Contraeña:
-PICKUP_NAME_HEALTH,Health,Salud
-PLAYER_NAME_PRACTICE,Practice,Práctica
-PLAYER_PING,%sms,%sms
-PLAYER_STATUS_CONNECTED,Connected.,Conectado.
-PLAYER_STATUS_CONNECTING,Connecting...,Conectando.
-PLAYER_STATUS_READY,READY!,¡Listo!
-POINTS_TO_WIN_FIELD_LABEL,Points to win,Puntos para ganar
-SESSION_SETUP_TAB_CREATE_ACCOUNT,Create account,Crear cuenta
-SESSION_SETUP_TAB_FORGOT_PASSWORD,Forgot password?,¿Olvidaste la contraseña?
-SESSION_SETUP_TAB_LOGIN,Login,Acceder
-SESSION_SETUP_TAB_STEAM,Steam,Steam
-SESSION_SETUP_TAB_STEAM_MESSAGE,"If you already have a SnopekGames account, use the ""Login"" tab and it'll link your Steam account for the future. Otherwise, you'll end up with two accounts.","Si ya tienes una cuenta de SnopekGames, utiliza la pestaña ""Acceder"" y se vinculará tu cuenta de Steam para el futuro. De lo contrario, acabarás teniendo dos cuentas."
-SETTING_ART_STYLE,Art style,Estilo artístico
-SETTING_CONTROL_SCHEME,Control scheme,Esquema de control
-SETTING_DETAILED_LOGGING,Detailed logging,Acceso detallado
-SETTING_FULL_SCREEN,Full screen,Pantalla completa
-SETTING_GAMEPAD_DEVICE,Gamepad device,Dispositivo Gamepad
-SETTING_LANGUAGE,Language,Idioma
-SETTING_MUSIC,Music,Música
-SETTING_NETWORK_RELAY,Network relay,Relé de red
-SETTING_SCREEN_SHAKE,Screen shake,Sacudida de pantalla
-SETTING_SOUND,Sound,Sonido
-SETTING_TANK_ENGINE_SOUNDS,Tank engine sounds,Sonidos del motor del tanque
-SETTINGS_TITLE,Settings,Ajustes
-TEAMS_FIELD_LABEL,Teams,Equipos
-TIMELIMIT_FIELD_LABEL,Timelimit,Limite de tiempo
-TITLE_PRESS_ANY_KEY,Press any key (or click) to start,Presiona cualquier tecla (o click) para empezar
-USERNAME_FIELD_LABEL,Username:,Nombre de usuario:
-WEAPON_FIELD_LABEL,Weapon,Arma
-WEAPON_NAME_FOOTBALL,Football,Fútbol
-WEAPON_NAME_NORMAL,Normal,Normal
-WEAPON_NAME_RAILGUN,Railgun,Cañón de riel
-WEAPON_NAME_SPREAD,Spread,Arma de fuego
-WEAPON_NAME_TRACER,Tracer,Rastreador
-WEAPON_TIMEOUT_FIELD_LABEL,Weapons last,Últimas armas
+  [color=#1ea7e1][url=https://orangefreesounds.com/goal-horn-sound-effect/]Efecto de sonido del cuerno de la portería[/url][/color] by [color=black]Alexander[/color]","[b]Zespół:[/b]
+ [color=black]David Snopek[/color] z [color=#1ea7e1][url=https://www.snopekgames.com]Snopek Games[/url][/color]: [color=black]programowanie i projektowanie[/color]
+ [color=black]Ross Klettke[/color] z [color=#1ea7e1][url=https://www.whatnotory.com/]Whatnotory[/url][/color]:   [color=black]dodatkowe style graficzne[/color]
+ [color=black]Theanyelpes[/color] ([color=#1ea7e1][url=https://twitter.com/Theanyelpes]Twitter[/url][/color]):       [color=black]hiszpańskie tłumaczenie[/color]
+
+[b]Darmowe zasoby:[/b]
+ [color=#1ea7e1][url=https://www.kenney.nl/assets/topdown-tanks-redux]Assety czołgów z góry (Top-down Tanks Redux)[/url][/color] autorstwa [color=black]Kenney.nl[/color]
+ [color=#1ea7e1][url=https://datagoblin.itch.io/monogram]Monogramowa czcionka[/url][/color] autorstwa [color=black]datagoblin[/color]
+ [color=#1ea7e1][url=https://opengameart.org/content/sfx-the-ultimate-2017-16-bit-mini-pack]Pakiet efektów specjalnych (SFX: The Ultimate 2017 16 bit Mini pack)[/url][/color] autorstwa [color=black]phoenix1291[/color]
+ [color=#1ea7e1][url=https://opengameart.org/content/engine-loop-heavy-vehicletank]Zapętlony dźwięk silnika ciężkiego pojazdu/czołgu[/url][/color] autorstwa [color=black]Nayckron[/color]
+ [color=#1ea7e1][url=https://www.kenney.nl/assets/interface-sounds/]Dźwięki interfejsu[/url][/color] autorstwa [color=black]Kenney.nl[/color]
+ [color=#1ea7e1][url=https://opengameart.org/content/ciptuned-rock-tune]Rockowa melodia w stylu chiptune[/url][/color] autorstwa [color=black]Bertsz[/color]
+ [color=#1ea7e1][url=https://opengameart.org/content/5-chiptunes-action]5 melodii akcji w stylu chiptune (5 Action Chiptunes)[/url][/color] autorstwa [color=black]Juhani Junkala[/color]
+ [color=#1ea7e1][url=https://sworndevelopment.itch.io/godot-splash-boot-video]Wideo z logo (Godot Splash Boot Video)[/url][/color] autorstwa [color=black]SwornDevelopment[/color]
+ [color=#1ea7e1][url=https://orangefreesounds.com/goal-horn-sound-effect/]Efekt dźwiękowy klaksonu bramki[/url][/color] autorstwa [color=black]Alexander[/color]","[b]Team:[/b]
+ [color=black]David Snopek[/color] von [color=#1ea7e1][url=https://www.snopekgames.com]Snopek Games[/url][/color]: [color=black]Programmierung und Design[/color]
+ [color=black]Ross Klettke[/color] von [color=#1ea7e1][url=https://www.whatnotory.com/]Whatnotory[/url][/color]:   [color=black]Zusätzliche Kunststile[/color]
+ [color=black]Theanyelpes[/color] ([color=#1ea7e1][url=https://twitter.com/Theanyelpes]Twitter[/url][/color]):         [color=black]Übersetzung ins Spanische[/color]
+
+[b]Kostenlose Assets:[/b]
+ [color=#1ea7e1][url=https://www.kenney.nl/assets/topdown-tanks-redux]Top-down Tanks Redux[/url][/color] von [color=black]Kenney.nl[/color]
+ [color=#1ea7e1][url=https://datagoblin.itch.io/monogram]Monogram-Schriftart[/url][/color] von [color=black]datagoblin[/color]
+ [color=#1ea7e1][url=https://opengameart.org/content/sfx-the-ultimate-2017-16-bit-mini-pack]SFX: Das ultimative 16-Bit-Mini-Pack 2017[/url][/color] von [color=black]phoenix1291[/color]
+ [color=#1ea7e1][url=https://opengameart.org/content/engine-loop-heavy-vehicletank]Motorschleife Schwerfahrzeug/Panzer[/url][/color] von [color=black]Nayckron[/color]
+ [color=#1ea7e1][url=https://www.kenney.nl/assets/interface-sounds/]Interface-Sounds[/url][/color] von [color=black]Kenney.nl[/color]
+ [color=#1ea7e1][url=https://opengameart.org/content/ciptuned-rock-tune]Chipgetunte Rock-Melodie[/url][/color] von [color=black]Bertsz[/color]
+ [color=#1ea7e1][url=https://opengameart.org/content/5-chiptunes-action]5 Action-Chiptunes[/url][/color] von [color=black]Juhani Junkala[/color]
+ [color=#1ea7e1][url=https://sworndevelopment.itch.io/godot-splash-boot-video]Godot Splash Boot Video[/url][/color] von [color=black]SwornDevelopment[/color]
+ [color=#1ea7e1][url=https://orangefreesounds.com/goal-horn-sound-effect/]Torhorn-Soundeffekt[/url][/color] von [color=black]Alexander[/color]","[b]Команда:[/b]
+ [color=black]Дэвид Снопек[/color] из [color=#1ea7e1][url=https://www.snopekgames.com]Snopek Games[/url][/color]: [color=black]программирование и дизайн [/color]
+ [color=black]Росс Клеттке[/color] из [color=#1ea7e1][url=https://www.whatnotory.com/]Whatnotory[/url][/color]:   [color=black]дополнительные художественные стили [/color]
+ [color=black]Theanyelpes[/color] ([color=#1ea7e1][url=https://twitter.com/Theanyelpes]Twitter[/url][/color]):        [color=black]перевод на испанский [/color]
+
+[b]Бесплатные активы:[/b]
+ [color=#1ea7e1][url=https://www.kenney.nl/assets/topdown-tanks-redux]Top-down Tanks Redux[/url][/color] от [color=black]Kenney.nl[/color]
+ [color=#1ea7e1][url=https://datagoblin.itch.io/monogram]Шрифт Monogram[/url][/color] от [color=black]datagoblin[/color]
+ [color=#1ea7e1][url=https://opengameart.org/content/sfx-the-ultimate-2017-16-bit-mini-pack]16-битный мини-пакет SFX: The Ultimate 2017[/url][/color] от [color=black]phoenix1291[/color]
+ [color=#1ea7e1][url=https://opengameart.org/content/engine-loop-heavy-vehicletank]Engine-loop heavy vehicle/tank[/url][/color] от [color=black]Nayckron[/color]
+ [color=#1ea7e1][url=https://www.kenney.nl/assets/interface-sounds/]Звуки для интерфейса[/url][/color] от [color=black]Kenney.nl[/color]
+ [color=#1ea7e1][url=https://opengameart.org/content/ciptuned-rock-tune]Мелодия Chiptuned Rock Tune[/url][/color] от [color=black]Bertsz[/color]
+ [color=#1ea7e1][url=https://opengameart.org/content/5-chiptunes-action]Мелодии 5 Action Chiptunes[/url][/color] от [color=black]Юхани Джункала[/color]
+ [color=#1ea7e1][url=https://sworndevelopment.itch.io/godot-splash-boot-video]Видео Godot Splash Boot[/url][/color] от [color=black]SwornDevelopment[/color]
+ [color=#1ea7e1][url=https://orangefreesounds.com/goal-horn-sound-effect/]Звуковой эффект Goal Horn[/url][/color] от [color=black]Александра[/color]","[b]Колектив:[/b]
+ [color=black]Девід Снопек[/color] з компанії [color=#1ea7e1][url=https://www.snopekgames.com]Snopek Games[/url][/color]: [color=black]Програмування та дизайн[/color]
+ [color=black]Рос Клетке[/color] з компанії [color=#1ea7e1][url=https://www.whatnotory.com/]Whatnotory[/url][/color]: [color=black]Додаткові художні стилі[/color]
+ [color=black]Theanyelpes[/color] ([color=#1ea7e1][url=https://twitter.com/Theanyelpes]Twitter[/url][/color]): [color=black]Іспанський переклад[/color]
+
+[b]Вільні активи:[/b]
+ [color=#1ea7e1][url=https://www.kenney.nl/assets/topdown-tanks-redux]Танки Redux з видом зверху[/url][/color] від [color=black]Kenney.nl[/color]
+ [color=#1ea7e1][url=https://datagoblin.itch.io/monogram]Шрифт монограми[/url][/color] від [color=black]datagoblin[/color]
+ [color=#1ea7e1][url=https://opengameart.org/content/sfx-the-ultimate-2017-16-bit-mini-pack]SFX: Максимальний 16-бітний міні-пакет 2017 року[/url][/color] від [color=black]phoenix1291[/color]
+ [color=#1ea7e1][url=https://opengameart.org/content/engine-loop-heavy-vehicletank]Важкий автомобіль/танк з циклічним двигуна[/url][/color] від [color=black]Nayckron[/color]
+ [color=#1ea7e1][url=https://www.kenney.nl/assets/interface-sounds/]Звуки інтерфейсу[/url][/color] від [color=black]Kenney.nl[/color]
+ [color=#1ea7e1][url=https://opengameart.org/content/ciptuned-rock-tune]Чип-тюнінгова рок-мелодія[/url][/color] від [color=black]Bertsz[/color]
+ [color=#1ea7e1][url=https://opengameart.org/content/5-chiptunes-action]5 бойових чиптюнів[/url][/color] від [color=black]Джухані Джункала[/color]
+ [color=#1ea7e1][url=https://oatorndevelopment.itch.io/godot-splash-boot-video] Відео заставки Godot[/url][/color] від [color=black]SwornDevelopment[/color]
+ [color=#1ea7e1][url=https://orangefreesounds.com/goal-horn-sound-effect/]Звуковий ефект сигналу голу[/url][/color] від [color=black]Александера[/color]","[b]チーム:[/b]
+  [color=#1ea7e1][url=https://www.snopekgames.com]Snopek Games[/url][/color] の [color=black]David Snopek[/color] : [color=black]プログラミングおよびデザイン[/color]
+  [color=#1ea7e1][url=https://www.whatnotory.com/]Whatnotory[/url][/color] の [color=black]Ross Klettke[/color] : [color=black]追加アートスタイル[/color]
+  [color=black]Theanyelpes[/color] ([color=#1ea7e1][url=https://twitter.com/Theanyelpes]Twitter[/url][/color]) : [color=black]スペイン語翻訳[/color]
+
+[b]無料アセット:[/b]
+  [color=black]Kenney.nl[/color] による [color=#1ea7e1][url=https://www.kenney.nl/assets/topdown-tanks-redux]Top-down Tanks Redux[/url][/color]
+  [color=black]datagoblin[/color] による [color=#1ea7e1][url=https://datagoblin.itch.io/monogram]Monogram フォント[/url][/color]
+  [color=black]phoenix1291[/color] による [color=#1ea7e1][url=https://opengameart.org/content/sfx-the-ultimate-2017-16-bit-mini-pack]SFX: The Ultimate 2017 16 bit Mini pack[/url][/color] 
+  [color=black]Nayckron[/color] による [color=#1ea7e1][url=https://opengameart.org/content/engine-loop-heavy-vehicletank]Engine-loop heavy vehicle/tank[/url][/color] 
+  [color=black]Kenney.nl[/color] による [color=#1ea7e1][url=https://www.kenney.nl/assets/interface-sounds/]Interface Sounds[/url][/color]
+  [color=black]Bertsz[/color] による [color=#1ea7e1][url=https://opengameart.org/content/ciptuned-rock-tune]Chiptuned Rock Tune[/url][/color]
+  [color=black]Juhani Junkala[/color] による [color=#1ea7e1][url=https://opengameart.org/content/5-chiptunes-action]5 Action Chiptunes[/url][/color]
+  [color=black]SwornDevelopment[/color] による [color=#1ea7e1][url=https://sworndevelopment.itch.io/godot-splash-boot-video]Godot Splash Boot Video[/url][/color]
+  [color=black]Alexander[/color] による [color=#1ea7e1][url=https://orangefreesounds.com/goal-horn-sound-effect/]Goal Horn Sound Effect[/url][/color]","[b]团队：[/b]
+  [color=black]David Snopek[/color] 来自 [color=#1ea7e1][url=https://www.snopekgames.com]Snopek游戏公司[/url][/color]： [color=black]编程和设计[/color]
+  [color=black]Ross Klettke[/color] 来自 [color=#1ea7e1][url=https://www.whatnotory.com/]Whatnotory[/url][/color]： [color=black]其他艺术风格[/color]
+  [color=black]Theanyelpes[/color] ([color=#1ea7e1][url=https://twitter.com/Theanyelpes]推特[/url][/color])： [color=black]西班牙语翻译[/color]
+
+[b]免费资产：[/b]
+  [color=#1ea7e1][url=https://www.kenney.nl/assets/topdown-tanks-redux]自上而下的坦克Redux[/url][/color] 由 [color=black]Kenney.nl创作[/color]
+  [color=#1ea7e1][url=https://datagoblin.itch.io/monogram]会标字体[/url][/color] 由 [color=black]datagoblin创作[/color]
+  [color=#1ea7e1][url=https://opengameart.org/content/sfx-the-ultimate-2017-16-bit-mini-pack]SFX：终极 2017 16 位迷你包[/url][/color] 由 [color=black]phoenix1291创作[/color]
+  [color=#1ea7e1][url=https://opengameart.org/content/engine-loop-heavy-vehicletank]Engine-loop重型车辆/坦克[/url][/color] 由 [color=black]奈克伦创作[/color]
+  [color=#1ea7e1][url=https://www.kenney.nl/assets/interface-sounds/]界面声音[/url][/color] 由[color=black]Kenney.nl创作[/color]
+  [color=#1ea7e1][url=https://opengameart.org/content/ciptuned-rock-tune]芯片摇滚乐[/url][/color] 由 [color=black]Bertsz创作[/color]
+  [color=#1ea7e1][url=https://opengameart.org/content/5-chiptunes-action]5首动感芯片乐[/url][/color] 由 [color=black]尤哈尼·容卡拉创作[/color]
+  [color=#1ea7e1][url=https://sworndevelopment.itch.io/godot-splash-boot-video]Godot 启动视频[/url][/color] 由 [color=black]SwornDevelopment创作[/color]
+  [color=#1ea7e1][url=https://orangefreesounds.com/goal-horn-sound-effect/]得分喇叭音效[/url][/color] 由 [color=black]亚历山大创作[/color]","[b]團隊:[/b]
+  [color=black]David Snopek[/color] 來自 [color=#1ea7e1][url=https://www.snopekgames.com]Snopek Games[/url][/color]: [color=black]計畫和設計[/color]
+  [color=black]Ross Klettke[/color] 來自 [color=#1ea7e1][url=https://www.whatnotory.com/]Whatnotory[/url][/color]: [color=black] 添加的藝術風格[/color]
+  [color=black]Theanyelpes[/color] ([color=#1ea7e1][url=https://twitter.com/Theanyelpes]Twitter[/url][/color]): [color=black] 西班牙文翻譯[/color]
+
+[b]免費資產:[/b]
+  [color=#1ea7e1][url=https://www.kenney.nl/assets/topdown-tanks-redux]從總體到細節的坦克 Redux[/url][/color] 藉由 [color=black]Kenney.nl[/color]
+  [color=#1ea7e1][url=https://datagoblin.itch.io/monogram]Monogram font[/url][/color] 藉由 [color=black]datagoblin[/color]
+  [color=#1ea7e1][url=https://opengameart.org/content/sfx-the-ultimate-2017-16-bit-mini-pack]The Ultimate 2017 16 bit Mini pack[/url][/color] 藉由 [color=black]phoenix1291[/color]
+  [color=#1ea7e1][url=https://opengameart.org/content/engine-loop-heavy-vehicletank]循環發動機重型車輛/坦克[/url][/color] 藉由 [color=black]Nayckron[/color]
+  [color=#1ea7e1][url=https://www.kenney.nl/assets/interface-sounds/]介面聲音[/url][/color] 藉由 [color=black]Kenney.nl[/color]
+  [color=#1ea7e1][url=https://opengameart.org/content/ciptuned-rock-tune]晶片音樂搖滾曲調[/url][/color] 藉由 [color=black]Bertsz[/color]
+  [color=#1ea7e1][url=https://opengameart.org/content/5-chiptunes-action]5 Action Chiptunes[/url][/color] 藉由 [color=black]Juhani Junkala[/color]
+  [color=#1ea7e1][url=https://sworndevelopment.itch.io/godot-splash-boot-video]Godot Splash Boot 影片[/url][/color] 藉由 [color=black]SwornDevelopment[/color]
+  [color=#1ea7e1][url=https://orangefreesounds.com/goal-horn-sound-effect/]球門喇叭聲效果[/url][/color] 藉由 [color=black]Alexander[/color]"
+CHECKBOX_SAVE_CREDS,Save e-mail and password,Guardar e-mail y contraseña,Zapisz e-mail i hasło,E-Mail-Adresse und Passwort speichern,Сохранить эл. почту и пароль,Зберегти адресу електронної пошти та пароль,メールアドレスとパスワードを保存,保存邮箱地址及密码,儲存電子信箱和密碼
+CONTROL_SCHEME_OPTION_MODERN,Modern,Moderno,Nowoczesny,Modern,Современная,Сучасна,モダン,现代,現代
+CONTROL_SCHEME_OPTION_RETRO,Retro,Retro,Retro,Retro,Ретро,Ретро,レトロ,复古,復古
+DEBUG_TITLE,Debug,Depuración,Debug,Debug,Отладка,Налагодження,デバッグ,调试,排除故障
+EMAIL_FIELD_LABEL,E-mail:,E-mail:,E-mail:,E-Mail-Adresse:,Эл. почта:,Електронна пошта:,メールアドレス：,电子邮箱：,電子信箱：
+GAME_ERROR_UNABLE_TO_LOAD_MAP,Unable to load map,Imposible cargar el mapa,Nie można załadować mapy,Karte kann nicht geladen werden,Не удалось загрузить карту,Не вдається завантажити карту,マップをロードできません,无法加载地图,無法載入地圖
+GAMEPAD_DEVICE_OPTION_DEFAULT,Default,Por defecto,Domyślnie,Standard,По умолчанию,За умовчанням,デフォルト,默认,預設值
+HEALTH_FIELD_LABEL,Health,Salud,Zdrowie,Gesundheit,Здоровье,Здоров’я,HP,健康,生命值
+INVINCIBLE_FIELD_LABEL,Invincible,Invencibilidad,Niezwyciężony,Unbesiegbar,Непобедимый,Непереможний,無敵,无敌,無敵
+LANGUAGE_OPTION_DEFAULT,Default,Por defecto,Domyślnie,Standard,По умолчанию,За умовчанням,デフォルト,默认,預設值
+LANGUAGE_OPTION_ENGLISH,English,Inglés,Angielski,Englisch,Английский,Англійська,英語,英语,英文
+LANGUAGE_OPTION_SPANISH,Spanish,Español,Hiszpański,Spanisch,Испанский,Іспанська,スペイン語,西班牙语,西班牙
+MAP_NAME_BATTLEFIELD,Battlefield,Campo de batalla,Pole bitwy,Schlachtfeld,Поле битвы,Поле бою,戦場,战场,戰場
+MAP_NAME_DESERT,Desert,Desierto,Pustynia,Wüste,Пустыня,Пустеля,砂漠,沙漠,沙漠
+MAP_NAME_FOOTBALL,Football,Fútbol,Boisko,Fußball,Футбол,Футбол,フットボール,足球,橄欖球
+MAP_NAME_MAZE,Maze,Laberinto,Labirynt,Labyrinth,Лабиринт,Лабіринт,迷路,迷宫,迷宮
+MAP_TITLE,Map,Mapa,Mapa,Karte,Карта,Карта,マップ,地图,地圖
+MATCH_ID_FIELD_LABEL,Match ID:,Match ID:,ID meczu:,Match-ID:,ID матча:,Ід. матчу:,マッチID：,比赛编号：,對戰 ID
+MATCH_OPTION_CREATE,Create a private match,Crear una partida privada,Stwórz mecz prywatny,Privates Match erstellen,Создать закрытый матч,Створення приватного матчу,プライベートマッチを作成,创建一场私人比赛,建立私人對戰
+MATCH_OPTION_CREATE_DESCRIPTION,Get a private match ID and send it to your friends.,Obtener un match ID privado y enviarlo a tus amigos,Uzyskaj ID meczu prywatnego i wyślij go do swoich znajomych.,Erhalte eine private Match-ID und schicke sie an deine Freunde.,Получи ID закрытого матча и отправь его своим друзьям.,Отримай ідентифікатор приватного матчу та надішли його своїм друзям.,プライベートマッチIDを入手して友人たちに送信しよう,获取一个私人比赛编号并发送给您的朋友们。,取得私人對戰ID，並傳送給你的朋友。
+MATCH_OPTION_JOIN,Join a private match,Unirse a una partida privada,Dołącz do meczu prywatnego,Privatem Match beitreten,Вступить в закрытый матч,Приєднайся до приватного матчу,プライベートマッチに参加,加入私人比赛,參加私人對戰
+MATCH_OPTION_JOIN_DESCRIPTION,Paste the private match ID that your friend sent you.,Pegar el match ID privado que tus amigos te enviaron.,Wklej ID meczu prywatnego wysłany przez znajomego.,"Füge die private Match-ID ein, die dir dein Freund geschickt hat.","Вставь ID закрытого матча, который тебе прислал друг.","Встав ідентифікатор приватного матчу, який надіслав тобі твій друг.",友人から送られたプライベートマッチIDをペーストしよう,粘贴您朋友发送给您的私人比赛编号,貼上你的朋友傳給你的私人對戰ID。
+MATCH_OPTION_MATCHMAKER,Find a public match,Encontrar una partida pública,Znajdź mecz publiczny,Öffentliches Match finden,Найти открытый матч,Знайди загальнодоступний матч,公開マッチを探す,查找公开比赛,搜尋公開對戰
+MATCH_OPTION_MATCHMAKER_DESCRIPTION,"There is matchmaking, but this is a tiny indie game. Don't expect to find randos to battle! It's super cheap - buy a couple copies for your friends!","Hay emparejamiento, pero se trata de un pequeño juego indie. No esperes encontrar a alguien con quien luchar. Es súper barato: ¡compra un par de copias para tus amigos!","Istnieje możliwość dobierania graczy, ale to mała gra indie. Nie spodziewaj się, że znajdziesz w niej losowych kompanów do walki! Gra jest tania jak barszcz - kup kilka kopii dla swoich przyjaciół!","Es gibt zwar Matchmaking, aber das hier ist ein kleines Indie-Spiel. Erwarte nicht, zufällige Mitspieler zu finden! Das Spiel ist supergünstig – verschenke es an deine Freunde!","Функция подбора матчей существует, но это крошечная инди-игра. Не ожидай найти тут случайных людей, с которыми будешь сражаться! Игра очень дешевая — купи пару копий своим друзьям!","Є матчмейкінг, але це крихітна інді-гра. Не чекай, що знайдеш рандомів для битви! Це супердешево: купи пару копій для своїх друзів!",マッチメークが行われますが、ちっぽけなインディゲームです。戦う相手となる野良が見つかることは期待しないでください！安いゲームですから何本か買って友人にあげましょう！,配对成功，但这仅仅是一个小的独立游戏。别指望能和随机对手去战斗！它超级便宜-给您的朋友们买几套吧！,有配對，但這是一小型獨立製作的遊戲。別期待會有陌生人來戰鬥！這個超便宜 - 買一些給你的朋友吧！
+MATCHMAKER_2_PLAYERS,2 players,2 jugadores,2 graczy,2 Spieler,2 игрока,2 гравця,プレイヤー2人,2位玩家,雙人
+MATCHMAKER_3_PLAYERS,3 players,3 jugadores,3 graczy,3 Spieler,3 игрока,3 гравця,プレイヤー3人,3位玩家,三人
+MATCHMAKER_4_PLAYERS,4 players,4 jugadores,4 graczy,4 Spieler,4 игрока,4 гравця,プレイヤー4人,4位玩家,四人
+MATCHMAKER_PLAYERS_FIELD_LABEL,Find at least:,Encontrar,Znajdź co najmniej:,Finde mindestens:,Найти хотя бы:,Знайди хоча б:,探す最低人数：,至少找到：,至少找到：
+MENU_BATTLE,Battle!,¡Batalla!,Bitwa!,Kampf!,Сражаться!,Битву!,戦闘！,开战！,戰鬥！
+MENU_CREDITS,Credits,Créditos,Autorzy,Credits,Авторы,Автори,クレジット,点数,製作功勞名單
+MENU_EXIT,Exit,Salir,Wyjdź,Beenden,Выход,Вийти,終了,退出,離開
+MENU_PRACTICE,Practice,Práctica,Trening,Übung,Тренироваться,Практика,練習,练习,練習
+MENU_SETTINGS,Settings,Ajustes,Ustawienia,Einstellungen,Настройки,Налаштування,設定,设置,設定
+MESSAGE_CREATE_ACCOUNT_FAILED,Unable to create account,Imposible crear una cuenta,Nie można założyć konta,Konto kann nicht erstellt werden,Не удалось создать аккаунт,Не вдається створити акаунт,アカウントの作成ができません,创建账户失败,無法建立帳號
+MESSAGE_CREATING_ACCOUNT,Creating account...,Creando cuenta...,Tworzenie konta...,Konto erstellen …,Создание аккаунта…,Створення акаунту...,アカウント作成中,创建账户......,正在建立帳號…
+MESSAGE_EMAIL_REQUIRED,Must provide email,Debes proporcionar un e-mail,Musisz podać adres e-mail,E-Mail-Adresse erforderlich,Необходимо указать эл. почту,Необхідно надати адресу електронної пошти,メールアドレスを入力してください,必须提供电子邮箱,必須提供電子信箱
+MESSAGE_EMAIL_TAKEN,E-mail already in use,E-mail ya en uso,Ten e-mail jest już zajęty,E-Mail-Adresse wird bereits verwendet,Эта эл. почта уже занята,Адреса електронної пошти вже використовується,メールアドレスはすでに使用されています,该电子邮箱已注册,電子信箱已被使用
+MESSAGE_INSTANT_DEATH,INSTANT DEATH!,¡MUERTA INSTANTÁNEA!,NATYCHMIASTOWA ŚMIERĆ!,SOFORTIGER TOD!,МГНОВЕННАЯ СМЕРТЬ!,МИТТЄВА СМЕРТЬ!,瞬殺！,突然死亡！,驟死！
+MESSAGE_LOGGING_IN,Logging in...,Accediendo,Logowanie...,Anmelden …,Вход в систему…,Вхід в систему...,ログイン中...,读取中,正在登入中 …
+MESSAGE_LOGIN_FAILED,Login failed!,¡Acceso fallido!,Logowanie nie powiodło się!,Anmeldung fehlgeschlagen!,Не удалось войти!,Вхід не вдався!,ログイン失敗！,读取失败！,登入失敗！
+MESSAGE_LOGIN_FAILED_STEAM,Unable to connect to Steam. Please try again later.,"Imposible conectar a Steam. Por favor, inténtalo de nuevo más tarde.",Nie można połączyć się ze Steam. Spróbuj ponownie później.,Verbindung zu Steam nicht möglich. Bitte versuche es später erneut.,"Не удается подключиться к Steam. Пожалуйста, попробуй позже.","Не вдається підключитися до Steam. Будь ласка, спробуй пізніше.",Steamに接続できません。しばらくしてから再びお試しください。,无法连接到Steam。请稍后再试。,無法連接到Stream。請稍後再試。
+MESSAGE_LOOKING_FOR_MATCH,Looking for match...,Buscando una partida...,Szukanie meczu...,Suchen nach Match …,Поиск матча…,Пошук матчу...,マッチを検索中…,查找配对中......,尋找對戰…
+MESSAGE_MATCH_ID_REQUIRED,Need to paste Match ID to join,Se necesita pegar el Match ID para unirse,"Musisz wkleić ID meczu, aby dołączyć","Du musst die Match-ID einfügen, um beizutreten","Чтобы присоединиться, нужно вставить ID матча",Потрібно вставити ідентифікатор матчу для приєднання,参加するにはマッチIDをペーストしなくてはなりません,需要粘贴比赛编号以加入,需要貼上對戰ID來參加
+MESSAGE_NETWORK_ISSUES,"If you're having issues, try different ""Network Relay"" settings before starting a match.","Si tienes problemas, prueba diferentes configuraciones de ""Relé de red"" antes de empezar una partida.","Jeśli masz problemy, przed rozpoczęciem meczu spróbuj różnych opcji dla ""Przekaźnik sieci"" z ustawień z menu gry.","Wenn du Probleme hast, probiere verschiedene „Netzwerk-Relais“-Einstellungen aus, bevor du ein Match beginnst.","Если у тебя возникли проблемы, попробуй установить другие варианты «Сетевой ретрансляции» перед началом матча.","Якщо у тебе виникли проблеми, спробуй інші налаштування ""мережеве реле"", перш ніж починати матч.",問題が発生するようでしたら、マッチを開始する前に別の「ネットワークリレー」設定をお試しください。,如果您遇到问题，请在开始比赛前尝试不同的“网络中继”设置。,如果你遇到困難，請在開始對戰以前，先嘗試「網路中繼」設定。
+MESSAGE_NO_USER_ACCOUNT,No user account found,No se encontró la cuenta de usuario,Nie znaleziono konta użytkownika,Kein Benutzerkonto gefunden,Аккаунт пользователя не найден,Акаунт користувача не знайдено,ユーザーアカウントは検索されませんでした,未找到该账户,找不到使用者帳號
+MESSAGE_PASSWORD_REQUIRED,Must provide password,Debes proveer una contraseña,Musisz podać hasło,Passwort erforderlich,Необходимо указать пароль,Необхідно надати пароль,パスワードを入力してください,必须填写密码,必須提供密碼
+MESSAGE_PASSWORD_RESET_FAILED,Unable to send password reset email! Try again later.,No se ha podido enviar el correo electrónico de restablecimiento de la contraseña. Vuelve a intentarlo más tarde.,Nie można wysłać e-maila z resetem hasła! Spróbuj ponownie później.,E-Mail zum Zurücksetzen des Passworts kann nicht gesendet werden! Versuche es später erneut.,Не удалось отправить письмо для сброса пароля! Попробуй позже.,Не вдається надіслати електронний лист для скидання пароля! Повтори спробу пізніше.,パスワード再設定のメールが送信できませんでした！しばらくしてから再びお試しください。,发送重置密码邮件失败！请稍后再试。,無法傳送密碼重設電子郵件！請稍後再試。
+MESSAGE_PASSWORD_RESET_SENDING,Sending password reset e-mail...,Mandando el restablecimiento de la contraseña al e-mail...,Wysyłanie wiadomości e-mail z resetem hasła...,E-Mail zum Zurücksetzen des Passworts senden …,Отправка письма для сброса пароля…,Надсилання електронного листа для скидання пароля...,パスワード再設定メールを送信中…,重置密码邮件发送中......,正在傳送密碼重設電子郵件…
+MESSAGE_PASSWORD_RESET_SENT,Password reset email sent!,¡Email de restablecimiento de la contraseña enviado!,Wysłano wiadomość e-mail z resetem hasła!,E-Mail zum Zurücksetzen des Passworts gesendet!,Письмо для сброса пароля отправлено!,Електронного листа для скидання пароля надіслано!,パスワード再設定メールの送信完了！,重置密码邮件已发送！,密碼重設電子郵件已傳送！
+MESSAGE_PLAYER_DEAD,Wasted!,¡Muerto!,Zgon!,Besiegt!,Тебя убили!,Втрата!,死亡！,被干掉了！,倒下了！
+MESSAGE_PLAYER_HAS_LEFT,%s has left!,%s se ha ido!,Gracz %s wyszedł!,%s hat das Spiel verlassen!,%s ушел!,%s вийшов!,%s はいなくなりました！,还剩%s！,%s 已離開！
+MESSAGE_PLAYER_HAS_LEFT_NOT_ENOUGH_PLAYERS,%s has left - not enough players!,"%s se ha ido, no hay suficientes jugadores!",Gracz %s wyszedł - za mało graczy!,%s hat das Spiel verlassen – nicht genügend Spieler!,%s ушел — недостаточно игроков!,%s вийшов — не вистачає гравців!,%s がいなくなりプレイヤー数不足です！,还剩%s - 玩家不足！,%s 已離開 - 玩家不足！
+MESSAGE_PLAYER_LOSE,You lose!,¡Perdiste!,Przegrywasz!,Du verlierst!,Ты проиграл!,Ви програли!,敗退！,您输了！,你輸了！
+MESSAGE_PLAYER_WINS_DEATHMATCH,%s WINS THIS DEATH MATCH!,%s GANA ESTE COMBATE A MUERTE!,%s WYGRYWA TEN DEATHMATCH!,%s GEWINNT DIESES DEATHMATCH!,%s ВЫИГРАЛ ЭТУ СМЕРТЕЛЬНУЮ СХВАТКУ!,%s ВИГРАЄ ЦЕЙ СМЕРТЕЛЬНИЙ МАТЧ!,%s がこのデスマッチを勝利！,%s 赢得了这场死亡比赛！,%s 贏得了這場死鬥！
+MESSAGE_PLAYER_WINS_MATCH,%s WINS THE MATCH!,%s GANA LA PARTIDA!,%s WYGRYWA MECZ!,%s GEWINNT DIESES MATCH!,%s ВЫИГРАЛ ЭТОТ МАТЧ!,%s ВИГРАЄ МАТЧ!,%s がマッチを勝利！,%s 赢得了比赛!,%s 贏得了這場比賽！
+MESSAGE_PLAYER_WINS_ROUND,%s wins this round!,%s gana esta ronda!,%s wygrywa tę rundę!,%s GEWINNT DIESE RUNDE!,%s победил в этом раунде!,%s виграє цей раунд!,%s がこのラウンドを勝利！,%s 这一轮获得了胜利！,%s 贏得了這回合！
+MESSAGE_SESSION_EXPIRED,Session expired! Reconnecting...,¡Sesión caducada! Reconectando...,Sesja wygasła! Ponowne łączenie...,Sitzung abgelaufen! Neu verbinden …,Сессия истекла! Повторное подключение…,Сеанс закінчився! Перепідключення...,セッションは時間切れです！,会话已过期！正在重新连接......,已過期！重新連線…
+MESSAGE_SESSION_EXPIRED_STEAM,Session expired! Reconnecting via Steam...,¡Sesión caducada! Reconectando vía Steam...,Sesja wygasła! Ponowne łączenie przez Steam...,Sitzung abgelaufen! Neu verbinden über Steam …,Сессия истекла! Повторное подключение через Steam…,Сеанс закінчився! Повторне підключення через Steam...,セッションは時間切れです！Steamから再接続中…,会话已过期！正在通过Steam重新连接......,已過期！透過Steam重新連線…
+MESSAGE_SESSION_LOGGING_IN_STEAM,Logging in via Steam...,Conectando vía Steam...,Logowanie przez Steam...,Anmelden über Steam …,Вход через Steam…,Вхід через Steam...,Steamからログイン中…,正在通过Steam登录......,透過Stream登入
+MESSAGE_SETUP_CLIENT,The host is configuring the match...,El anfitrión está configurando la partida...,Gospodarz konfiguruje mecz...,Der Host konfiguriert das Match …,Хост настраивает матч…,Господар налаштовує матч...,ホストがマッチを設定中…,房主正在设置比赛......,主人正在安排對戰…
+MESSAGE_SETUP_HOST,You're the host! How you wanna do this?,¡Tú eres el anfitrión! ¿Cómo quieres hacer esto?,Ty jesteś gospodarzem! Ustal zasady gry.,Du bist der Host! Wie möchtest du das machen?,Ты — хост! Как ты хочешь это сделать?,Ти господар! Як ти хочеш це зробити?,あなたがホストです！どう設定しますか？,您是房主！您想怎么玩？,你是主人！你想怎麼做呢？
+MESSAGE_SYNCHRONIZATION_LOST,Synchronization lost,Sincronización perdida,Synchronizacja utracona,Synchronisation verloren,Синхронизация потеряна,Синхронізація втрачена,同期が外れました！,同步丢失,同步化遺失
+MESSAGE_TEAM_NEEDS_PLAYERS,Each team must have at least 1 player!,¡Cada equipo debe tener al menos 1 jugador!,Każda drużyna musi mieć co najmniej 1 gracza!,Jedes Team muss mindestens einen Spieler haben!,В каждой команде должен быть хотя бы 1 игрок!,У кожній команді має бути не менше 1 гравця!,各チームに最低プレイヤー1人が必要です！,每支队伍至少要有一位玩家！,每一隊至少要有一名玩家！
+MESSAGE_USERNAME_REQUIRED,Must provide username,Debes proveer un nombre de usuario,Nazwa użytkownika wymagana,Benutzername erforderlich,Нужно указать имя пользователя,Необхідно вказати ім'я користувача,ユーザー名を入力してください,必须提供用户名,必須提供使用者名稱
+MESSAGE_USERNAME_TAKEN,Username already taken,Nombre de usuario ya ocupado,Nazwa użytkownika już zajęta,Benutzername bereits vergeben,Имя пользователя уже занято,Ім'я користувача вже взято,ユーザー名はすでに使用されています,用户名已被占用,使用者名稱已被使用
+MODE_DESCRIPTION_BATTLE_ROYALE,The last tank standing wins the round.,El último tanque en pie gana la ronda.,Ostatni czołg przy życiu wygrywa rundę.,Der letzte verbliebene Panzer gewinnt die Runde.,Последний оставшийся танк побеждает в раунде.,Останній стоячий танк перемагає в раунді.,最後まで残った戦車がラウンドの勝者です。,最后存活的坦克获得本轮的胜利。,最後一個還活著的坦克獲勝。
+MODE_DESCRIPTION_DEATHMATCH,The tank with the most kills wins.,El tanque con más muertes gana.,Czołg z największą liczbą zabitych wygrywa.,Der Panzer mit den meisten Kills gewinnt.,Побеждает танк с наибольшим количеством убийств.,Перемагає танк з найбільшою кількістю знищень суперника.,キル数の最も多い戦車が勝者です。,击杀数最高的坦克获胜。,殺敵最多的坦克獲勝。
+MODE_DESCRIPTION_FOOTBALL,Carry the ball to the goal to score points.,Lleva el balón a la portería para conseguir puntos.,"Przenoś piłki do bramki, aby zdobywać punkty.","Trage den Ball ins Tor, um zu punkten.","Принеси мяч к воротам, чтобы набрать очки.","Піднесіть м'яч до воріт, щоб набрати очки.",ボールをゴールまで運んでポイントを獲得します。,将球带到球门得分。,帶著球到球門以得分。
+MODE_NAME_BATTLE_ROYALE,Battle Royale,Battle Royale,Battle Royale,Battle Royale,Королевская битва,Королівська битва,バトルロイヤル,大逃杀,大逃殺
+MODE_NAME_DEATHMATCH,Deathmatch,Partida a muerte,Deathmatch,Deathmatch,Смертельная схватка,Смертельний матч,デスマッチ,死亡比赛,死鬥
+MODE_NAME_FOOTBALL,Football,Fútbol,Piłka nożna,Fußball,Футбол,Футбол,フットボール,足球,橄欖球
+NETWORK_RELAY_OPTION_AUTO,Auto,Auto,Automatyczny,Automatisch,Авто,Автоматичне,自動,自动,自動
+NETWORK_RELAY_OPTION_DISABLED,Disabled,Desactivado,Wyłączony,Deaktiviert,Отключено,Вимкнуто,無効,禁用,關閉
+NETWORK_RELAY_OPTION_FALLBACK_AUTO,Fallback (Auto),Retroceso (Auto),Awaryjny (Auto),Fallback (automatisch),Резервный (авто),Резерв (авто),フォールバック（自動）,回退（自动）,備用（自動）
+NETWORK_RELAY_OPTION_FALLBACK_FORCED,Fallback,Retroceso (Auto),Awaryjny,Fallback,Резервный,Резерв,フォールバック,回退,備用
+NETWORK_RELAY_OPTION_FORCED,Forced,Forzado,Wymuszony,Erzwungen,Принудительно,Примусове,強制,强制,強制
+ONLINE_MATCH_ERROR_CLIENT_JOIN_ERROR,Client not allowed to join,Cliente no permitido para unirse,Nie zezwolono klientowi na dołączenie,Client darf nicht beitreten,Клиент не может присоединиться,Клієнту не дозволяється приєднатися,クライエントは参加が許可されていません,客户机被禁止加入,客人不被允許加入
+ONLINE_MATCH_ERROR_CLIENT_VERSION_ERROR,Client version doesn't match host,La versión del cliente no coincide con el host,Wersja klienta nie pasuje do tej gospodarza,Client-Version stimmt nicht mit Host überein,Версия клиента не соответствует версии хоста,Клієнтська версія не відповідає хосту,クライエントのバージョンがホストとマッチしません,客户机版本与房主的不匹配,客人的版本和主人不同
+ONLINE_MATCH_ERROR_JOIN_MATCH_FAILED,Unable to join match,Imposible unirse a la partida,Nie można dołączyć do meczu,Match-Beitritt nicht möglich,Не удалось присоединиться к матчу,Не вдається приєднатися до матчу,マッチに参加できません,无法加入比赛,無法參與對戰
+ONLINE_MATCH_ERROR_MATCH_CREATE_FAILED,Failed to create match,No se ha podido crear la partida,Nie udało się stworzyć meczu,Match-Erstellung fehlgeschlagen,Не удалось создать матч,Не вдалося створити матч,マッチの作成に失敗,创建比赛失败,建立對戰失敗
+ONLINE_MATCH_ERROR_MATCH_HAS_ALREADY_BEGUN,Sorry! The match has already begun.,¡Lo siento! La partida ya empezó.,Przepraszamy! Mecz już się rozpoczął.,Leider hat das Match bereits begonnen.,Извини! Матч уже начался.,Вибач! Матч вже розпочався.,すみません！マッチはすでに始まりました。,抱歉！比赛已经开始了。,抱歉！對戰已經開始了。
+ONLINE_MATCH_ERROR_MATCH_IS_FULL,Sorry! The match is full.,¡Lo siento! La partida está completa.,Przepraszamy! Mecz ma pełny skład osobowy.,Leider ist das Match voll.,Извини! В матче нет места.,Вибач! Матч заповнений.,すみません！マッチは満員です。,抱歉！比赛已经满员。,抱歉！對戰已經滿人了。
+ONLINE_MATCH_ERROR_MATCHMAKER_ERROR,Matchmaker error,Error de emparejamiento,Błąd systemu doboru graczy,Matchmaker-Fehler,Ошибка поиска матчей,Помилка матчмейкінгу,マッチメーカーにエラーが発生,匹配错误,配對安排錯誤
+ONLINE_MATCH_ERROR_START_MATCHMAKING_FAILED,Unable to join match making pool,Imposible unirse al grupo de emparejamiento,Nie można dołączyć do puli systemu doboru graczy,Beitritt zum Matchmaking-Pool nicht möglich,Не удалось присоединиться к пулу подбора игроков,Не вдається приєднатися до пулу створення матчів,マッチメークに参加できません,无法加入配对池,無法加入配對池
+ONLINE_MATCH_ERROR_WEBSOCKET_CONNECTION_ERROR,WebSocket connection error,Error de conexión WebSocket,Błąd połączenia protokołu WebSocket,WebSocket-Verbindungsfehler,Ошибка подключения через веб-сокет,Помилка з'єднання WebSocket,ウェブソケットの接続エラー,WebSocket连接错误,WebSoclet 連線錯誤
+OPTION_10_SECOND,10 sec,10 seg,10 s,10 s,10 сек.,10 сек.,10秒,10秒,10 秒
+OPTION_20_SECOND,20 sec,20 seg,20 s,20 s,20 сек.,20 сек.,20秒,20秒,20 秒
+OPTION_30_SECOND,30 sec,30 seg,30 s,30 s,30 сек.,30 сек.,30秒,30秒,30 秒
+OPTION_40_SECOND,40 sec,40 seg,40 s,40 s,40 сек.,40 сек.,40秒,40秒,40 秒
+OPTION_50_SECOND,50 sec,50 seg,50 s,50 s,50 сек.,50 сек.,50秒,50秒,50 秒
+OPTION_60_SECOND,60 sec,60 seg,60 s,60 s,60 сек.,60 сек.,60秒,60秒,60 秒
+OPTION_1_MINUTE,1 min,2 min,1 min,1 min,1 мин.,1 хв.,1分,1分钟,1 分鐘
+OPTION_2_MINUTE,2 min,3 min,2 min,2 min,2 мин.,2 хв.,2分,2分钟,2 分鐘
+OPTION_3_MINUTE,3 min,4 min,3 min,3 min,3 мин.,3 хв.,3分,3分钟,3 分鐘
+OPTION_4_MINUTE,4 min,5 min,4 min,4 min,4 мин.,4 хв.,4分,4分钟,4 分鐘
+OPTION_5_MINUTE,5 min,6 min,5 min,5 min,5 мин.,5 хв.,5分,5分钟,5 分鐘
+OPTION_6_MINUTE,6 min,7 min,6 min,6 min,6 мин.,6 хв.,6分,6分钟,6 分鐘
+OPTION_7_MINUTE,7 min,8 min,7 min,7 min,7 мин.,7 хв.,7分,7分钟,7 分鐘
+OPTION_8_MINUTE,8 min,9 min,8 min,8 min,8 мин.,8 хв.,8分,8分钟,8 分鐘
+OPTION_9_MINUTE,9 min,10 min,9 min,9 min,9 мин.,9 хв.,9分,9分钟,9 分鐘
+OPTION_10_MINUTE,10 min,11 min,10 min,10 min,10 мин.,10 хв.,10分,10分钟,10 分鐘
+OPTION_DISABLED,Disabled,Desactivado,Wyłączone,Deaktiviert,Отключено,Вимкнуто,無効,禁用,關閉使用
+OPTION_ENABLED,Enabled,Activado,Włączone,Aktiviert,Включено,Увімкнуто,有効,启用,開啟使用
+OPTION_NEVER,Never,Nunca,Nigdy,Nie,Никогда,Ніколи,決してしない,永不,從不
+OPTION_NONE,None,Nada,Brak,Keine,Отсутствует,Ніхто,しない,无,沒有
+OPTION_NO,No,No,Nie,Nein,Нет,Ні,いいえ,不,否
+OPTION_YES,Yes,Sí,Tak,Ja,Да,Так,はい,是,是
+PASSWORD_FIELD_LABEL,Password:,Contraeña:,Hasło:,Passwort:,Пароль:,Пароль:,パスワード：,密码：,密碼：
+PICKUP_NAME_HEALTH,Health,Salud,Zdrowie,Gesundheit,Здоровье,Здоров’я,HP,健康,生命值
+PLAYER_NAME_PRACTICE,Practice,Práctica,Trening,Übung,Тренировка,Практика,練習,练习,練習
+PLAYER_PING,%sms,%sms,%s ms,%s ms,%sms,%sms,%sms,%sms,%sms
+PLAYER_STATUS_CONNECTED,Connected.,Conectado.,Połączono.,Verbunden.,Подключено.,Підключено.,接続済み,已连接。,已連線
+PLAYER_STATUS_CONNECTING,Connecting...,Conectando.,Łączenie...,Verbinden …,Подключение…,Підключення...,接続中…,正在连接中......,正在連線…
+PLAYER_STATUS_READY,READY!,¡Listo!,GOTOWY!,BEREIT!,ГОТОВ!,ГОТОВИЙ!,準備完了！,预备！,準備！
+POINTS_TO_WIN_FIELD_LABEL,Points to win,Puntos para ganar,L. punktów do zwycięstwa,Punkte zum Sieg,Очки для победы,Очки для перемоги,勝利するためのポイント,获胜所需积分,得分以贏得勝利
+SESSION_SETUP_TAB_CREATE_ACCOUNT,Create account,Crear cuenta,Załóż konto,Konto erstellen,Создать аккаунт,Створити акаунт,アカウント作成,创建账户,建立帳號
+SESSION_SETUP_TAB_FORGOT_PASSWORD,Forgot password?,¿Olvidaste la contraseña?,Nie pamiętasz hasła?,Passwort vergessen?,Забыл пароль?,Забули пароль?,パスワードをお忘れですか？,忘记密码了？,忘記密碼？
+SESSION_SETUP_TAB_LOGIN,Login,Acceder,Zaloguj się,Anmeldung,Войти,Логін,ログイン,登录,登入
+SESSION_SETUP_TAB_STEAM,Steam,Steam,Steam,Steam,Steam,Steam,Steam,Steam,Steam
+SESSION_SETUP_TAB_STEAM_MESSAGE,"If you already have a SnopekGames account, use the ""Login"" tab and it'll link your Steam account for the future. Otherwise, you'll end up with two accounts.","Si ya tienes una cuenta de SnopekGames, utiliza la pestaña ""Acceder"" y se vinculará tu cuenta de Steam para el futuro. De lo contrario, acabarás teniendo dos cuentas.","Jeśli masz już konto na SnopekGames, użyj karty ""Zaloguj się"", a podłączy ona Twoje konto ze Steam na przyszłość. W przeciwnym razie będziesz mieć dwa konta.","Solltest du bereits ein SnopekGames-Konto haben, gehe auf die Registerkarte „Anmelden“, um dein Steam-Konto für die Zukunft zu verknüpfen. Andernfalls hast du am Ende zwei Konten.","Если у тебя уже есть аккаунт SnopekGames, используй вкладку «Вход», и она свяжет твой аккаунт Steam. В противном случае у тебя будет два аккаунта.","Якщо у тебе вже є акаунт SnopekGames, скористайся вкладкою ""Увійти"", і вона зв'яже твій акаунт Steam на майбутнє. В іншому випадку ти отримаєш два акаунти.",SnopekGamesのアカウントをすでにお持ちの場合「ログイン」タブをお使いいただきましたら今後はSteamアカウントとリンクします。そうしない場合にはアカウント数が2つとなります。,如果你已经有一个SnopekGames账户，请使用“登录”选项卡，它将连接您的Steam账户以备将来使用。否则，您将拥有两个账户。,如果你已經擁有 SnopekGames 的帳號，請使用「登入」鍵，以後都會連結到你的 Steam 帳號。否則，你最後會變成有兩個帳號。
+SETTING_ART_STYLE,Art style,Estilo artístico,Styl graficzny,Kunststil,Стиль рисунков,Художній стиль,アートスタイル,艺术风格,藝術風格
+SETTING_CONTROL_SCHEME,Control scheme,Esquema de control,Schemat sterowania,Kontrollschema,Схема управления,Схема управління,コントロール設定,控制方案,控制系統
+SETTING_DETAILED_LOGGING,Detailed logging,Acceso detallado,Szczegółowe logowanie,Detaillierte Aufzeichnung,Подробный журнал,Детальний журнал,詳細なロギング,详细日志记录,詳細的日誌紀錄
+SETTING_FULL_SCREEN,Full screen,Pantalla completa,Pełny ekran,Vollbildschirm,На полный экран,Повноекранний режим,フル画面,全屏,全螢幕
+SETTING_GAMEPAD_DEVICE,Gamepad device,Dispositivo Gamepad,Urządzenie do sterowania,Gamepad-Gerät,Геймпад,Пристрій геймпада,ゲームパッドデバイス,游戏手柄设备,遊戲把手裝置
+SETTING_LANGUAGE,Language,Idioma,Język,Sprache,Язык,Мова,言語,语言,語言
+SETTING_MUSIC,Music,Música,Muzyka,Musik,Музыка,Музика,音楽,音乐,音樂
+SETTING_NETWORK_RELAY,Network relay,Relé de red,Przekaźnik sieci,Netzwerk-Relais,Сетевая ретрансляция,Мережеве реле,ネットワークリレー,网络中继,網路中繼
+SETTING_SCREEN_SHAKE,Screen shake,Sacudida de pantalla,Wstrząsy ekranu,Verwackeln des Bildschirms,Дрожание экрана,Струс екрану,画面揺れ,屏幕抖动,畫面晃動
+SETTING_SOUND,Sound,Sonido,Dźwięk,Ton,Звук,Звук,サウンド,声音,音效
+SETTING_TANK_ENGINE_SOUNDS,Tank engine sounds,Sonidos del motor del tanque,Dźwięki silnika czołgu,Geräusche von Panzermotoren,Звуки танкового двигателя,Звуки двигуна танка,戦車エンジン音,坦克引擎音效,坦克引擎音效
+SETTINGS_TITLE,Settings,Ajustes,Ustawienia,Einstellungen,Настройки,Налаштування,設定,设置,設定
+TEAMS_FIELD_LABEL,Teams,Equipos,Drużyny,Teams,Команды,Команди,チーム,战队,團隊
+TIMELIMIT_FIELD_LABEL,Timelimit,Limite de tiempo,Limit czasu,Zeitlimit,Лимит времени,Ліміт часу,制限時間,时间限制,時間限制
+TITLE_PRESS_ANY_KEY,Press any key (or click) to start,Presiona cualquier tecla (o click) para empezar,"Naciśnij dowolny klawisz lub kliknij, aby rozpocząć","Drücke eine beliebige Taste (oder klicke), um zu beginnen","Нажми любую клавишу (или кликни), чтобы начать","Натисни будь-яку клавішу (або клацни), щоб почати",いずれかのキーを押して（またはクリックして）開始します,按任意键（或单击）开始,按住任何鍵（或點擊）來開始
+USERNAME_FIELD_LABEL,Username:,Nombre de usuario:,Nazwa użytkownika:,Benutzername:,Имя пользователя:,Ім'я користувача:,ユーザー名：,用户名：,使用者名稱：
+WEAPON_FIELD_LABEL,Weapon,Arma,Broń,Waffe,Оружие,Зброя,武器,武器,武器
+WEAPON_NAME_FOOTBALL,Football,Fútbol,Piłka do gry,Fußball,Футбол,Футбол,フットボール,足球,橄欖球
+WEAPON_NAME_NORMAL,Normal,Normal,Normalna,Normal,Обычное,Нормальна,ノーマル,正常,正常
+WEAPON_NAME_RAILGUN,Railgun,Cañón de riel,Elektromagnetyczna,Railgun,Рейлган,Рельсотрон,レールガン,轨道炮,磁軌砲
+WEAPON_NAME_SPREAD,Spread,Arma de fuego,Rozprysk,Spread,Спред,Поширення,散弾,散射,散射槍
+WEAPON_NAME_TRACER,Tracer,Rastreador,Namierzanie,Tracer,Трейсер,Трасуючий снаряд,曳光弾,追踪,曳光彈
+WEAPON_TIMEOUT_FIELD_LABEL,Weapons last,Últimas armas,Czas trwania broni,Waffen halten,Оружие доступно,Остання зброя,武器持続時間,仅剩的武器,武器延續
+MENU_RETURN_TO_MATCH,Return to match,Volver al partido,Wracaj do meczu,Zurück zum match,Вернуться к матчу,Повернутися до мату,試合に戻る,返回匹配,返回匹配

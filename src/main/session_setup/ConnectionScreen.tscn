@@ -1,15 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/theme.tres" type="Theme" id=1]
-[ext_resource path="res://assets/fonts/monogram_extended.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/fonts/monogram.tres" type="DynamicFont" id=3]
 [ext_resource path="res://src/main/session_setup/ConnectionScreen.gd" type="Script" id=4]
 [ext_resource path="res://assets/fonts/monogram_small.tres" type="DynamicFont" id=5]
 [ext_resource path="res://src/ui/MyButton.gd" type="Script" id=6]
-
-[sub_resource type="DynamicFont" id=1]
-size = 32
-font_data = ExtResource( 2 )
 
 [node name="ConnectionScreen" type="Control"]
 anchor_right = 1.0
@@ -46,7 +41,7 @@ margin_left = -483.125
 margin_top = 65.8919
 margin_right = 453.875
 margin_bottom = 130.892
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = ExtResource( 5 )
 text = "SESSION_SETUP_TAB_STEAM_MESSAGE"
 autowrap = true
 
@@ -81,11 +76,12 @@ caret_blink = true
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 274.0
-margin_top = -73.4679
-margin_right = -275.925
-margin_bottom = -7.93393
+margin_left = 253.0
+margin_top = -75.4679
+margin_right = -229.249
+margin_bottom = -8.93393
 grow_horizontal = 2
+rect_min_size = Vector2( 584, 0 )
 text = "BUTTON_CREATE_ACCOUNT"
 script = ExtResource( 6 )
 
@@ -114,7 +110,7 @@ columns = 2
 [node name="EmailLabel" type="Label" parent="TabContainer/Login/GridContainer"]
 margin_top = 7.0
 margin_right = 480.0
-margin_bottom = 58.0
+margin_bottom = 59.0
 size_flags_horizontal = 9
 custom_fonts/font = ExtResource( 3 )
 text = "EMAIL_FIELD_LABEL"
@@ -122,41 +118,41 @@ text = "EMAIL_FIELD_LABEL"
 [node name="Email" type="LineEdit" parent="TabContainer/Login/GridContainer"]
 margin_left = 484.0
 margin_right = 803.0
-margin_bottom = 66.0
+margin_bottom = 67.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 3 )
 caret_blink = true
 
 [node name="PasswordLabel" type="Label" parent="TabContainer/Login/GridContainer"]
-margin_top = 77.0
+margin_top = 78.0
 margin_right = 480.0
-margin_bottom = 128.0
+margin_bottom = 130.0
 custom_fonts/font = ExtResource( 3 )
 text = "PASSWORD_FIELD_LABEL"
 
 [node name="Password" type="LineEdit" parent="TabContainer/Login/GridContainer"]
 margin_left = 484.0
-margin_top = 70.0
+margin_top = 71.0
 margin_right = 803.0
-margin_bottom = 136.0
+margin_bottom = 138.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 3 )
 secret = true
 caret_blink = true
 
 [node name="Empty" type="Control" parent="TabContainer/Login/GridContainer"]
-margin_top = 140.0
+margin_top = 142.0
 margin_right = 480.0
-margin_bottom = 176.0
+margin_bottom = 178.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="SaveCheckBox" type="CheckBox" parent="TabContainer/Login/GridContainer"]
 margin_left = 484.0
-margin_top = 140.0
+margin_top = 142.0
 margin_right = 803.0
-margin_bottom = 176.0
+margin_bottom = 178.0
 custom_fonts/font = ExtResource( 5 )
 pressed = true
 text = "CHECKBOX_SAVE_CREDS"
@@ -165,11 +161,12 @@ text = "CHECKBOX_SAVE_CREDS"
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 300.0
-margin_top = -73.4679
-margin_right = -300.0
-margin_bottom = -7.93396
+margin_left = 253.0
+margin_top = -76.4679
+margin_right = -229.249
+margin_bottom = -9.93396
 grow_horizontal = 2
+rect_min_size = Vector2( 584, 0 )
 text = "BUTTON_LOGIN"
 script = ExtResource( 6 )
 
@@ -198,7 +195,7 @@ columns = 2
 [node name="UsernameLabel" type="Label" parent="TabContainer/Create Account/GridContainer"]
 margin_top = 7.0
 margin_right = 480.0
-margin_bottom = 58.0
+margin_bottom = 59.0
 size_flags_horizontal = 9
 custom_fonts/font = ExtResource( 3 )
 text = "USERNAME_FIELD_LABEL"
@@ -206,57 +203,57 @@ text = "USERNAME_FIELD_LABEL"
 [node name="Username" type="LineEdit" parent="TabContainer/Create Account/GridContainer"]
 margin_left = 484.0
 margin_right = 803.0
-margin_bottom = 66.0
+margin_bottom = 67.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 3 )
 caret_blink = true
 
 [node name="EmailLabel" type="Label" parent="TabContainer/Create Account/GridContainer"]
-margin_top = 77.0
+margin_top = 78.0
 margin_right = 480.0
-margin_bottom = 128.0
+margin_bottom = 130.0
 custom_fonts/font = ExtResource( 3 )
 text = "EMAIL_FIELD_LABEL"
 
 [node name="Email" type="LineEdit" parent="TabContainer/Create Account/GridContainer"]
 margin_left = 484.0
-margin_top = 70.0
+margin_top = 71.0
 margin_right = 803.0
-margin_bottom = 136.0
+margin_bottom = 138.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 3 )
 caret_blink = true
 
 [node name="PasswordLabel" type="Label" parent="TabContainer/Create Account/GridContainer"]
-margin_top = 147.0
+margin_top = 149.0
 margin_right = 480.0
-margin_bottom = 198.0
+margin_bottom = 201.0
 custom_fonts/font = ExtResource( 3 )
 text = "PASSWORD_FIELD_LABEL"
 
 [node name="Password" type="LineEdit" parent="TabContainer/Create Account/GridContainer"]
 margin_left = 484.0
-margin_top = 140.0
+margin_top = 142.0
 margin_right = 803.0
-margin_bottom = 206.0
+margin_bottom = 209.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 3 )
 secret = true
 caret_blink = true
 
 [node name="Empty" type="Control" parent="TabContainer/Create Account/GridContainer"]
-margin_top = 210.0
+margin_top = 213.0
 margin_right = 480.0
-margin_bottom = 246.0
+margin_bottom = 249.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="SaveCheckBox" type="CheckBox" parent="TabContainer/Create Account/GridContainer"]
 margin_left = 484.0
-margin_top = 210.0
+margin_top = 213.0
 margin_right = 803.0
-margin_bottom = 246.0
+margin_bottom = 249.0
 custom_fonts/font = ExtResource( 5 )
 pressed = true
 text = "CHECKBOX_SAVE_CREDS"
@@ -267,8 +264,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 253.0
 margin_top = -76.4679
-margin_right = -229.0
-margin_bottom = -10.934
+margin_right = -229.249
+margin_bottom = -9.93396
+rect_min_size = Vector2( 584, 0 )
 text = "BUTTON_CREATE_ACCOUNT"
 script = ExtResource( 6 )
 
@@ -297,14 +295,14 @@ columns = 2
 [node name="EmailLabel" type="Label" parent="TabContainer/Forgot password\?/GridContainer"]
 margin_top = 7.0
 margin_right = 408.0
-margin_bottom = 58.0
+margin_bottom = 59.0
 size_flags_horizontal = 9
 text = "EMAIL_FIELD_LABEL"
 
 [node name="Email" type="LineEdit" parent="TabContainer/Forgot password\?/GridContainer"]
 margin_left = 412.0
 margin_right = 803.0
-margin_bottom = 66.0
+margin_bottom = 67.0
 size_flags_horizontal = 3
 
 [node name="ResetPasswordButton" type="Button" parent="TabContainer/Forgot password\?"]
@@ -315,6 +313,7 @@ margin_left = 253.263
 margin_top = -76.0002
 margin_right = -228.737
 margin_bottom = -10.4662
+rect_min_size = Vector2( 584, 0 )
 text = "BUTTON_RESET_PASSWORD"
 script = ExtResource( 6 )
 

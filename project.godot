@@ -374,7 +374,13 @@ sync_debug={
 
 [locale]
 
-translations=PoolStringArray( "res://assets/translation/main.en.translation", "res://assets/translation/main.es.translation" )
+translations=PoolStringArray( "res://assets/translation/main.en.translation", "res://assets/translation/main.es.translation", "res://assets/translation/main.ru.translation", "res://assets/translation/main.de.translation", "res://assets/translation/main.pl.translation", "res://assets/translation/main.uk.translation", "res://assets/translation/main.zh_CN.translation", "res://assets/translation/main.zh_TW.translation", "res://assets/translation/main.ja.translation" )
+translation_remaps={
+"res://assets/fonts/monogram.tres": PoolStringArray( "res://assets/fonts/silver.tres:ja", "res://assets/fonts/silver.tres:zh_CN", "res://assets/fonts/silver.tres:zh_TW" ),
+"res://assets/fonts/monogram_credits.tres": PoolStringArray( "res://assets/fonts/silver_credits.tres:ja", "res://assets/fonts/silver_credits.tres:zh_CN", "res://assets/fonts/silver_credits.tres:zh_TW" ),
+"res://assets/fonts/monogram_mini.tres": PoolStringArray( "res://assets/fonts/silver_mini.tres:ja", "res://assets/fonts/silver_mini.tres:zh_CN", "res://assets/fonts/silver_mini.tres:zh_TW" ),
+"res://assets/fonts/monogram_small.tres": PoolStringArray( "res://assets/fonts/silver_small.tres:ja", "res://assets/fonts/silver_small.tres:zh_CN", "res://assets/fonts/silver_small.tres:zh_TW" )
+}
 
 [network]
 

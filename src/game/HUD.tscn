@@ -1,12 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://assets/fonts/monogram_extended.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://src/game/HUD.gd" type="Script" id=2]
 [ext_resource path="res://src/game/PowerupLabel.tscn" type="PackedScene" id=3]
-
-[sub_resource type="DynamicFont" id=1]
-size = 32
-font_data = ExtResource( 1 )
 
 [node name="HUD" type="Control"]
 anchor_right = 1.0
@@ -29,14 +24,12 @@ __meta__ = {
 visible = false
 margin_right = 72.0
 margin_bottom = 26.0
-custom_fonts/font = SubResource( 1 )
 
 [node name="AbilityLabel" parent="HBoxContainer" instance=ExtResource( 3 )]
 visible = false
 margin_left = 82.0
 margin_right = 166.0
 margin_bottom = 26.0
-custom_fonts/font = SubResource( 1 )
 text = "Ability"
 
 [node name="ColorRect" parent="HBoxContainer/AbilityLabel" index="0"]

@@ -32,8 +32,15 @@ func _ready() -> void:
 	full_screen_field.set_value(GameSettings.use_full_screen, false)
 
 	language_field.add_item("LANGUAGE_OPTION_DEFAULT", "default")
-	language_field.add_item("LANGUAGE_OPTION_ENGLISH", "en")
-	language_field.add_item("LANGUAGE_OPTION_SPANISH", "es")
+	language_field.add_item("English", "en")
+	language_field.add_item("Español", "es")
+	language_field.add_item("Deutsch", "de")
+	language_field.add_item("Polski", "pl")
+	language_field.add_item("Українська", "uk")
+	language_field.add_item("Русский", "ru")
+	language_field.add_item("日本語", "ja")
+	language_field.add_item("简体中文", "zh_CN")
+	language_field.add_item("繁體中文", "zh_TW")
 	language_field.set_value(GameSettings.language, false)
 
 	screenshake_field.add_item("OPTION_DISABLED", false)
@@ -97,8 +104,12 @@ func _show_screen(info: Dictionary = {}) -> void:
 		detailed_logging_field.visible = not SyncManager.started
 
 	scroll_container.scroll_vertical = 0
-	music_slider.focus.grab_without_sound()
+	language_field.focus.grab_without_sound()
 	ui_layer.show_back_button()
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSLATION_CHANGED:
+		_update_gamepad_options()
 
 func _hide_screen() -> void:
 	GameSettings.save_settings()
@@ -141,6 +152,8 @@ func _on_GamepadDeviceOptions_item_selected(value, _index) -> void:
 	GameSettings.joy_id = value
 
 func _update_gamepad_options() -> void:
+	if gamepad_device_field == null:
+		return
 	gamepad_device_field.clear_items()
 	for joy_id in Input.get_connected_joypads():
 		gamepad_device_field.add_item("%s: %s" % [joy_id + 1, Input.get_joy_name(joy_id)], joy_id)

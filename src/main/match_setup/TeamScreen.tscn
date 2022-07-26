@@ -38,14 +38,14 @@ custom_constants/separation = 15
 
 [node name="Teams" type="Label" parent="Panel/VBoxContainer"]
 margin_right = 570.0
-margin_bottom = 51.0
+margin_bottom = 52.0
 text = "Teams"
 align = 1
 
 [node name="GridContainer" type="GridContainer" parent="Panel/VBoxContainer"]
-margin_top = 66.0
+margin_top = 67.0
 margin_right = 570.0
-margin_bottom = 384.0
+margin_bottom = 383.0
 size_flags_vertical = 3
 custom_constants/vseparation = 15
 columns = 2
@@ -53,7 +53,7 @@ columns = 2
 [node name="Player1Label" type="Label" parent="Panel/VBoxContainer/GridContainer"]
 margin_top = 7.0
 margin_right = 283.0
-margin_bottom = 58.0
+margin_bottom = 59.0
 size_flags_horizontal = 3
 text = "Player 1"
 
@@ -67,7 +67,7 @@ size_flags_horizontal = 3
 [node name="Player2Label" type="Label" parent="Panel/VBoxContainer/GridContainer"]
 margin_top = 88.0
 margin_right = 283.0
-margin_bottom = 139.0
+margin_bottom = 140.0
 size_flags_horizontal = 3
 text = "Player 2"
 
@@ -82,7 +82,7 @@ size_flags_horizontal = 3
 [node name="Player3Label" type="Label" parent="Panel/VBoxContainer/GridContainer"]
 margin_top = 169.0
 margin_right = 283.0
-margin_bottom = 220.0
+margin_bottom = 221.0
 size_flags_horizontal = 3
 text = "Player 3"
 
@@ -97,7 +97,7 @@ size_flags_horizontal = 3
 [node name="Player4Label" type="Label" parent="Panel/VBoxContainer/GridContainer"]
 margin_top = 250.0
 margin_right = 283.0
-margin_bottom = 301.0
+margin_bottom = 302.0
 size_flags_horizontal = 3
 text = "Player 4"
 
@@ -111,11 +111,12 @@ size_flags_horizontal = 3
 
 [node name="NextButton" type="Button" parent="Panel/VBoxContainer"]
 margin_left = 210.0
-margin_top = 399.0
+margin_top = 398.0
 margin_right = 360.0
 margin_bottom = 464.534
 rect_min_size = Vector2( 150, 0 )
 size_flags_horizontal = 4
 text = "Next"
 script = ExtResource( 5 )
+
 [connection signal="pressed" from="Panel/VBoxContainer/NextButton" to="." method="_on_NextButton_pressed"]

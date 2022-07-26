@@ -1,6 +1,7 @@
-[gd_resource type="Resource" load_steps=3 format=2]
+[gd_resource type="Resource" load_steps=4 format=2]
 
 [ext_resource path="res://src/components/modes/MatchMode.gd" type="Script" id=1]
+[ext_resource path="res://mods/core/modes/deathmatch/DeathmatchManager.tscn" type="PackedScene" id=2]
 [ext_resource path="res://mods/core/modes/deathmatch/DeathmatchConfig.tscn" type="PackedScene" id=3]
 
 [resource]
@@ -8,4 +9,5 @@ script = ExtResource( 1 )
 name = "MODE_NAME_DEATHMATCH"
 description = "MODE_DESCRIPTION_DEATHMATCH"
 requires_goals = false
+manager_scene = ExtResource( 2 )
 config_scene = ExtResource( 3 )
