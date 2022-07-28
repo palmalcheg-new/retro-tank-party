@@ -43,4 +43,4 @@ __meta__ = {
 }
 
 [node name="PlayerStatus" parent="Panel/StatusContainer" instance=ExtResource( 3 )]
-margin_bottom = 51.0
+margin_bottom = 52.0

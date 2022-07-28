@@ -9,11 +9,9 @@
 [node name="TeamScreen" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
 theme = ExtResource( 2 )
 script = ExtResource( 3 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Panel" type="PanelContainer" parent="."]
 anchor_left = 0.5
@@ -39,7 +37,7 @@ custom_constants/separation = 15
 [node name="Teams" type="Label" parent="Panel/VBoxContainer"]
 margin_right = 570.0
 margin_bottom = 52.0
-text = "Teams"
+text = "TEAMS_TITLE"
 align = 1
 
 [node name="GridContainer" type="GridContainer" parent="Panel/VBoxContainer"]
@@ -110,13 +108,13 @@ margin_bottom = 309.0
 size_flags_horizontal = 3
 
 [node name="NextButton" type="Button" parent="Panel/VBoxContainer"]
-margin_left = 210.0
+margin_left = 138.0
 margin_top = 398.0
-margin_right = 360.0
+margin_right = 432.0
 margin_bottom = 464.534
 rect_min_size = Vector2( 150, 0 )
 size_flags_horizontal = 4
-text = "Next"
+text = "BUTTON_NEXT"
 script = ExtResource( 5 )
 
 [connection signal="pressed" from="Panel/VBoxContainer/NextButton" to="." method="_on_NextButton_pressed"]

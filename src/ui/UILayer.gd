@@ -22,7 +22,7 @@ func _set_readonly_variable(_value) -> void:
 func _ready() -> void:
 	for screen in screens.get_children():
 		_setup_screen(screen)
-	
+
 	_is_ready = true
 
 func _save_state() -> Dictionary:
@@ -59,20 +59,20 @@ remote func show_screen(name: String, info: Dictionary = {}) -> void:
 	var screen = screens.get_node(name)
 	if not screen:
 		return
-	
+
 	hide_screen()
 	screen.visible = true
 	if screen.has_method("_show_screen"):
 		screen.callv("_show_screen", [info])
 	current_screen = screen
-	
+
 	if _is_ready:
 		emit_signal("change_screen", name, screen, info)
 
 func hide_screen() -> void:
 	if current_screen and current_screen.has_method('_hide_screen'):
 		current_screen._hide_screen()
-	
+
 	for screen in screens.get_children():
 		screen.visible = false
 	current_screen = null
@@ -96,7 +96,7 @@ func show_back_button() -> void:
 func hide_back_button() -> void:
 	back_button.visible = false
 
-func show_alert(title: String, content: String, ok_text: String = 'Ok', cancel_text: String = 'Cancel') -> void:
+func show_alert(title: String, content: String, ok_text: String = 'BUTTON_OK', cancel_text: String = 'BUTTON_CANCEL') -> void:
 	alert.setup(title, content, ok_text, cancel_text)
 	alert.visible = true
 	show_cover()

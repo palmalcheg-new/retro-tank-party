@@ -297,3 +297,6 @@ WEAPON_NAME_SPREAD,Spread,Arma de fuego,Rozprysk,Spread,Спред,Пошире�
 WEAPON_NAME_TRACER,Tracer,Rastreador,Namierzanie,Tracer,Трейсер,Трасуючий снаряд,曳光弾,追踪,曳光彈
 WEAPON_TIMEOUT_FIELD_LABEL,Weapons last,Últimas armas,Czas trwania broni,Waffen halten,Оружие доступно,Остання зброя,武器持続時間,仅剩的武器,武器延續
 MENU_RETURN_TO_MATCH,Return to match,Volver al partido,Wracaj do meczu,Zurück zum match,Вернуться к матчу,Повернутися до мату,試合に戻る,返回匹配,返回匹配
+TEAMS_TITLE,Teams,Equipos,Drużyny,Teams,Команды,Команди,チーム,战队,團隊
+TEAM_NAME_RED,Red,,,,,,,,
+TEAM_NAME_BLUE,Blue,,,,,,,,
