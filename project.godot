@@ -381,6 +381,7 @@ translation_remaps={
 "res://assets/fonts/monogram_mini.tres": PoolStringArray( "res://assets/fonts/silver_mini.tres:ja", "res://assets/fonts/silver_mini.tres:zh_CN", "res://assets/fonts/silver_mini.tres:zh_TW" ),
 "res://assets/fonts/monogram_small.tres": PoolStringArray( "res://assets/fonts/silver_small.tres:ja", "res://assets/fonts/silver_small.tres:zh_CN", "res://assets/fonts/silver_small.tres:zh_TW" )
 }
+locale_filter=[ 1, [ "de", "en", "es", "ja", "pl", "ru", "uk", "zh_CN", "zh_TW" ] ]
 
 [network]
 

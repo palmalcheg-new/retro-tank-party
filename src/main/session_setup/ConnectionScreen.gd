@@ -117,7 +117,7 @@ func do_login(save_credentials: bool = false) -> void:
 		ui_layer.show_message("MESSAGE_SESSION_EXPIRED")
 		_reconnect = false
 	else:
-		ui_layer.show_message("MESSAGE_LOGGING_IN")
+		ui_layer.show_message("MESSAGE_SESSION_LOGGING_IN")
 
 	var nakama_session = yield(Online.nakama_client.authenticate_email_async(email, password, null, false), "completed")
 
@@ -157,7 +157,7 @@ func do_steam_login(create: bool = false) -> void:
 		ui_layer.show_message("MESSAGE_SESSION_EXPIRED_STEAM")
 		_reconnect = false
 	else:
-		ui_layer.show_message("MESSAGE_LOGGING_IN_STEAM")
+		ui_layer.show_message("MESSAGE_SESSION_LOGGING_IN_STEAM")
 
 	_get_steam_auth_session_ticket()
 
