@@ -1,6 +1,6 @@
 extends "res://src/ui/Screen.gd"
 
-var PlayerStatus = preload("res://src/ui/PlayerStatus.tscn");
+var PlayerStatus = preload("res://src/ui/PlayerStatus.tscn")
 
 onready var ready_button := $Panel/ReadyButton
 onready var match_id_container := $Panel/MatchIDContainer
@@ -29,13 +29,17 @@ func _show_screen(info: Dictionary = {}) -> void:
 
 	for session_id in players:
 		var player = players[session_id]
-		add_player(session_id, player.username, player.peer_id == 1)
+		add_player(session_id, player.username, player.peer_id == 1, player.spectator)
 
 	if match_id:
 		match_id_container.visible = true
 		match_id_label.text = match_id
 	else:
 		match_id_container.visible = false
+
+	# If we reach the ready screen, we are connected via OnlineMatch, and
+	# we can check if we're spectating.
+	SyncManager.spectating = OnlineMatch.spectating
 
 	ready_button.focus.grab_without_sound()
 
@@ -48,13 +52,14 @@ func clear_players() -> void:
 func hide_match_id() -> void:
 	match_id_container.visible = false
 
-func add_player(session_id: String, username: String, is_host: bool = false) -> void:
+func add_player(session_id: String, username: String, is_host: bool = false, is_spectator: bool = false) -> void:
 	if not status_container.has_node(session_id):
 		var status = PlayerStatus.instance()
 		status_container.add_child(status)
 		status.initialize(username, "Connecting...")
 		status.name = session_id
 		status.host = is_host
+		status.spectator = is_spectator
 
 func remove_player(session_id: String) -> void:
 	var status = status_container.get_node(session_id)
@@ -76,6 +81,11 @@ func reset_status(status: String) -> void:
 	for child in status_container.get_children():
 		child.set_status(status)
 
+func set_spectator(session_id: String, is_spectator: bool) -> void:
+	var status_node = status_container.get_node(session_id)
+	if status_node:
+		status_node.set_spectator(is_spectator)
+
 func set_ready_button_enabled(enabled: bool = true) -> void:
 	ready_button.disabled = !enabled
 	if enabled:
@@ -92,7 +102,7 @@ func _on_MatchCopyButton_pressed() -> void:
 #####
 
 func _on_OnlineMatch_player_joined(player) -> void:
-	add_player(player.session_id, player.username, player.peer_id == 1)
+	add_player(player.session_id, player.username, player.peer_id == 1, player.spectator)
 
 func _on_OnlineMatch_player_left(player) -> void:
 	remove_player(player.session_id)
@@ -103,7 +113,7 @@ func _on_OnlineMatch_player_status_changed(player, status) -> void:
 		if get_status(player.session_id) != 'READY!':
 			set_status(player.session_id, 'PLAYER_STATUS_CONNECTED')
 		if player.peer_id != SyncManager.network_adaptor.get_network_unique_id():
-			SyncManager.add_peer(player.peer_id)
+			SyncManager.add_peer(player.peer_id, {spectator = player.spectator})
 	elif status == OnlineMatch.PlayerStatus.CONNECTING:
 		set_status(player.session_id, 'PLAYER_STATUS_CONNECTING')
 

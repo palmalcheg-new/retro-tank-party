@@ -311,3 +311,4 @@ TEAM_NAME_RED,Red,,,,,,,,
 TEAM_NAME_BLUE,Blue,,,,,,,,
 ONLINE_MATCH_ERROR_HOST_DISCONNECTED,Host has disconnected,El anfitrión se ha desconectado,Gospodarz się rozłączył,Der Host hat die Verbindung getrennt,Хост отключился,Хост відключився,ホストが切断されました,主机已断开连接,主機已斷開連接
 ONLINE_MATCH_ERROR_WEBRTC_OFFER_ERROR,Unable to create WebRTC offer,No se puede crear la oferta de WebRTC,Nie można utworzyć oferty WebRTC,WebRTC-Angebot kann nicht erstellt werden,Не удалось создать предложение WebRTC,Не вдалося створити пропозицію WebRTC,WebRTC オファーを作成できません,无法创建 WebRTC 报价,無法創建 WebRTC 報價
+SPECTATOR_FIELD_LABEL,Join as spectator,,,,,,,,

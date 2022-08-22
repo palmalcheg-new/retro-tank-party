@@ -23,7 +23,7 @@ func _ready() -> void:
 		field.connect("item_selected", self, "_on_team_selected", [i])
 		fields.append(field)
 
-		if player_number > OnlineMatch.players.size():
+		if player_number > OnlineMatch.get_active_player_count():
 			label.visible = false
 			field.visible = false
 			continue

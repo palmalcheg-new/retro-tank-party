@@ -1,12 +1,15 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
+[ext_resource path="res://assets/theme.tres" type="Theme" id=1]
 [ext_resource path="res://src/game/HUD.gd" type="Script" id=2]
 [ext_resource path="res://src/game/PowerupLabel.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/ui/OptionSwitcher.tscn" type="PackedScene" id=4]
 
 [node name="HUD" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
+theme = ExtResource( 1 )
 script = ExtResource( 2 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
@@ -16,9 +19,6 @@ margin_top = 5.0
 margin_bottom = 13.0
 mouse_filter = 2
 custom_constants/separation = 10
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="WeaponLabel" parent="HBoxContainer" instance=ExtResource( 3 )]
 visible = false
@@ -34,5 +34,19 @@ text = "Ability"
 
 [node name="ColorRect" parent="HBoxContainer/AbilityLabel" index="0"]
 color = Color( 0.254902, 0.623529, 0.866667, 1 )
+
+[node name="SpectatorControls" type="PanelContainer" parent="."]
+visible = false
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 391.0
+margin_bottom = 78.0
+
+[node name="SpectatorCameraSwitcher" parent="SpectatorControls" instance=ExtResource( 4 )]
+anchor_right = 0.0
+margin_left = 6.93966
+margin_top = 5.49302
+margin_right = 379.189
+margin_bottom = 71.493
 
 [editable path="HBoxContainer/AbilityLabel"]

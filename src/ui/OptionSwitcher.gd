@@ -14,7 +14,7 @@ class Option:
 	var label: String
 	var value
 	var color
-	
+
 	func _init(_label: String, _value = null, _color = null):
 		label = _label
 		value = _value
@@ -36,7 +36,7 @@ signal item_selected (value, index)
 func _ready() -> void:
 	focus = ControlFocusComponent.new()
 	add_child(focus)
-	
+
 	_show_buttons(false)
 
 func _show_buttons(show: bool) -> void:
@@ -53,7 +53,7 @@ func set_selected(_selected, emit_signal: bool = true) -> bool:
 		_update_display()
 		if emit_signal:
 			emit_signal("item_selected", _options[selected].value, selected)
-	
+
 	return selected == _selected
 
 func set_disabled(_disabled) -> void:
@@ -90,6 +90,21 @@ func add_item(label: String, value = null, color = null) -> void:
 	var option = Option.new(label, value, color)
 	_options.push_back(option)
 	_update_display()
+
+func remove_item(value) -> void:
+	var index = -1
+	for x in range(_options.size()):
+		if _options[x].value == value:
+			index = x
+			break
+	if index != -1:
+		_options.remove(index)
+
+func has_item(value) -> bool:
+	for option in _options:
+		if option.value == value:
+			return true
+	return false
 
 func clear_items() -> void:
 	_options.clear()

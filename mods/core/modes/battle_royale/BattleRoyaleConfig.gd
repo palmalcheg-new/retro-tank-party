@@ -13,7 +13,7 @@ func _ready() -> void:
 	teams_field.add_item("OPTION_YES", true)
 	teams_field.set_value(false, false)
 
-	if OnlineMatch.players.size() < 3:
+	if OnlineMatch.get_active_player_count() < 3:
 		teams_label.visible = false
 		teams_field.visible = false
 

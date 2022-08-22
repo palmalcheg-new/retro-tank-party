@@ -4,6 +4,8 @@ onready var option_switcher := $PanelContainer/VBoxContainer/OptionSwitcher
 onready var panel_parent := $PanelContainer/VBoxContainer/MarginContainer
 onready var matchmaker_player_count_control := $PanelContainer/VBoxContainer/MarginContainer/MatchPanel/Fields/PlayerCount
 onready var join_match_id_control := $PanelContainer/VBoxContainer/MarginContainer/JoinPanel/Fields/LineEdit
+onready var create_spectator_checkbox := $PanelContainer/VBoxContainer/MarginContainer/CreatePanel/CreateSpectatorCheckbox
+onready var join_spectator_checkbox := $PanelContainer/VBoxContainer/MarginContainer/JoinPanel/JoinSpectatorCheckbox
 
 func _ready() -> void:
 	option_switcher.add_item("MATCH_OPTION_CREATE", "CreatePanel")
@@ -117,7 +119,7 @@ func _on_OnlineMatch_matchmaker_matched(_players: Dictionary):
 	ui_layer.show_screen("ReadyScreen", { players = _players })
 
 func _create_match() -> void:
-	OnlineMatch.create_match(Online.nakama_socket)
+	OnlineMatch.create_match(Online.nakama_socket, create_spectator_checkbox.pressed)
 
 func _on_OnlineMatch_created(match_id: String):
 	ui_layer.show_screen("ReadyScreen", { match_id = match_id, clear = true })
@@ -130,7 +132,7 @@ func _join_match() -> void:
 	if not match_id.ends_with('.'):
 		match_id += '.'
 
-	OnlineMatch.join_match(Online.nakama_socket, match_id)
+	OnlineMatch.join_match(Online.nakama_socket, match_id, join_spectator_checkbox.pressed)
 
 func _on_OnlineMatch_joined(match_id: String):
 	ui_layer.show_screen("ReadyScreen", { match_id = match_id, clear = true })

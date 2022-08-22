@@ -2,6 +2,8 @@ extends Control
 
 onready var weapon_label = $HBoxContainer/WeaponLabel
 onready var ability_label = $HBoxContainer/AbilityLabel
+onready var spectator_controls = $SpectatorControls
+onready var spectator_camera_switcher = $SpectatorControls/SpectatorCameraSwitcher
 
 func _ready() -> void:
 	ability_label.set_message_translation(false)

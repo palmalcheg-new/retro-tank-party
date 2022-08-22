@@ -8,7 +8,7 @@ onready var team_screen = $UILayer/Screens/TeamScreen
 onready var map_parent = $MapParent
 
 func _ready() -> void:
-	if OnlineMatch.players.size() < 2:
+	if OnlineMatch.get_active_player_count() < 2:
 		get_tree().change_scene("res://src/main/SessionSetup.tscn")
 		return
 
@@ -93,7 +93,7 @@ func _on_ReadyScreen_ready_pressed() -> void:
 	rng.randomize()
 
 	var player_session_ids := {}
-	for session_id in OnlineMatch.players:
+	for session_id in OnlineMatch.get_active_players():
 		player_session_ids[OnlineMatch.players[session_id].peer_id] = session_id
 
 	var match_info = {
@@ -102,7 +102,7 @@ func _on_ReadyScreen_ready_pressed() -> void:
 		map_path = map_screen.get_map_scene_path(),
 		teams = team_screen.get_teams(),
 		random_seed = rng.seed,
-		player_names = OnlineMatch.get_player_names_by_peer_id(),
+		player_names = OnlineMatch.get_active_player_names_by_peer_id(),
 		player_session_ids = player_session_ids,
 
 	}
@@ -137,7 +137,7 @@ func _on_OnlineMatch_disconnected():
 
 func _on_OnlineMatch_player_left(player) -> void:
 	SyncManager.remove_peer(player.peer_id)
-	if OnlineMatch.players.size() < 2:
+	if OnlineMatch.get_active_player_count() < 2:
 		_error(tr("MESSAGE_PLAYER_HAS_LEFT_NOT_ENOUGH_PLAYERS") % player.username)
 	else:
 		ui_layer.show_message(tr("MESSAGE_PLAYER_HAS_LEFT") % player.username)

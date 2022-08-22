@@ -40,7 +40,7 @@ func _do_match_setup() -> void:
 		for team_id in score.entities:
 			hud.score.set_entity_name(team_id + 1, score.entities[team_id].name)
 	else:
-		hud.score.set_entity_count(OnlineMatch.players.size())
+		hud.score.set_entity_count(OnlineMatch.get_active_player_count())
 		for player_id in players:
 			var player = players[player_id]
 			hud.score.set_entity_name(player.index, player.name)

@@ -35,7 +35,7 @@ custom_styles/panel = ExtResource( 6 )
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 margin_left = 50.0
 margin_top = 30.0
-margin_right = 900.0
+margin_right = 1092.0
 margin_bottom = 424.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -43,12 +43,12 @@ custom_constants/separation = 10
 
 [node name="OptionSwitcher" parent="PanelContainer/VBoxContainer" instance=ExtResource( 4 )]
 anchor_right = 0.0
-margin_right = 850.0
+margin_right = 1042.0
 margin_bottom = 66.0
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
 margin_top = 76.0
-margin_right = 850.0
+margin_right = 1042.0
 margin_bottom = 394.0
 size_flags_vertical = 3
 custom_constants/margin_right = 25
@@ -57,16 +57,18 @@ custom_constants/margin_left = 25
 custom_constants/margin_bottom = 25
 
 [node name="CreatePanel" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer"]
+visible = false
 margin_left = 25.0
 margin_top = 25.0
-margin_right = 825.0
+margin_right = 1017.0
 margin_bottom = 293.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_constants/separation = 10
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/CreatePanel"]
 margin_right = 800.0
-margin_bottom = 29.0
+margin_bottom = 30.0
 size_flags_vertical = 2
 custom_fonts/font = ExtResource( 5 )
 text = "MATCH_OPTION_CREATE_DESCRIPTION"
@@ -75,10 +77,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="CreateSpectatorCheckbox" type="CheckBox" parent="PanelContainer/VBoxContainer/MarginContainer/CreatePanel"]
+margin_top = 78.0
+margin_right = 800.0
+margin_bottom = 114.0
+custom_fonts/font = ExtResource( 5 )
+text = "SPECTATOR_FIELD_LABEL"
+
+[node name="Spacer" type="Control" parent="PanelContainer/VBoxContainer/MarginContainer/CreatePanel"]
+margin_top = 124.0
+margin_right = 800.0
+margin_bottom = 192.0
+size_flags_vertical = 3
+
 [node name="CreateButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/CreatePanel"]
-margin_left = 165.0
-margin_top = 203.0
-margin_right = 633.324
+margin_left = 157.0
+margin_top = 202.0
+margin_right = 643.0
 margin_bottom = 268.534
 grow_horizontal = 2
 rect_min_size = Vector2( 200, 0 )
@@ -87,16 +102,15 @@ text = "BUTTON_CREATE_MATCH"
 script = ExtResource( 3 )
 
 [node name="JoinPanel" type="VBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer"]
-visible = false
 margin_left = 25.0
 margin_top = 25.0
-margin_right = 999.0
+margin_right = 1017.0
 margin_bottom = 293.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/JoinPanel"]
-margin_right = 974.0
+margin_right = 992.0
 margin_bottom = 75.0
 rect_min_size = Vector2( 0, 75 )
 custom_fonts/font = ExtResource( 5 )
@@ -105,14 +119,14 @@ align = 1
 
 [node name="Fields" type="HBoxContainer" parent="PanelContainer/VBoxContainer/MarginContainer/JoinPanel"]
 margin_top = 79.0
-margin_right = 974.0
-margin_bottom = 144.0
+margin_right = 992.0
+margin_bottom = 145.0
 grow_horizontal = 2
 
 [node name="Label" type="Label" parent="PanelContainer/VBoxContainer/MarginContainer/JoinPanel/Fields"]
 margin_top = 7.0
 margin_right = 480.0
-margin_bottom = 58.0
+margin_bottom = 59.0
 text = "MATCH_ID_FIELD_LABEL"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -121,7 +135,7 @@ __meta__ = {
 [node name="LineEdit" type="LineEdit" parent="PanelContainer/VBoxContainer/MarginContainer/JoinPanel/Fields"]
 margin_left = 484.0
 margin_right = 670.0
-margin_bottom = 65.0
+margin_bottom = 66.0
 focus_neighbour_bottom = NodePath("../PasteButton")
 focus_next = NodePath("../PasteButton")
 size_flags_horizontal = 3
@@ -132,23 +146,30 @@ __meta__ = {
 
 [node name="PasteButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/JoinPanel/Fields"]
 margin_left = 674.0
-margin_right = 974.324
-margin_bottom = 65.5339
+margin_right = 992.0
+margin_bottom = 66.5339
 focus_neighbour_top = NodePath("../LineEdit")
 focus_previous = NodePath("../LineEdit")
 text = "BUTTON_PASTE"
 script = ExtResource( 3 )
 
+[node name="JoinSpectatorCheckbox" type="CheckBox" parent="PanelContainer/VBoxContainer/MarginContainer/JoinPanel"]
+margin_top = 149.0
+margin_right = 992.0
+margin_bottom = 185.0
+custom_fonts/font = ExtResource( 5 )
+text = "SPECTATOR_FIELD_LABEL"
+
 [node name="Spacer" type="Control" parent="PanelContainer/VBoxContainer/MarginContainer/JoinPanel"]
-margin_top = 148.0
-margin_right = 974.0
-margin_bottom = 199.0
+margin_top = 189.0
+margin_right = 992.0
+margin_bottom = 198.0
 size_flags_vertical = 3
 
 [node name="JoinButton" type="Button" parent="PanelContainer/VBoxContainer/MarginContainer/JoinPanel"]
-margin_left = 276.0
-margin_top = 203.0
-margin_right = 696.324
+margin_left = 277.0
+margin_top = 202.0
+margin_right = 715.0
 margin_bottom = 268.534
 rect_min_size = Vector2( 200, 0 )
 focus_neighbour_top = NodePath("../Fields/PasteButton")
@@ -161,7 +182,7 @@ script = ExtResource( 3 )
 visible = false
 margin_left = 25.0
 margin_top = 25.0
-margin_right = 825.0
+margin_right = 1017.0
 margin_bottom = 293.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -236,7 +257,7 @@ custom_constants/margin_bottom = 20
 margin_left = 20.0
 margin_top = 35.0
 margin_right = 1260.0
-margin_bottom = 64.0
+margin_bottom = 65.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = ExtResource( 5 )
 text = "MESSAGE_NETWORK_ISSUES"

@@ -44,8 +44,8 @@ func _init(_sync_manager) -> void:
 func start(log_file_name: String, peer_id: int, match_info: Dictionary = {}) -> int:
 	if not _started:
 		var err: int
-		
-		err = _log_file.open_compressed(log_file_name, File.WRITE, File.COMPRESSION_ZSTD)
+
+		err = _log_file.open_compressed(log_file_name, File.WRITE, File.COMPRESSION_FASTLZ)
 		if err != OK:
 			return err
 		
@@ -82,7 +82,7 @@ func stop() -> void:
 		data.clear()
 		_start_times.clear()
 
-func _writer_thread_function() -> void:
+func _writer_thread_function(_userdata) -> void:
 	while true:
 		_writer_thread_semaphore.wait()
 		

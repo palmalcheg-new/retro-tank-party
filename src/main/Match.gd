@@ -36,7 +36,7 @@ func setup_match_for_replay(my_peer_id: int, peer_ids: Array, match_info: Dictio
 	OnlineMatch.players.clear()
 	for peer_id in peer_ids:
 		var session_id = player_session_ids.get(peer_id, str(peer_id))
-		OnlineMatch.players[session_id] = OnlineMatch.Player.new(session_id, player_names.get(peer_id, 'Peer %s' % peer_id), peer_id)
+		OnlineMatch.players[session_id] = OnlineMatch.Player.new(session_id, player_names.get(peer_id, 'Peer %s' % peer_id), peer_id, false)
 
 	scene_setup(null, match_info)
 	scene_start()
@@ -178,7 +178,7 @@ func _on_OnlineMatch_player_left(player) -> void:
 	# in all the other signal handlers.
 	game.call_deferred("remove_player", player.peer_id)
 
-	if not _remove_from_team(player.peer_id) or OnlineMatch.players.size() < 2:
+	if not _remove_from_team(player.peer_id) or OnlineMatch.get_active_player_count() < 2:
 		_error(tr("MESSAGE_PLAYER_HAS_LEFT_NOT_ENOUGH_PLAYERS") % player.username)
 	else:
 		ui_layer.show_message(tr("MESSAGE_PLAYER_HAS_LEFT") % player.username)

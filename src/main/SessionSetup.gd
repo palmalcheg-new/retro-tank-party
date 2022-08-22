@@ -3,6 +3,7 @@ extends Node2D
 onready var ui_layer: UILayer = $UILayer
 onready var ready_screen = $UILayer/Screens/ReadyScreen
 
+# Variables used on the host:
 var players_ready := {}
 
 func _ready() -> void:
@@ -68,6 +69,8 @@ func _check_players_ready() -> bool:
 	return true
 
 func _start_match_if_all_ready() -> void:
+	if OnlineMatch.match_state == OnlineMatch.MatchState.PLAYING:
+		return
 	if _check_players_ready():
 		if OnlineMatch.match_state != OnlineMatch.MatchState.PLAYING:
 			OnlineMatch.start_playing()

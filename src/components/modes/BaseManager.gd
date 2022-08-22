@@ -26,18 +26,18 @@ func match_setup(_info: Dictionary, _match_scene, _game, _ui_layer) -> void:
 	match_scene = _match_scene
 	game = _game
 	ui_layer = _ui_layer
-	
+
 	_setup_players()
 	_setup_score()
-	
+
 	# Now, the child classes setup.
 	_do_match_setup()
 
 func _setup_players() -> void:
-	var online_players = OnlineMatch.get_players_by_peer_id()
+	var online_players = OnlineMatch.get_active_players_by_peer_id()
 	var peer_ids = online_players.keys()
 	peer_ids.sort()
-	
+
 	var player_index := 1
 	for peer_id in peer_ids:
 		var online_player = online_players[peer_id]
@@ -55,13 +55,13 @@ func _setup_score() -> void:
 func get_player_team(peer_id: int) -> int:
 	if not use_teams:
 		return -1
-	
+
 	var team_index := 0
 	for team in teams:
 		if peer_id in team:
 			return team_index
 		team_index += 1
-	
+
 	return -1
 
 func _save_state() -> Dictionary:

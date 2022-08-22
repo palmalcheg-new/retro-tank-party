@@ -55,7 +55,7 @@ editable = false
 
 [node name="MatchCopyButton" type="Button" parent="Panel/MatchIDContainer"]
 margin_left = 666.0
-margin_right = 942.324
+margin_right = 960.0
 margin_bottom = 66.5339
 text = "BUTTON_COPY"
 script = ExtResource( 4 )
@@ -66,21 +66,22 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -300.0
-margin_top = -100.0
+margin_top = -150.0
 margin_right = 300.0
 margin_bottom = 24.0
+custom_constants/separation = -10
 
 [node name="PlayerStatus" parent="Panel/StatusContainer" instance=ExtResource( 3 )]
-margin_bottom = 52.0
+margin_bottom = 50.0
 
 [node name="ReadyButton" type="Button" parent="Panel"]
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 300.0
-margin_top = -100.0
-margin_right = -300.0
-margin_bottom = -50.0
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -250.0
+margin_top = 398.776
+margin_right = 250.0
+margin_bottom = 465.31
+rect_min_size = Vector2( 500, 0 )
 disabled = true
 text = "BUTTON_READY"
 script = ExtResource( 4 )

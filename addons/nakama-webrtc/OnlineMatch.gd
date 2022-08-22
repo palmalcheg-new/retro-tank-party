@@ -1,12 +1,13 @@
 extends Node
 
 # For developers to set from the outside, for example:
-#   OnlineMatch.max_players = 8
+#   OnlineMatch.max_active_players = 8
 #   OnlineMatch.client_version = 'v1.2'
 #   OnlineMatch.ice_servers = [ ... ]
 #   OnlineMatch.use_network_relay = OnlineMatch.NetworkRelay.FORCED
-var min_players := 2
-var max_players := 4
+var min_active_players := 2
+var max_active_players := 4
+var max_total_players := 4
 var client_version := 'dev'
 var ice_servers = [{ "urls": ["stun:stun.l.google.com:19302"] }]
 
@@ -28,6 +29,7 @@ var _webrtc_multiplayer: WebRTCMultiplayer
 var _webrtc_peers: Dictionary
 var _webrtc_peers_connected: Dictionary
 
+var spectating := false setget _set_readonly_variable
 var players: Dictionary
 var _next_peer_id: int
 
@@ -56,18 +58,21 @@ enum PlayerStatus {
 
 enum MatchOpCode {
 	WEBRTC_PEER_METHOD = 9001,
-	JOIN_SUCCESS = 9002,
+	JOIN_REQUEST = 9002,
 	JOIN_ERROR = 9003,
+	JOIN_SUCCESS = 9004,
 }
 
 enum JoinErrorReason {
 	MATCH_HAS_ALREADY_BEGUN,
 	MATCH_IS_FULL,
+	CLIENT_VERSION_ERROR,
 }
 
 const JOIN_ERROR_MESSAGES := {
 	JoinErrorReason.MATCH_HAS_ALREADY_BEGUN: "Sorry! The match has already begun.",
 	JoinErrorReason.MATCH_IS_FULL: "Sorry! The match is full.",
+	JoinErrorReason.CLIENT_VERSION_ERROR: "Client version doesn't match host",
 }
 
 enum ErrorCode {
@@ -77,7 +82,6 @@ enum ErrorCode {
 	WEBSOCKET_CONNECTION_ERROR,
 	HOST_DISCONNECTED,
 	MATCHMAKER_ERROR,
-	CLIENT_VERSION_ERROR,
 	CLIENT_JOIN_ERROR,
 	WEBRTC_OFFER_ERROR,
 }
@@ -89,7 +93,6 @@ const ERROR_MESSAGES := {
 	ErrorCode.WEBSOCKET_CONNECTION_ERROR: "WebSocket connection error",
 	ErrorCode.HOST_DISCONNECTED: "Host has disconnected",
 	ErrorCode.MATCHMAKER_ERROR: "Matchmaker error",
-	ErrorCode.CLIENT_VERSION_ERROR: "Client version doesn't match host",
 	ErrorCode.CLIENT_JOIN_ERROR: "Client not allowed to join",
 	ErrorCode.WEBRTC_OFFER_ERROR: "Unable to create WebRTC offer",
 }
@@ -116,23 +119,26 @@ class Player:
 	var session_id: String
 	var peer_id: int
 	var username: String
+	var spectator: bool
 
-	func _init(_session_id: String, _username: String, _peer_id: int) -> void:
+	func _init(_session_id: String, _username: String, _peer_id: int, _spectator: bool) -> void:
 		session_id = _session_id
 		username = _username
 		peer_id = _peer_id
+		spectator = _spectator
 
-	static func from_presence(presence: NakamaRTAPI.UserPresence, _peer_id: int) -> Player:
-		return Player.new(presence.session_id, presence.username, _peer_id)
+	static func from_presence(presence: NakamaRTAPI.UserPresence, _peer_id: int, _spectator: bool = false) -> Player:
+		return Player.new(presence.session_id, presence.username, _peer_id, _spectator)
 
 	static func from_dict(data: Dictionary) -> Player:
-		return Player.new(data['session_id'], data['username'], int(data['peer_id']))
+		return Player.new(data['session_id'], data['username'], int(data['peer_id']), data['spectator'])
 
 	func to_dict() -> Dictionary:
 		return {
 			session_id = session_id,
 			username = username,
 			peer_id = peer_id,
+			spectator = spectator,
 		}
 
 static func serialize_players(_players: Dictionary) -> Dictionary:
@@ -176,10 +182,11 @@ func _emit_error(code: int, extra = null):
 	emit_signal("error", message)
 	emit_signal("error_code", code, message, extra)
 
-func create_match(_nakama_socket: NakamaSocket) -> void:
+func create_match(_nakama_socket: NakamaSocket, is_spectator: bool = false) -> void:
 	leave()
 	_set_nakama_socket(_nakama_socket)
 	match_mode = MatchMode.CREATE
+	spectating = is_spectator
 
 	var data = yield(nakama_socket.create_match_async(), "completed")
 	if data.is_exception():
@@ -188,10 +195,11 @@ func create_match(_nakama_socket: NakamaSocket) -> void:
 	else:
 		_on_nakama_match_created(data)
 
-func join_match(_nakama_socket: NakamaSocket, _match_id: String) -> void:
+func join_match(_nakama_socket: NakamaSocket, _match_id: String, is_spectator: bool = false) -> void:
 	leave()
 	_set_nakama_socket(_nakama_socket)
 	match_mode = MatchMode.JOIN
+	spectating = is_spectator
 
 	var data = yield(nakama_socket.join_match_async(_match_id), "completed")
 	if data.is_exception():
@@ -204,16 +212,17 @@ func start_matchmaking(_nakama_socket: NakamaSocket, data: Dictionary = {}) -> v
 	leave()
 	_set_nakama_socket(_nakama_socket)
 	match_mode = MatchMode.MATCHMAKER
+	spectating = false
 
 	if data.has('min_count'):
-		data['min_count'] = max(min_players, data['min_count'])
+		data['min_count'] = max(min_active_players, data['min_count'])
 	else:
-		data['min_count'] = min_players
+		data['min_count'] = min_active_players
 
 	if data.has('max_count'):
-		data['max_count'] = min(max_players, data['max_count'])
+		data['max_count'] = min(max_active_players, data['max_count'])
 	else:
-		data['max_count'] = max_players
+		data['max_count'] = max_active_players
 
 	if client_version != '':
 		if not data.has('string_properties'):
@@ -261,10 +270,14 @@ func leave(close_socket: bool = false) -> void:
 	_create_webrtc_multiplayer()
 	_webrtc_peers = {}
 	_webrtc_peers_connected = {}
+	spectating = false
 	players = {}
 	_next_peer_id = 1
 	match_state = MatchState.LOBBY
 	match_mode = MatchMode.NONE
+
+	# Ensure that max total players isn't less than max active players.
+	max_total_players = int(max(max_total_players, max_active_players))
 
 func _create_webrtc_multiplayer() -> void:
 	if _webrtc_multiplayer:
@@ -314,6 +327,29 @@ func get_player_names_by_peer_id() -> Dictionary:
 		result[players[session_id]['peer_id']] = players[session_id]['username']
 	return result
 
+func get_active_players() -> Dictionary:
+	var active_players := {}
+	for session_id in players:
+		var player = players[session_id]
+		if not player.spectator:
+			active_players[session_id] = player
+	return active_players
+
+func get_active_player_count() -> int:
+	return get_active_players().size()
+
+func get_active_players_by_peer_id() -> Dictionary:
+	var result := {}
+	for player in get_active_players().values():
+		result[player.peer_id] = player
+	return result
+
+func get_active_player_names_by_peer_id() -> Dictionary:
+	var result := {}
+	for session_id in get_active_players():
+		result[players[session_id]['peer_id']] = players[session_id]['username']
+	return result
+
 func get_webrtc_peer(session_id: String) -> WebRTCPeerConnection:
 	return _webrtc_peers.get(session_id, null)
 
@@ -336,7 +372,7 @@ func _on_nakama_closed() -> void:
 func _on_nakama_match_created(data: NakamaRTAPI.Match) -> void:
 	match_id = data.match_id
 	my_session_id = data.self_user.session_id
-	var my_player = Player.from_presence(data.self_user, 1)
+	var my_player = Player.from_presence(data.self_user, 1, spectating)
 	players[my_session_id] = my_player
 	_next_peer_id = 2
 
@@ -360,27 +396,6 @@ func _on_nakama_match_presence(data: NakamaRTAPI.MatchPresenceEvent) -> void:
 					code = JoinErrorReason.MATCH_HAS_ALREADY_BEGUN,
 					reason = JOIN_ERROR_MESSAGES[JoinErrorReason.MATCH_HAS_ALREADY_BEGUN],
 				}))
-
-			elif players.size() < max_players:
-				var new_player = Player.from_presence(u, _next_peer_id)
-				_next_peer_id += 1
-				players[u.session_id] = new_player
-				emit_signal("player_joined", new_player)
-
-				# Tell this player (and the others) about all the players peer ids.
-				nakama_socket.send_match_state_async(match_id, MatchOpCode.JOIN_SUCCESS, JSON.print({
-					players = serialize_players(players),
-					client_version = client_version,
-				}))
-
-				_webrtc_connect_peer(new_player)
-			else:
-				# Tell this player that we're full up!
-				nakama_socket.send_match_state_async(match_id, MatchOpCode.JOIN_ERROR, JSON.print({
-					target = u['session_id'],
-					code = JoinErrorReason.MATCH_IS_FULL,
-					reason = JOIN_ERROR_MESSAGES[JoinErrorReason.MATCH_IS_FULL],
-				}))
 		elif match_mode == MatchMode.MATCHMAKER:
 			emit_signal("player_joined", players[u.session_id])
 			_webrtc_connect_peer(players[u.session_id])
@@ -402,7 +417,7 @@ func _on_nakama_match_presence(data: NakamaRTAPI.MatchPresenceEvent) -> void:
 			players.erase(u.session_id)
 			emit_signal("player_left", player)
 
-			if players.size() < min_players:
+			if get_active_player_count() < min_active_players:
 				# If state was previously ready, but this brings us below the minimum players,
 				# then we aren't ready anymore.
 				if match_state == MatchState.READY:
@@ -420,6 +435,12 @@ func _on_nakama_match_join(data: NakamaRTAPI.Match) -> void:
 	my_session_id = data.self_user.session_id
 
 	if match_mode == MatchMode.JOIN:
+		# Request to join this match.
+		nakama_socket.send_match_state_async(match_id, MatchOpCode.JOIN_REQUEST, JSON.print({
+			client_version = client_version,
+			spectator = spectating,
+		}))
+		# Should we emit this only after we've successfully joined?
 		emit_signal("match_joined", match_id)
 	elif match_mode == MatchMode.MATCHMAKER:
 		for u in data.presences:
@@ -483,28 +504,60 @@ func _on_nakama_match_state(data: NakamaRTAPI.MatchData) -> void:
 				'reconnect':
 					_webrtc_multiplayer.remove_peer(players[session_id]['peer_id'])
 					_webrtc_reconnect_peer(players[session_id])
-	if data.op_code == MatchOpCode.JOIN_SUCCESS && match_mode == MatchMode.JOIN:
-		var host_client_version = content.get('client_version', '')
-		if client_version != host_client_version:
-			leave()
-			_emit_error(ErrorCode.CLIENT_VERSION_ERROR, host_client_version)
+
+	if match_mode == MatchMode.CREATE && data.op_code == MatchOpCode.JOIN_REQUEST:
+		if content.get('client_version', '') != client_version:
+			nakama_socket.send_match_state_async(match_id, MatchOpCode.JOIN_ERROR, JSON.print({
+				target = data.presence.session_id,
+				code = JoinErrorReason.CLIENT_VERSION_ERROR,
+				reason = JOIN_ERROR_MESSAGES[JoinErrorReason.CLIENT_VERSION_ERROR],
+			}))
 			return
 
+		var is_spectator = content.get('spectator', false)
+		if players.size() >= max_total_players || (not is_spectator && get_active_player_count() >= max_active_players):
+			# Tell this player that we're full up!
+			nakama_socket.send_match_state_async(match_id, MatchOpCode.JOIN_ERROR, JSON.print({
+				target = data.presence.session_id,
+				code = JoinErrorReason.MATCH_IS_FULL,
+				reason = JOIN_ERROR_MESSAGES[JoinErrorReason.MATCH_IS_FULL],
+			}))
+			return
+
+		var new_player = Player.from_presence(data.presence, _next_peer_id, is_spectator)
+		_next_peer_id += 1
+		players[new_player.session_id] = new_player
+		emit_signal("player_joined", new_player)
+
+		# Tell this player (and the others) about all the players peer ids.
+		nakama_socket.send_match_state_async(match_id, MatchOpCode.JOIN_SUCCESS, JSON.print({
+				players = serialize_players(players),
+		}))
+
+		_webrtc_connect_peer(new_player)
+
+	if data.op_code == MatchOpCode.JOIN_SUCCESS && match_mode == MatchMode.JOIN:
 		var content_players = unserialize_players(content['players'])
+
+		if not players.has(my_session_id):
+			var player = content_players[my_session_id]
+			players[my_session_id] = player
+			_webrtc_multiplayer.initialize(player.peer_id)
+			get_tree().set_network_peer(_webrtc_multiplayer)
+			emit_signal("player_joined", player)
+			emit_signal("player_status_changed", player, PlayerStatus.CONNECTED)
+
 		for session_id in content_players:
 			if not players.has(session_id):
-				players[session_id] = content_players[session_id]
-				_webrtc_connect_peer(players[session_id])
-				emit_signal("player_joined", players[session_id])
-				if session_id == my_session_id:
-					_webrtc_multiplayer.initialize(players[session_id].peer_id)
-					get_tree().set_network_peer(_webrtc_multiplayer)
+				var player = content_players[session_id]
+				players[session_id] = player
+				_webrtc_connect_peer(player)
+				emit_signal("player_joined", player)
 
-					emit_signal("player_status_changed", players[session_id], PlayerStatus.CONNECTED)
 	if data.op_code == MatchOpCode.JOIN_ERROR:
 		if content['target'] == my_session_id:
 			leave()
-			_emit_error(ErrorCode.CLIENT_JOIN_ERROR, content['code'])
+			_emit_error(ErrorCode.CLIENT_JOIN_ERROR, int(content['code']))
 			return
 
 func _webrtc_connect_peer(player: Player) -> void:
@@ -613,7 +666,7 @@ func _on_webrtc_peer_connected(peer_id: int) -> void:
 	# We have a WebRTC peer for each connection to another player, so we'll have one less than
 	# the number of players (ie. no peer connection to ourselves).
 	if _webrtc_peers_connected.size() == players.size() - 1:
-		if players.size() >= min_players:
+		if get_active_player_count() >= min_active_players:
 			# All our peers are good, so we can assume RPC will work now.
 			match_state = MatchState.READY;
 			emit_signal("match_ready", players)
