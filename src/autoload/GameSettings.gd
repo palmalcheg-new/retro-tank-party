@@ -148,6 +148,8 @@ func update_language() -> void:
 					locale = "zh_CN"
 				"tchinese":
 					locale = "zh_TW"
+				"turkish":
+					locale = "tr"
 				_:
 					locale = OS.get_locale_language()
 		else:
