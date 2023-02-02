@@ -56,6 +56,20 @@ local function randomString(length)
     return randomString(length - 1) .. charset[math.random(1, #charset)]
 end
 
+local function char_to_hex(c)
+  return string.format("%%%02X", string.byte(c))
+end
+
+local function urlencode(url)
+  if url == nil then
+    return
+  end
+  --url = string.gsub(url, "\n", "\r\n")
+  url = string.gsub(url, "([^%w _ %- . ~])", char_to_hex)
+  --url = string.gsub(url, " ", "+")
+  return url
+end
+
 local function send_password_reset_email(context, payload)
 
 	if context.user_id ~= nil then
@@ -69,7 +83,7 @@ local function send_password_reset_email(context, payload)
 	local mailgun_api_key = context.env["mailgun_api_key"]
 	local mailgun_from = context.env["mailgun_from"]
 	local subject = context.env["password_reset_email_subject"]
-	local password_reset_base_link = context.env["password_reset_base_link"]	
+	local password_reset_base_link = context.env["password_reset_base_link"]
 
 	local mailgun_url = string.format("https://api:%s@%s/%s/messages", mailgun_api_key, MAILGUN_API_BASE_URL, mailgun_domain)
 
@@ -104,7 +118,7 @@ local function send_password_reset_email(context, payload)
 	]]
 	local text = "You're receiving this e-mail because you requested a password reset for your account. Follow the link to choose a new password:" .. reset_link
 
-	local content = string.format("from=%s&to=%s&subject=%s&text=%s&html=%s", mailgun_from, email, subject, text, html)
+	local content = string.format("from=%s&to=%s&subject=%s&text=%s&html=%s", urlencode(mailgun_from), urlencode(email), urlencode(subject), urlencode(text), urlencode(html))
 	local headers = {
 		["Content-Type"] = "application/x-www-form-urlencoded",
 	}
